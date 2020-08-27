@@ -1,34 +1,50 @@
  <?php
  require("conexion.php");
- $grupo=mysqli_query($conexion,"SELECT idGrupo FROM grupos WHERE nombreGrupo='CLIENTE'");
- while($r=mysqli_fetch_array($grupo)){$idGrupo=$r['idGrupo'];}
-        $nombre=$_REQUEST['nombre'];
-        $apellido=$_REQUEST['apellido'];
-        $tipodoc=$_REQUEST['tipodoc'];
-        $num=$_REQUEST['numDocumento'];
-        $fecha=$_REQUEST['fechaNac'];
-        $user=$_REQUEST['usuario'];
-        $pass=sha1($_REQUEST['contrasenia']);
-        $select=mysqli_query($conexion,"SELECT idTipoDocumento FROM tiposdocumentos WHERE descripcion='$tipodoc'");
-        while ($r=mysqli_fetch_array($select)) {
-          $idTipoDocumento=$r['idTipoDocumento'];
+  if (isset($_REQUEST['registrado']) && !empty($_REQUEST['registrado'])) {
+    $nombre=$_REQUEST['nombre'];
+    $apellido=$_REQUEST['apellido'];
+    $tipodoc=$_REQUEST['tipodoc'];
+    $num=$_REQUEST['numDocumento'];
+    $fecha=$_REQUEST['fechaNac'];
+    $user=$_REQUEST['usuario'];
+    $email=$_POST['mail'];
+    $telefono=$_POST['telefono'];
+    $pass=sha1($_REQUEST['contrasenia']);
+    $grupo=mysqli_query($conexion,"SELECT idGrupo FROM grupos WHERE nombreGrupo='CLIENTE'");
+    while($r=mysqli_fetch_array($grupo)){$idGrupo=$r['idGrupo'];}
+    $consulta1=mysqli_query($conexion,"SELECT idTipoContacto FROM tiposcontactos WHERE descripcion='email'");
+    while($r=mysqli_fetch_array($consulta1)){$idTipoMail=$r['idTipoContacto'];}
+    $consulta2=mysqli_query($conexion,"SELECT idTipoContacto FROM tiposcontactos WHERE descripcion='telefono'");
+    while($r=mysqli_fetch_array($consulta2)){$idTipoTelefono=$r['idTipoContacto'];}
+    $select=mysqli_query($conexion,"SELECT idTipoDocumento FROM tiposdocumentos WHERE descripcion='$tipodoc'");
+    while ($r=mysqli_fetch_array($select)) {
+        $idTipoDocumento=$r['idTipoDocumento'];
+    }
+    $verificarDni=mysqli_query($conexion,"SELECT numDocumento FROM personas WHERE numDocumento='$num'");
+    $verificarUsuario=mysqli_query($conexion,"SELECT usuario FROM personas WHERE usuario='$user'");
+    $verificarMail=mysqli_query($conexion,"SELECT descripcion FROM personascontactos WHERE descripcion='$email'");
+    if(mysqli_num_rows($verificarDni)>0 || mysqli_num_rows($verificarUsuario)>0 || mysqli_num_rows($verificarMail)>0){
+        if(mysqli_num_rows($verificarDni)>0){
+            header("location:index.php?error=2");
         }
-        if (isset($_REQUEST['registrado']) && !empty($_REQUEST['registrado'])) {
-          
-          if (!empty($nombre) && !empty($apellido) && !empty($user) && !empty($pass)) {
-            $registros=mysqli_query($conexion,"select usuario from personas where usuario='$user'")or die("error de base de datos");
-                        if(mysqli_num_rows($registros)>0){
-                            header("location:index.php?estado=2");
-                        }else{$insertar=mysqli_query($conexion,"insert into personas values 
-                           (00,$num,$idTipoDocumento,'$nombre','$apellido','$fecha','$user','$pass')");
-                        }
-           if ($insertar==1) {
-                 $consulta=mysqli_query($conexion,"SELECT idPersona FROM personas WHERE numDocumento=$num");
-                 while ($r=mysqli_fetch_array($consulta)) {$idPersona=$r['idPersona'];}
-                 $insert2=mysqli_query($conexion,"insert into gruposusuarios values($idPersona,$idGrupo)");
-                 header("location:index.php?estado=$insertar");
-            }
-           }
+        if(mysqli_num_rows($verificarUsuario)>0){
+            header("location:index.php?error=3");
+        }
+        if(mysqli_num_rows($verificarMail)>0){
+            header("location:index.php?error=4");
+        }
+    }
+    else{
+        $insertar=mysqli_query($conexion,"INSERT INTO personas VALUES (00,$num,$idTipoDocumento,'$nombre','$apellido','$fecha','$user','$pass',null)");
+        $select3=mysqli_query($conexion,"SELECT idPersona FROM personas WHERE numDocumento='$num'");
+        while($r=mysqli_fetch_array($select3)){
+            $idPersona=$r['idPersona'];
+        }
+        $insertar2=mysqli_query($conexion,"INSERT INTO gruposusuarios VALUES($idPersona,$idGrupo)");
+        $insert3=mysqli_query($conexion,"INSERT INTO personascontactos VALUES(00,$idPersona,$idTipoMail,'$email')");
+        $insert4=mysqli_query($conexion,"INSERT INTO personascontactos VALUES(00,$idPersona,$idTipoTelefono,'$telefono')");
+        header("location:index.php?registrado=1");
+    }
          }
            
   ?>

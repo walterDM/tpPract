@@ -48,7 +48,7 @@ function conectar(){
 }
   </style>
 </head>
-<body style="background:#D7EEEE">
+<body style="background:#ffe0b2">
 <?php 
 require("conexion.php");?>
 
@@ -109,7 +109,7 @@ while ($r=mysqli_fetch_array($select)) {
                   <a id="productos" href="#" style="color:white" class="btn  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Productos</a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <?php while($r=mysqli_fetch_array($select2)){?>
-                        <form id="productos1" action="productos.php?categoria=<?php echo $r['descripcion']?>" method="POST">
+                        <form id="altaProveedor" action="productos.php?categoria=<?php echo $r['descripcion']?>" method="POST">
                           <button type="submit" class="dropdown-item"><?php echo $r['descripcion']?></button>
                         </form>
                   <?php }?>
@@ -161,7 +161,7 @@ while ($r=mysqli_fetch_array($select)) {
                         switch($nombrePermiso){
                           case "alta proveedor":
                               echo "<script>document.getElementById('gestiproveedores').hidden=false;</script>";?>
-                        <form id="altaProveedor" action="" method="POST">
+                        <form id="altaProveedor" action="altaProveedor.php" method="POST">
                           <button type="submit" class="dropdown-item">Alta proveedor</button>
                         </form>
                           <?php break;
@@ -190,14 +190,14 @@ while ($r=mysqli_fetch_array($select)) {
                         switch($nombrePermiso){
                           case "alta usuario":
                               echo "<script>document.getElementById('gestiusuarios').hidden=false;</script>";?>
-                        <form id="altaUsuario" action="" method="POST">
+                        <form id="altaUsuario" action="altaUsuario.php" method="POST">
                           <button type="submit" class="dropdown-item">Alta usuario</button>
                         </form>
                           <?php break;
                           case "buscar usuarios":
                           echo "<script>document.getElementById('gestiusuarios').hidden=false;</script>";?>
 
-                        <form id="buscarUsuario" action="" method="POST">
+                        <form id="buscarUsuario" action="buscarUsuarios.php" method="POST">
                           <button type="submit" class="dropdown-item">Buscar usuarios</button>
                         </form>
                         <?php break;
@@ -250,6 +250,32 @@ while ($r=mysqli_fetch_array($select)) {
         </div>
     </nav>
  </div>
+ <div data-backdrop="static"  class="modal fade" id="recuperar">
+    <div class="col-md-12 modal-dialog" >
+        <div class="modal-content">
+            <div class="modal-header" style="background:#ffb74d;color:white">
+                <h4 class="modal-title">Recuperar contraseña</h4>
+                <button style="color:white" type="button" class="close" data-dismiss="modal" onclick="close()">X</button>
+            </div>
+            
+              <div class="modal-body" style="background:#ffb74d;color:white">
+                <form action="InicioRecuperar.php" method="POST">
+
+                  <div class="form-row">
+                    <div class="form-group col-md-12">
+                      <label style="float:left" for="inputEmail4">ingrese su email</label>
+                      <input class="form-control" type="email" name="usuario" id="usuario" required placeholder="ejemplo@ejemplo.com">
+                    </div>
+                  </div>
+                  <div align="center">
+                  <button type="submit" class="btn btn-light" name="send" value="send" style="width: 50%;">buscar</button>
+                  </div>
+                </form>
+              </div>
+            
+        </div>
+      </div>
+  </div>
     <div data-backdrop="static"  class="modal fade" id="ingresar">
 	    <div class="col-md-12 modal-dialog" >
 	        <div class="modal-content">
@@ -267,9 +293,10 @@ while ($r=mysqli_fetch_array($select)) {
 		        	  	   <div class="form-group" id="password-group">
 						       <label for="contra">Contraseña</label>
 						       <i class="fas fa-lock"></i><input type="password" class="form-control" name="contrasenia" id="contrasenia" placeholder="ingrese su contraseña">
-					  	   </div>
-					  	   <div class="form-group">
-		          			   <button type="submit" class="btn btn-light"  name="acept" value="acept">Ingresar</button>
+                 </div>
+                 <div align="center"><a style="color:black;text-decoration:none" href="#" data-toggle="modal" data-target="#recuperar" onclick="recup()">¿Olvidaste tu contraseña?</a></div>
+					  	   <div align="center" class="form-group">
+		          			   <button style="margin-top:7%;width:50%" type="submit" class="btn btn-light"  name="acept" value="acept">Ingresar</button>
 		            	   </div>
 		               </form>
 		    		</div>
@@ -286,17 +313,15 @@ while ($r=mysqli_fetch_array($select)) {
 	            </div>
 	            <div class="col-md-12" style="background:#e0e0e0">
 		            <div class="modal-body" >
-		               <form  method="POST" action="registrar.php"  onsubmit="return valida2(this)">
+                <form  method="POST" action="ABM.php"  onsubmit="return form(this)">
 		               	<div class="row">
 		               	 <div class="col-md-6">
+                         
 		          		   <div class="form-group">
 		            		   <label>Nombre</label>
 		            		   <input type="text" class="form-control" name="nombre" id="nombre"  placeholder="ingrese su nombre">
 		        	  	   </div>
-		        	  	   <div class="form-group">
-						       <label>Apellido</label>
-						       <input type="text" class="form-control" name="apellido" id="apellido" placeholder="ingrese su apellido">
-                             </div>
+		        	  	    
                              <div class="form-group">
 						       <label>Tipo de documento</label>
 						       <select class="form-control" id="tipodoc" name="tipodoc">
@@ -304,28 +329,58 @@ while ($r=mysqli_fetch_array($select)) {
 							   </select>
                              </div>
                              <div class="form-group">
-						       <label>Numero de documento</label>
-						       <input type="text" class="form-control" name="numDocumento" id="numDocumento" placeholder="ingrese numero de documento">
+						       <label>Numero de telefono</label>
+						       <input type="text" class="form-control" name="telefono" id="telefono" placeholder="ingrese numero de telefono" required>
                              </div>
-					  	  </div>
-					  	  <div class="col-md-6">
-                            <div class="form-group">
-						       <label>Fecha de nacimiento</label>
-						       <input type="date" class="form-control" name="fechaNac" id="fechaNac">
-					  	   </div>
-					  	   <div class="form-group">
+                             <div class="form-group ">
+						       <label>E-mail</label>
+						       <input type="email" class="form-control" name="mail" id="mail" placeholder="example@example.com" required>
+                 </div>
+                             <div class="form-group">
 						       <label>Usuario</label>
 						       <input type="text" class="form-control" name="usuario" id="usuario" placeholder="ingrese su usuario">
 					  	   </div>
+					  	     </div>
+					  	  <div class="col-md-6">
+                <div class="form-group">
+						       <label>Apellido</label>
+						       <input type="text" class="form-control" name="apellido" id="apellido" placeholder="ingrese su apellido">
+                             </div>
+                             <div class="form-group">
+						       <label>Numero de documento</label>
+						       <input type="text" class="form-control" name="numDocumento" id="numDocumento" placeholder="ingrese numero de documento">
+                             </div>
+                            <div class="form-group">
+						       <label>Fecha de nacimiento</label>
+						       <input type="date" class="form-control" name="fechaNac" id="fechaNac">
+                             </div>
+                           
+                             
+                 <div class="form-group">
+						       <label>Repetir E-mail</label>
+						       <input type="email" class="form-control" id="mail2" placeholder="example@example.com" required>
+                 </div>
+                             
+                             
+                             
+                             <div class="row">
+                            
+                             <div class="form-group col-md-6">
+						                      <label>Contraseña</label>
+						                       <input type="password" class="form-control" name="contrasenia" id="contr" placeholder="ingrese su contraseña" required>
+                             </div>
+                             <div class="form-group col-md-6">
+						                      <label>Repetir Contraseña</label>
+						                       <input type="password" class="form-control" id="contr2" placeholder="ingrese su contraseña" required>
+                             </div>
+                             </div>
+                            </div>
+                            
+					  	  <div class="col-md-12" align="center">
 					  	   <div class="form-group">
-						       <label>Contraseña</label>
-						       <input type="password" class="form-control" name="contrasenia" id="contr" placeholder="ingrese su contraseña">
-					  	   </div>
-					  	  </div>
-					  	  <div class="col-md-12">
-					  	   <div class="form-group">
-		          			   <button name="registrado" value="registrado" id="btn2" class="btn btn-light" onclick="valida2()">registrate</button>
-		            	   </div>
+                                 <button style="width: 50%;" name="guardarUsuario" value="guardarUsuario" id="btn2" class="btn btn-light" onclick="form()">registrar usuario</button>
+                                 <button style="width: 50%;" class="btn btn-dark" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                           </div>
 		            	  </div>
 		            	</div>
 		               </form>
@@ -343,7 +398,8 @@ while ($r=mysqli_fetch_array($select)) {
 		    </script>";
 }
 if (isset($_GET['estado'])&& $_GET['estado']==2) {
-  echo "<script type='text/javascript'>setTimeout(function(){alert('el mail ingresado ya existe, intente con otro.');},500,'JavaScript');</script>";}
+  echo "<script type='text/javascript'>setTimeout(function(){alert('el mail ingresado ya existe, intente con otro.');},500,'JavaScript');</script>";
+}
 if (isset($_GET['usuario'])&& $_GET['usuario']>0) {
   echo "<script type='text/javascript'>setTimeout(function(){alert('bienvenido $nombre_usuario!');},500,'JavaScript');</script>";}
 if (isset($_GET['error'])&& $_GET['error']==1) {
@@ -357,6 +413,26 @@ if (isset($_GET['error'])&& $_GET['error']==1) {
     <script type="text/javascript" src="jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/2be8605e79.js"></script>
-    <script type="text/javascript" src="login.js"></script>  
+    <script>
+       function form(v){
+        ok=true;
+                msg="ERROR: \n";
+                if(v.elements['contr'].value != v.elements['contr2'].value){
+                    msg+="las contraseñas no coinciden \n";
+                    ok=false;
+                }
+                if(v.elements['mail'].value != v.elements['mail2'].value){
+                    msg+="El E-mail no coincide";
+                    ok=false;
+                }
+                if (ok==false) {
+                      alert(msg);
+                      return ok;
+                }
+       }
+       function recup(){
+         document.getElementById('ingresar').hidden=true;
+       }
+       </script>  
 </body>
 </html>

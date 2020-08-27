@@ -43,6 +43,36 @@ $total_productos=mysqli_num_rows($consulta);
 				</div>
 			</div>
 		
-      </div>
+	  </div>
+	  <?php
+	     if (isset($_GET['registrado'])&& $_GET['registrado']==1) {
+			echo "<script type='text/javascript'>alert('fue registrado con exito');</script>";
+		  }
+		  if (isset($_GET['error'])&& $_GET['error']==2) {
+			echo "<script type='text/javascript'>alert('ERROR AL REGISTRAR: el dni ingresado ya existe');</script>";
+		  }
+		  if (isset($_GET['error'])&& $_GET['error']==3) {
+			echo "<script type='text/javascript'>alert('ERROR AL REGISTRAR: el nombre de usuario ingresado ya existe');</script>";
+		  }
+		  if (isset($_GET['error'])&& $_GET['error']==4) {
+			echo "<script type='text/javascript'>alert('ERROR AL REGISTRAR: el email ingresado ya existe');</script>";
+		  } 
+		  if (isset($_GET['recuperar'])&& $_GET['recuperar']==1){
+			echo '<script> alert("se ha enviado un mail a su correo con el link de restablecer contraseña");</script>';
+			
+		}
+		if (isset($_GET['recuperar'])&& $_GET['recuperar']==2){
+			echo '<script> alert("Hubo problemas con el envio");</script>';
+			
+		}
+		if (isset($_GET['recuperar'])&& $_GET['recuperar']==3){
+			echo '<script> alert("el usuario no existe");</script>';
+			
+	    }
+		  if(isset($_GET['cambiar']) && $_GET['cambiar']==1){
+			 echo '<script> alert("su contraseña ha sido cambiada, ingrese con su contraseña nueva");</script>';
+			 
+		  }
+	  ?>
    </body>
 </html>
