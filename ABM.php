@@ -1,6 +1,6 @@
 
 <?php
-
+require('conexion.php');
 function conectar(){
 		$conexion= mysqli_connect("127.0.0.1","root","","tppract");
 		if (!$conexion) {
@@ -15,7 +15,7 @@ function conectar(){
             $db=conectar();
             $consulta= "SELECT imagen from productos where idProductos='$id'";
             $query=mysqli_query($db,$consulta);
-            $imgBD=$query->fetch_array(MYSQL_ASSOC);
+       //     $imgBD=$query->fetch_array(MYSQL_ASSOC);
         
                 if (empty($_FILES['imagen'])) {
                     return $imgBD['imagen'];
