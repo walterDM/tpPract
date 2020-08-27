@@ -1,3 +1,4 @@
+<!--agregue un comentario-->
 <?php require("header.php"); 
 $db=conectar();
 $consulta=mysqli_query($db,"SELECT * FROM productos ");
