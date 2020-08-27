@@ -1,14 +1,15 @@
 body{
   background: #ffe0b2;
 }
-.menu li a{
+.menustyle li a{
     color:white;
-    font-size:15px
+    font-size:20px
 }
-.dropdown-item{
+.submenu{
   color:#ffa726;
+  font-size: 20px;
 }
-.dropdown-item:hover{
+.submenu:hover{
   color:white;
   background:#ffa726;
 }

@@ -58,7 +58,7 @@ while ($r=mysqli_fetch_array($select)) {
   $descripcion=$r['descripcion'];
 }
 ?>
- <div class="menu1" style="background:#ffb74d">  
+ <div style="background:#ffb74d">  
     <nav class="navbar navbar-expand-lg navbar-light nav1" style="float:right">
         <button style="background: white" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -89,7 +89,7 @@ while ($r=mysqli_fetch_array($select)) {
     </nav>
     <nav class="navbar navbar-expand-lg navbar-light nav1">
     <a class="navbar-brand" href="index.php"><img src="imagenes/logo.jpeg" style="width:200px;height: 50px;border-radius: 50px"></a>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse menustyle" id="navbarSupportedContent">
            <ul class="nav menu">
                 <li class="nav-item">
                    <a id="inicio" class="nav-link" href="index.php">Inicio</a>
@@ -99,7 +99,7 @@ while ($r=mysqli_fetch_array($select)) {
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <?php while($r=mysqli_fetch_array($select2)){?>
                         <form id="altaProveedor" action="productos.php?categoria=<?php echo $r['descripcion']?>" method="POST">
-                          <button type="submit" class="dropdown-item"><?php echo $r['descripcion']?></button>
+                          <button type="submit" class="dropdown-item submenu"><?php echo $r['descripcion']?></button>
                         </form>
                   <?php }?>
                       </div>
@@ -120,19 +120,19 @@ while ($r=mysqli_fetch_array($select)) {
                                         case "alta producto":
                                              echo "<script>document.getElementById('gestiprod').hidden=false;</script>";?>
                                             <form id="altaProducto" action="altaProducto.php" method="POST">
-                                               <button type="submit" class="dropdown-item">Alta producto</button>
+                                               <button type="submit" class="dropdown-item submenu">Alta producto</button>
                                             </form>
                                         <?php break;
                                         case "buscar producto":
                                             echo "<script>document.getElementById('gestiprod').hidden=false;</script>";?>
                                             <form id="buscarProducto" action="" method="POST">
-                                               <button type="submit" class="dropdown-item">Buscar producto</button>
+                                               <button type="submit" class="dropdown-item submenu">Buscar producto</button>
                                             </form>
                                         <?php break;
                                         case "realizar envios":
                                             echo "<script>document.getElementById('gestiprod').hidden=false;</script>";?>
                                             <form id="realizarEnvio" action="" method="POST">
-                                               <button type="submit" class="dropdown-item">Realizar envios</button>
+                                               <button type="submit" class="dropdown-item submenu">Realizar envios</button>
                                             </form>
                                   <?php break;
                                    }
@@ -151,19 +151,19 @@ while ($r=mysqli_fetch_array($select)) {
                           case "alta proveedor":
                               echo "<script>document.getElementById('gestiproveedores').hidden=false;</script>";?>
                         <form id="altaProveedor" action="altaProveedor.php" method="POST">
-                          <button type="submit" class="dropdown-item">Alta proveedor</button>
+                          <button type="submit" class="dropdown-item submenu">Alta proveedor</button>
                         </form>
                           <?php break;
                           case "buscar proveedores":
                             echo "<script>document.getElementById('gestiproveedores').hidden=false;</script>";?>
                         <form id="buscarProveedor" action="" method="POST">
-                          <button type="submit" class="dropdown-item">Buscar proveedor</button>
+                          <button type="submit" class="dropdown-item submenu">Buscar proveedor</button>
                         </form>
                           <?php break;
                            case "realizar pedidos":
                               echo "<script>document.getElementById('gestiproveedores').hidden=false;</script>";?>
                         <form id="realizarPedidos" action="" method="POST">
-                          <button type="submit" class="dropdown-item">Realizar pedidos</button>
+                          <button type="submit" class="dropdown-item submenu">Realizar pedidos</button>
                         </form>
                            <?php break;
                            }
@@ -180,20 +180,20 @@ while ($r=mysqli_fetch_array($select)) {
                           case "alta usuario":
                               echo "<script>document.getElementById('gestiusuarios').hidden=false;</script>";?>
                         <form id="altaUsuario" action="altaUsuario.php" method="POST">
-                          <button type="submit" class="dropdown-item">Alta usuario</button>
+                          <button type="submit" class="dropdown-item submenu">Alta usuario</button>
                         </form>
                           <?php break;
                           case "buscar usuarios":
                           echo "<script>document.getElementById('gestiusuarios').hidden=false;</script>";?>
 
                         <form id="buscarUsuario" action="buscarUsuarios.php" method="POST">
-                          <button type="submit" class="dropdown-item">Buscar usuarios</button>
+                          <button type="submit" class="dropdown-item submenu">Buscar usuarios</button>
                         </form>
                         <?php break;
                           case "asignar permisos":
                           echo "<script>document.getElementById('gestiusuarios').hidden=false;</script>";?>
                         <form id="asignarPermisos" action="asignarPermisos.php" method="POST">
-                          <button type="submit" class="dropdown-item">Asignar permisos</button>
+                          <button type="submit" class="dropdown-item submenu">Asignar permisos</button>
                         </form>
                         <?php break;
                           case "listar cliente":
@@ -216,19 +216,19 @@ while ($r=mysqli_fetch_array($select)) {
                           case "reportes de ventas":
                               echo "<script>document.getElementById('reportes').hidden=false;</script>";?>
                         <form id="Rventas" action="" method="POST">
-                          <button type="submit" class="dropdown-item">Reportes de ventas</button>
+                          <button type="submit" class="dropdown-item submenu">Reportes de ventas</button>
                         </form>
                           <?php break;
                           case "reportes de stock":
                             echo "<script>document.getElementById('reportes').hidden=false;</script>";?> 
                         <form id="Rstock" action="" method="POST">
-                          <button type="submit" class="dropdown-item">Reportes de stock</button>
+                          <button type="submit" class="dropdown-item submenu">Reportes de stock</button>
                         </form>
                         <?php break;
                           case "reportes de caducidad":
                             echo "<script>document.getElementById('reportes').hidden=false;</script>";?>
                         <form id="Rcaducidad" action="" method="POST">
-                          <button type="submit" class="dropdown-item">Reportes de caducidad</button>
+                          <button type="submit" class="dropdown-item submenu">Reportes de caducidad</button>
                         </form>
                           <?php break;
                           }
