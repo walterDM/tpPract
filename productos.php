@@ -67,7 +67,7 @@
                            <button style="color:white" type="button" class="close" data-dismiss="modal">X</button>
                         </div>
                         <div class="modal-body" style="background:#ffb74d;color:white">
-                            <form action="ABM.php" method="POST">
+                            <form action="ABMproductos.php" method="POST">
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <label style="float:left" for="inputEmail4">crear estante</label>

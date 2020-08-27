@@ -73,7 +73,7 @@
 									})
 								});
 						</script>
-          <form  method="POST" action="ABM.php" enctype="multipart/form-data" autocomplete="off"  onsubmit="return valida2(this)">
+          <form  method="POST" action="ABMproducto.php" enctype="multipart/form-data" autocomplete="off"  onsubmit="return valida2(this)">
 		               	<div class="row">
 		               	 <div class="col-md-6">
 		          		   <div class="form-group">

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Inicio</title>
+    <title>BUSCAR USUARIOS</title>
 </head>
 <body style="background:#ffe0b2">
    <?php 
@@ -11,85 +11,39 @@
    ?>
    <div class="container-fluid">
        <div class="row">
-       <div class="col-md-12">
-               <?php 
+            <?php 
                if($r=mysqli_fetch_array($grupo)){
-                $nombrePermiso=$r['nombrePermiso'];
-                if($nombrePermiso=="alta usuario" || $nombrePermiso=="baja usuario" || $nombrePermiso=="modificar usuario" || $nombrePermiso=="buscar usuarioS"){?>
-               
-           </div>
-		</div>
-		<div class="row" style="padding-top:40px">
-			<div class="col s12">
-				<input style="width:100%" type="text" id="dato" autofocus="true" placeholder="Ingerse el nombre de usuario" onkeyup="buscar()">
-            </div>
-            <br><br>
-		</div>
-        <div id="result" style="border: 1px solid white; height: 300px; overflow-y: scroll;background:#fafafa"></div>
-      
-              <?php 
-            }
-         }else{?>
-                <div class="col-md-12" style="padding-top:10px">
-                <div class="alert alert-warning" role="alert">
-                     <h2 align="center">ACCESO DENEGADO</h2>
-
-</div>
-            </div>
-                  <?php }?>
-     
+                   $nombrePermiso=$r['nombrePermiso'];
+                   if($nombrePermiso=="alta usuario" || $nombrePermiso=="baja usuario" || $nombrePermiso=="modificar usuario" || $nombrePermiso=="buscar usuarioS"){
+            ?>
+                         <div class="col-md-12" align="center" style="padding-top:20px">
+                            <form action="buscarUser.php?pagina=1" method="POST">
+                               <div class="input-group mb-3">
+                                  <input id="usuario" name="usuario" style="width:70%" type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="ingrese la pelicula a buscar">
+                                  <div class="input-group-append">
+                                      <button name="buscar" value="buscar" style="border-color: #e0e0e0;background:white" class="btn btn-outline-warning" id="button-addon2"><i class="fas fa-search"></i></button>
+                                  </div>
+                               </div>
+                            </form>
+                         </div>
+                         <div class="col-md-12">
+                         <div id="result" style="border: 1px solid white;height:300px; overflow-y: scroll;background:#fafafa"></div>
+         
+            <?php 
+                      }
+                 }else{
+            ?>
+                     <div class="col-md-12" style="padding-top:10px">
+                         <div class="alert alert-warning" role="alert">
+                             <h2 align="center">ACCESO DENEGADO</h2>
+                          </div>
+                     </div>
+            <?php 
+                 }
+            ?>
      </div>
    </div>
-   <br><br><br><br><br>
-   <?php 
-        if (isset($_GET['actualizado'])&& $_GET['actualizado']==1) {
-          echo "<script type='text/javascript'>alert('fue actualizado con exito');</script>";
-        }
-        if (isset($_GET['error'])&& $_GET['error']==2) {
-          echo "<script type='text/javascript'>alert('ERROR AL REGISTRAR: el legajo ingresado ya existe');</script>";
-        }
-        if (isset($_GET['error'])&& $_GET['error']==3) {
-          echo "<script type='text/javascript'>alert('ERROR AL REGISTRAR: el numero de documento ingresado ya existe');</script>";
-        }
-        if (isset($_GET['error'])&& $_GET['error']==4) {
-            echo "<script type='text/javascript'>alert('ERROR AL REGISTRAR: el email ingresado ya existe');</script>";
-          }
-        if (isset($_GET['eliminado'])&& $_GET['eliminado']==1) {
-            echo "<script type='text/javascript'>alert('el usuario fue eliminado');</script>";
-          }
-       ?>
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script src="https://kit.fontawesome.com/2be8605e79.js"></script>
-	<script>
-		function buscar(){
-			if(document.getElementById('dato').value.length>0){
-    
-				$.ajax({
-					url: 'buscarUser.php',
-					type: 'POST',
-					data: { 
-						dato: document.getElementById('dato').value, 
-					},
-				})
-				.done(function(response){
-					$("#result").html(response);
-				})
-				.fail(function(jqXHR){
-					console.log(jqXHR.statusText);
-				});
-			}else{
-                
-			}
-		}
-        function init(){
-               $('#GestionarUsuarios').attr("class","");
-               $('#GestionarUsuarios').attr("class","btn btn-danger");
-           }
-           window.onload = function () {
-             init();
-           }
-    </script>
-
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+   <script src="https://kit.fontawesome.com/2be8605e79.js"></script>
  </body>
 </html>
