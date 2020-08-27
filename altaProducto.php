@@ -1,5 +1,4 @@
-<!--Select * from puestofisico where not exists (select idPuestoFisico from t2 where t2.id = t1.id).
-Select * from puestofisico where not exists (select idPuestoFisico from productos where t2.idPuestoFisico = t1.idPuestoFisico)-->
+
 
 <!DOCTYPE html>
 <html>
