@@ -12,7 +12,7 @@ Select * from puestofisico where not exists (select idPuestoFisico from producto
 		 require("conexion.php");
 
 		 $select=mysqli_query($conexion,"SELECT idTipoProducto, descripcion FROM tiposproductos ORDER BY descripcion ASC");
-		 $select3=mysqli_query($conexion,"SELECT * from puestofisico as t1 where not exists (select idPuestoFisico from productos as t2 where t2.idPuestoFisico = t1.idPuestoFisico)");
+		 $select3=mysqli_query($conexion,"SELECT * from puestofisico as pf where not exists (select idPuestoFisico from productos as p where p.idPuestoFisico = pf.idPuestoFisico)");
     ?>
      	<script language="javascript">
 			$(document).ready(function(){
