@@ -9,3 +9,9 @@ join productostpmarcas as pp on pp.idProducto=p.idProducto
 join tiposproductos_marcas as tpm on tpm.idTpMarca = pp.idTpMarca
 where tpm.idTipoProducto=5 
 and p.estado='Activo'
+
+//MOSTRAR TODOS LOS PUESTOS FISICOS VACIOS MAS EL DEL PRODUCTO A REALIZAR CAMBIO
+SELECT pf.* from puestofisico as pf 
+where not exists (select idPuestoFisico from productos as p where p.idPuestoFisico = pf.idPuestoFisico)
+ UNION (Select pf.* from puestofisico as pf join productos as p 
+on pf.idPuestoFisico=p.idPuestoFisico where p.idProducto = 21)
