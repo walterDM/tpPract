@@ -1,0 +1,14 @@
+body{
+  background: #ffe0b2;
+}
+.menu li a{
+    color:white;
+    font-size:15px
+}
+.dropdown-item{
+  color:#ffa726;
+}
+.dropdown-item:hover{
+  color:white;
+  background:#ffa726;
+}

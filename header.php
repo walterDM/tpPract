@@ -32,23 +32,12 @@ function conectar(){
 <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="estilos.css">
+  <link href="styles/estilos.css" rel="stylesheet" type="text/css">
   
-  <style>
-    .menu li a{
-    color:white;
-    font-size:15px
-}
-.dropdown-item{
-  color:#ffa726;
-}
-.dropdown-item:hover{
-  color:white;
-  background:#ffa726;
-}
-  </style>
+
 </head>
-<body style="background:#ffe0b2">
+<body >
+
 <?php 
 require("conexion.php");?>
 
@@ -69,7 +58,7 @@ while ($r=mysqli_fetch_array($select)) {
   $descripcion=$r['descripcion'];
 }
 ?>
- <div style="background:#ffb74d">  
+ <div class="menu1" style="background:#ffb74d">  
     <nav class="navbar navbar-expand-lg navbar-light nav1" style="float:right">
         <button style="background: white" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -434,5 +423,5 @@ if (isset($_GET['error'])&& $_GET['error']==1) {
          document.getElementById('ingresar').hidden=true;
        }
        </script>  
-</body>
-</html>
+       </body>
+       </html>
