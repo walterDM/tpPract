@@ -45,7 +45,7 @@
                       $consulta6=mysqli_query($conexion,"SELECT pf.* from puestofisico as pf 
 									where not exists (select idPuestoFisico from productos as p where p.idPuestoFisico = pf.idPuestoFisico)
 									 UNION (Select pf.* from puestofisico as pf join productos as p 
-									on pf.idPuestoFisico=p.idPuestoFisico where p.idProducto ");
+									on pf.idPuestoFisico=p.idPuestoFisico where p.idProducto =$id)");
                   ?>
                         <script language="javascript">
 					      	$(document).ready(function(){
