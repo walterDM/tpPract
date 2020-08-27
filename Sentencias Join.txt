@@ -1,0 +1,11 @@
+//seleccionar combo de marca en modificar
+SELECT m.* FROM marcas as m 
+join tiposproductos_marcas as tpm on tpm.idMarca=m.idMarca 
+join productostpmarcas as pm on pm.idTpMarca=tpm.idTpMarca 
+where pm.idProducto=21
+//Mostrar productos por tipo seleccionado
+SELECT p.* from productos as p 
+join productostpmarcas as pp on pp.idProducto=p.idProducto
+join tiposproductos_marcas as tpm on tpm.idTpMarca = pp.idTpMarca
+where tpm.idTipoProducto=5 
+and p.estado='Activo'
