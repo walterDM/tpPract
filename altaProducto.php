@@ -1,5 +1,5 @@
 
-
+<?php // una modificacion ?>
 <!DOCTYPE html>
 <html>
    <head>
@@ -28,7 +28,7 @@
    <div class="container">
       <div class="row">
           <div class="col-md-12" style="padding-top:50px">
-          <form  method="POST" action="ABMproducto.php" enctype="multipart/form-data" autocomplete="off"  onsubmit="return valida2(this)">
+          <form  method="POST" action="ABMproductos.php" enctype="multipart/form-data" autocomplete="off"  onsubmit="return valida2(this)">
 		               	<div class="row">
 		               	 <div class="col-md-6">
 		          		   <div class="form-group">
