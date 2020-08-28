@@ -78,9 +78,9 @@
           <td style="padding-top:30px"><?php echo $row['descripcion'];?></td>
    
           
-          <td style="padding-top:30px"><?php echo $Mail;?>
-          </td>
           <td style="padding-top:30px"><?php echo $Telefono;?>
+          </td>
+          <td style="padding-top:30px"><?php echo $Mail;?>
           </td>
        
 
