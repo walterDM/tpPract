@@ -52,29 +52,32 @@ function conectar(){
 
 
    if (isset($_POST['modificarProveedor'] )&& !empty($_POST['modificarProveedor'])) {
-    Echo "ENTRE";
+        $db=conectar();
 
-    $db=conectar();
-
-    $idProveedor=$_POST['idProveedor'];
-    $empresa=$_POST['empresa'];
-    $direccion=$_POST['direccion'];
-    $cuit=$_POST['cuit'];
-    $telefono=$_POST['telefono'];
-    $email=$_POST['correo'];
-    $descripcion=$_POST['descripcion'];
+        $idProveedor=$_POST['idProveedor'];
+        $empresa=$_POST['empresa'];
+        $direccion=$_POST['direccion'];
+        $cuit=$_POST['cuit'];
+        $telefono=$_POST['telefono'];
+        $email=$_POST['correo'];
+        $descripcion=$_POST['descripcion'];
    /* $consultabd=mysqli_query($db,"SELECT * from proveedores where idProveedor=$idProveedor")
     while ($r=mysqli_fetch_array($consultabd)) {
         $empresaBD=$r['empresa'];
         $direccion=
     }*/
-    $query="UPDATE proveedores SET 
-            empresa='$empresa',
-            direccion=$direccion,
-            cuit='$cuit',
-            descripcion='$descripcion',
-            estado='$estado' WHERE idProveedor='$idProveedor'";
-    $update=mysqli_query($db,$query);
+        /*$query="UPDATE proveedores SET 
+                            empresa='$empresa',
+                            direccion='$direccion',
+                            cuit='$cuit',
+                            descripcion='$descripcion'
+                        WHERE idProveedor=$idProveedor";*/
+        $update1=mysqli_query($db,"UPDATE proveedores SET 
+                            empresa='$empresa',
+                            direccion='$direccion',
+                            cuit='$cuit',
+                            descripcion='$descripcion'
+                        WHERE idProveedor=$idProveedor");
     
         $queryCPtel="UPDATE proveedores SET 
                             descripcion=$telefono;
@@ -83,11 +86,12 @@ function conectar(){
         $queryCPmail="UPDATE proveedores SET 
                             descripcion=$email;
                             where idProveedor=$idProveedor and idTipoContacto=1";
-        $updateCPmail=mysqli_query($db,$queryCPmail);
-    if ($update) {
-        header("location:busccarProv.php?mod=1");
-    }else{
-        header("location:busccarProv.php?mod=2");
-    }
+            $updateCPmail=mysqli_query($db,$queryCPmail);
+        if ($update1) {
+            header("location:buscarProveedor.php?pagina=1&mod=1");
+        }else{
+            
+            header("location:buscarProveedor.php?pagina=1&error=2");
+        }
     }
 ?>

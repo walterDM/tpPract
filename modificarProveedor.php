@@ -100,24 +100,6 @@ $select2=mysqli_query($conexion,"SELECT * FROM grupos");
     ?>
 </div>
 </div>
-<?php 
-        if (isset($_GET['registrado'])&& $_GET['registrado']==1) {
-          echo "<script type='text/javascript'>alert('fue registrado con exito');</script>";
-        }
-
-         if (isset($_GET['error'])&& $_GET['error']==2) {
-          echo "<script type='text/javascript'>alert('ERROR AL REGISTRAR: la empresa ingresada ya existe');</script>";
-        }
-        if (isset($_GET['error'])&& $_GET['error']==3) {
-          echo "<script type='text/javascript'>alert('ERROR AL REGISTRAR: el cuit ingresado ya existe');</script>";
-        }
-       if (isset($_GET['mod']) && $_GET['mod']=1) {
-         echo "<script type='text/javascript'>alert('fue modificado con exito');</script>";
-       }
-       if (isset($_GET['mod']) && $_GET['mod']=2) {
-         echo "<script type='text/javascript'>alert('no fue modificado');</script>";
-       }
-       ?>
        </script>
    </body>
 </html>

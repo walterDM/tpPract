@@ -45,5 +45,13 @@
    </div>
    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
    <script src="https://kit.fontawesome.com/2be8605e79.js"></script>
+   <?php 
+   if (isset($_GET['mod']) && $_GET['mod']=1) {
+         echo "<script type='text/javascript'>alert('fue modificado con exito');</script>";
+       }
+       if (isset($_GET['error']) && $_GET['error']=2) {
+         echo "<script type='text/javascript'>alert('no fue modificado');</script>";
+       }
+        ?>
  </body>
 </html>

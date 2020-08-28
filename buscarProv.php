@@ -185,5 +185,6 @@
 <?php }else{
   header("location:buscarProveedor.php");
   }?>                           
+  
 </body>
 </html>
