@@ -12,7 +12,7 @@ $total_productos=mysqli_num_rows($consulta);
    <body>
 
    <div class="container">
-      <h1>fabri crack</h1>
+      <h1>fabri cracks</h1>
       	<div class="row justify-content-center">
 			<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 					  <ol class="carousel-indicators">
