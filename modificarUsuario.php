@@ -1,4 +1,5 @@
 <?php 
+//un cambio
 require("conexion.php");
 require("header.php");
 if(isset($_SESSION['login'])){
