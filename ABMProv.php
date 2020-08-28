@@ -1,5 +1,6 @@
 
 <?php
+require('conexion.php');
 function conectar(){
 		$conexion= mysqli_connect("127.0.0.1","root","","tppract");
 		if (!$conexion) {
@@ -72,26 +73,26 @@ function conectar(){
                             cuit='$cuit',
                             descripcion='$descripcion'
                         WHERE idProveedor=$idProveedor";*/
-        $update1=mysqli_query($db,"UPDATE proveedores SET 
+        $updateProv=mysqli_query($conexion,"UPDATE proveedores SET 
                             empresa='$empresa',
                             direccion='$direccion',
                             cuit='$cuit',
                             descripcion='$descripcion'
                         WHERE idProveedor=$idProveedor");
     
-        $queryCPtel="UPDATE proveedores SET 
+        $queryCPtel="UPDATE contactosproveedores SET 
                             descripcion=$telefono;
                             where idProveedor=$idProveedor and idTipoContacto=2";
         $updateCPtel=mysqli_query($db,$queryCPtel);
-        $queryCPmail="UPDATE proveedores SET 
+        $queryCPmail="UPDATE contactosproveedores SET 
                             descripcion=$email;
                             where idProveedor=$idProveedor and idTipoContacto=1";
             $updateCPmail=mysqli_query($db,$queryCPmail);
-        if ($update1) {
+        if ($updateProv && $updateCPmail && $updateCPtel) {
             header("location:buscarProveedor.php?pagina=1&mod=1");
         }else{
-            
-            header("location:buscarProveedor.php?pagina=1&error=2");
+    //echo $idProveedor;
+           header("location:buscarProveedor.php?pagina=1&error=2");
         }
     }
 ?>
