@@ -1,5 +1,5 @@
 
-<?php // una modificacion ?>
+
 <!DOCTYPE html>
 <html>
    <head>
