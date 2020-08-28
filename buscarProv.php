@@ -61,11 +61,17 @@
         $sql1=mysqli_query($conexion,"SELECT idTipoContacto FROM tiposcontactos WHERE descripcion='email'");
         while($r=mysqli_fetch_array($sql1)){$idTipoMail=$r['idTipoContacto'];}
                                    $consulta1=mysqli_query($conexion,"SELECT descripcion FROM contactosproveedores WHERE idProveedor=$idProveedor AND idTipoContacto=$idTipoMail");
-                                   while($r=mysqli_fetch_array($consulta1)){$Mail=$r['descripcion'];}
+                                   while($r=mysqli_fetch_array($consulta1)){
+                                    $Mail=$r['descripcion'];
+                                  }
                                    $sql2=mysqli_query($conexion,"SELECT idTipoContacto FROM tiposcontactos WHERE descripcion='telefono'");
-                                   while($r=mysqli_fetch_array($sql2)){$idTipoTelefono=$r['idTipoContacto'];}
+                                   while($r=mysqli_fetch_array($sql2)){
+                                    $idTipoTelefono=$r['idTipoContacto'];
+                                  }
                                    $consulta2=mysqli_query($conexion,"SELECT descripcion FROM contactosproveedores WHERE idTipoContacto=$idTipoTelefono AND idProveedor=$idProveedor");
-                                   while($r=mysqli_fetch_array($consulta2)){$Telefono=$r['descripcion'];}
+                                   while($r=mysqli_fetch_array($consulta2)){
+                                    $Telefono=$r['descripcion'];}
+
         $consulta4=mysqli_query($conexion,"SELECT pc.descripcion FROM contactosProveedores AS pc,proveedores AS p WHERE cp.idProveedor=$idProveedor AND cp.idTipoContacto=$idTipoTelefono");
      
 

@@ -40,12 +40,13 @@ $select2=mysqli_query($conexion,"SELECT * FROM grupos");
           $datoTelefono=mysqli_fetch_assoc($consulta5);
         ?>
                  <div class="col-md-12" style="padding-top:10px">
-                   <form  method="POST" action="ABMProv.php"  onsubmit="return valida2(this)">
+                   <form  method="POST" action="ABMProv.php" >
+                    <input type="hidden" name="idProveedor" value="$idProveedor">
                     <div class="row">
                      <div class="col-md-6">
                        <div class="form-group">
                          <label>Empresa</label>
-                         <input type="text" class="form-control" name="empresa" id="empresa" value="<?php echo $datos['empresa'];?>"  placeholder="Ingrese el nombre de la empresa">
+                         <input type="text" class="form-control" name="empresa" id="empresa" value="<?php echo $datos['empresa'];?>">
                        </div>
                      </div>
 
@@ -87,8 +88,8 @@ $select2=mysqli_query($conexion,"SELECT * FROM grupos");
 
              <div class="col-md-12" align="center">
                <div class="form-group">
-                 <button name="guardarProveedor" value="guardarProveedor" id="btn2" class="btn btn-light" onclick="valida2()" style="width:50%">Registrar Proveedor</button>
-                 <button name="registrado" value="registrado" id="btn2" class="btn btn-light" onclick="valida2()" style="width:50%">Cancelar</button>
+                 <button name="modificarProveedor" id="modificarProveedor" value="modificarProveedor" class="btn btn-light"  style="width:50%">modificar Proveedor</button>
+                 <button name="registrado" value="registrado" id="btn2" class="btn btn-light"  style="width:50%">Cancelar</button>
                </div>
              </div>
            </div>
@@ -110,7 +111,12 @@ $select2=mysqli_query($conexion,"SELECT * FROM grupos");
         if (isset($_GET['error'])&& $_GET['error']==3) {
           echo "<script type='text/javascript'>alert('ERROR AL REGISTRAR: el cuit ingresado ya existe');</script>";
         }
-       
+       if (isset($_GET['mod']) && $_GET['mod']=1) {
+         echo "<script type='text/javascript'>alert('fue modificado con exito');</script>";
+       }
+       if (isset($_GET['mod']) && $_GET['mod']=2) {
+         echo "<script type='text/javascript'>alert('no fue modificado');</script>";
+       }
        ?>
        </script>
    </body>
