@@ -91,7 +91,6 @@ function conectar(){
         if ($updateProv && $updateCPmail && $updateCPtel) {
             header("location:buscarProveedor.php?pagina=1&mod=1");
         }else{
-    //echo $idProveedor;
            header("location:buscarProveedor.php?pagina=1&error=2");
         }
     }
