@@ -1,0 +1,89 @@
+body{
+  background: #ffe0b2;
+}
+.redes i{
+         text-align-last: center;
+         font-size: 20px;
+         color: black;
+      }
+      .redes a i{
+       font-size: 35px;
+       letter-spacing: 3px;
+       color: black;
+       text-align-last: center;
+       margin-right: 10px;
+      }
+      .redes a .ins:hover{
+           color: #3F729B;
+      }
+      .redes a .fac:hover{
+           color:#0d47a1;
+      }
+      .redes a .git:hover{
+           color:black;
+      }
+.form-group#user-group input{
+     height: 42px;
+     font-size: 18px;
+     border:0;
+     padding-left: 45px;
+     border-radius: 5px;
+}
+.form-group#password-group input{
+     height: 42px;
+     font-size: 18px;
+     border:0;
+     padding-left: 45px;
+     border-radius: 5px;
+}
+.fa-user{
+    position: absolute;
+    left:28px;
+    padding-top: 40px;
+    font-size: 25px;
+}
+.fa-lock{
+    position: absolute;
+    left:28px;
+    padding-top: 40px;
+    font-size: 25px;
+}
+.btn-light{
+    color: #ffa726;
+    margin:10px;
+    font-weight: bold;
+}
+.btn-light:hover{
+    color:white;
+    background:#ffa726; 
+}
+.menu li a{
+    color:white;
+    font-size:15px;
+}
+.dropdown-item{
+    color:#ffa726;
+  }
+  .dropdown-item:hover{
+    color:white;
+    background:#ffa726;
+}
+.pagination li a{
+    background:white;
+    color:#ff9100;
+}
+.pagination li a:hover{
+    background:#ffa726;
+    color:white;
+}
+.pagination .active a{
+    background:#ff9100;
+    color:white;
+}
+th{
+  font-size:15px;
+  background:#ffb74d;
+}
+td{
+   font-size:15px;
+}

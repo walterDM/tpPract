@@ -3,7 +3,7 @@
 <head>
     <title>USUARIOS</title>
 </head>
-<body style="background:#ffe0b2">
+<body>
    <?php 
    if(isset($_POST['buscar']) && !empty($_POST['buscar'])){
       if(!isset($_GET['pagina'])){
@@ -27,6 +27,7 @@
           <br><br>
           <div class="col-md-12">
           <?php if (isset($_GET['pagina'])) {
+                 
                     $dato=$_POST['usuario'];
                     $consulta=mysqli_query($conexion,"SELECT usuario FROM personas WHERE idPersona='$id_usuario'"); 
                     while($r=mysqli_fetch_array($consulta)){$user=$r['usuario'];}
@@ -38,14 +39,17 @@
                     $iniciar = ($_GET['pagina'] - 1) * $usuarios_x_pag;
                     $select = mysqli_query($conexion, "SELECT * FROM personas WHERE (usuario LIKE'$dato%') AND usuario!='$user' limit $iniciar,$usuarios_x_pag");
           ?>
-                    <div id="result" style="border: 1px solid white;height:300px; overflow-y: scroll;background:#fafafa">
-                       <table class="table striped" style="background:#fafafa">
+                    <div id="result" style="border: 1px solid white;overflow-y: scroll;background:#fafafa;padding-top:15px">
+                       <table class="table striped" style="background:#fafafa;height:300px">
                          <thead>
+                             <th>Legajo</th>
                              <th>Nombre</th>
                              <th>Apellido</th>
                              <th>Tipo de documento</th>
                              <th>Nº Documento</th>
-		                     <th>Fecha de nacimiento</th>
+                             <th>Fecha de nacimiento</th>
+                             <th>Telefono</th>
+                             <th>E-mail</th>
                              <th>Usuario</th>
                              <th>Grupo</th>
                              <th></th>
@@ -54,17 +58,30 @@
                          <tbody>
             <?php 
                               while($row=mysqli_fetch_array($select)){
-                                   $idPersona=$r['idPersona'];
+                                   $idPersona=$row['idPersona'];
                                    $select2=mysqli_query($conexion,"SELECT descripcion FROM tiposdocumentos WHERE idTipoDocumento={$row['idTipoDocumento']}");
                                    $select3=mysqli_query($conexion,"SELECT g.nombreGrupo FROM grupos AS g,gruposusuarios AS gp WHERE g.idGrupo=gp.idGrupo AND gp.idPersona={$row['idPersona']}");
+                                   $sql1=mysqli_query($conexion,"SELECT idTipoContacto FROM tiposcontactos WHERE descripcion='email'");
+                                   while($r=mysqli_fetch_array($sql1)){$idTipoMail=$r['idTipoContacto'];}
+                                   $consulta1=mysqli_query($conexion,"SELECT descripcion FROM personascontactos WHERE idPersona=$idPersona AND idTipoContacto=$idTipoMail");
+                                   while($r=mysqli_fetch_array($consulta1)){$Mail=$r['descripcion'];}
+                                   $sql2=mysqli_query($conexion,"SELECT idTipoContacto FROM tiposcontactos WHERE descripcion='telefono'");
+                                   while($r=mysqli_fetch_array($sql2)){$idTipoTelefono=$r['idTipoContacto'];}
+                                   $consulta2=mysqli_query($conexion,"SELECT descripcion FROM personascontactos WHERE idTipoContacto=$idTipoTelefono AND idPersona=$idPersona");
+                                   while($r=mysqli_fetch_array($consulta2)){$Telefono=$r['descripcion'];}
+                                   $consulta3=mysqli_query($conexion,"SELECT LegajoEmpleado FROM empleados WHERE idPersona=$idPersona");
+                                   while($r=mysqli_fetch_array($consulta3)){$legajo=$r['LegajoEmpleado'];}
             ?>
                                    <tr>
-				                      <td style="padding-top:30px"><?php echo $row['nombre'];?></td>
-	                                  <td style="padding-top:30px"><?php echo $row['apellido'];?></td>
+                                      <td style="padding-top:30px"><?php echo $legajo;?></td>
+				                          <td style="padding-top:30px"><?php echo $row['nombre'];?></td>
+	                                   <td style="padding-top:30px"><?php echo $row['apellido'];?></td>
                                       <td style="padding-top:30px"><?php while($r=mysqli_fetch_array($select2)){ echo $r['descripcion'];}?></td>
                                       <td style="padding-top:30px"><?php echo $row['numDocumento'];?></td>
                                       <td style="padding-top:30px"><?php echo $row['fechaNac'];?></td>
-				                      <td style="padding-top:30px"><?php echo $row['usuario'];?></td>
+                                      <td style="padding-top:30px"><?php echo $Telefono;?></td>
+                                      <td style="padding-top:30px"><?php echo $Mail;?></td>
+				                          <td style="padding-top:30px"><?php echo $row['usuario'];?></td>
                                       <td style="padding-top:30px"><?php while($r=mysqli_fetch_array($select3)){ echo $r['nombreGrupo'];}?></td>
             <?php                     $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso FROM permisos AS p, grupospermisos AS up WHERE (p.nombrePermiso='buscar usuario' OR p.nombrePermiso='baja usuario' OR p.nombrePermiso='modificar usuario') AND p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
                                       while($r=mysqli_fetch_array($grupo)){
@@ -116,7 +133,7 @@
                          </tbody>
                          <tfoot>
                              <tr align="center">
-                                 <th colspan="9">Cantidad de registros encontrados: <?php echo $total_usuarios?></th>
+                                 <th colspan="12">Cantidad de registros encontrados: <?php echo $total_usuarios?></th>
                              </tr>
                          </tfoot>
                        </table>
@@ -128,16 +145,35 @@
         <div class="container" style="padding-top:40px">
             <nav arial-label="page navigation">
                 <ul class="pagination justify-content-center">
-                    <li class="page-item <?php echo $_GET['pagina'] <= 1 ? 'disabled' : '' ?>"><a class="page-link" href="buscarUser.php?pagina=<?php echo $_GET['pagina'] - 1 ?>">Anterior</a></li>
+                    <li class="page-item <?php echo $_GET['pagina'] <= 1 ? 'disabled' : '' ?>">
+                        <form action="buscarUser.php?pagina=<?php echo $_GET['pagina'] - 1 ?>" method="POST">
+                                  <input id="usuario" name="usuario" value="<?php echo $dato;?>" style="width:70%" type="text" class="form-control" aria-label="Text input with dropdown button" hidden>
+                                      <button name="buscar" value="buscar" style="border-color: #e0e0e0;background:white" class="page-link" id="button-addon2">Anteriror</button>
+                                 
+                            </form>
+                     </li>
                         <?php for ($i = 1; $i <= $paginas; $i++) : ?>
-                                 <li class="<?php echo $_GET['pagina'] == $i ? 'active' : '' ?>"><a class="page-link" href="buscarUser.php?pagina=<?php echo $i ?>"><?php echo $i ?></a></li>
+                                 <li class="<?php echo $_GET['pagina'] == $i ? 'active' : '' ?>">
+                                     <form action="buscarUser.php?pagina=<?php echo $i ?>" method="POST">
+                                        <input id="usuario" name="usuario" value="<?php echo $dato;?>" style="width:70%" type="text" class="form-control" aria-label="Text input with dropdown button" hidden>
+                                        <button name="buscar" value="buscar" style="border-color: #e0e0e0;background:white" class="page-link" id="button-addon2"><?php echo $i ?></button>
+                                     </form>
+                                 </li>
                         <?php endfor ?>
-                                 <li class="page-item <?php echo $_GET['pagina'] >= $paginas ? 'disabled' : '' ?>"><a class="page-link" href="buscarUser.php?pagina=<?php echo $_GET['pagina'] + 1 ?>">Siguiente</a></li>
+                                 <li class="page-item <?php echo $_GET['pagina'] >= $paginas ? 'disabled' : '' ?>">
+                                     <form action="buscarUser.php?pagina=<?php echo $_GET['pagina'] + 1 ?>" method="POST">
+                                        <input id="usuario" name="usuario" value="<?php echo $dato;?>" style="width:70%" type="text" class="form-control" aria-label="Text input with dropdown button" hidden>
+                                        <button name="buscar" value="buscar" style="border-color: #e0e0e0;background:white" class="page-link" id="button-addon2">Siguiente</button>
+                                      </form>
+                                 </li>
                 </ul>
             </nav>
         </div>
     </div>
   </div>
-<?php }?>                           
+<?php }else{
+        header("location:buscarUsuarios.php");
+      }
+?>                           
 </body>
 </html>

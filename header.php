@@ -32,7 +32,7 @@ function conectar(){
 <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
-  <link href="styles/estilos.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="bootstrap-4.3.1-dist/css/estilos.css">
   
 
 </head>
@@ -302,7 +302,7 @@ while ($r=mysqli_fetch_array($select)) {
 	            </div>
 	            <div class="col-md-12" style="background:#e0e0e0">
 		            <div class="modal-body" >
-                <form  method="POST" action="ABM.php"  onsubmit="return form(this)">
+                <form  method="POST" action="registrar.php"  onsubmit="return form(this)">
 		               	<div class="row">
 		               	 <div class="col-md-6">
                          
@@ -367,7 +367,7 @@ while ($r=mysqli_fetch_array($select)) {
                             
 					  	  <div class="col-md-12" align="center">
 					  	   <div class="form-group">
-                                 <button style="width: 50%;" name="guardarUsuario" value="guardarUsuario" id="btn2" class="btn btn-light" onclick="form()">registrar usuario</button>
+                                 <button style="width: 50%;" name="registrado" value="registrado" id="btn2" class="btn btn-light" onclick="form()">registrar usuario</button>
                                  <button style="width: 50%;" class="btn btn-dark" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
                            </div>
 		            	  </div>
@@ -400,7 +400,7 @@ if (isset($_GET['error'])&& $_GET['error']==1) {
       </script>";}
 ?>
     <script type="text/javascript" src="jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/2be8605e79.js"></script>
     <script>
        function form(v){
