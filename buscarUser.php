@@ -42,7 +42,6 @@
                     <div id="result" style="border: 1px solid white;overflow-y: scroll;background:#fafafa;padding-top:15px">
                        <table class="table striped" style="background:#fafafa;height:300px">
                          <thead>
-                             <th>Legajo</th>
                              <th>Nombre</th>
                              <th>Apellido</th>
                              <th>Tipo de documento</th>
@@ -59,6 +58,7 @@
             <?php 
                               while($row=mysqli_fetch_array($select)){
                                    $idPersona=$row['idPersona'];
+                                   $verificar=mysqli_query($conexion,"SELECT g.nombreGrupo FROM grupos AS g,gruposusuarios AS gp WHERE g.nombreGrupo!='CLIENTE' AND g.idGrupo=gp.idGrupo AND gp.idPersona={$row['idPersona']}");
                                    $select2=mysqli_query($conexion,"SELECT descripcion FROM tiposdocumentos WHERE idTipoDocumento={$row['idTipoDocumento']}");
                                    $select3=mysqli_query($conexion,"SELECT g.nombreGrupo FROM grupos AS g,gruposusuarios AS gp WHERE g.idGrupo=gp.idGrupo AND gp.idPersona={$row['idPersona']}");
                                    $sql1=mysqli_query($conexion,"SELECT idTipoContacto FROM tiposcontactos WHERE descripcion='email'");
@@ -69,11 +69,10 @@
                                    while($r=mysqli_fetch_array($sql2)){$idTipoTelefono=$r['idTipoContacto'];}
                                    $consulta2=mysqli_query($conexion,"SELECT descripcion FROM personascontactos WHERE idTipoContacto=$idTipoTelefono AND idPersona=$idPersona");
                                    while($r=mysqli_fetch_array($consulta2)){$Telefono=$r['descripcion'];}
-                                   $consulta3=mysqli_query($conexion,"SELECT LegajoEmpleado FROM empleados WHERE idPersona=$idPersona");
-                                   while($r=mysqli_fetch_array($consulta3)){$legajo=$r['LegajoEmpleado'];}
+                                   
             ?>
                                    <tr>
-                                      <td style="padding-top:30px"><?php echo $legajo;?></td>
+                                    
 				                          <td style="padding-top:30px"><?php echo $row['nombre'];?></td>
 	                                   <td style="padding-top:30px"><?php echo $row['apellido'];?></td>
                                       <td style="padding-top:30px"><?php while($r=mysqli_fetch_array($select2)){ echo $r['descripcion'];}?></td>
@@ -148,7 +147,7 @@
                     <li class="page-item <?php echo $_GET['pagina'] <= 1 ? 'disabled' : '' ?>">
                         <form action="buscarUser.php?pagina=<?php echo $_GET['pagina'] - 1 ?>" method="POST">
                                   <input id="usuario" name="usuario" value="<?php echo $dato;?>" style="width:70%" type="text" class="form-control" aria-label="Text input with dropdown button" hidden>
-                                      <button name="buscar" value="buscar" style="border-color: #e0e0e0;background:white" class="page-link" id="button-addon2">Anteriror</button>
+                                      <button name="buscar" value="buscar" class="page-link" id="button-addon2">Anteriror</button>
                                  
                             </form>
                      </li>
@@ -156,14 +155,14 @@
                                  <li class="<?php echo $_GET['pagina'] == $i ? 'active' : '' ?>">
                                      <form action="buscarUser.php?pagina=<?php echo $i ?>" method="POST">
                                         <input id="usuario" name="usuario" value="<?php echo $dato;?>" style="width:70%" type="text" class="form-control" aria-label="Text input with dropdown button" hidden>
-                                        <button name="buscar" value="buscar" style="border-color: #e0e0e0;background:white" class="page-link" id="button-addon2"><?php echo $i ?></button>
+                                        <button name="buscar" value="buscar" class="page-link" id="button-addon2"><?php echo $i ?></button>
                                      </form>
                                  </li>
                         <?php endfor ?>
                                  <li class="page-item <?php echo $_GET['pagina'] >= $paginas ? 'disabled' : '' ?>">
                                      <form action="buscarUser.php?pagina=<?php echo $_GET['pagina'] + 1 ?>" method="POST">
                                         <input id="usuario" name="usuario" value="<?php echo $dato;?>" style="width:70%" type="text" class="form-control" aria-label="Text input with dropdown button" hidden>
-                                        <button name="buscar" value="buscar" style="border-color: #e0e0e0;background:white" class="page-link" id="button-addon2">Siguiente</button>
+                                        <button name="buscar" value="buscar" class="page-link" id="button-addon2">Siguiente</button>
                                       </form>
                                  </li>
                 </ul>

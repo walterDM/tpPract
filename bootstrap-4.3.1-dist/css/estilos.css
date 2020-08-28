@@ -68,15 +68,15 @@ body{
     color:white;
     background:#ffa726;
 }
-.pagination li a{
+.pagination li form button{
     background:white;
     color:#ff9100;
 }
-.pagination li a:hover{
+.pagination li form button:hover{
     background:#ffa726;
     color:white;
 }
-.pagination .active a{
+.pagination .active form button{
     background:#ff9100;
     color:white;
 }

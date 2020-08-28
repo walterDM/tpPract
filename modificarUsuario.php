@@ -25,7 +25,6 @@ $select2=mysqli_query($conexion,"SELECT * FROM grupos");
    <body style="background:#ffe0b2;font-weight:bold;">
       <div class="container">
           <div class="row">
-          
             <?php 
             if(isset($_SESSION['login'])){
             if(isset($_POST['idPersona'])){
@@ -193,7 +192,6 @@ $select2=mysqli_query($conexion,"SELECT * FROM grupos");
                       return ok;
                 }
        }
- 
        </script>
    </body>
 </html>

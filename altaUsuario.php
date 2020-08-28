@@ -31,7 +31,7 @@ $select2=mysqli_query($conexion,"SELECT * FROM grupos WHERE nombreGrupo!='CLIENT
                 $nombrePermiso=$r['nombrePermiso'];
                 if($nombrePermiso=="alta usuario"){?>
              <div class="col-md-12" style="padding-top:10px">
-             <form  method="POST" action="ABM.php"  onsubmit="return form(this)">
+             <form  method="POST" action="ABMusuario.php"  onsubmit="return form(this)">
 		               	<div class="row">
 		               	 <div class="col-md-6">
                            <div class="form-group">

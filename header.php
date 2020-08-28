@@ -156,7 +156,7 @@ while ($r=mysqli_fetch_array($select)) {
                           <?php break;
                           case "buscar proveedores":
                             echo "<script>document.getElementById('gestiproveedores').hidden=false;</script>";?>
-                        <form id="buscarProveedor" action="" method="POST">
+                        <form id="buscarProveedor" action="buscarProveedor.php" method="POST">
                           <button type="submit" class="dropdown-item submenu">Buscar proveedor</button>
                         </form>
                           <?php break;
