@@ -18,11 +18,9 @@ if (isset($_POST['send'])&& !empty($_POST['send'])) {
 		$idPersona=$r['idPersona'];
 		$token=uniqid();
 		$sql=mysqli_query($conexion,"UPDATE personas SET token='$token' WHERE idPersona=$idPersona");
-		}else{
-		    header("location:index.php?recuperar=3");
-		 }
-			
 		}
+			
+		
 
 		try {
 		    //Server settings
