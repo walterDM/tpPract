@@ -1,22 +1,28 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+require 'phpmailer/Exception.php';
+  require 'phpmailer/PHPMailer.php';
+  require 'phpmailer/SMTP.php';
 require("class.phpmailer.php");
 require("class.smtp.php");
 require("conexion.php");
-error_reporting(E_ALL);
+
 $user=$_POST['usuario'];
 $mensaje="recupere su clave";
 if (isset($_POST['send'])){
  include("sendmail.php");//Mando a llamar la funcion que se encarga de enviar el correo electronico
  $consulta=mysqli_query($conexion,"SELECT * FROM personascontactos WHERE descripcion='$user'");
  if($r=mysqli_fetch_array($consulta)){
+   
      $idPersona=$r['idPersona'];
      //echo "enviar email a ".$r['descripcion'];
      $token=uniqid();
      $sql=mysqli_query($conexion,"UPDATE personas SET token='$token' WHERE idPersona=$idPersona");
-	 $smtpHost = "smtp.gmail.com";  // Dominio alternativo brindado en el email de alta 
+	// $smtpHost = "smtp.gmail.com";  // Dominio alternativo brindado en el email de alta 
      $smtpUsuario = ("tuspelisfc@gmail.com");  // Mi cuenta de correo
      $smtpClave = "Pelisfc_1997";  // Mi contraseña
-     $mail = new PHPMailer();
+     $mail = new PHPMailer(true);
      $mail->IsSMTP();
      $mail->SMTPAuth = true;
      $mail->Port = 587; 
@@ -24,11 +30,11 @@ if (isset($_POST['send'])){
      $mail->CharSet = "utf-8";
 
      // VALORES A MODIFICAR //
-     $mail->Host = $smtpHost; 
-     $mail->Username = $smtpUsuario; 
+     $mail->Host="smtp.gmail.com";//$smtpHost; 
+     $mail->Username ="tuspelisfc@gmail.com"; //$smtpUsuario; 
      $mail->Password = $smtpClave;
-     $mail->setFrom = $smtpUsuario;
-     $mail->FromName= "tuspelisfc"; // Email desde donde envío el correo.
+     $mail->setFrom($smtpUsuario);
+     $mail->FromName="tuspelisfc"; // Email desde donde envío el correo.
      $mail->AddAddress($user); // Esta es la dirección a donde enviamos los datos del formulario
      $mail->Subject = "formulario de reestablecimiento de contraseña para GestiStock"; // Este es el titulo del email.
      $mensajeHtml = nl2br($mensaje);
@@ -51,17 +57,32 @@ if (isset($_POST['send'])){
         'allow_self_signed' => true
        )
      );
-     $estadoEnvio = $mail->Send(); 
-     echo $mail->ErrorInfo();
-     if($estadoEnvio){
+     $estadoEnvio=0;
+      try {
+        $mail->Send(); 
+        echo "mail enviado";
+     } catch (Exception $e) {
+        echo "Mailer Error: " . $mail->ErrorInfo;
+    }
+}
+}
+
+    /* if($estadoEnvio){
+        echo $estadoEnvio;
+        echo "ENVIADO";
           //header("location:index.php?recuperar=1");
      } else {
+        echo "ERROR ESTADO";
+        echo $estadoEnvio;
           //header("location:index.php?recuperar=2");
            //exit();
      }
  }else{
+    echo "NO EXISTE USUARIO";
    // header("location:index.php?recuperar=3");
  }
-}
+}else{
+    echo "ERROR";
+}*/
         
 ?>
