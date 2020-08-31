@@ -2,6 +2,7 @@
 require("class.phpmailer.php");
 require("class.smtp.php");
 require("conexion.php");
+error_reporting(E_ALL);
 $user=$_POST['usuario'];
 $mensaje="recupere su clave";
 if (isset($_POST['send'])){
@@ -9,7 +10,7 @@ if (isset($_POST['send'])){
  $consulta=mysqli_query($conexion,"SELECT * FROM personascontactos WHERE descripcion='$user'");
  if($r=mysqli_fetch_array($consulta)){
      $idPersona=$r['idPersona'];
-     echo "enviar email a ".$r['descripcion'];
+     //echo "enviar email a ".$r['descripcion'];
      $token=uniqid();
      $sql=mysqli_query($conexion,"UPDATE personas SET token='$token' WHERE idPersona=$idPersona");
 	 $smtpHost = "smtp.gmail.com";  // Dominio alternativo brindado en el email de alta 
@@ -51,14 +52,15 @@ if (isset($_POST['send'])){
        )
      );
      $estadoEnvio = $mail->Send(); 
+     echo $mail->ErrorInfo();
      if($estadoEnvio){
-          header("location:index.php?recuperar=1");
+          //header("location:index.php?recuperar=1");
      } else {
-          header("location:index.php?recuperar=2");
-           exit();
+          //header("location:index.php?recuperar=2");
+           //exit();
      }
  }else{
-    header("location:index.php?recuperar=3");
+   // header("location:index.php?recuperar=3");
  }
 }
         
