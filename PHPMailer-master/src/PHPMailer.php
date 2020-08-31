@@ -899,6 +899,7 @@ class PHPMailer
         switch ($this->Debugoutput) {
             case 'error_log':
                 //Don't output, just log
+                /** @noinspection ForgottenDebugOutputInspection */
                 error_log($str);
                 break;
             case 'html':
@@ -1350,7 +1351,7 @@ class PHPMailer
                 /*
                  * This is the pattern used in the HTML5 spec for validation of 'email' type form input elements.
                  *
-                 * @see http://www.whatwg.org/specs/web-apps/current-work/#e-mail-state-(type=email)
+                 * @see https://html.spec.whatwg.org/#e-mail-state-(type=email)
                  */
                 return (bool) preg_match(
                     '/^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}' .
@@ -2002,7 +2003,12 @@ class PHPMailer
             }
             $host = $hostinfo[2];
             $port = $this->Port;
-            if (array_key_exists(3, $hostinfo) && is_numeric($hostinfo[3]) && $hostinfo[3] > 0 && $hostinfo[3] < 65536) {
+            if (
+                array_key_exists(3, $hostinfo) &&
+                is_numeric($hostinfo[3]) &&
+                $hostinfo[3] > 0 &&
+                $hostinfo[3] < 65536
+            ) {
                 $port = (int) $hostinfo[3];
             }
             if ($this->smtp->connect($prefix . $host, $port, $this->Timeout, $options)) {
