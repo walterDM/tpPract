@@ -14,9 +14,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="estilos.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap-4.3.1-dist/css/estilos.css">
 </head>
-<body style="background:black;color:white">
+<body>
    <?php 
       require("conexion.php");   
    ?>
@@ -24,10 +24,18 @@
        <div class="row">
         <?php if(isset($_GET['token'])){
             $token=$_GET['token'];
-            $select=mysqli_query($conexion,"SELECT * FROM personas WHERE token='$token'");
+            $select=mysqli_query($conexion,"SELECT * FROM tokens WHERE token='$token'");
             if($r=mysqli_fetch_array($select)){
-                  $update=mysqli_query($conexion,"UPDATE personas SET token= null WHERE idPersona={$r['idPersona']}");?>
-                  <div class="col-md-12" align="center"><h3><?php echo "bienvenido ".$r['usuario'];?></h3></div>
+               date_default_timezone_set('America/Argentina/Buenos_Aires');
+               $fecha_actual=date('Y-m-d H:i:s');
+               if($fecha_actual<$r['fecha_finalizacion']){
+                  $tiempo_limite=date('H:i:s',strtotime($r['fecha_finalizacion']));
+         ?>´
+                 <div class="col-md-12" style="padding-top:10px">
+                      <div class="alert alert-warning" role="alert">
+                          <h4 align="center">tiempo limite de reestablecimiento hasta: <?php echo $tiempo_limite?><br> despues del tiempo establecido deberá volver a pedir el reestablecimiento de contraseña</h4>
+                      </div>
+                 </div>
                   <div class="col-md-12 form" align="center">
                        <form action="recuperar.php?idPersona=<?php echo $r['idPersona'];?>&cambiar" method="POST" onsubmit="return form(this)" style="width:50%" class="rp">
                             <div class="form-row">
@@ -44,6 +52,16 @@
                        </form>
                   </div>
         <?php
+               }else{
+                  $delete=mysqli_query($conexion,"DELETE FROM tokens WHERE token='$token'");
+               }
+          }else{
+            
+            echo '<div class="col-md-12" style="padding-top:10px">
+                      <div class="alert alert-warning" role="alert">
+                          <h2 align="center">se paso del limite de tiempo establecido, solicite nuevamente el reestablecimiento de contraseña</h2>
+                      </div>
+                  </div>';
           } 
         }
         ?>
@@ -53,7 +71,7 @@
          if(isset($_GET['idPersona']) && isset($_GET['cambiar'])){
             $id=$_GET['idPersona'];
             $password=sha1($_POST['contr']);
-            $actualizar=mysqli_query($conexion,"UPDATE personas SET contrasenia='$password',token=null WHERE idPersona='$id'"); 
+            $actualizar=mysqli_query($conexion,"UPDATE personas SET contrasenia='$password' WHERE idPersona='$id'"); 
             header("location:index.php?cambiar=1");
          }?>
   <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>

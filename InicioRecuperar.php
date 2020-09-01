@@ -16,12 +16,14 @@ if (isset($_POST['send'])&& !empty($_POST['send'])) {
 	$consulta=mysqli_query($conexion,"SELECT idPersona FROM personascontactos WHERE descripcion='$user'");
 	if($r=mysqli_fetch_array($consulta)){
 		$idPersona=$r['idPersona'];
+		date_default_timezone_set('America/Argentina/Buenos_Aires');
+		$fecha_inicio=date('Y-m-d H:i:s');
+		$fecha_finalizacion=date('Y-m-d H:i:s',strtotime('+2 min', strtotime($fecha_inicio)));
+		$tiempo_limite=date('H:i:s',strtotime($fecha_finalizacion));
 		$token=uniqid();
-		$sql=mysqli_query($conexion,"UPDATE personas SET token='$token' WHERE idPersona=$idPersona");
+		$sql=mysqli_query($conexion,"INSERT INTO tokens VALUES(00,'$token','$fecha_inicio','$fecha_finalizacion',$idPersona)");
+		//$sql=mysqli_query($conexion,"INSERT INTO fechas VALUES(00,'$fecha_inicio')");
 		
-			
-		
-
 		try {
 		    //Server settings
 		    $mail->SMTPDebug = 0;                      // Enable verbose debug output
@@ -62,9 +64,10 @@ if (isset($_POST['send'])&& !empty($_POST['send'])) {
                                 <h1 align='center'>GestiStock</h1>
                                 <div style='background:black;color:white;padding:20px'><h2>Solicitud de restablecimiento de contraseña</h2></div>
                                 <p>Alguien ha solicitado una nueva contraseña para la siguiente cuenta en GestiStock</p>
-                                <p>usuario: {$r['descripcion']}</p>
+								<p>usuario: {$r['descripcion']}</p>
+								<p>tiempo limite de reestablecimiento hasta: {$tiempo_limite}</p>
                                 <p>Si no hiciste esta solicitud simplemente ignora este correo electrónico. Si quiere proceder: </p>
-                                <a href='http://localhost/EQUIPO%20B/recuperar.php?token=$token'>Haz clic aquí para restablecer tu contraseña</a>
+                                <a href='http://localhost/tpPract/recuperar.php?token=$token'>Haz clic aquí para restablecer tu contraseña</a>
                              </body> 
                            </html>
                            <br />";

@@ -51,7 +51,7 @@ if (isset($_POST['guardarUsuario'] )&& !empty($_POST['guardarUsuario'])) {
         }
     }
     else{
-        $insertar=mysqli_query($db,"INSERT INTO personas VALUES (00,$num,$idTipoDocumento,'$nombre','$apellido','$fecha','$user','$pass',null)");
+        $insertar=mysqli_query($db,"INSERT INTO personas VALUES (00,$num,$idTipoDocumento,'$nombre','$apellido','$fecha','$user','$pass')");
         $select3=mysqli_query($db,"SELECT idPersona FROM personas WHERE numDocumento='$num'");
         while($r=mysqli_fetch_array($select3)){
             $idPersona=$r['idPersona'];

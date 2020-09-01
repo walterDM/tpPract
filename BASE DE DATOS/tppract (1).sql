@@ -1,20 +1,21 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
--- http://www.phpmyadmin.net
+-- version 5.0.2
+-- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-08-2020 a las 06:19:48
--- Versión del servidor: 5.6.17
--- Versión de PHP: 5.5.12
+-- Tiempo de generación: 01-09-2020 a las 20:52:30
+-- Versión del servidor: 10.4.14-MariaDB
+-- Versión de PHP: 7.4.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Base de datos: `tppract`
@@ -29,12 +30,10 @@ USE `tppract`;
 --
 
 DROP TABLE IF EXISTS `ciudades`;
-CREATE TABLE IF NOT EXISTS `ciudades` (
+CREATE TABLE `ciudades` (
   `idCiudad` int(11) NOT NULL,
   `nombre` varchar(45) NOT NULL,
-  `idProvincia` int(11) NOT NULL,
-  PRIMARY KEY (`idCiudad`),
-  KEY `fk_provincias_idx` (`idProvincia`)
+  `idProvincia` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -44,15 +43,12 @@ CREATE TABLE IF NOT EXISTS `ciudades` (
 --
 
 DROP TABLE IF EXISTS `contactosproveedores`;
-CREATE TABLE IF NOT EXISTS `contactosproveedores` (
-  `idContactoProveedor` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `contactosproveedores` (
+  `idContactoProveedor` int(11) NOT NULL,
   `idProveedor` int(11) NOT NULL,
   `idTipoContacto` int(11) NOT NULL,
-  `descripcion` varchar(45) NOT NULL,
-  PRIMARY KEY (`idContactoProveedor`),
-  KEY `fk_tipo_idx` (`idTipoContacto`),
-  KEY `fk_proveedor_idx` (`idProveedor`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+  `descripcion` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `contactosproveedores`
@@ -69,14 +65,12 @@ INSERT INTO `contactosproveedores` (`idContactoProveedor`, `idProveedor`, `idTip
 --
 
 DROP TABLE IF EXISTS `detallespedidos`;
-CREATE TABLE IF NOT EXISTS `detallespedidos` (
+CREATE TABLE `detallespedidos` (
   `idPedidoProveedor` int(11) NOT NULL,
   `idProducto` int(11) NOT NULL,
   `Cantidad` int(11) NOT NULL,
   `PrecioUnidad` double NOT NULL,
-  `PrecioTotal` double NOT NULL,
-  PRIMARY KEY (`idPedidoProveedor`,`idProducto`),
-  KEY `fk_DetalleCompraProducto_idx` (`idProducto`)
+  `PrecioTotal` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -86,20 +80,16 @@ CREATE TABLE IF NOT EXISTS `detallespedidos` (
 --
 
 DROP TABLE IF EXISTS `direcciones`;
-CREATE TABLE IF NOT EXISTS `direcciones` (
-  `idDrieccion` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `direcciones` (
+  `idDrieccion` int(11) NOT NULL,
   `idCiudad` int(11) NOT NULL,
   `idPersona` int(11) NOT NULL,
   `idTipoDomicilio` int(11) NOT NULL,
   `calle` varchar(45) NOT NULL,
   `altura` int(11) NOT NULL,
   `dpto` varchar(45) DEFAULT NULL,
-  `piso` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idDrieccion`),
-  KEY `fk_persona_idx` (`idPersona`),
-  KEY `fk_ciudad_idx` (`idCiudad`),
-  KEY `fk_domicilio_idx` (`idTipoDomicilio`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `piso` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -108,11 +98,9 @@ CREATE TABLE IF NOT EXISTS `direcciones` (
 --
 
 DROP TABLE IF EXISTS `empleados`;
-CREATE TABLE IF NOT EXISTS `empleados` (
+CREATE TABLE `empleados` (
   `LegajoEmpleado` varchar(45) NOT NULL,
-  `idPersona` int(11) NOT NULL,
-  PRIMARY KEY (`LegajoEmpleado`),
-  KEY `fk_personaEmp_idx` (`idPersona`)
+  `idPersona` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -130,15 +118,12 @@ INSERT INTO `empleados` (`LegajoEmpleado`, `idPersona`) VALUES
 --
 
 DROP TABLE IF EXISTS `facturadetalles`;
-CREATE TABLE IF NOT EXISTS `facturadetalles` (
+CREATE TABLE `facturadetalles` (
   `idFactura` int(11) NOT NULL,
   `idProducto` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL,
   `precioUnidad` double NOT NULL,
-  `precioTotal` double NOT NULL,
-  PRIMARY KEY (`idFactura`,`idProducto`),
-  KEY `fk_producto_idx` (`idProducto`),
-  KEY `fk_Factura_idx` (`idFactura`)
+  `precioTotal` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -148,17 +133,37 @@ CREATE TABLE IF NOT EXISTS `facturadetalles` (
 --
 
 DROP TABLE IF EXISTS `facturas`;
-CREATE TABLE IF NOT EXISTS `facturas` (
-  `idFacturaVenta` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `facturas` (
+  `idFacturaVenta` int(11) NOT NULL,
   `idPersona` int(11) NOT NULL,
   `totalApagar` double NOT NULL,
   `fechaPedido` date NOT NULL,
   `LegajoEmpleado` int(11) NOT NULL,
   `TipoFactura` int(11) NOT NULL,
-  `NumeroFactura` int(11) NOT NULL,
-  PRIMARY KEY (`idFacturaVenta`),
-  KEY `fkPersonaFac_idx` (`idPersona`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `NumeroFactura` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `fechas`
+--
+
+DROP TABLE IF EXISTS `fechas`;
+CREATE TABLE `fechas` (
+  `id` int(11) NOT NULL,
+  `fecha` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `fechas`
+--
+
+INSERT INTO `fechas` (`id`, `fecha`) VALUES
+(1, '0000-00-00 00:00:00'),
+(2, '2020-09-01 13:08:55'),
+(3, '0000-00-00 00:00:00'),
+(4, '2020-09-01 14:43:37');
 
 -- --------------------------------------------------------
 
@@ -167,11 +172,10 @@ CREATE TABLE IF NOT EXISTS `facturas` (
 --
 
 DROP TABLE IF EXISTS `grupos`;
-CREATE TABLE IF NOT EXISTS `grupos` (
-  `idGrupo` int(11) NOT NULL AUTO_INCREMENT,
-  `nombreGrupo` varchar(45) NOT NULL,
-  PRIMARY KEY (`idGrupo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
+CREATE TABLE `grupos` (
+  `idGrupo` int(11) NOT NULL,
+  `nombreGrupo` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `grupos`
@@ -189,12 +193,9 @@ INSERT INTO `grupos` (`idGrupo`, `nombreGrupo`) VALUES
 --
 
 DROP TABLE IF EXISTS `grupospermisos`;
-CREATE TABLE IF NOT EXISTS `grupospermisos` (
+CREATE TABLE `grupospermisos` (
   `idGrupo` int(11) NOT NULL,
-  `idPermiso` int(11) NOT NULL,
-  PRIMARY KEY (`idGrupo`,`idPermiso`),
-  KEY `fk_permisos_idx` (`idPermiso`),
-  KEY `fk_Grupo_idx` (`idGrupo`)
+  `idPermiso` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -203,24 +204,15 @@ CREATE TABLE IF NOT EXISTS `grupospermisos` (
 
 INSERT INTO `grupospermisos` (`idGrupo`, `idPermiso`) VALUES
 (18, 1),
-(20, 1),
 (18, 2),
-(20, 2),
 (18, 3),
-(20, 3),
 (18, 4),
-(20, 4),
 (18, 5),
 (18, 6),
-(20, 6),
 (18, 7),
-(20, 7),
 (18, 8),
-(20, 8),
 (18, 9),
-(20, 9),
 (18, 10),
-(20, 10),
 (18, 11),
 (18, 12),
 (18, 13),
@@ -230,7 +222,16 @@ INSERT INTO `grupospermisos` (`idGrupo`, `idPermiso`) VALUES
 (18, 17),
 (18, 18),
 (18, 21),
-(18, 23);
+(18, 23),
+(20, 1),
+(20, 2),
+(20, 3),
+(20, 4),
+(20, 6),
+(20, 7),
+(20, 8),
+(20, 9),
+(20, 10);
 
 -- --------------------------------------------------------
 
@@ -239,12 +240,9 @@ INSERT INTO `grupospermisos` (`idGrupo`, `idPermiso`) VALUES
 --
 
 DROP TABLE IF EXISTS `gruposusuarios`;
-CREATE TABLE IF NOT EXISTS `gruposusuarios` (
+CREATE TABLE `gruposusuarios` (
   `idPersona` int(11) NOT NULL,
-  `idGrupo` int(11) NOT NULL,
-  PRIMARY KEY (`idPersona`,`idGrupo`),
-  KEY `fk_Grupos_idx` (`idGrupo`),
-  KEY `fk_personas_idx` (`idPersona`)
+  `idGrupo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -263,11 +261,10 @@ INSERT INTO `gruposusuarios` (`idPersona`, `idGrupo`) VALUES
 --
 
 DROP TABLE IF EXISTS `marcas`;
-CREATE TABLE IF NOT EXISTS `marcas` (
-  `idMarca` int(11) NOT NULL AUTO_INCREMENT,
-  `nombreMarca` varchar(45) NOT NULL,
-  PRIMARY KEY (`idMarca`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+CREATE TABLE `marcas` (
+  `idMarca` int(11) NOT NULL,
+  `nombreMarca` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `marcas`
@@ -286,10 +283,9 @@ INSERT INTO `marcas` (`idMarca`, `nombreMarca`) VALUES
 --
 
 DROP TABLE IF EXISTS `paises`;
-CREATE TABLE IF NOT EXISTS `paises` (
+CREATE TABLE `paises` (
   `idPais` int(11) NOT NULL,
-  `nombre` varchar(45) NOT NULL,
-  PRIMARY KEY (`idPais`)
+  `nombre` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -299,15 +295,12 @@ CREATE TABLE IF NOT EXISTS `paises` (
 --
 
 DROP TABLE IF EXISTS `pedidosproveedores`;
-CREATE TABLE IF NOT EXISTS `pedidosproveedores` (
-  `idPedidoProveedor` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `pedidosproveedores` (
+  `idPedidoProveedor` int(11) NOT NULL,
   `idProveedor` int(11) NOT NULL,
   `LegajoEmpleado` varchar(45) NOT NULL,
-  `FechaPedido` date NOT NULL,
-  PRIMARY KEY (`idPedidoProveedor`),
-  KEY `fk_PedidoProveedor_idx` (`idProveedor`),
-  KEY `fk_pedidoEmpleado_idx` (`LegajoEmpleado`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `FechaPedido` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -316,11 +309,10 @@ CREATE TABLE IF NOT EXISTS `pedidosproveedores` (
 --
 
 DROP TABLE IF EXISTS `permisos`;
-CREATE TABLE IF NOT EXISTS `permisos` (
-  `idPermiso` int(11) NOT NULL AUTO_INCREMENT,
-  `nombrePermiso` varchar(45) NOT NULL,
-  PRIMARY KEY (`idPermiso`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
+CREATE TABLE `permisos` (
+  `idPermiso` int(11) NOT NULL,
+  `nombrePermiso` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `permisos`
@@ -358,29 +350,25 @@ INSERT INTO `permisos` (`idPermiso`, `nombrePermiso`) VALUES
 --
 
 DROP TABLE IF EXISTS `personas`;
-CREATE TABLE IF NOT EXISTS `personas` (
-  `idPersona` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `personas` (
+  `idPersona` int(11) NOT NULL,
   `numDocumento` int(11) NOT NULL,
   `idTipoDocumento` int(11) NOT NULL,
   `nombre` varchar(45) NOT NULL,
   `apellido` varchar(45) NOT NULL,
   `fechaNac` date NOT NULL,
   `usuario` varchar(45) NOT NULL,
-  `contrasenia` varchar(45) NOT NULL,
-  `token` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`idPersona`),
-  UNIQUE KEY `usuario` (`usuario`),
-  KEY `fk_tipo_idx` (`idTipoDocumento`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+  `contrasenia` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `personas`
 --
 
-INSERT INTO `personas` (`idPersona`, `numDocumento`, `idTipoDocumento`, `nombre`, `apellido`, `fechaNac`, `usuario`, `contrasenia`, `token`) VALUES
-(10, 408474312, 1, 'Fabricio', 'Colavella', '1997-12-09', 'Fabricolavella', 'b279b7f4d0bc48a7660f007ae7983154b706ac57', NULL),
-(11, 37200769, 1, 'walter', 'martinez', '1995-06-21', 'Waltermartinez', 'a213f9e4f1dbdba548d256335dc57bf65404210a', NULL),
-(12, 95180213, 1, 'Esthefany', 'Graterox', '1997-08-20', 'Esthefanyg', '44f14b2ad2fa68bd07ccb6008d67ba4450b87ab3', NULL);
+INSERT INTO `personas` (`idPersona`, `numDocumento`, `idTipoDocumento`, `nombre`, `apellido`, `fechaNac`, `usuario`, `contrasenia`) VALUES
+(10, 408474312, 1, 'Fabricio', 'Colavella', '1997-12-09', 'Fabricolavella', 'b279b7f4d0bc48a7660f007ae7983154b706ac57'),
+(11, 37200769, 1, 'walter', 'martinez', '1995-06-21', 'Waltermartinez', 'a213f9e4f1dbdba548d256335dc57bf65404210a'),
+(12, 95180213, 1, 'Esthefany', 'Graterox', '1997-08-20', 'Esthefanyg', '44f14b2ad2fa68bd07ccb6008d67ba4450b87ab3');
 
 -- --------------------------------------------------------
 
@@ -389,15 +377,12 @@ INSERT INTO `personas` (`idPersona`, `numDocumento`, `idTipoDocumento`, `nombre`
 --
 
 DROP TABLE IF EXISTS `personascontactos`;
-CREATE TABLE IF NOT EXISTS `personascontactos` (
-  `idPersonaContacto` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `personascontactos` (
+  `idPersonaContacto` int(11) NOT NULL,
   `idPersona` int(11) NOT NULL,
   `idTipoContacto` int(11) NOT NULL,
-  `descripcion` varchar(45) NOT NULL,
-  PRIMARY KEY (`idPersonaContacto`),
-  KEY `fk_telPer_idx` (`idPersona`),
-  KEY `fk_tipo_idx` (`idTipoContacto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+  `descripcion` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `personascontactos`
@@ -416,8 +401,8 @@ INSERT INTO `personascontactos` (`idPersonaContacto`, `idPersona`, `idTipoContac
 --
 
 DROP TABLE IF EXISTS `productos`;
-CREATE TABLE IF NOT EXISTS `productos` (
-  `idProducto` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `productos` (
+  `idProducto` int(11) NOT NULL,
   `descripcion` varchar(45) NOT NULL,
   `idPuestoFisico` int(11) NOT NULL,
   `imagen` varchar(45) NOT NULL,
@@ -425,11 +410,8 @@ CREATE TABLE IF NOT EXISTS `productos` (
   `fechaCaducidad` date NOT NULL,
   `cantidadProd` int(11) NOT NULL,
   `precio` float NOT NULL,
-  `estado` varchar(100) NOT NULL,
-  PRIMARY KEY (`idProducto`),
-  UNIQUE KEY `idPuestoFisico` (`idPuestoFisico`),
-  KEY `FK_Fisico_idx` (`idPuestoFisico`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=37 ;
+  `estado` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `productos`
@@ -450,13 +432,10 @@ INSERT INTO `productos` (`idProducto`, `descripcion`, `idPuestoFisico`, `imagen`
 --
 
 DROP TABLE IF EXISTS `productos-proveedores`;
-CREATE TABLE IF NOT EXISTS `productos-proveedores` (
+CREATE TABLE `productos-proveedores` (
   `idProveedor` int(11) NOT NULL,
   `idProducto` int(11) NOT NULL,
-  `precioCompra` double NOT NULL,
-  PRIMARY KEY (`idProveedor`,`idProducto`),
-  KEY `fk_Proveedor_idx` (`idProveedor`),
-  KEY `fk_Producto_idx` (`idProducto`)
+  `precioCompra` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -466,11 +445,9 @@ CREATE TABLE IF NOT EXISTS `productos-proveedores` (
 --
 
 DROP TABLE IF EXISTS `productostpmarcas`;
-CREATE TABLE IF NOT EXISTS `productostpmarcas` (
+CREATE TABLE `productostpmarcas` (
   `idProducto` int(11) NOT NULL,
-  `idTpMarca` int(11) NOT NULL,
-  KEY `idProducto` (`idProducto`),
-  KEY `idTpMarca` (`idTpMarca`)
+  `idTpMarca` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -492,14 +469,13 @@ INSERT INTO `productostpmarcas` (`idProducto`, `idTpMarca`) VALUES
 --
 
 DROP TABLE IF EXISTS `proveedores`;
-CREATE TABLE IF NOT EXISTS `proveedores` (
-  `idProveedor` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `proveedores` (
+  `idProveedor` int(11) NOT NULL,
   `empresa` varchar(45) NOT NULL,
   `dirección` varchar(45) NOT NULL,
   `cuit` varchar(11) NOT NULL,
-  `descripción` varchar(200) NOT NULL,
-  PRIMARY KEY (`idProveedor`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+  `descripción` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `proveedores`
@@ -517,12 +493,10 @@ INSERT INTO `proveedores` (`idProveedor`, `empresa`, `dirección`, `cuit`, `desc
 --
 
 DROP TABLE IF EXISTS `provincias`;
-CREATE TABLE IF NOT EXISTS `provincias` (
+CREATE TABLE `provincias` (
   `idProvincia` int(11) NOT NULL,
   `nombre` varchar(45) NOT NULL,
-  `idpaises` int(11) NOT NULL,
-  PRIMARY KEY (`idProvincia`),
-  KEY `fk_pais_idx` (`idpaises`)
+  `idpaises` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -532,13 +506,12 @@ CREATE TABLE IF NOT EXISTS `provincias` (
 --
 
 DROP TABLE IF EXISTS `puestofisico`;
-CREATE TABLE IF NOT EXISTS `puestofisico` (
-  `idPuestoFisico` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `puestofisico` (
+  `idPuestoFisico` int(11) NOT NULL,
   `estante` varchar(45) NOT NULL,
   `fila` int(11) NOT NULL,
-  `columna` int(11) NOT NULL,
-  PRIMARY KEY (`idPuestoFisico`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
+  `columna` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `puestofisico`
@@ -574,22 +547,16 @@ INSERT INTO `puestofisico` (`idPuestoFisico`, `estante`, `fila`, `columna`) VALU
 --
 
 DROP TABLE IF EXISTS `stock`;
-CREATE TABLE IF NOT EXISTS `stock` (
-  `idStock` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `stock` (
+  `idStock` int(11) NOT NULL,
   `LegajoEmpleado` varchar(45) NOT NULL,
   `idProducto` int(11) NOT NULL,
   `idTipoMovimiento` int(11) NOT NULL,
   `fechaMovimiento` date NOT NULL,
   `cantidad` int(11) DEFAULT NULL,
   `idPedidoProveedor` int(11) DEFAULT NULL,
-  `idFacturaVenta` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idStock`),
-  KEY `fk_producto_idx` (`idProducto`),
-  KEY `fkTipoMovimiento_idx` (`idTipoMovimiento`),
-  KEY `fk_empleado_idx` (`LegajoEmpleado`),
-  KEY `fk_pedidoProveedor_idx` (`idPedidoProveedor`),
-  KEY `fk_egresoVenta_idx` (`idFacturaVenta`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `idFacturaVenta` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -598,17 +565,14 @@ CREATE TABLE IF NOT EXISTS `stock` (
 --
 
 DROP TABLE IF EXISTS `tarjetascliente`;
-CREATE TABLE IF NOT EXISTS `tarjetascliente` (
-  `idTarjetaCliente` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tarjetascliente` (
+  `idTarjetaCliente` int(11) NOT NULL,
   `numTarjeta` int(11) NOT NULL,
   `idTipoTarjeta` int(11) NOT NULL,
   `fechaVencimiento` date NOT NULL,
   `idPersona` int(11) NOT NULL,
-  `codBanco` varchar(45) NOT NULL,
-  PRIMARY KEY (`idTarjetaCliente`),
-  KEY `fk_tipoTarjeta_idx` (`idTipoTarjeta`),
-  KEY `fk_personas_idx` (`idPersona`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `codBanco` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -617,11 +581,10 @@ CREATE TABLE IF NOT EXISTS `tarjetascliente` (
 --
 
 DROP TABLE IF EXISTS `tiposcontactos`;
-CREATE TABLE IF NOT EXISTS `tiposcontactos` (
-  `idTipoContacto` int(11) NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(45) NOT NULL,
-  PRIMARY KEY (`idTipoContacto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+CREATE TABLE `tiposcontactos` (
+  `idTipoContacto` int(11) NOT NULL,
+  `descripcion` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `tiposcontactos`
@@ -638,10 +601,9 @@ INSERT INTO `tiposcontactos` (`idTipoContacto`, `descripcion`) VALUES
 --
 
 DROP TABLE IF EXISTS `tiposdocumentos`;
-CREATE TABLE IF NOT EXISTS `tiposdocumentos` (
+CREATE TABLE `tiposdocumentos` (
   `idTipoDocumento` int(11) NOT NULL,
-  `descripcion` varchar(45) NOT NULL,
-  PRIMARY KEY (`idTipoDocumento`)
+  `descripcion` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -658,11 +620,10 @@ INSERT INTO `tiposdocumentos` (`idTipoDocumento`, `descripcion`) VALUES
 --
 
 DROP TABLE IF EXISTS `tiposdomicilios`;
-CREATE TABLE IF NOT EXISTS `tiposdomicilios` (
-  `idTipoDomicilio` int(11) NOT NULL AUTO_INCREMENT,
-  `descripción` varchar(45) NOT NULL,
-  PRIMARY KEY (`idTipoDomicilio`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+CREATE TABLE `tiposdomicilios` (
+  `idTipoDomicilio` int(11) NOT NULL,
+  `descripción` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -671,12 +632,11 @@ CREATE TABLE IF NOT EXISTS `tiposdomicilios` (
 --
 
 DROP TABLE IF EXISTS `tiposmovientos`;
-CREATE TABLE IF NOT EXISTS `tiposmovientos` (
-  `idTipoMoviento` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tiposmovientos` (
+  `idTipoMoviento` int(11) NOT NULL,
   `nombreMovimiento` varchar(45) NOT NULL,
-  `descripcion` varchar(200) NOT NULL,
-  PRIMARY KEY (`idTipoMoviento`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `descripcion` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -685,11 +645,10 @@ CREATE TABLE IF NOT EXISTS `tiposmovientos` (
 --
 
 DROP TABLE IF EXISTS `tiposproductos`;
-CREATE TABLE IF NOT EXISTS `tiposproductos` (
-  `idTipoProducto` int(11) NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(45) NOT NULL,
-  PRIMARY KEY (`idTipoProducto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+CREATE TABLE `tiposproductos` (
+  `idTipoProducto` int(11) NOT NULL,
+  `descripcion` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `tiposproductos`
@@ -706,15 +665,11 @@ INSERT INTO `tiposproductos` (`idTipoProducto`, `descripcion`) VALUES
 --
 
 DROP TABLE IF EXISTS `tiposproductos_marcas`;
-CREATE TABLE IF NOT EXISTS `tiposproductos_marcas` (
-  `idTpMarca` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tiposproductos_marcas` (
+  `idTpMarca` int(11) NOT NULL,
   `idMarca` int(11) NOT NULL,
-  `idTipoProducto` int(11) NOT NULL,
-  PRIMARY KEY (`idTpMarca`),
-  KEY `idTpMarca` (`idTpMarca`),
-  KEY `idMarca` (`idMarca`),
-  KEY `idTipoProducto` (`idTipoProducto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+  `idTipoProducto` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `tiposproductos_marcas`
@@ -733,11 +688,395 @@ INSERT INTO `tiposproductos_marcas` (`idTpMarca`, `idMarca`, `idTipoProducto`) V
 --
 
 DROP TABLE IF EXISTS `tipostarjetas`;
-CREATE TABLE IF NOT EXISTS `tipostarjetas` (
+CREATE TABLE `tipostarjetas` (
   `idTipoTarjeta` int(11) NOT NULL,
-  `descripcion` varchar(45) NOT NULL,
-  PRIMARY KEY (`idTipoTarjeta`)
+  `descripcion` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tokens`
+--
+
+DROP TABLE IF EXISTS `tokens`;
+CREATE TABLE `tokens` (
+  `idToken` int(11) NOT NULL,
+  `token` varchar(45) DEFAULT NULL,
+  `fecha_inicio` datetime DEFAULT NULL,
+  `fecha_finalizacion` datetime DEFAULT NULL,
+  `idPersona` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `ciudades`
+--
+ALTER TABLE `ciudades`
+  ADD PRIMARY KEY (`idCiudad`),
+  ADD KEY `fk_provincias_idx` (`idProvincia`);
+
+--
+-- Indices de la tabla `contactosproveedores`
+--
+ALTER TABLE `contactosproveedores`
+  ADD PRIMARY KEY (`idContactoProveedor`),
+  ADD KEY `fk_tipo_idx` (`idTipoContacto`),
+  ADD KEY `fk_proveedor_idx` (`idProveedor`);
+
+--
+-- Indices de la tabla `detallespedidos`
+--
+ALTER TABLE `detallespedidos`
+  ADD PRIMARY KEY (`idPedidoProveedor`,`idProducto`),
+  ADD KEY `fk_DetalleCompraProducto_idx` (`idProducto`);
+
+--
+-- Indices de la tabla `direcciones`
+--
+ALTER TABLE `direcciones`
+  ADD PRIMARY KEY (`idDrieccion`),
+  ADD KEY `fk_persona_idx` (`idPersona`),
+  ADD KEY `fk_ciudad_idx` (`idCiudad`),
+  ADD KEY `fk_domicilio_idx` (`idTipoDomicilio`);
+
+--
+-- Indices de la tabla `empleados`
+--
+ALTER TABLE `empleados`
+  ADD PRIMARY KEY (`LegajoEmpleado`),
+  ADD KEY `fk_personaEmp_idx` (`idPersona`);
+
+--
+-- Indices de la tabla `facturadetalles`
+--
+ALTER TABLE `facturadetalles`
+  ADD PRIMARY KEY (`idFactura`,`idProducto`),
+  ADD KEY `fk_producto_idx` (`idProducto`),
+  ADD KEY `fk_Factura_idx` (`idFactura`);
+
+--
+-- Indices de la tabla `facturas`
+--
+ALTER TABLE `facturas`
+  ADD PRIMARY KEY (`idFacturaVenta`),
+  ADD KEY `fkPersonaFac_idx` (`idPersona`);
+
+--
+-- Indices de la tabla `fechas`
+--
+ALTER TABLE `fechas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `grupos`
+--
+ALTER TABLE `grupos`
+  ADD PRIMARY KEY (`idGrupo`);
+
+--
+-- Indices de la tabla `grupospermisos`
+--
+ALTER TABLE `grupospermisos`
+  ADD PRIMARY KEY (`idGrupo`,`idPermiso`),
+  ADD KEY `fk_permisos_idx` (`idPermiso`),
+  ADD KEY `fk_Grupo_idx` (`idGrupo`);
+
+--
+-- Indices de la tabla `gruposusuarios`
+--
+ALTER TABLE `gruposusuarios`
+  ADD PRIMARY KEY (`idPersona`,`idGrupo`),
+  ADD KEY `fk_Grupos_idx` (`idGrupo`),
+  ADD KEY `fk_personas_idx` (`idPersona`);
+
+--
+-- Indices de la tabla `marcas`
+--
+ALTER TABLE `marcas`
+  ADD PRIMARY KEY (`idMarca`);
+
+--
+-- Indices de la tabla `paises`
+--
+ALTER TABLE `paises`
+  ADD PRIMARY KEY (`idPais`);
+
+--
+-- Indices de la tabla `pedidosproveedores`
+--
+ALTER TABLE `pedidosproveedores`
+  ADD PRIMARY KEY (`idPedidoProveedor`),
+  ADD KEY `fk_PedidoProveedor_idx` (`idProveedor`),
+  ADD KEY `fk_pedidoEmpleado_idx` (`LegajoEmpleado`);
+
+--
+-- Indices de la tabla `permisos`
+--
+ALTER TABLE `permisos`
+  ADD PRIMARY KEY (`idPermiso`);
+
+--
+-- Indices de la tabla `personas`
+--
+ALTER TABLE `personas`
+  ADD PRIMARY KEY (`idPersona`),
+  ADD UNIQUE KEY `usuario` (`usuario`),
+  ADD KEY `fk_tipo_idx` (`idTipoDocumento`);
+
+--
+-- Indices de la tabla `personascontactos`
+--
+ALTER TABLE `personascontactos`
+  ADD PRIMARY KEY (`idPersonaContacto`),
+  ADD KEY `fk_telPer_idx` (`idPersona`),
+  ADD KEY `fk_tipo_idx` (`idTipoContacto`);
+
+--
+-- Indices de la tabla `productos`
+--
+ALTER TABLE `productos`
+  ADD PRIMARY KEY (`idProducto`),
+  ADD UNIQUE KEY `idPuestoFisico` (`idPuestoFisico`),
+  ADD KEY `FK_Fisico_idx` (`idPuestoFisico`);
+
+--
+-- Indices de la tabla `productos-proveedores`
+--
+ALTER TABLE `productos-proveedores`
+  ADD PRIMARY KEY (`idProveedor`,`idProducto`),
+  ADD KEY `fk_Proveedor_idx` (`idProveedor`),
+  ADD KEY `fk_Producto_idx` (`idProducto`);
+
+--
+-- Indices de la tabla `productostpmarcas`
+--
+ALTER TABLE `productostpmarcas`
+  ADD KEY `idProducto` (`idProducto`),
+  ADD KEY `idTpMarca` (`idTpMarca`);
+
+--
+-- Indices de la tabla `proveedores`
+--
+ALTER TABLE `proveedores`
+  ADD PRIMARY KEY (`idProveedor`);
+
+--
+-- Indices de la tabla `provincias`
+--
+ALTER TABLE `provincias`
+  ADD PRIMARY KEY (`idProvincia`),
+  ADD KEY `fk_pais_idx` (`idpaises`);
+
+--
+-- Indices de la tabla `puestofisico`
+--
+ALTER TABLE `puestofisico`
+  ADD PRIMARY KEY (`idPuestoFisico`);
+
+--
+-- Indices de la tabla `stock`
+--
+ALTER TABLE `stock`
+  ADD PRIMARY KEY (`idStock`),
+  ADD KEY `fk_producto_idx` (`idProducto`),
+  ADD KEY `fkTipoMovimiento_idx` (`idTipoMovimiento`),
+  ADD KEY `fk_empleado_idx` (`LegajoEmpleado`),
+  ADD KEY `fk_pedidoProveedor_idx` (`idPedidoProveedor`),
+  ADD KEY `fk_egresoVenta_idx` (`idFacturaVenta`);
+
+--
+-- Indices de la tabla `tarjetascliente`
+--
+ALTER TABLE `tarjetascliente`
+  ADD PRIMARY KEY (`idTarjetaCliente`),
+  ADD KEY `fk_tipoTarjeta_idx` (`idTipoTarjeta`),
+  ADD KEY `fk_personas_idx` (`idPersona`);
+
+--
+-- Indices de la tabla `tiposcontactos`
+--
+ALTER TABLE `tiposcontactos`
+  ADD PRIMARY KEY (`idTipoContacto`);
+
+--
+-- Indices de la tabla `tiposdocumentos`
+--
+ALTER TABLE `tiposdocumentos`
+  ADD PRIMARY KEY (`idTipoDocumento`);
+
+--
+-- Indices de la tabla `tiposdomicilios`
+--
+ALTER TABLE `tiposdomicilios`
+  ADD PRIMARY KEY (`idTipoDomicilio`);
+
+--
+-- Indices de la tabla `tiposmovientos`
+--
+ALTER TABLE `tiposmovientos`
+  ADD PRIMARY KEY (`idTipoMoviento`);
+
+--
+-- Indices de la tabla `tiposproductos`
+--
+ALTER TABLE `tiposproductos`
+  ADD PRIMARY KEY (`idTipoProducto`);
+
+--
+-- Indices de la tabla `tiposproductos_marcas`
+--
+ALTER TABLE `tiposproductos_marcas`
+  ADD PRIMARY KEY (`idTpMarca`),
+  ADD KEY `idTpMarca` (`idTpMarca`),
+  ADD KEY `idMarca` (`idMarca`),
+  ADD KEY `idTipoProducto` (`idTipoProducto`);
+
+--
+-- Indices de la tabla `tipostarjetas`
+--
+ALTER TABLE `tipostarjetas`
+  ADD PRIMARY KEY (`idTipoTarjeta`);
+
+--
+-- Indices de la tabla `tokens`
+--
+ALTER TABLE `tokens`
+  ADD PRIMARY KEY (`idToken`),
+  ADD KEY `idPersona` (`idPersona`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `contactosproveedores`
+--
+ALTER TABLE `contactosproveedores`
+  MODIFY `idContactoProveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `direcciones`
+--
+ALTER TABLE `direcciones`
+  MODIFY `idDrieccion` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `facturas`
+--
+ALTER TABLE `facturas`
+  MODIFY `idFacturaVenta` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `fechas`
+--
+ALTER TABLE `fechas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `grupos`
+--
+ALTER TABLE `grupos`
+  MODIFY `idGrupo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT de la tabla `marcas`
+--
+ALTER TABLE `marcas`
+  MODIFY `idMarca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `pedidosproveedores`
+--
+ALTER TABLE `pedidosproveedores`
+  MODIFY `idPedidoProveedor` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `permisos`
+--
+ALTER TABLE `permisos`
+  MODIFY `idPermiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT de la tabla `personas`
+--
+ALTER TABLE `personas`
+  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT de la tabla `personascontactos`
+--
+ALTER TABLE `personascontactos`
+  MODIFY `idPersonaContacto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT de la tabla `productos`
+--
+ALTER TABLE `productos`
+  MODIFY `idProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+
+--
+-- AUTO_INCREMENT de la tabla `proveedores`
+--
+ALTER TABLE `proveedores`
+  MODIFY `idProveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `puestofisico`
+--
+ALTER TABLE `puestofisico`
+  MODIFY `idPuestoFisico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT de la tabla `stock`
+--
+ALTER TABLE `stock`
+  MODIFY `idStock` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `tarjetascliente`
+--
+ALTER TABLE `tarjetascliente`
+  MODIFY `idTarjetaCliente` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `tiposcontactos`
+--
+ALTER TABLE `tiposcontactos`
+  MODIFY `idTipoContacto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `tiposdomicilios`
+--
+ALTER TABLE `tiposdomicilios`
+  MODIFY `idTipoDomicilio` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `tiposmovientos`
+--
+ALTER TABLE `tiposmovientos`
+  MODIFY `idTipoMoviento` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `tiposproductos`
+--
+ALTER TABLE `tiposproductos`
+  MODIFY `idTipoProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `tiposproductos_marcas`
+--
+ALTER TABLE `tiposproductos_marcas`
+  MODIFY `idTpMarca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `tokens`
+--
+ALTER TABLE `tokens`
+  MODIFY `idToken` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
@@ -808,8 +1147,8 @@ ALTER TABLE `gruposusuarios`
 -- Filtros para la tabla `pedidosproveedores`
 --
 ALTER TABLE `pedidosproveedores`
-  ADD CONSTRAINT `fk_pedidoEmpleado` FOREIGN KEY (`LegajoEmpleado`) REFERENCES `empleados` (`LegajoEmpleado`),
-  ADD CONSTRAINT `fk_PedidoProveedor` FOREIGN KEY (`idProveedor`) REFERENCES `proveedores` (`idProveedor`);
+  ADD CONSTRAINT `fk_PedidoProveedor` FOREIGN KEY (`idProveedor`) REFERENCES `proveedores` (`idProveedor`),
+  ADD CONSTRAINT `fk_pedidoEmpleado` FOREIGN KEY (`LegajoEmpleado`) REFERENCES `empleados` (`LegajoEmpleado`);
 
 --
 -- Filtros para la tabla `personas`
@@ -841,8 +1180,8 @@ ALTER TABLE `productos-proveedores`
 -- Filtros para la tabla `productostpmarcas`
 --
 ALTER TABLE `productostpmarcas`
-  ADD CONSTRAINT `fktpmpMarca` FOREIGN KEY (`idTpMarca`) REFERENCES `tiposproductos_marcas` (`idTpMarca`),
-  ADD CONSTRAINT `fkTpMprod` FOREIGN KEY (`idProducto`) REFERENCES `productos` (`idProducto`);
+  ADD CONSTRAINT `fkTpMprod` FOREIGN KEY (`idProducto`) REFERENCES `productos` (`idProducto`),
+  ADD CONSTRAINT `fktpmpMarca` FOREIGN KEY (`idTpMarca`) REFERENCES `tiposproductos_marcas` (`idTpMarca`);
 
 --
 -- Filtros para la tabla `provincias`
@@ -871,8 +1210,15 @@ ALTER TABLE `tarjetascliente`
 -- Filtros para la tabla `tiposproductos_marcas`
 --
 ALTER TABLE `tiposproductos_marcas`
-  ADD CONSTRAINT `fktpMarcaTp` FOREIGN KEY (`idTipoProducto`) REFERENCES `tiposproductos` (`idTipoProducto`),
-  ADD CONSTRAINT `fkTpMarca` FOREIGN KEY (`idMarca`) REFERENCES `marcas` (`idMarca`);
+  ADD CONSTRAINT `fkTpMarca` FOREIGN KEY (`idMarca`) REFERENCES `marcas` (`idMarca`),
+  ADD CONSTRAINT `fktpMarcaTp` FOREIGN KEY (`idTipoProducto`) REFERENCES `tiposproductos` (`idTipoProducto`);
+
+--
+-- Filtros para la tabla `tokens`
+--
+ALTER TABLE `tokens`
+  ADD CONSTRAINT `tokens_ibfk_1` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
