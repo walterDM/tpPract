@@ -20,27 +20,27 @@
    <body>
    <?php 
       require("conexion.php");
-      if (isset($_GET['busqueda'])) {
+      if (isset($_GET['busqueda']) && !empty($_GET['busqueda'])) {
          $buscar = $_GET['busqueda'];
          if(!isset($_GET['pagina'])){
-           header("location:productos.php?categoria=$categoria&pagina=1");
+           header("location:buscarProducto.php?busqueda=''$&pagina=1");
          }
     
       }
       require("header.php");
       $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
-      $consulta=mysqli_query($conexion,"SELECT idTipoProducto FROM tiposproductos WHERE descripcion='$categoria'");
-      while($r=mysqli_fetch_array($consulta)){
+      $consulta=mysqli_query($conexion,"SELECT * FROM productos WHERE descripcion='%".$buscar."%'");
+      /*while($r=mysqli_fetch_array($consulta)){
         $idTipoProducto=$r['idTipoProducto'];
       }
       $consulta2 = mysqli_query($conexion, "SELECT p.* from productos as p 
                                             join productostpmarcas as pp on pp.idProducto=p.idProducto
                                             join tiposproductos_marcas as tpm on tpm.idTpMarca = pp.idTpMarca
                                             where tpm.idTipoProducto=$idTipoProducto 
-                                            and p.estado='Activo'");
+                                            and p.estado='Activo'");*/
       $productos_x_pag = 4;
      
-      $total_productos = mysqli_num_rows($consulta2);
+      $total_productos = mysqli_num_rows($consulta);
       $paginas = $total_productos / $productos_x_pag;
       $paginas = ceil($paginas);
    ?>
@@ -96,13 +96,10 @@
           </div>
           <div class="col-md-12">
           <?php if (isset($_GET['pagina'])) {
-                    $consulta1=mysqli_query($conexion,"SELECT idTipoProducto FROM tiposproductos WHERE descripcion='$categoria'");
-                    while($r=mysqli_fetch_array($consulta1)){$idTipoProducto=$r['idTipoProducto'];}
+                    /*$consulta1=mysqli_query($conexion,"SELECT idTipoProducto FROM tiposproductos WHERE descripcion='$categoria'");
+                    while($r=mysqli_fetch_array($consulta1)){$idTipoProducto=$r['idTipoProducto'];}*/
                     $iniciar = ($_GET['pagina'] - 1) * $productos_x_pag;
-                    $consulta3 = mysqli_query($conexion, "SELECT p.* from productos as p 
-                                                          join productostpmarcas as pp on pp.idProducto=p.idProducto
-                                                          join tiposproductos_marcas as tpm on tpm.idTpMarca = pp.idTpMarca
-                                                          where tpm.idTipoProducto=$idTipoProducto 
+                    $consulta3 = mysqli_query($conexion, "SELECT p.* from productos as p where p.descripcion='$buscar'
                                                           and p.estado='Activo' limit $iniciar,$productos_x_pag");?>
                     <div class="row">
                    <?php while ($r = mysqli_fetch_array($consulta3)) { ?>
