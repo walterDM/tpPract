@@ -22,11 +22,8 @@
       require("conexion.php");
       if (isset($_GET['busqueda']) && !empty($_GET['busqueda'])) {
          $buscar = $_GET['busqueda'];
-         if(!isset($_GET['pagina'])){
-           header("location:buscarProducto.php?busqueda=''$&pagina=1");
-         }
-    
       }
+
       require("header.php");
       $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
       $consulta=mysqli_query($conexion,"SELECT * FROM productos WHERE descripcion='%".$buscar."%'");
@@ -99,8 +96,7 @@
                     /*$consulta1=mysqli_query($conexion,"SELECT idTipoProducto FROM tiposproductos WHERE descripcion='$categoria'");
                     while($r=mysqli_fetch_array($consulta1)){$idTipoProducto=$r['idTipoProducto'];}*/
                     $iniciar = ($_GET['pagina'] - 1) * $productos_x_pag;
-                    $consulta3 = mysqli_query($conexion, "SELECT p.* from productos as p where p.descripcion='$buscar'
-                                                          and p.estado='Activo' limit $iniciar,$productos_x_pag");?>
+                    $consulta3 = mysqli_query($conexion, "SELECT p.* from productos as p where p.descripcion LIKE '%le%' and p.estado='Activo' limit $iniciar,$productos_x_pag");?>
                     <div class="row">
                    <?php while ($r = mysqli_fetch_array($consulta3)) { ?>
                         <div align="center" class="col-md-3" style="padding:1%;">

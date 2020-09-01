@@ -62,9 +62,10 @@ while ($r=mysqli_fetch_array($select)) {
 	<div class="col-md-3"><a class="navbar-brand" href="index.php"><img src="imagenes/logo.jpeg" style="width:200px;height: 50px;border-radius: 50px"></a></div>
 	<div class="col-md-5" >
     <div id="posBuscador">
-		  <form id="busquador" action="buscarProducto.php" method="GET">
-		  	<label for="busqueda">Buscar</label>
-		    <input type="text" name="busqueda" id="busqueda">
+		  <form id="buscador" action="buscarProducto.php" method="GET">
+		  	
+		    <input type="text" name="busqueda" id="busqueda" placeholder="Buscar
+        ">
         <button  type="submit"><i class="fas fa-search"></i></i></button>
 		  </form>
     </div>
