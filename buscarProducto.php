@@ -26,7 +26,7 @@
 
       require("header.php");
       $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
-      $consulta=mysqli_query($conexion,"SELECT * FROM productos WHERE descripcion='%".$buscar."%'");
+      $consulta=mysqli_query($conexion,"SELECT * FROM productos WHERE descripcion='%le%'");
       /*while($r=mysqli_fetch_array($consulta)){
         $idTipoProducto=$r['idTipoProducto'];
       }
