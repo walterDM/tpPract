@@ -37,7 +37,7 @@ function conectar(){
 
 </head>
 <body >
-
+<div class="container">
 <?php 
 require("conexion.php");?>
 
@@ -58,7 +58,18 @@ while ($r=mysqli_fetch_array($select)) {
   $descripcion=$r['descripcion'];
 }
 ?>
- <div style="background:#ffb74d">  
+<div class="row" style="background:#ffb74d">
+	<div class="col-md-3"><a class="navbar-brand" href="index.php"><img src="imagenes/logo.jpeg" style="width:200px;height: 50px;border-radius: 50px"></a></div>
+	<div class="col-md-5" >
+    <div id="posBuscador">
+		  <form id="busquador" action="buscarProducto.php" method="GET">
+		  	<label for="busqueda">Buscar</label>
+		    <input type="text" name="busqueda" id="busqueda">
+        <button  type="submit" value="buscar"><i class="fas fa-search"></i></i></button>
+		  </form>
+    </div>
+	</div>
+ <div class="col-md-4">  
     <nav class="navbar navbar-expand-lg navbar-light nav1" style="float:right">
         <button style="background: white" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -87,8 +98,13 @@ while ($r=mysqli_fetch_array($select)) {
            </ul>
         </div>
     </nav>
-    <nav class="navbar navbar-expand-lg navbar-light nav1">
-    <a class="navbar-brand" href="index.php"><img src="imagenes/logo.jpeg" style="width:200px;height: 50px;border-radius: 50px"></a>
+    	
+	    
+   </div> 
+ </div><!--termina color del header--> 	
+ <div class="row justify-content-center">
+    <div class="col-md-12" style="background:#ffb74d">
+    <nav <?php if ($id_usuario==0) {echo 'id="posMenu"';}elseif ($id_usuario>0) {echo 'id="posMenu1"';} ?> class="navbar navbar-expand-lg navbar-light nav1"> 
         <div class="collapse navbar-collapse menustyle" id="navbarSupportedContent">
            <ul class="nav menu">
                 <li class="nav-item">
@@ -238,7 +254,10 @@ while ($r=mysqli_fetch_array($select)) {
             </ul>
         </div>
     </nav>
- </div>
+    	</div><!--termina col-->	
+</div><!--termina row-->	
+
+
  <div data-backdrop="static"  class="modal fade" id="recuperar">
     <div class="col-md-12 modal-dialog" >
         <div class="modal-content">
@@ -378,6 +397,11 @@ while ($r=mysqli_fetch_array($select)) {
 	        </div>
 	    </div>
 </div>
+	
+</div><!--fin Container-->
+
+
+
 <?php if (isset($_GET['estado'])&& $_GET['estado']==1) {
 	echo "<script type='text/javascript'>
              setTimeout(function(){alert('fue registrado con exito!');},100,'JavaScript');

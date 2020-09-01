@@ -87,3 +87,23 @@ th{
 td{
    font-size:15px;
 }
+
+/*ajusta posicion del menu*/
+#posMenu{
+  margin-top: -2%;
+  margin-left: 30%;
+}
+#posMenu1{
+  margin-top: -2%;
+  margin-left: 10%;
+}
+/*ajusta posicion bucscador*/
+#posBuscador{
+  margin-left: 15%;
+  margin-top: 5%;
+  align-items: center;
+  color: white;
+}
+#busqueda{
+  border-radius: 5px; 
+}
