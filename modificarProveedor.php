@@ -68,6 +68,7 @@ $select2=mysqli_query($conexion,"SELECT * FROM grupos");
                     <div class="form-group">
                      <label>Telefono</label>
                      <input type="text" class="form-control" name="telefono" id="telefono" value="<?php echo $datoTelefono['descripcion'];?>"  placeholder="Ingrese el telefono">
+                     <input type="text" class="form-control" name="idProveedor" id="idProveedor" value="<?php echo $idProveedor;?>" hidden>
                    </div>
                  </div>
                   <div class="col-md-6">

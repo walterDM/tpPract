@@ -62,6 +62,10 @@ function conectar(){
         $telefono=$_POST['telefono'];
         $email=$_POST['correo'];
         $descripcion=$_POST['descripcion'];
+        $consulta1=mysqli_query($db,"SELECT idTipoContacto FROM tiposcontactos WHERE descripcion='email'");
+        while($r=mysqli_fetch_array($consulta1)){$idTipoMail=$r['idTipoContacto'];}
+        $consulta2=mysqli_query($db,"SELECT idTipoContacto FROM tiposcontactos WHERE descripcion='telefono'");
+        while($r=mysqli_fetch_array($consulta2)){$idTipoTelefono=$r['idTipoContacto'];}
    /* $consultabd=mysqli_query($db,"SELECT * from proveedores where idProveedor=$idProveedor")
     while ($r=mysqli_fetch_array($consultabd)) {
         $empresaBD=$r['empresa'];
@@ -73,25 +77,11 @@ function conectar(){
                             cuit='$cuit',
                             descripcion='$descripcion'
                         WHERE idProveedor=$idProveedor";*/
-        $updateProv=mysqli_query($conexion,"UPDATE proveedores SET 
-                            empresa='$empresa',
-                            direccion='$direccion',
-                            cuit='$cuit',
-                            descripcion='$descripcion'
-                        WHERE idProveedor=$idProveedor");
-    
-        $queryCPtel="UPDATE contactosproveedores SET 
-                            descripcion=$telefono;
-                            where idProveedor=$idProveedor and idTipoContacto=2";
-        $updateCPtel=mysqli_query($db,$queryCPtel);
-        $queryCPmail="UPDATE contactosproveedores SET 
-                            descripcion=$email;
-                            where idProveedor=$idProveedor and idTipoContacto=1";
-            $updateCPmail=mysqli_query($db,$queryCPmail);
-        if ($updateProv && $updateCPmail && $updateCPtel) {
+                        $delete=mysqli_query($db,"DELETE FROM contactosproveedores WHERE idProveedor=$idProveedor");
+                        $insertar1=mysqli_query($db,"INSERT INTO contactosproveedores VALUES(00,$idProveedor,$idTipoMail,'$email')");
+                        $insertar2=mysqli_query($db,"INSERT INTO contactosproveedores VALUES(00,$idProveedor,$idTipoTelefono,'$telefono')");
+        
             header("location:buscarProveedor.php?pagina=1&mod=1");
-        }else{
-           header("location:buscarProveedor.php?pagina=1&error=2");
-        }
+        
     }
 ?>

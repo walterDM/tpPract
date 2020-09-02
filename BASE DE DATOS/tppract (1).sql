@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-09-2020 a las 20:52:30
+-- Tiempo de generación: 02-09-2020 a las 20:56:01
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.9
 
@@ -56,7 +56,9 @@ CREATE TABLE `contactosproveedores` (
 
 INSERT INTO `contactosproveedores` (`idContactoProveedor`, `idProveedor`, `idTipoContacto`, `descripcion`) VALUES
 (1, 3, 1, 'qadda@hjhf.com'),
-(2, 3, 2, '252525');
+(2, 3, 2, '252525'),
+(9, 4, 1, 'sa@gmail.com'),
+(10, 4, 2, '41414');
 
 -- --------------------------------------------------------
 
@@ -472,19 +474,20 @@ DROP TABLE IF EXISTS `proveedores`;
 CREATE TABLE `proveedores` (
   `idProveedor` int(11) NOT NULL,
   `empresa` varchar(45) NOT NULL,
-  `dirección` varchar(45) NOT NULL,
+  `direccion` varchar(45) NOT NULL,
   `cuit` varchar(11) NOT NULL,
-  `descripción` varchar(200) NOT NULL
+  `descripcion` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `proveedores`
 --
 
-INSERT INTO `proveedores` (`idProveedor`, `empresa`, `dirección`, `cuit`, `descripción`) VALUES
+INSERT INTO `proveedores` (`idProveedor`, `empresa`, `direccion`, `cuit`, `descripcion`) VALUES
 (1, 'sdsf', 'afafaf', '225626', 'wetwtw'),
 (2, 'wrqrtwsf', 'q4qrqr', '67432674', 'eyeyey'),
-(3, 'wwtwtwrq', 'wtwtwt', '473214', 'wrwrwr');
+(3, 'wwtwtwrq', 'wtwtwt', '473214', 'wrwrwr'),
+(4, 'scs', 'agafgag', '4141414', 'afafaf');
 
 -- --------------------------------------------------------
 
@@ -956,7 +959,7 @@ ALTER TABLE `tokens`
 -- AUTO_INCREMENT de la tabla `contactosproveedores`
 --
 ALTER TABLE `contactosproveedores`
-  MODIFY `idContactoProveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idContactoProveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `direcciones`
@@ -1010,7 +1013,7 @@ ALTER TABLE `personas`
 -- AUTO_INCREMENT de la tabla `personascontactos`
 --
 ALTER TABLE `personascontactos`
-  MODIFY `idPersonaContacto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `idPersonaContacto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -1022,7 +1025,7 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `proveedores`
 --
 ALTER TABLE `proveedores`
-  MODIFY `idProveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idProveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `puestofisico`
