@@ -107,3 +107,17 @@ td{
 #busqueda{
   border-radius: 5px; 
 }
+.formContacto form{
+    background:#ffb74d;
+    border-radius:50px;
+    width:50%;
+    color:white;
+    font-weight: bold;
+    padding:30px;
+}
+.formContacto form label{
+    float:left;
+}
+.formContacto form button{
+  width:50%;
+}
