@@ -38,59 +38,15 @@
       $paginas = ceil($paginas);?>
     <div class="container">
         <div class=row>
-     <?php while($r=mysqli_fetch_array($consulta)){
-         ?>
-        <div align="center" class="col-md-3" style="padding:1%;">
-                            <div class="card" style="width: 12.5rem;background:#ffb74d;color:white">
-                                <img src="imagenes/<?php echo $r['imagen']; ?>" class="card-img-top" style="height:250px">
-                                <div class="card-body" style="height:90px">
-                                    <p align="center" class="card-text"><?php echo $r['descripcion']."<br>$".$r['precio']; ?></p>
-                                </div>
-                                <div>
-                                    <?php
-                                    if (isset($_SESSION['login'])) {
-                                      
-                                       $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
-                                        while($rs=mysqli_fetch_array($grupo)){
-                                            $nombrePermiso=$rs['nombrePermiso'];
-                                            switch($nombrePermiso) {
-                                                case "modificar producto":
-                                    ?>
-                                                    <form method="POST" action="modProducto.php">
-                                                        <button style="float: left;margin: 5px;border-radius:30px" type="submit" name="idProductos" id="idProductos" value="<?php echo $r['idProducto']; ?>" class="btn btn-light"><i class="fas fa-pencil-alt"></i></button>
-                                                    </form>
-                                          <?php break; 
-                                                case "baja producto":
-                                          ?>
-                                                    <a style="float: left;margin: 5px;border-radius:30px" class="btn btn-light" href="#" data-toggle="modal" data-target="#info<?php echo $r['idProducto']; ?>"><i class="fas fa-trash-alt"></i></a>
-                                          <?php break;
-                                           }
-                                        }
-                                     }?>
-                                
-                                        <a title="más informacion" style="float: right;margin-right:5px;border-radius:30px;margin-top: 2%" class="btn btn-light card-text" href="#" data-toggle="modal" data-target="#info<?php echo $r['idProducto']; ?>"><i class="fas fa-info-circle"></i></a>
-                            
-                                </div>
-                            </div>
-                        </div>
-
-      <?php }
-      /*
-      $consulta2 = mysqli_query($conexion, "SELECT p.* from productos as p 
-                                            join productostpmarcas as pp on pp.idProducto=p.idProducto
-                                            join tiposproductos_marcas as tpm on tpm.idTpMarca = pp.idTpMarca
-                                            where tpm.idTipoProducto=$idTipoProducto 
-                                            and p.estado='Activo'");*/
-   ?>
-        </div>
+     
           <div class="col-md-12">
           <?php if (isset($_GET['pagina'])) {
                     /*$consulta1=mysqli_query($conexion,"SELECT idTipoProducto FROM tiposproductos WHERE descripcion='$categoria'");
                     while($r=mysqli_fetch_array($consulta1)){$idTipoProducto=$r['idTipoProducto'];}*/
                     $iniciar = ($_GET['pagina'] - 1) * $productos_x_pag;
-                    $consulta3 = mysqli_query($conexion, "SELECT p.* from productos as p where p.descripcion LIKE '%le%' and p.estado='Activo' limit $iniciar,$productos_x_pag");?>
+                    $consulta2=mysqli_query($conexion,"SELECT * FROM productos WHERE (descripcion like '%$buscar%') and estado='activo' order by descripcion asc LIMIT $iniciar,$productos_x_pag");?>
                     <div class="row">
-                   <?php while ($r = mysqli_fetch_array($consulta3)) { ?>
+                   <?php while ($r = mysqli_fetch_array($consulta2)) { ?>
                         <div align="center" class="col-md-3" style="padding:1%;">
                             <div class="card" style="width: 12.5rem;background:#ffb74d;color:white">
                                 <img src="imagenes/<?php echo $r['imagen']; ?>" class="card-img-top" style="height:250px">
