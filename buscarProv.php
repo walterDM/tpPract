@@ -84,9 +84,11 @@
           <td style="padding-top:30px"><?php echo $row['descripcion'];?></td>
    
           
-          <td style="padding-top:30px"><?php echo $Telefono;?>
+          <td style="padding-top:30px"><?php if (!empty($Telefono)) {
+            echo $Telefono;
+          }else{echo "no posee";}?>
           </td>
-          <td style="padding-top:30px"><?php echo $Mail;?>
+          <td style="padding-top:30px"><?php if(!empty($Mail)){echo $Mail;} else{echo "no posee";}?>
           </td>
        
 

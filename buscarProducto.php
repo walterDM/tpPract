@@ -18,14 +18,28 @@
       </style>
    </head>
    <body>
+   	
    <?php 
       require("conexion.php");
+      function limpiarString($texto){
+      $textoLimpio = preg_replace('([^A-Za-z0-9])', '', $texto);	
+      if (!empty($textoLimpio)) {
+           	return $textoLimpio;
+        }else{
+        	return 'error';
+        }    					
+      
+	  }
       if (isset($_GET['busqueda']) && !empty($_GET['busqueda'])) {
-         $buscar = $_GET['busqueda'];
+         $buscar =limpiarString($_GET['busqueda']);
          if(!isset($_GET['pagina'])){
            header("location:buscarProducto.php?busqueda=$buscar&pagina=1");
          }
       }
+      if (isset($_GET['busqueda'])&& $_GET['busqueda']=='error') {
+          echo "<script type='text/javascript'>alert('no se permiten  caracteres especiales');</script>";
+        };
+      
 
 
       require("header.php");
@@ -154,4 +168,5 @@
       </div>
    </body>
 </html>
-<?php require 'footer.php'; ?>
+<?php require 'footer.php'; 
+?>
