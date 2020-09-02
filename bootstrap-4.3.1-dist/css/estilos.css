@@ -95,7 +95,7 @@ td{
 }
 #posMenu1{
   margin-top: -2%;
-  margin-left: 10%;
+  margin-left: 20%;
 }
 /*ajusta posicion bucscador*/
 #posBuscador{
@@ -105,5 +105,6 @@ td{
   color: white;
 }
 #busqueda{
-  border-radius: 5px; 
+  border-radius: 555px; 
+  width: 250px;
 }

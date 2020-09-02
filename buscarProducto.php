@@ -26,7 +26,7 @@
 
       require("header.php");
       $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
-      $consulta=mysqli_query($conexion,"SELECT * FROM productos WHERE (descripcion like '$buscar%')");
+      $consulta=mysqli_query($conexion,"SELECT * FROM productos WHERE (descripcion like '%$buscar%') and estado='activo' order by descripcion asc");
       $productos_x_pag = 4;
       $total_productos = mysqli_num_rows($consulta);
       $paginas = $total_productos / $productos_x_pag;
