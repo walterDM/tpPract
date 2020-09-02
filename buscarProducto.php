@@ -26,71 +26,58 @@
 
       require("header.php");
       $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
-      $consulta=mysqli_query($conexion,"SELECT * FROM productos WHERE descripcion='%le%'");
-      /*while($r=mysqli_fetch_array($consulta)){
-        $idTipoProducto=$r['idTipoProducto'];
-      }
+      $consulta=mysqli_query($conexion,"SELECT * FROM productos WHERE (descripcion like '$buscar%')");
+      $productos_x_pag = 4;
+      $total_productos = mysqli_num_rows($consulta);
+      $paginas = $total_productos / $productos_x_pag;
+      $paginas = ceil($paginas);?>
+    <div class="container">
+        <div class=row>
+     <?php while($r=mysqli_fetch_array($consulta)){
+         ?>
+        <div align="center" class="col-md-3" style="padding:1%;">
+                            <div class="card" style="width: 12.5rem;background:#ffb74d;color:white">
+                                <img src="imagenes/<?php echo $r['imagen']; ?>" class="card-img-top" style="height:250px">
+                                <div class="card-body" style="height:90px">
+                                    <p align="center" class="card-text"><?php echo $r['descripcion']."<br>$".$r['precio']; ?></p>
+                                </div>
+                                <div>
+                                    <?php
+                                    if (isset($_SESSION['login'])) {
+                                      
+                                       $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
+                                        while($rs=mysqli_fetch_array($grupo)){
+                                            $nombrePermiso=$rs['nombrePermiso'];
+                                            switch($nombrePermiso) {
+                                                case "modificar producto":
+                                    ?>
+                                                    <form method="POST" action="modProducto.php">
+                                                        <button style="float: left;margin: 5px;border-radius:30px" type="submit" name="idProductos" id="idProductos" value="<?php echo $r['idProducto']; ?>" class="btn btn-light"><i class="fas fa-pencil-alt"></i></button>
+                                                    </form>
+                                          <?php break; 
+                                                case "baja producto":
+                                          ?>
+                                                    <a style="float: left;margin: 5px;border-radius:30px" class="btn btn-light" href="#" data-toggle="modal" data-target="#info<?php echo $r['idProducto']; ?>"><i class="fas fa-trash-alt"></i></a>
+                                          <?php break;
+                                           }
+                                        }
+                                     }?>
+                                
+                                        <a title="más informacion" style="float: right;margin-right:5px;border-radius:30px;margin-top: 2%" class="btn btn-light card-text" href="#" data-toggle="modal" data-target="#info<?php echo $r['idProducto']; ?>"><i class="fas fa-info-circle"></i></a>
+                            
+                                </div>
+                            </div>
+                        </div>
+
+      <?php }
+      /*
       $consulta2 = mysqli_query($conexion, "SELECT p.* from productos as p 
                                             join productostpmarcas as pp on pp.idProducto=p.idProducto
                                             join tiposproductos_marcas as tpm on tpm.idTpMarca = pp.idTpMarca
                                             where tpm.idTipoProducto=$idTipoProducto 
                                             and p.estado='Activo'");*/
-      $productos_x_pag = 4;
-     
-      $total_productos = mysqli_num_rows($consulta);
-      $paginas = $total_productos / $productos_x_pag;
-      $paginas = ceil($paginas);
    ?>
-   <div class="container">
-      <div class="row">
-          <div class="col-md-12">
-          <nav class="navbar navbar-expand-lg navbar-light" style="float:right">
-                <ul class="navbar-nav mr-auto" style="padding-top:10px">
-               <?php while($r=mysqli_fetch_array($grupo)){
-                    $nombrePermiso=$r['nombrePermiso'];?>
-                                <?php if($nombrePermiso=="crear estante"){?>
-                                 <li class="nav-item">
-                                     <a class="btn btn-warning" style="color:white" href="#" data-toggle="modal" data-target="#crearestante"><i class="far fa-arrow-alt-circle-up"></i>Alta estante</a>
-                                 </li>
-                                <?php }
-                             }?>
-                </ul>
-              </nav>
-              <div data-backdrop="static"  class="modal fade" id="crearestante">
-                <div class="col-md-12 modal-dialog" >
-                    <div class="modal-content">
-                        <div class="modal-header" style="background:#ffb74d;color:white">
-                           <h4 class="modal-title">Alta estante</h4>
-                           <button style="color:white" type="button" class="close" data-dismiss="modal">X</button>
-                        </div>
-                        <div class="modal-body" style="background:#ffb74d;color:white">
-                            <form action="ABMproductos.php" method="POST">
-                                <div class="form-row">
-                                    <div class="form-group col-md-12">
-                                        <label style="float:left" for="inputEmail4">crear estante</label>
-                                        <input class="form-control" type="text" name="estante" id="estante" required placeholder="nombre de estante">
-                                        <input class="form-control" type="text" name="categoria" id="categoria" value="<?php echo $categoria;?>" hidden>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label style="float:left" for="inputEmail4">Fila</label>
-                                        <input class="form-control" type="text" name="fila" id="fila" required placeholder="cantidad de filas">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label style="float:left" for="inputEmail4">Columna</label>
-                                        <input class="form-control" type="text" name="columna" id="columna" required placeholder="cantidad de columnas">
-                                    </div>
-                                </div>
-                                <div class="form-group" align="center">
-                                   <button type="submit" class="btn btn-light" name="Altaestante" value="Altaestante" style="width:50%">Crear</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-              </div>
-          </div>
+        </div>
           <div class="col-md-12">
           <?php if (isset($_GET['pagina'])) {
                     /*$consulta1=mysqli_query($conexion,"SELECT idTipoProducto FROM tiposproductos WHERE descripcion='$categoria'");
@@ -214,7 +201,7 @@
                   //  } 
                 //}
             
-?> -->
+?> 
           </div>
       </div>
    </body>

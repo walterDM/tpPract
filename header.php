@@ -37,7 +37,8 @@ function conectar(){
 
 </head>
 <body >
-<div class="container">
+<div class="container-fluid" style="background:#ffb74d">
+
 <?php 
 require("conexion.php");?>
 
@@ -58,19 +59,19 @@ while ($r=mysqli_fetch_array($select)) {
   $descripcion=$r['descripcion'];
 }
 ?>
-<div class="row" style="background:#ffb74d">
-	<div class="col-md-3"><a class="navbar-brand" href="index.php"><img src="imagenes/logo.jpeg" style="width:200px;height: 50px;border-radius: 50px"></a></div>
-	<div class="col-md-5" >
+<div class="row">
+	<div class="col-md-2" style="padding-top:15px"><a class="navbar-brand" href="index.php"><img src="imagenes/logo.jpeg" style="width:200px;height: 50px;border-radius: 50px"></a></div>
+	<div class="col-md-6" >
     <div id="posBuscador">
 		  <form id="buscador" action="buscarProducto.php" method="GET">
 		  	
-		    <input type="text" name="busqueda" id="busqueda" placeholder="Buscar
+		    <input style="width:90%" type="text" name="busqueda" id="busqueda" placeholder="Buscar
         ">
         <button  type="submit"><i class="fas fa-search"></i></i></button>
 		  </form>
     </div>
 	</div>
- <div class="col-md-4">  
+ <div class="col-md-4" style="padding-top:15px">  
     <nav class="navbar navbar-expand-lg navbar-light nav1" style="float:right">
         <button style="background: white" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -104,7 +105,7 @@ while ($r=mysqli_fetch_array($select)) {
    </div> 
  </div><!--termina color del header--> 	
  <div class="row justify-content-center">
-    <div class="col-md-12" style="background:#ffb74d">
+    <div class="col-md-12" style="background:#ffb74d;padding-top:10px">
     <nav <?php if ($id_usuario==0) {echo 'id="posMenu"';}elseif ($id_usuario>0) {echo 'id="posMenu1"';} ?> class="navbar navbar-expand-lg navbar-light nav1"> 
         <div class="collapse navbar-collapse menustyle" id="navbarSupportedContent">
            <ul class="nav menu">
@@ -399,8 +400,8 @@ while ($r=mysqli_fetch_array($select)) {
 	    </div>
 </div>
 	
-</div><!--fin Container-->
-
+ <!--fin Container-->
+</div>
 
 
 <?php if (isset($_GET['estado'])&& $_GET['estado']==1) {
