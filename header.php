@@ -37,7 +37,7 @@ function conectar(){
 
 </head>
 <body >
-<div class="container-fluid" style="background:#ffb74d">
+<div class="container-fluid contBack">
 
 <?php 
 require("conexion.php");?>

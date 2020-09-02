@@ -64,3 +64,4 @@ require("header.php");
        ?>
    </body>
 </html>
+<?php require 'footer.php'; ?>

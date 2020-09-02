@@ -78,3 +78,4 @@ $total_productos=mysqli_num_rows($consulta);
 	</div>
    </body>
 </html>
+<?php require 'footer.php' ?>

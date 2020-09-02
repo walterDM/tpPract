@@ -47,3 +47,4 @@
    <script src="https://kit.fontawesome.com/2be8605e79.js"></script>
  </body>
 </html>
+<?php require 'footer.php'; ?>
