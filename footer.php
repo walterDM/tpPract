@@ -33,7 +33,7 @@
 		<div class="row justify-content-center">
 			<div class="col-md-4">
 				<footer>
-					<p>2019 EDI®</p>
+					<p>2020 EDI®</p>
 				</footer>
 			</div>
 		</div>
