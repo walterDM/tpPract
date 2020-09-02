@@ -37,7 +37,7 @@ function conectar(){
 
 </head>
 <body >
-<div class="container" style="background:#ffb74d">
+<div class="container-fluid" style="background:#ffb74d">
 
 <?php 
 require("conexion.php");?>
@@ -63,7 +63,7 @@ while ($r=mysqli_fetch_array($select)) {
 	<div class="col-md-3" style="padding-top:15px"><a class="navbar-brand" href="index.php"><img src="imagenes/logo.jpeg" style="width:200px;height: 50px;border-radius: 50px"></a></div>
 	<div class="col-md-4" >
     <div id="posBuscador">
-		  <form id="buscador" action="buscarProducto.php" method="GET">
+		  <form id="buscador" action="buscarProducto.php?pagina=1" method="GET">
 		  	
 		    <input  type="text" name="busqueda" id="busqueda" placeholder="Buscar
         ">
