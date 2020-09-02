@@ -66,7 +66,7 @@ while ($r=mysqli_fetch_array($select)) {
 		  <form id="buscador" action="buscarProducto.php?pagina=1" method="GET">
 		  	
 		    <input type="text" name="busqueda" id="busqueda" placeholder="Buscar
-        ">
+        " required>
         <button type="submit"><i class="fas fa-search"></i></i></button>
 		  </form>
     </div>
