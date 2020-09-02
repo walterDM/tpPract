@@ -22,13 +22,18 @@
       require("conexion.php");
       if (isset($_GET['busqueda']) && !empty($_GET['busqueda'])) {
          $buscar = $_GET['busqueda'];
+         if(!isset($_GET['pagina'])){
+           header("location:buscarProducto.php?busqueda=$buscar&pagina=1");
+         }
       }
+
 
       require("header.php");
       $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
-      $consulta=mysqli_query($conexion,"SELECT * FROM productos WHERE (descripcion like '$buscar%')");
-      $productos_x_pag = 4;
-      $total_productos = mysqli_num_rows($consulta);
+      $consulta=mysqli_query($conexion,"SELECT * FROM productos WHERE (descripcion like '%$buscar%') and estado='activo' order by descripcion asc");
+      $productos_x_pag = 4; 
+       $total_productos=mysqli_num_rows($consulta);
+      
       $paginas = $total_productos / $productos_x_pag;
       $paginas = ceil($paginas);?>
     <div class="container">
@@ -165,6 +170,17 @@
                         </div>
                     <?php } ?>
                     </div>
+                    <div class="container" style="padding-top:40px">
+                        <nav arial-label="page navigation">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item <?php echo $_GET['pagina'] <= 1 ? 'disabled' : '' ?>"><a class="page-link" href="buscarProducto.php?busqueda=<?php echo $buscar; ?>&pagina=<?php echo $_GET['pagina'] - 1 ?>">Anterior</a></li>
+                               <?php for ($i = 1; $i <= $paginas; $i++) : ?>
+                                    <li class="<?php echo $_GET['pagina'] == $i ? 'active' : '' ?>"><a class="page-link" href="buscarProducto.php?busqueda=<?php echo $buscar; ?>&pagina=<?php echo $i ?>"><?php echo $i ?></a></li>
+                                <?php endfor ?>
+                                <li class="page-item <?php echo $_GET['pagina'] >= $paginas ? 'disabled' : '' ?>"><a class="page-link" href="buscarProducto.php?busqueda=<?php echo $buscar; ?>&pagina=<?php echo $_GET['pagina'] + 1 ?>">Siguiente</a></li>
+                            </ul>
+                        </nav>
+                    </div>
                     <!-- <div class="container" style="padding-top:40px">
                         <nav arial-label="page navigation">
                             <ul class="pagination justify-content-center">
@@ -201,7 +217,7 @@
                   //  } 
                 //}
             
-?> 
+?> -->
           </div>
       </div>
    </body>

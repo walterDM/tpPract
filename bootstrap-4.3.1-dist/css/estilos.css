@@ -105,6 +105,7 @@ td{
   color: white;
 }
 #busqueda{
+<<<<<<< HEAD
   border-radius: 5px; 
 }
 .formContacto form{
@@ -120,4 +121,8 @@ td{
 }
 .formContacto form button{
   width:50%;
+=======
+  border-radius: 555px; 
+  width: 250px;
+>>>>>>> 3b38d1644ccbf4846a353423fe2388f6a8f14f21
 }
