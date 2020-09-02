@@ -61,13 +61,13 @@ while ($r=mysqli_fetch_array($select)) {
 ?>
 <div class="row">
 	<div class="col-md-3" style="padding-top:15px"><a class="navbar-brand" href="index.php"><img src="imagenes/logo.jpeg" style="width:200px;height: 50px;border-radius: 50px"></a></div>
-	<div class="col-md-4" >
+	<div class="col-md-5" >
     <div id="posBuscador">
 		  <form id="buscador" action="buscarProducto.php?pagina=1" method="GET">
 		  	
-		    <input  type="text" name="busqueda" id="busqueda" placeholder="Buscar
+		    <input type="text" name="busqueda" id="busqueda" placeholder="Buscar
         ">
-        <button  type="submit"><i class="fas fa-search"></i></i></button>
+        <button type="submit"><i class="fas fa-search"></i></i></button>
 		  </form>
     </div>
 	</div>
