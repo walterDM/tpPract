@@ -5,14 +5,7 @@ require("header.php");
 // $select2=mysqli_query($conexion,"SELECT * FROM grupos");
 
 ?>
-<!DOCTYPE html>
-<html>
-   <head>
-      <title>Inicio</title>
-        
-        
-   </head>
-   <body>
+
     <div class="container ">
       <div class="row" align="center" style="padding-top:20px">
        <div class="col-md-12 info formContacto">
@@ -62,6 +55,5 @@ require("header.php");
       
        
        ?>
-   </body>
-</html>
+
 <?php require 'footer.php'; ?>

@@ -9,17 +9,7 @@ $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso FROM permisos AS p, grupos
 $select2=mysqli_query($conexion,"SELECT * FROM grupos");
 
 ?>
-<!DOCTYPE html>
-<html>
-   <head>
-      <title>Inicio</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="estilos.css">
-   </head>
-   <body style="background:#ffe0b2;font-weight:bold;">
-      <div class="container">
+
           <div class="row">
         <?php 
             if(isset($_SESSION['login'])){
@@ -30,15 +20,15 @@ $select2=mysqli_query($conexion,"SELECT * FROM grupos");
                   $datos=mysqli_fetch_assoc($resultado);
                   
 
-          $consulta2=mysqli_query($conexion,"SELECT idTipoContacto FROM tiposcontactos WHERE descripcion='email'");
-          while($r=mysqli_fetch_array($consulta2)){$idTipoMail=$r['idTipoContacto'];}
-          $consulta3=mysqli_query($conexion,"SELECT cp.descripcion FROM contactosproveedores AS cp,proveedores AS p WHERE cp.idProveedor=$idProveedor AND cp.idTipoContacto=$idTipoMail");
-          $datoMail=mysqli_fetch_assoc($consulta3);
-          $consulta4=mysqli_query($conexion,"SELECT idTipoContacto FROM tiposcontactos WHERE descripcion='telefono'");
-          while($r=mysqli_fetch_array($consulta4)){$idTipoTelefono=$r['idTipoContacto'];}
-          $consulta5=mysqli_query($conexion,"SELECT cp.descripcion FROM contactosproveedores AS cp,proveedores AS p WHERE cp.idProveedor=$idProveedor AND cp.idTipoContacto=$idTipoTelefono");
-          $datoTelefono=mysqli_fetch_assoc($consulta5);
-        ?>
+              $consulta2=mysqli_query($conexion,"SELECT idTipoContacto FROM tiposcontactos WHERE descripcion='email'");
+              while($r=mysqli_fetch_array($consulta2)){$idTipoMail=$r['idTipoContacto'];}
+              $consulta3=mysqli_query($conexion,"SELECT cp.descripcion FROM contactosproveedores AS cp,proveedores AS p WHERE cp.idProveedor=$idProveedor AND cp.idTipoContacto=$idTipoMail");
+              $datoMail=mysqli_fetch_assoc($consulta3);
+              $consulta4=mysqli_query($conexion,"SELECT idTipoContacto FROM tiposcontactos WHERE descripcion='telefono'");
+              while($r=mysqli_fetch_array($consulta4)){$idTipoTelefono=$r['idTipoContacto'];}
+              $consulta5=mysqli_query($conexion,"SELECT cp.descripcion FROM contactosproveedores AS cp,proveedores AS p WHERE cp.idProveedor=$idProveedor AND cp.idTipoContacto=$idTipoTelefono");
+              $datoTelefono=mysqli_fetch_assoc($consulta5);
+            ?>
                  <div class="col-md-12" style="padding-top:10px">
                    <form  method="POST" action="ABMProv.php" >
                     <input type="hidden" name="idProveedor" value="<?php echo$idProveedor?>">
@@ -93,14 +83,11 @@ $select2=mysqli_query($conexion,"SELECT * FROM grupos");
                  <button name="registrado" value="registrado" id="btn2" class="btn btn-light"  style="width:50%">Cancelar</button>
                </div>
              </div>
-           </div>
+           
          </form>
        </div>
    <?php }
             }
     ?>
 </div>
-</div>
-       </script>
-   </body>
-</html>
+<?php require 'footer.php'; ?>

@@ -7,20 +7,8 @@ $consulta=mysqli_query($db,"SELECT * FROM productos");
         $idgrupo=$_SESSION['grupo'];
       }
 ?>
-<!DOCTYPE html>
-<html>
-   <head>
-      <title>Inicio</title>
-   </head>
-   <body>
-
-   <div class="container" style="padding-top:20px">
-
-    
-   
-
-     
-    <div class="container" style="background:#ffb74d;">
+    <br>
+    <div class="container contBack">
  
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
@@ -54,7 +42,7 @@ $consulta=mysqli_query($db,"SELECT * FROM productos");
 </div>
 </div>
 		
-	  </div>
+	 
 	  <?php
 	     if (isset($_GET['registrado'])&& $_GET['registrado']==1) {
 			echo "<script type='text/javascript'>alert('fue registrado con exito');</script>";
@@ -85,7 +73,6 @@ $consulta=mysqli_query($db,"SELECT * FROM productos");
 			 
 		  }
 	  ?>
-	</div>
-   </body>
-</html>
+
+
 <?php require 'footer.php' ?>

@@ -1,18 +1,6 @@
-<!DOCTYPE html>
-<html>
-   <head>
-      <title>Inicio</title>
-   </head>
-   <style>
-       .permisos{
-           background-color: #ffb74d;
-           padding:20px;
-           width:100%;
-       }
-   </style>
-   <body>
+
    <?php require("header.php");?>
-   <div class="container">
+   
       <div class="row">
           <div class="col-md-12" style="padding-top:60px;">
              <form action="permisos.php" method="post" class="permisos">
@@ -59,5 +47,4 @@
              </form>
           </div>
       </div>
-   </body>
-</html>
+  <?php require 'footer.php' ?>

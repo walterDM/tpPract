@@ -446,6 +446,3 @@ if (isset($_GET['error'])&& $_GET['error']==1) {
        </script>  
 
 
-</div><!--end container-->
-</body>
-</html>

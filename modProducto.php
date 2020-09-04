@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<html>
-   <head>
-      <title>Inicio</title>
 
-   </head>
-   <body>
    <?php require("header.php");
 		 require("conexion.php");
 		 $select=mysqli_query($conexion,"SELECT * FROM tiposproductos");
 
 	
     ?>
-   <div class="container">
+  
       <div class="row">
           <div class="col-md-12" style="padding-top:50px">
           <?php 
@@ -164,5 +158,4 @@
     <?php }?>
           </div>
       </div>
-   </body>
-</html>
+<?php require 'footer.php'; ?>

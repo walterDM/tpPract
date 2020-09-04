@@ -12,18 +12,8 @@ while ($r=mysqli_fetch_array($select)) {
 // $select2=mysqli_query($conexion,"SELECT * FROM grupos");
 
 ?>
-<!DOCTYPE html>
-<html>
-   <head>
-      <title>Inicio</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="estilos.css">
-   </head>
-   <body style="background:#ffe0b2;font-weight:bold;">
-      <div class="container">
-          <div class="row">
+
+<div class="row">
           
             <?php 
             if(isset($_SESSION['login'])){
@@ -82,7 +72,7 @@ while ($r=mysqli_fetch_array($select)) {
                  <button name="registrado" value="registrado" id="btn2" class="btn btn-light" onclick="valida2()" style="width:50%">Cancelar</button>
                </div>
              </div>
-           </div>
+           
          </form>
        </div>
    <?php }
@@ -97,14 +87,14 @@ while ($r=mysqli_fetch_array($select)) {
 <?php }
 }else{?>
   <div class="col-md-12" style="padding-top:10px">
-    <div class="alert alert-warning" role="alert">
+      <div class="alert alert-warning" role="alert">
      <h2 align="center">ACCESO DENEGADO</h2>
 
+     </div>
    </div>
- </div>
-<?php }?>
+  <?php }?>
 </div>
-</div>
+
 <?php 
         if (isset($_GET['registrado'])&& $_GET['registrado']==1) {
           echo "<script type='text/javascript'>alert('fue registrado con exito');</script>";
@@ -118,5 +108,4 @@ while ($r=mysqli_fetch_array($select)) {
         }
        
        ?>
-   </body>
-</html>
+<?php require 'footer.php'; ?>

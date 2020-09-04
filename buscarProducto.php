@@ -1,25 +1,4 @@
-<!DOCTYPE html>
-<html>
-   <head>
-      <title>Productos</title>
-      <style>
-          .pagination li a{
-                background:white;
-                color:#ffb74d;
-            }
-            .pagination li a:hover{
-                background:white;
-                color:#ffb74d;
-            }
-            .pagination .active a{
-                background:#ffb74d;
-                color:white;
-            }
-      </style>
-   </head>
-   <body>
-   	
-   <?php 
+ <?php 
       require("conexion.php");
       function limpiarString($texto){
       $textoLimpio = preg_replace('([^A-Za-z0-9])', '', $texto);	
@@ -42,7 +21,7 @@
       
 
 
-      require("header.php");
+ require("header.php");
       $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
       $consulta=mysqli_query($conexion,"SELECT * FROM productos WHERE (descripcion like '%$buscar%') and estado='activo' order by descripcion asc");
       $productos_x_pag = 4; 
@@ -50,7 +29,7 @@
       
       $paginas = $total_productos / $productos_x_pag;
       $paginas = ceil($paginas);?>
-    <div class="container">
+   
         <div class=row>
      
           <div class="col-md-12">
@@ -166,7 +145,6 @@
                     ?>
           </div>
       </div>
-   </body>
-</html>
+
 <?php require 'footer.php'; 
 ?>

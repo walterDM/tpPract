@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html>
-   <head>
-      <title>Alta Producto</title>
-
-   </head>
-   <body>
-   <?php require("header.php");
+ <?php require("header.php");
 		 require("conexion.php");
 
 		 $select=mysqli_query($conexion,"SELECT idTipoProducto, descripcion FROM tiposproductos ORDER BY descripcion ASC");
@@ -23,7 +16,6 @@
 				});
 			});
 	</script>
-   <div class="container">
       <div class="row">
           <div class="col-md-12" style="padding-top:50px">
           <form  method="POST" action="ABMproductos.php" enctype="multipart/form-data" autocomplete="off"  onsubmit="return valida2(this)">
@@ -109,5 +101,4 @@
 		               </form>
           </div>
       </div>
-   </body>
-</html>
+<?php require 'footer.php'; ?>
