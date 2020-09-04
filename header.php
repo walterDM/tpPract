@@ -24,88 +24,90 @@ function conectar(){
       header("location:index.php");
     }
   }
+/*if (isset($_POST['titulo'])) {
+  $titulo=$_POST['titulo'];
+}else{
+  $titulo='inicio';
+}
 
+  function titulo($title){
+    $titulo=$title;
+    return $titulo;
+  }
+//$titulo=titulo('inicio');*/
 ?>
+<?php 
+require("conexion.php");?>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<title>GestiStock</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="bootstrap-4.3.1-dist/css/estilos.css">
   
 
 </head>
-<body >
-<div class="container-fluid contBack">
-
-<?php 
-require("conexion.php");?>
-
-  
-                    <?php $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
+<body>
+  <?php $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
                     $grupo2=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
                     $grupo3=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
                     $grupo4=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
-                         
-           
-                            
-                    
-                  
-     
-  $select=mysqli_query($conexion,"SELECT * FROM tiposdocumentos");
-  $select2=mysqli_query($conexion,"SELECT * FROM tiposproductos");
-while ($r=mysqli_fetch_array($select)) {
-  $descripcion=$r['descripcion'];
-}
-?>
-<div class="row">
-	<div class="col-md-3" style="padding-top:15px"><a class="navbar-brand" href="index.php"><img src="imagenes/logo.jpeg" style="width:200px;height: 50px;border-radius: 50px"></a></div>
-	<div class="col-md-5" >
-    <div id="posBuscador">
-		  <form id="buscador" action="buscarProducto.php?pagina=1" method="GET">
-		  	
-		    <input type="text" name="busqueda" id="busqueda" placeholder="Buscar
-        " required>
-        <button type="submit"><i class="fas fa-search"></i></i></button>
-		  </form>
-    </div>
-	</div>
- <div class="col-md-4" style="padding-top:15px">  
-    <nav class="navbar navbar-expand-lg navbar-light nav1" style="float:right">
-        <button style="background: white" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-           <ul class="navbar-nav mr-auto">
-               <?php if ($id_usuario==0): ?>
-               <li class="nav-item active">
-                   <a class="btn btn-light" href="#" data-toggle="modal" data-target="#ingresar" onclick="ingresar();">Iniciar Sesion</a>
-               </li>
-               <li class="nav-item active">
-                   <a class="btn btn-light" href="#" data-toggle="modal" data-target="#registrar" onclick="registrar();">Registrate</a>
-               </li>
-               <?php else: ?>
-               <li class="nav-item dropdown">
-                    <a class="dropdown-toggle btn btn-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <?php echo $nombre_usuario;?>
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <form action="index.php" method="POST">
-                               <button  type="submit" class="dropdown-item" name="borrarSesion" onclick="<?php killSession();?>">Cerrar Sesión</button>
-                            </form>
-                    </div>
-               </li>
-               <?php endif ?> 
-           </ul>
+    $select=mysqli_query($conexion,"SELECT * FROM tiposdocumentos");
+    $select2=mysqli_query($conexion,"SELECT * FROM tiposproductos");
+    while ($r=mysqli_fetch_array($select)) {
+      $descripcion=$r['descripcion'];
+    }
+  ?>
+<div class="container-fluid">
+    <div class="row contBack">
+      <div class="col-md-3" style="padding-top:15px"><a class="navbar-brand" href="index.php"><img src="imagenes/logo.jpeg" style="width:200px;height: 50px;border-radius: 50px"></a>
+      </div>
+      <div class="col-md-5" >
+        <div id="posBuscador">
+          <form id="buscador" action="buscarProducto.php?pagina=1" method="GET">
+            
+            <input type="text" name="busqueda" id="busqueda" placeholder="Buscar
+            " required>
+            <button type="submit"><i class="fas fa-search"></i></i></button>
+          </form>
         </div>
-    </nav>
-    	
-	    
-   </div> 
- </div><!--termina color del header--> 	
- <div class="row justify-content-center">
-    <div class="col-md-11" style="background:#ffb74d;padding-top:10px">
+      </div>
+      <div class="col-md-4" style="padding-top:15px">  
+        <nav class="navbar navbar-expand-lg navbar-light nav1" style="float:right">
+            <button style="background: white" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+               <ul class="navbar-nav mr-auto">
+                   <?php if ($id_usuario==0): ?>
+                   <li class="nav-item active">
+                       <a class="btn btn-light" href="#" data-toggle="modal" data-target="#ingresar" onclick="ingresar();">Iniciar Sesion</a>
+                   </li>
+                   <li class="nav-item active">
+                       <a class="btn btn-light" href="#" data-toggle="modal" data-target="#registrar" onclick="registrar();">Registrate</a>
+                   </li>
+                   <?php else: ?>
+                   <li class="nav-item dropdown">
+                        <a class="dropdown-toggle btn btn-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <?php echo $nombre_usuario;?>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                              <form action="index.php" method="POST">
+                                   <button  type="submit" class="dropdown-item" name="borrarSesion" onclick="<?php killSession();?>">Cerrar Sesión</button>
+                                </form>
+                        </div>
+                   </li>
+                   <?php endif ?> 
+               </ul>
+            </div>
+        </nav> 
+       </div> 
+    </div><!--end row--> 
+    
+  <div class="row contBack">
+    <div class="col-md-12">
     <nav <?php if ($id_usuario==0) {echo 'id="posMenu"';}elseif ($id_usuario>0) {echo 'id="posMenu1"';} ?> class="navbar navbar-expand-lg navbar-light nav1"> 
         <div class="collapse navbar-collapse menustyle" id="navbarSupportedContent">
            <ul class="nav menu">
@@ -256,11 +258,9 @@ while ($r=mysqli_fetch_array($select)) {
             </ul>
         </div>
     </nav>
-    	</div><!--termina col-->	
-</div><!--termina row-->	
-
-
- <div data-backdrop="static"  class="modal fade" id="recuperar">
+      </div><!--termina col-->  
+  </div><!--termina row-->
+  <div data-backdrop="static"  class="modal fade" id="recuperar">
     <div class="col-md-12 modal-dialog" >
         <div class="modal-content">
             <div class="modal-header" style="background:#ffb74d;color:white">
@@ -285,90 +285,90 @@ while ($r=mysqli_fetch_array($select)) {
             
         </div>
       </div>
-  </div>
-    <div data-backdrop="static"  class="modal fade" id="ingresar">
-	    <div class="col-md-12 modal-dialog" >
-	        <div class="modal-content">
-	            <div class="modal-header">
-	                <h4 class="modal-title">Iniciar Sesión</h4>
-	                <button type="button" class="close" data-dismiss="modal">X</button>
-	            </div>
-	            <div class="col-md-12" style="background:#e0e0e0">
-		            <div class="modal-body" >
-		               <form action="login.php" method="POST">
-		          		   <div class="form-group" id="user-group">
-		            		   <label for="user">Usuario</label>
-		            		   <i class="fas fa-user"></i><input type="text" class="form-control" name="usuario" id="usuario"  placeholder="ingrese su e-mail">
-		        	  	   </div>
-		        	  	   <div class="form-group" id="password-group">
-						       <label for="contra">Contraseña</label>
-						       <i class="fas fa-lock"></i><input type="password" class="form-control" name="contrasenia" id="contrasenia" placeholder="ingrese su contraseña">
+  </div><!--end #recuperar-->
+  <div data-backdrop="static"  class="modal fade" id="ingresar">
+      <div class="col-md-12 modal-dialog" >
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h4 class="modal-title">Iniciar Sesión</h4>
+                  <button type="button" class="close" data-dismiss="modal">X</button>
+              </div>
+              <div class="col-md-12" style="background:#e0e0e0">
+                <div class="modal-body" >
+                   <form action="login.php" method="POST">
+                     <div class="form-group" id="user-group">
+                       <label for="user">Usuario</label>
+                       <i class="fas fa-user"></i><input type="text" class="form-control" name="usuario" id="usuario"  placeholder="ingrese su e-mail">
+                     </div>
+                     <div class="form-group" id="password-group">
+                   <label for="contra">Contraseña</label>
+                   <i class="fas fa-lock"></i><input type="password" class="form-control" name="contrasenia" id="contrasenia" placeholder="ingrese su contraseña">
                  </div>
                  <div align="center"><a style="color:black;text-decoration:none" href="#" data-toggle="modal" data-target="#recuperar" onclick="recup()">¿Olvidaste tu contraseña?</a></div>
-					  	   <div align="center" class="form-group">
-		          			   <button style="margin-top:7%;width:50%" type="submit" class="btn btn-light"  name="acept" value="acept">Ingresar</button>
-		            	   </div>
-		               </form>
-		    		</div>
-	    	   </div>	
-	        </div>
-	    </div>
-    </div>
+                 <div align="center" class="form-group">
+                       <button style="margin-top:7%;width:50%" type="submit" class="btn btn-light"  name="acept" value="acept">Ingresar</button>
+                     </div>
+                   </form>
+            </div>
+           </div> 
+          </div>
+      </div>
+    </div><!--end #iniciar-->
     <div data-backdrop="static"  class="modal fade" id="registrar">
-	    <div class="col-md-12 modal-dialog modal-lg" >
-	        <div class="modal-content">
-	            <div class="modal-header">
-	                <h4 class="modal-title">Registrate</h4>
-	                <button type="button" class="close" data-dismiss="modal">X</button>
-	            </div>
-	            <div class="col-md-12" style="background:#e0e0e0">
-		            <div class="modal-body" >
+      <div class="col-md-12 modal-dialog modal-lg" >
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h4 class="modal-title">Registrate</h4>
+                  <button type="button" class="close" data-dismiss="modal">X</button>
+              </div>
+              <div class="col-md-12" style="background:#e0e0e0">
+                <div class="modal-body" >
                 <form  method="POST" action="registrar.php"  onsubmit="return form(this)">
-		               	<div class="row">
-		               	 <div class="col-md-6">
+                    <div class="row">
+                     <div class="col-md-6">
                          
-		          		   <div class="form-group">
-		            		   <label>Nombre</label>
-		            		   <input type="text" class="form-control" name="nombre" id="nombre"  placeholder="ingrese su nombre">
-		        	  	   </div>
-		        	  	    
+                     <div class="form-group">
+                       <label>Nombre</label>
+                       <input type="text" class="form-control" name="nombre" id="nombre"  placeholder="ingrese su nombre">
+                     </div>
+                      
                              <div class="form-group">
-						       <label>Tipo de documento</label>
-						       <select class="form-control" id="tipodoc" name="tipodoc">
-							      <option><?php echo $descripcion;?></option>
-							   </select>
+                   <label>Tipo de documento</label>
+                   <select class="form-control" id="tipodoc" name="tipodoc">
+                    <option><?php echo $descripcion;?></option>
+                 </select>
                              </div>
                              <div class="form-group">
-						       <label>Numero de telefono</label>
-						       <input type="text" class="form-control" name="telefono" id="telefono" placeholder="ingrese numero de telefono" required>
+                   <label>Numero de telefono</label>
+                   <input type="text" class="form-control" name="telefono" id="telefono" placeholder="ingrese numero de telefono" required>
                              </div>
                              <div class="form-group ">
-						       <label>E-mail</label>
-						       <input type="email" class="form-control" name="mail" id="mail" placeholder="example@example.com" required>
+                   <label>E-mail</label>
+                   <input type="email" class="form-control" name="mail" id="mail" placeholder="example@example.com" required>
                  </div>
                              <div class="form-group">
-						       <label>Usuario</label>
-						       <input type="text" class="form-control" name="usuario" id="usuario" placeholder="ingrese su usuario">
-					  	   </div>
-					  	     </div>
-					  	  <div class="col-md-6">
+                   <label>Usuario</label>
+                   <input type="text" class="form-control" name="usuario" id="usuario" placeholder="ingrese su usuario">
+                 </div>
+                   </div>
+                <div class="col-md-6">
                 <div class="form-group">
-						       <label>Apellido</label>
-						       <input type="text" class="form-control" name="apellido" id="apellido" placeholder="ingrese su apellido">
+                   <label>Apellido</label>
+                   <input type="text" class="form-control" name="apellido" id="apellido" placeholder="ingrese su apellido">
                              </div>
                              <div class="form-group">
-						       <label>Numero de documento</label>
-						       <input type="text" class="form-control" name="numDocumento" id="numDocumento" placeholder="ingrese numero de documento">
+                   <label>Numero de documento</label>
+                   <input type="text" class="form-control" name="numDocumento" id="numDocumento" placeholder="ingrese numero de documento">
                              </div>
                             <div class="form-group">
-						       <label>Fecha de nacimiento</label>
-						       <input type="date" class="form-control" name="fechaNac" id="fechaNac">
+                   <label>Fecha de nacimiento</label>
+                   <input type="date" class="form-control" name="fechaNac" id="fechaNac">
                              </div>
                            
                              
                  <div class="form-group">
-						       <label>Repetir E-mail</label>
-						       <input type="email" class="form-control" id="mail2" placeholder="example@example.com" required>
+                   <label>Repetir E-mail</label>
+                   <input type="email" class="form-control" id="mail2" placeholder="example@example.com" required>
                  </div>
                              
                              
@@ -376,41 +376,36 @@ while ($r=mysqli_fetch_array($select)) {
                              <div class="row">
                             
                              <div class="form-group col-md-6">
-						                      <label>Contraseña</label>
-						                       <input type="password" class="form-control" name="contrasenia" id="contr" placeholder="ingrese su contraseña" required>
+                                  <label>Contraseña</label>
+                                   <input type="password" class="form-control" name="contrasenia" id="contr" placeholder="ingrese su contraseña" required>
                              </div>
                              <div class="form-group col-md-6">
-						                      <label>Repetir Contraseña</label>
-						                       <input type="password" class="form-control" id="contr2" placeholder="ingrese su contraseña" required>
+                                  <label>Repetir Contraseña</label>
+                                   <input type="password" class="form-control" id="contr2" placeholder="ingrese su contraseña" required>
                              </div>
                              </div>
                             </div>
                             
-					  	  <div class="col-md-12" align="center">
-					  	   <div class="form-group">
+                <div class="col-md-12" align="center">
+                 <div class="form-group">
                                  <button style="width: 50%;" name="registrado" value="registrado" id="btn2" class="btn btn-light" onclick="form()">registrar usuario</button>
                                  <button style="width: 50%;" class="btn btn-dark" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
                            </div>
-		            	  </div>
-		            	</div>
-		               </form>
-		    		</div>
-	    	   </div>	
-	        </div>
-	    </div>
-</div>
-	
- <!--fin Container-->
-</div>
-
-
+                    </div>
+                  </div>
+                   </form>
+            </div>
+           </div> 
+          </div>
+      </div>
+  </div><!--end #registrar-->
 <?php if (isset($_GET['estado'])&& $_GET['estado']==1) {
-	echo "<script type='text/javascript'>
+  echo "<script type='text/javascript'>
              setTimeout(function(){alert('fue registrado con exito!');},100,'JavaScript');
              window.onload = function () {
                   login();
              }
-		    </script>";
+        </script>";
 }
 if (isset($_GET['estado'])&& $_GET['estado']==2) {
   echo "<script type='text/javascript'>setTimeout(function(){alert('el mail ingresado ya existe, intente con otro.');},500,'JavaScript');</script>";
@@ -449,5 +444,5 @@ if (isset($_GET['error'])&& $_GET['error']==1) {
          document.getElementById('ingresar').hidden=true;
        }
        </script>  
-       </body>
-       </html>
+
+

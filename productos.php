@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html>
    <head>
       <title>Productos</title>
@@ -16,7 +16,7 @@
                 color:white;
             }
       </style>
-   </head>
+   </head>-->
    <body>
    <?php 
       require("conexion.php");
@@ -28,6 +28,7 @@
     
       }
       require("header.php");
+
       $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
       $consulta=mysqli_query($conexion,"SELECT idTipoProducto FROM tiposproductos WHERE descripcion='$categoria'");
       while($r=mysqli_fetch_array($consulta)){
@@ -44,7 +45,7 @@
       $paginas = $total_productos / $productos_x_pag;
       $paginas = ceil($paginas);
    ?>
-   <div class="container">
+  <!--<div class="container">-->
       <div class="row">
           <div class="col-md-12">
           <nav class="navbar navbar-expand-lg navbar-light" style="float:right">
@@ -235,6 +236,5 @@
 ?> -->
           </div>
       </div>
-   </body>
-</html>
+   
 <?php require 'footer.php'; ?>

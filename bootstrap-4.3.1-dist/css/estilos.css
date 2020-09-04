@@ -90,12 +90,15 @@ td{
 
 /*ajusta posicion del menu*/
 #posMenu{
-  margin-top: -2%;
+  margin-top: -1% ;
   margin-left: 30%;
+ 
+ 
 }
 #posMenu1{
   margin-top: -2%;
-  margin-left: 10%;
+  margin-left: 20%;
+  
 }
 /*ajusta posicion bucscador*/
 #posBuscador{
@@ -106,7 +109,7 @@ td{
 }
 #busqueda{
   border-radius: 15px; 
-  width:90%;
+  width:85%;
 
 }
 .formContacto form{
@@ -132,3 +135,8 @@ td{
   background: #ffb74d;
 
 }
+.permisos{
+           background-color: #ffb74d;
+           padding:20px;
+           width:100%;
+       }

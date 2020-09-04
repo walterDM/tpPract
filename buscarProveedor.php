@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>BUSCAR PROVEEDORES</title>
-</head>
-<body style="background:#ffe0b2">
+
    <?php 
       require("header.php");
       require("conexion.php");  
       $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso FROM permisos AS p, grupospermisos AS up WHERE (p.nombrePermiso='buscar proveedor' OR p.nombrePermiso='baja proveedor' OR p.nombrePermiso='modificar proveedor') AND p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'"); 
    ?>
-   <div class="container-fluid">
+  
        <div class="row">
             <?php 
                if($r=mysqli_fetch_array($grupo)){
@@ -53,6 +48,5 @@
          echo "<script type='text/javascript'>alert('no fue modificado');</script>";
        }
         ?>
- </body>
-</html>
+
 <?php require 'footer.php'; ?>

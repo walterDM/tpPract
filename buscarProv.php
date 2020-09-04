@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>PROVEEDORES</title>
-</head>
-<body style="background:#ffe0b2">
+
  <?php 
  if(isset($_POST['buscar']) && !empty($_POST['buscar'])){
   if(!isset($_GET['pagina'])){
@@ -12,7 +7,7 @@
   require("header.php");
   require("conexion.php");    
   ?>
-  <div class="container-fluid">
+ 
    <div class="row">
     <div class="col-md-12" align="center" style="padding-top:20px">
       <form action="buscarProv.php?pagina=1" method="POST">
@@ -183,11 +178,10 @@
             </nav>
         </div>
 </div>
-</div>
+
 <?php }else{
   header("location:buscarProveedor.php");
   }?>                           
   
-</body>
-</html>
+
 <?php require 'footer.php'; ?>
