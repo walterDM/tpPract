@@ -24,11 +24,17 @@ function conectar(){
       header("location:index.php");
     }
   }
+/*if (isset($_POST['titulo'])) {
+  $titulo=$_POST['titulo'];
+}else{
+  $titulo='inicio';
+}
+
   function titulo($title){
     $titulo=$title;
     return $titulo;
   }
-
+//$titulo=titulo('inicio');*/
 ?>
 <?php 
 require("conexion.php");?>
@@ -36,7 +42,7 @@ require("conexion.php");?>
 <html>
 <head>
 <meta charset="UTF-8">
-<title><?php echo titulo('inicio'); ?></title>
+<title>GestiStock</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="bootstrap-4.3.1-dist/css/estilos.css">
