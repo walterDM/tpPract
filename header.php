@@ -61,7 +61,7 @@ require("conexion.php");?>
     }
   ?>
 <div class="container-fluid">
-    <div class="row contBack">
+    <div class="row contBackHeader">
       <div class="col-md-3" style="padding-top:15px"><a class="navbar-brand" href="index.php"><img src="imagenes/logo.jpeg" style="width:200px;height: 50px;border-radius: 50px"></a>
       </div>
       <div class="col-md-5" >
@@ -89,14 +89,21 @@ require("conexion.php");?>
                        <a class="btn btn-light" href="#" data-toggle="modal" data-target="#registrar" onclick="registrar();">Registrate</a>
                    </li>
                    <?php else: ?>
-                   <li class="nav-item dropdown">
-                        <a class="dropdown-toggle btn btn-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <?php echo $nombre_usuario;?>
+                   <li class="nav-item active">
+                       <a class="btn btn-light cart" href="#"><i class="fas fa-cart-plus"></i></a>
+                   </li>
+                   <li class="nav-item">
+                        <a class="btn btn-light user" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user-alt"></i>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                              <form action="miperfil.php" method="POST">
+                                   <input text="text" name="nombre_usuario" id="nombre_usuario" value="<?php echo $nombre_usuario;?>" hidden>
+                                   <button  type="submit" class="dropdown-item" name="perfil" value="perfil">Mi perfil</button>
+                              </form>
                               <form action="index.php" method="POST">
                                    <button  type="submit" class="dropdown-item" name="borrarSesion" onclick="<?php killSession();?>">Cerrar Sesión</button>
-                                </form>
+                              </form>
                         </div>
                    </li>
                    <?php endif ?> 
@@ -106,7 +113,7 @@ require("conexion.php");?>
        </div> 
     </div><!--end row--> 
     
-  <div class="row contBack">
+  <div class="row contBackHeader">
     <div class="col-md-12">
     <nav <?php if ($id_usuario==0) {echo 'id="posMenu"';}elseif ($id_usuario>0) {echo 'id="posMenu1"';} ?> class="navbar navbar-expand-lg navbar-light nav1"> 
         <div class="collapse navbar-collapse menustyle" id="navbarSupportedContent">

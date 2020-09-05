@@ -8,12 +8,12 @@ $consulta=mysqli_query($db,"SELECT * FROM productos");
       }
 ?>
     <br>
-    <div class="container contBack">
+    <div class="container carousel">
  
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
   <?php for($i=0;$i<$total_productos;$i++){ $active="active";?>
-    <li style="background:black" data-target="#carouselExampleIndicators" data-slide-to="<?php echo $i;?>" class="<? echo $active;?>"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="<?php echo $i;?>" class="<? echo $active;?>"></li>
   <?php
      $active="";
   }

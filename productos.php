@@ -17,7 +17,7 @@
             }
       </style>
    </head>-->
-   <body>
+   
    <?php 
       require("conexion.php");
       if (isset($_GET['categoria'])) {
@@ -109,11 +109,13 @@
                    <?php while ($r = mysqli_fetch_array($consulta3)) { ?>
                         <div align="center" class="col-md-3" style="padding:1%;">
                             <div class="card" style="width: 12.5rem;background:#ffb74d;color:white">
-                                <img src="imagenes/<?php echo $r['imagen']; ?>" class="card-img-top" style="height:250px">
+                                <img src="imagenes/<?php echo $r['imagen']; ?>" class="card-img-top">
                                 <div class="card-body" style="height:90px">
                                     <p align="center" class="card-text"><?php echo $r['descripcion']."<br>$".$r['precio']; ?></p>
                                 </div>
+                                <a class="btn btn-light" href="peliculas.php?id_pelicula=<?php echo $r['id_pelicula']; ?>&genero=<?php echo $peliculas; ?>&estado=1"><i class="fas fa-cart-plus"></i> Añadir a carrito</a>
                                 <div>
+                                    
                                     <?php
                                     if (isset($_SESSION['login'])) {
                                       

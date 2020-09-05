@@ -131,12 +131,32 @@ td{
 #buscador button{
   border-radius:15px;
 }
-.contBack{
+.contBackFooter{
   background: #ffb74d;
+  color: white;
+  bottom: 0%;
+  position: fixed;
+  width: 100%;
+  font-weight: bold;
+}
+.contBackHeader{
+  background:#ffb74d;
 
 }
 .permisos{
-           background-color: #ffb74d;
-           padding:20px;
-           width:100%;
-       }
+      background-color: #ffb74d;
+      padding:20px;
+      width:100%;
+}
+.carousel{
+    background:#ffb74d;
+    width:700px;
+}
+.cart{
+  border-radius:25px;
+  font-size:15px
+}
+.user{
+  border-radius:25px;
+  font-size:15px
+}
