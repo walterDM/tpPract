@@ -92,17 +92,17 @@ if (isset($_POST['modificarUsuario'] )&& !empty($_POST['modificarUsuario'])) {
         $idGrupo=$r['idGrupo'];
     }
     
-        $delete=mysqli_query($db,"DELETE FROM gruposusuarios WHERE idPersona=$idPersona");
-        $insertar=mysqli_query($db,"INSERT INTO gruposusuarios VALUES($idPersona,$idGrupo)");
-        $delete2=mysqli_query($db,"DELETE FROM empleados WHERE idPersona=$idPersona");
-        $insertar2=mysqli_query($db,"INSERT INTO empleados VALUES($legajo,$idPersona)");
-        $delete3=mysqli_query($db,"DELETE FROM personascontactos WHERE idPersona=$idPersona");
-        $insertar3=mysqli_query($db,"INSERT INTO personascontactos VALUES(00,$idPersona,$idTipoMail,'$email')");
-        $insertar4=mysqli_query($db,"INSERT INTO personascontactos VALUES(00,$idPersona,$idTipoTelefono,'$telefono')");
-        $actualizar="UPDATE personas SET numDocumento=$num,idTipoDocumento=$idTipoDocumento,nombre='$nombre',apellido='$apellido',fechaNac='$fecha' WHERE idPersona=$idPersona";
-        $result=mysqli_query($db,$actualizar);
-        $insertar5=mysqli_query($db,"INSERT INTO empleados VALUES($legajo,$idPersona)");
-        header("location:buscarUsuarios.php?actualizado=1");
+    $delete=mysqli_query($db,"DELETE FROM gruposusuarios WHERE idPersona=$idPersona");
+    $insertar=mysqli_query($db,"INSERT INTO gruposusuarios VALUES($idPersona,$idGrupo)");
+    $delete2=mysqli_query($db,"DELETE FROM empleados WHERE idPersona=$idPersona");
+    $insertar2=mysqli_query($db,"INSERT INTO empleados VALUES($legajo,$idPersona)");
+    $delete3=mysqli_query($db,"DELETE FROM personascontactos WHERE idPersona=$idPersona");
+    $insertar3=mysqli_query($db,"INSERT INTO personascontactos VALUES(00,$idPersona,$idTipoMail,'$email')");
+    $insertar4=mysqli_query($db,"INSERT INTO personascontactos VALUES(00,$idPersona,$idTipoTelefono,'$telefono')");
+    $actualizar="UPDATE personas SET numDocumento=$num,idTipoDocumento=$idTipoDocumento,nombre='$nombre',apellido='$apellido',fechaNac='$fecha' WHERE idPersona=$idPersona";
+    $result=mysqli_query($db,$actualizar);
+    $insertar5=mysqli_query($db,"INSERT INTO empleados VALUES($legajo,$idPersona)");
+    header("location:buscarUsuarios.php?actualizado=1");
     
 }
 if(isset($_POST['eliminarUsuario']) && !empty($_POST['eliminarUsuario'])){

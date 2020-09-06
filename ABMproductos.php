@@ -2,26 +2,26 @@
 <?php
 require('conexion.php');
 function conectar(){
-		$conexion= mysqli_connect("127.0.0.1","root","","tppract");
-		if (!$conexion) {
-			echo "Error al conectar base";
-		} 
-		return $conexion;
-	}
-	conectar();
-    function imagen(){
-        if (isset($_POST['Modificar'])) {
-            $id=$_POST['id'];
-            $db=conectar();
-            $consulta= "SELECT imagen from productos where idProductos='$id'";
-            $query=mysqli_query($db,$consulta);
+  $conexion= mysqli_connect("127.0.0.1","root","","tppract");
+  if (!$conexion) {
+     echo "Error al conectar base";
+ } 
+ return $conexion;
+}
+conectar();
+function imagen(){
+    if (isset($_POST['Modificar'])) {
+        $id=$_POST['id'];
+        $db=conectar();
+        $consulta= "SELECT imagen from productos where idProductos='$id'";
+        $query=mysqli_query($db,$consulta);
        //     $imgBD=$query->fetch_array(MYSQL_ASSOC);
         
-                if (empty($_FILES['imagen'])) {
-                    return $imgBD['imagen'];
-                }else{
-                    if (isset($_FILES['imagen']) && !empty($_FILES['imagen']['name'])) {
-        
+        if (empty($_FILES['imagen'])) {
+            return $imgBD['imagen'];
+        }else{
+            if (isset($_FILES['imagen']) && !empty($_FILES['imagen']['name'])) {
+                
                 $errores=array();
                 $file_name=$_FILES['imagen']['name'];
                 $file_size=$_FILES['imagen']['size'];
@@ -31,7 +31,7 @@ function conectar(){
                 $file_ext=explode('.',$file_ext);
                 $file_ext=end($file_ext);
                 $file_ext=strtolower($file_ext);
-        
+                
                 $extencionPermitidas= array("jpeg","jpg","png","gif","bmp");
                 if (in_array($file_ext, $extencionPermitidas)==false) {
                     $errores[]='archivo no permitido,selecione una imagen...';
@@ -46,41 +46,41 @@ function conectar(){
                 else{
                     
                     print_r($errores);
-        
+                    
                 }
             }
-        
-                
-            }
-                }
-        if (isset($_FILES['imagen']) && !empty($_FILES['imagen']['name'])) {
-            $errores=0;
-            $file_name=$_FILES['imagen']['name'];
-            $file_size=$_FILES['imagen']['size'];
-            $file_tmp=$_FILES['imagen']['tmp_name'];
-            $file_type=$_FILES['imagen']['type'];
-            $file_ext=$_FILES['imagen']['name'];
-            $file_ext=explode('.',$file_ext);
-            $file_ext=end($file_ext);
-            $file_ext=strtolower($file_ext);
-    
-            $extencionPermitidas= array("jpeg","jpg","png","gif","bmp");
-            if (in_array($file_ext, $extencionPermitidas)==false) {
-                $errores+=1;
-                header("location:altaProducto.php?imgEstado=$errores");
-            }
-            if ($file_size >=2897152) {
-                $errores+=2;
-                header("location:altaProducto.php?imgEstado=$errores");
-            }
-            if (empty($errores)==true) {
-                move_uploaded_file($file_tmp, "Imagenes/".$file_name);
-                return $file_name;
-            }
-            else{
-                print_r($errores);
-            }
+            
+            
         }
+    }
+    if (isset($_FILES['imagen']) && !empty($_FILES['imagen']['name'])) {
+        $errores=0;
+        $file_name=$_FILES['imagen']['name'];
+        $file_size=$_FILES['imagen']['size'];
+        $file_tmp=$_FILES['imagen']['tmp_name'];
+        $file_type=$_FILES['imagen']['type'];
+        $file_ext=$_FILES['imagen']['name'];
+        $file_ext=explode('.',$file_ext);
+        $file_ext=end($file_ext);
+        $file_ext=strtolower($file_ext);
+        
+        $extencionPermitidas= array("jpeg","jpg","png","gif","bmp");
+        if (in_array($file_ext, $extencionPermitidas)==false) {
+            $errores+=1;
+            header("location:altaProducto.php?imgEstado=$errores");
+        }
+        if ($file_size >=2897152) {
+            $errores+=2;
+            header("location:altaProducto.php?imgEstado=$errores");
+        }
+        if (empty($errores)==true) {
+            move_uploaded_file($file_tmp, "Imagenes/".$file_name);
+            return $file_name;
+        }
+        else{
+            print_r($errores);
+        }
+    }
 }
 
 //se procede a guardar en la base de datos la informacion cargada
@@ -91,7 +91,7 @@ if (isset($_POST['guardar'] )&& !empty($_POST['guardar'])) {
     $idTipoProducto=$_POST['cbxTipoProducto'];//trae el id del tipo de producto
     //echo $idTipoProducto."<br>";
     $idMarca=$_POST['cbxMarca'];
- 
+    
 
     $fechaCaducidad=$_POST['fechaCaducidad'];
     $cantidad=$_POST['cantidadProd'];
@@ -109,7 +109,7 @@ if (isset($_POST['guardar'] )&& !empty($_POST['guardar'])) {
         $idTpM=$r['idTpMarca'];
     }
     //$Insert=mysqli_query($db,"INSERT INTO filacolumna VALUES($idPuestoFisico,$fila,$columna)");
-	$Insert2=mysqli_query($db,"INSERT INTO productos values (00,'$nombre',$idPuestoFisico,'$nombreImg','$lote','$fechaCaducidad',$cantidad,$precio,'$estado')");
+    $Insert2=mysqli_query($db,"INSERT INTO productos values (00,'$nombre',$idPuestoFisico,'$nombreImg','$lote','$fechaCaducidad',$cantidad,$precio,'$estado')");
     $ultimoRegistro="SELECT MAX(idProductos) AS id FROM productos";
     $consultaUltReg=mysqli_query($db,$ultimoRegistro);
     $id="";
@@ -128,7 +128,7 @@ if (isset($_POST['guardar'] )&& !empty($_POST['guardar'])) {
 
 if(isset($_POST['Modificar']) && !empty($_POST['Modificar'])){
     $db=conectar();
-	$nombre=$_POST['descripcion'];
+    $nombre=$_POST['descripcion'];
     $lote=$_POST['lote'];
     $idTipoProducto=$_POST['cbxTipoProducto'];
     $select=mysqli_query($db,"SELECT descripcion FROM tiposproductos WHERE idTipoProducto=$idTipoProducto");
@@ -145,42 +145,42 @@ if(isset($_POST['Modificar']) && !empty($_POST['Modificar'])){
     $idPuestoFisico=$_POST['idPuestoFisico'];
     $nombreImg=imagen();
     $id=$_POST['id'];
-  
+    
     $selecttpm= "SELECT idTpMarca from tiposproductos_marcas where idTipoProducto=$idTipoProducto and idMarca=$idMarca";
     $querytpm=mysqli_query($conexion,$selecttpm);
     while ($r=mysqli_fetch_array($querytpm)) {
         $idTpMarca=$r['idTpMarca'];
     }
-   
-		if (!is_null($nombreImg)) {	
-			$actualizar="UPDATE productos SET 
-            descripcion='$nombre',
-            idPuestoFisico=$idPuestoFisico,
-            imagen='$nombreImg',
-            Lote='$lote',
-            fechaCaducidad='$fechaCaducidad',
-            cantidadProd=$cantidad,
-            precio=$precio,
-            estado='$estado' WHERE idProducto='$id'";
-            $enviar=mysqli_query($db,$actualizar);
-            $actualizartp="UPDATE productostpmarcas SET idTpMarca=$idTpMarca where idProducto=$id";
-            $enviartpm=mysqli_query($db,$actualizartp);
-            header("location:productos.php?categoria=$descripcion&pagina=1");
-		}else{
-			$actualizar="UPDATE productos SET 
-            descripcion='$nombre',
-            idPuestoFisico=$idPuestoFisico,
-            Lote='$lote',
-            fechaCaducidad='$fechaCaducidad',
-            cantidadProd=$cantidad,
-            precio=$precio,
-            estado='$estado' WHERE idProducto=$id";
-            $enviar=mysqli_query($db,$actualizar);
-            $actualizartp="UPDATE productostpmarcas SET idTpMarca=$idTpMarca where idProducto=$id";
-            $enviartpm=mysqli_query($db,$actualizartp);
-            header("location:productos.php?categoria=$descripcion&pagina=1");
+    
+    if (!is_null($nombreImg)) {	
+     $actualizar="UPDATE productos SET 
+     descripcion='$nombre',
+     idPuestoFisico=$idPuestoFisico,
+     imagen='$nombreImg',
+     Lote='$lote',
+     fechaCaducidad='$fechaCaducidad',
+     cantidadProd=$cantidad,
+     precio=$precio,
+     estado='$estado' WHERE idProducto='$id'";
+     $enviar=mysqli_query($db,$actualizar);
+     $actualizartp="UPDATE productostpmarcas SET idTpMarca=$idTpMarca where idProducto=$id";
+     $enviartpm=mysqli_query($db,$actualizartp);
+     header("location:productos.php?categoria=$descripcion&pagina=1");
+ }else{
+     $actualizar="UPDATE productos SET 
+     descripcion='$nombre',
+     idPuestoFisico=$idPuestoFisico,
+     Lote='$lote',
+     fechaCaducidad='$fechaCaducidad',
+     cantidadProd=$cantidad,
+     precio=$precio,
+     estado='$estado' WHERE idProducto=$id";
+     $enviar=mysqli_query($db,$actualizar);
+     $actualizartp="UPDATE productostpmarcas SET idTpMarca=$idTpMarca where idProducto=$id";
+     $enviartpm=mysqli_query($db,$actualizartp);
+     header("location:productos.php?categoria=$descripcion&pagina=1");
 
-		}
+ }
 }
 
 if(isset($_POST['Altaestante']) && !empty($_POST['Altaestante'])){

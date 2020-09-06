@@ -1,6 +1,6 @@
  <?php
  require("conexion.php");
-  if (isset($_REQUEST['registrado']) && !empty($_REQUEST['registrado'])) {
+ if (isset($_REQUEST['registrado']) && !empty($_REQUEST['registrado'])) {
     $nombre=$_REQUEST['nombre'];
     $apellido=$_REQUEST['apellido'];
     $tipodoc=$_REQUEST['tipodoc'];
@@ -45,6 +45,6 @@
         $insert4=mysqli_query($conexion,"INSERT INTO personascontactos VALUES(00,$idPersona,$idTipoTelefono,'$telefono')");
         header("location:index.php?registrado=1");
     }
-         }
-           
-  ?>
+}
+
+?>

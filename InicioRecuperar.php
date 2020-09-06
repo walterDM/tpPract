@@ -56,35 +56,35 @@ if (isset($_POST['send'])&& !empty($_POST['send'])) {
 		    $mail->isHTML(true);                                  // Set email format to HTML
 		    $mail->Subject = 'formulario de reestablecimiento de contraseña para GestiStock';
 		    $mensajeHtml = nl2br($mensaje);
-			$mail->Body  = "<html> 
-			                 <head>
-			                   <meta charset='utf-8'>
-			                 </head>
-                             <body> 
-                                <h1 align='center'>GestiStock</h1>
-                                <div style='background:black;color:white;padding:20px'><h2>Solicitud de restablecimiento de contraseña</h2></div>
-                                <p>Alguien ha solicitado una nueva contraseña para la siguiente cuenta en GestiStock</p>
-								<p>usuario: {$r['descripcion']}</p>
-								<p>tiempo limite de reestablecimiento hasta: {$tiempo_limite}</p>
-                                <p>Si no hiciste esta solicitud simplemente ignora este correo electrónico. Si quiere proceder: </p>
-                                <a href='http://localhost/tpPract/recuperar.php?token=$token'>Haz clic aquí para restablecer tu contraseña</a>
-                             </body> 
-                           </html>
-                           <br />";
+		    $mail->Body  = "<html> 
+		    <head>
+		    <meta charset='utf-8'>
+		    </head>
+		    <body> 
+		    <h1 align='center'>GestiStock</h1>
+		    <div style='background:black;color:white;padding:20px'><h2>Solicitud de restablecimiento de contraseña</h2></div>
+		    <p>Alguien ha solicitado una nueva contraseña para la siguiente cuenta en GestiStock</p>
+		    <p>usuario: {$r['descripcion']}</p>
+		    <p>tiempo limite de reestablecimiento hasta: {$tiempo_limite}</p>
+		    <p>Si no hiciste esta solicitud simplemente ignora este correo electrónico. Si quiere proceder: </p>
+		    <a href='http://localhost/tpPract/recuperar.php?token=$token'>Haz clic aquí para restablecer tu contraseña</a>
+		    </body> 
+		    </html>
+		    <br />";
 		    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
 		    $mail->send();
 		    header("location:index.php?recuperar=1");
 		} catch (Exception $e) {
 		    // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-		    header("location:index.php?recuperar=2");
-           exit();
+			header("location:index.php?recuperar=2");
+			exit();
 		}
 
-	
- }else{
-	 header("location:index.php?recuperar=3");
- }
+		
+	}else{
+		header("location:index.php?recuperar=3");
+	}
 }//termina if del 
 
 ?>
