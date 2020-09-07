@@ -1,7 +1,7 @@
 <?php
 	
 	require ('../conexion.php');
-	
+	$html="<option>seleccione provincia</option>";
 	$id_estado = $_POST['id_estado'];
     $select=mysqli_query($conexion,"SELECT idPais FROM paises WHERE nombrePais='$id_estado'");
     while($r=mysqli_fetch_array($select)){
@@ -18,15 +18,4 @@
 	
     echo $html;
     ?>
-    <script>
-        $(document).ready(function(){
-        $("#cbxprovincia").change(function () {	
- 			$("#cbxprovincia option:selected").each(function () {
- 				id = $(this).val();
- 				$.post("includes/getCiudad.php", { id: id }, function(data){
- 					$("#cbxciudad").html(data);
- 				});            
- 			});
- 		});
-    });
-    </script>
+ 

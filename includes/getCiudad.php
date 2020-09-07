@@ -2,12 +2,12 @@
 	
 	require ('../conexion.php');
 	
-	$id_estado = $_POST['id_estado'];
-    $select=mysqli_query($conexion,"SELECT idProvincia FROM provincias WHERE nombreProvincia='$id_estado'");
+	$id_ciudad = $_POST['id_ciudad'];
+    /*$select=mysqli_query($conexion,"SELECT idProvincia FROM provincias WHERE nombreProvincia='$id_ciudad'");
     while($r=mysqli_fetch_array($select)){
         $idProvincia=$r['idProvincia'];
-    }
-	$queryM = "SELECT DISTINCT  idCiudad, nombreCiudad FROM ciudades WHERE idProvincia=$idProvincia ORDER BY nombreCiudad ASC";
+    }*/
+	$queryM = "SELECT DISTINCT  idCiudad, nombreCiudad FROM ciudades WHERE idProvincia=$id_ciudad ORDER BY nombreCiudad ASC";
 	$resultadoM = $conexion->query($queryM);
 	
 	$html= "<option value='0'>Seleccionar provincia</option>";
@@ -18,3 +18,4 @@
 	}
 	
 	echo $html;
+	?>

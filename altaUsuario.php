@@ -25,13 +25,16 @@ $select4=mysqli_query($conexion,"SELECT idProvincia,nombreProvincia FROM provinc
  		});
      $("#cbxprovincia").change(function () {	
  			$("#cbxprovincia option:selected").each(function () {
- 				id_estado = $(this).val();
- 				$.post("includes/getProvincia.php", { id_estado: id_estado }, function(data){
+ 				id_ciudad = $(this).val();
+ 				$.post("includes/getCiudad.php", { id_ciudad: id_ciudad }, function(data){
  					$("#cbxciudad").html(data);
  				});            
  			});
  		});
  	});
+ 	
+	
+	
  </script>
 <div class="row">
   
@@ -62,6 +65,7 @@ $select4=mysqli_query($conexion,"SELECT idProvincia,nombreProvincia FROM provinc
              <div class="form-group">
                <label>Pais</label>
                <select class="form-control" id="cbxpais" name="cbxpais">
+               	<option>Seleecione Pais</option>
                  <?php while ($rsTP = $select3->fetch_assoc()){?>
                  <option><?php echo $rsTP['nombrePais'];?></option>
                  <?php } ?>
