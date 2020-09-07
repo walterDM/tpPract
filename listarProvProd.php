@@ -6,7 +6,12 @@ if (isset($_GET['listarPP']) && !empty($_GET['listarPP'])) {
 		header("location:listaProvProd.php?listarPP=$buscar&pagina=1");
 	}*/
 }
-$consulta=
+$consulta="Select p.idProducto,p.descripcion,pp.precio,pr.empresa,pr.idProveedor,cp.descripcion,cp.idTipoContacto 
+		   From productos as p, productos_proveedores as pp 
+		   JOIN proveedores as pr on pp.idProveedor=pr.idProveedor 
+		   JOIN contactosproveedores as cp on pr.idProveedor=cp.idProveedor 
+		   where pp.idProveedor= 1 and p.idProducto=pp.idProducto";
+$query=mysqli_query($conexion,$consulta);
 ?>
 <br>
 <form action="listarProvProd.php" method="GET">
