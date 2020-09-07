@@ -67,7 +67,7 @@ function killSession(){
         <div class="col-md-5" >
           <div id="posBuscador">
             <form id="buscador" action="buscarProducto.php?pagina=1" method="GET">
-              
+
               <input type="text" name="busqueda" id="busqueda" placeholder="Buscar
               " required>
               <button type="submit"><i class="fas fa-search"></i></i></button>
@@ -125,7 +125,7 @@ function killSession(){
             <a id="productos" href="#" style="color:white" class="btn  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Productos</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <?php while($r=mysqli_fetch_array($select2)){?>
-                <form id="altaProveedor" action="productos.php?categoria=<?php echo $r['descripcion']?>" method="POST">
+                <form id="productos" action="productos.php?categoria=<?php echo $r['descripcion']?>" method="POST">
                   <button type="submit" class="dropdown-item submenu"><?php echo $r['descripcion']?></button>
                 </form>
               <?php }?>
@@ -136,7 +136,7 @@ function killSession(){
          </li>
 
          <li class="nav-item dropdown">
-           
+
           <a id="gestiprod" href="#" style="color:white" class="btn  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" <?php echo "hidden";?>>Gestionar productos</a>
           
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -189,7 +189,7 @@ function killSession(){
               <?php break;
               case "realizar pedidos":
               echo "<script>document.getElementById('gestiproveedores').hidden=false;</script>";?>
-              <form id="realizarPedidos" action="listarProvProd.php" method="POST">
+              <form id="realizarPedidos" action="listaProvProd.php" method="POST">
                 <button type="submit" class="dropdown-item submenu">Realizar pedidos</button>
               </form>
               <?php break;
@@ -265,6 +265,7 @@ function killSession(){
     </ul>
   </div>
 </nav>
+
 </div><!--termina col-->  
 </div><!--termina row-->
 <div data-backdrop="static"  class="modal fade" id="recuperar">
@@ -333,7 +334,7 @@ function killSession(){
           <form  method="POST" action="registrar.php"  onsubmit="return form(this)">
             <div class="row">
              <div class="col-md-6">
-               
+
                <div class="form-group">
                  <label>Nombre</label>
                  <input type="text" class="form-control" name="nombre" id="nombre"  placeholder="ingrese su nombre">
@@ -381,7 +382,7 @@ function killSession(){
            
            
            <div class="row">
-            
+
              <div class="form-group col-md-6">
               <label>Contraseña</label>
               <input type="password" class="form-control" name="contrasenia" id="contr" placeholder="ingrese su contraseña" required>

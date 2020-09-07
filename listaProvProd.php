@@ -1,21 +1,35 @@
 <?php 
- require("header.php");
- require("conexion.php");  
- $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso FROM permisos AS p, grupospermisos AS up WHERE (p.nombrePermiso='buscar usuario' OR p.nombrePermiso='baja usuario' OR p.nombrePermiso='modificar usuario') AND p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'"); 
- ?>
+require("header.php");
+require("conexion.php");  
+$grupo=mysqli_query($conexion,"SELECT p.nombrePermiso FROM permisos AS p, grupospermisos AS up WHERE (p.nombrePermiso='buscar usuario' OR p.nombrePermiso='baja usuario' OR p.nombrePermiso='modificar usuario') AND p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'"); 
+?>
 
-   <div class="row">
-    <?php 
-    if($r=mysqli_fetch_array($grupo)){
-     $nombrePermiso=$r['nombrePermiso'];
-     if($nombrePermiso=="alta usuario" || $nombrePermiso=="baja usuario" || $nombrePermiso=="modificar usuario" || $nombrePermiso=="buscar usuarioS"){
-      ?>
-      <div class="col-md-12" align="center" style="padding-top:20px">
-        <form action="buscarUser.php?pagina=1" method="POST">
-         <div class="input-group mb-3">
-          <input id="usuario" name="usuario" style="width:70%" type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="ingrese la pelicula a buscar">
-          <div class="input-group-append">
-            <button name="buscar" value="buscar" style="border-color: #e0e0e0;background:white" class="btn btn-outline-warning" id="button-addon2"><i class="fas fa-search"></i></button>
+<div class="row">
+  <?php 
+  if($r=mysqli_fetch_array($grupo)){
+   $nombrePermiso=$r['nombrePermiso'];
+   if($nombrePermiso=="alta usuario" || $nombrePermiso=="baja usuario" || $nombrePermiso=="modificar usuario" || $nombrePermiso=="buscar usuarioS"){
+    ?>
+    <div class="col-md-12" align="center" style="padding-top:20px">
+      <form action="listarProvProd.php" method="GET">
+        <div class="row justify-content-center">
+          <div class="col-md-4">
+            <label>Buscar Por:</label>
+            <select>
+              <option value="0">
+                seleccione tipo de busqueda
+              </option>
+              <option value="1">
+                Proveedor
+              </option>
+              <option value="2">
+                Producto
+              </option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <input type="text" name="listarPP" id="listarPP"> 
+            <button type="submit"><i class="fas fa-search"></i></button>
           </div>
         </div>
       </form>

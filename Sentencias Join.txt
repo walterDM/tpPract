@@ -20,3 +20,9 @@ on pf.idPuestoFisico=p.idPuestoFisico where p.idProducto = 21)
 Select p.idProducto,p.descripcion,pp.precioCompra From productos as p, productos-proveedores as pp
 JOIN proveedores as pr on pp.idProveedor=pr.idProveedor
 where pp.idProveedor= 1 and p.idProducto=pp.idProducto;
+//traer todos los productos de un proveedor
+SELECT p.idProducto,p.descripcion,pp.precio from productos as p, productos_proveedores as pp
+where pp.idProducto=p.idProducto and pp.idProveedor=1;
+
+//trae todos los productos de un proveedor + los datos de contacto de dicho proveedor
+Select p.idProducto,p.descripcion,pp.precio,pr.empresa,pr.idProveedor,cp.descripcion,cp.idTipoContacto From productos as p, productos_proveedores as pp JOIN proveedores as pr on pp.idProveedor=pr.idProveedor JOIN contactosproveedores as cp on pr.idProveedor=cp.idProveedor where pp.idProveedor= 1 and p.idProducto=pp.idProducto
