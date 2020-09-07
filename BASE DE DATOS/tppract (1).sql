@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-09-2020 a las 20:56:01
+-- Tiempo de generación: 07-09-2020 a las 22:40:55
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.9
 
@@ -32,9 +32,23 @@ USE `tppract`;
 DROP TABLE IF EXISTS `ciudades`;
 CREATE TABLE `ciudades` (
   `idCiudad` int(11) NOT NULL,
-  `nombre` varchar(45) NOT NULL,
+  `nombreCiudad` varchar(45) DEFAULT NULL,
   `idProvincia` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `ciudades`
+--
+
+INSERT INTO `ciudades` (`idCiudad`, `nombreCiudad`, `idProvincia`) VALUES
+(9, 'Avellaneda', 5),
+(10, 'Lanus', 5),
+(11, 'Concepcion', 6),
+(12, 'San Miguel de Tucuman', 6),
+(13, 'Culiacan', 8),
+(14, 'Concordia', 8),
+(15, 'Merida', 7),
+(16, 'Ticul', 7);
 
 -- --------------------------------------------------------
 
@@ -57,8 +71,8 @@ CREATE TABLE `contactosproveedores` (
 INSERT INTO `contactosproveedores` (`idContactoProveedor`, `idProveedor`, `idTipoContacto`, `descripcion`) VALUES
 (1, 3, 1, 'qadda@hjhf.com'),
 (2, 3, 2, '252525'),
-(9, 4, 1, 'sa@gmail.com'),
-(10, 4, 2, '41414');
+(11, 4, 1, 'sas@gmail.com'),
+(12, 4, 2, '41414');
 
 -- --------------------------------------------------------
 
@@ -83,12 +97,12 @@ CREATE TABLE `detallespedidos` (
 
 DROP TABLE IF EXISTS `direcciones`;
 CREATE TABLE `direcciones` (
-  `idDrieccion` int(11) NOT NULL,
+  `idDireccion` int(11) NOT NULL,
   `idCiudad` int(11) NOT NULL,
   `idPersona` int(11) NOT NULL,
   `idTipoDomicilio` int(11) NOT NULL,
-  `calle` varchar(45) NOT NULL,
-  `altura` int(11) NOT NULL,
+  `calle` varchar(45) DEFAULT NULL,
+  `altura` int(11) DEFAULT NULL,
   `dpto` varchar(45) DEFAULT NULL,
   `piso` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -287,8 +301,16 @@ INSERT INTO `marcas` (`idMarca`, `nombreMarca`) VALUES
 DROP TABLE IF EXISTS `paises`;
 CREATE TABLE `paises` (
   `idPais` int(11) NOT NULL,
-  `nombre` varchar(45) NOT NULL
+  `nombrePais` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `paises`
+--
+
+INSERT INTO `paises` (`idPais`, `nombrePais`) VALUES
+(1, 'Argentina'),
+(2, 'Mexico');
 
 -- --------------------------------------------------------
 
@@ -498,9 +520,19 @@ INSERT INTO `proveedores` (`idProveedor`, `empresa`, `direccion`, `cuit`, `descr
 DROP TABLE IF EXISTS `provincias`;
 CREATE TABLE `provincias` (
   `idProvincia` int(11) NOT NULL,
-  `nombre` varchar(45) NOT NULL,
-  `idpaises` int(11) NOT NULL
+  `nombreProvincia` varchar(45) DEFAULT NULL,
+  `idPais` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `provincias`
+--
+
+INSERT INTO `provincias` (`idProvincia`, `nombreProvincia`, `idPais`) VALUES
+(5, 'Buenos Aires', 1),
+(6, 'Tucuman', 1),
+(7, 'yucatan', 2),
+(8, 'sinaloa', 2);
 
 -- --------------------------------------------------------
 
@@ -720,7 +752,7 @@ CREATE TABLE `tokens` (
 --
 ALTER TABLE `ciudades`
   ADD PRIMARY KEY (`idCiudad`),
-  ADD KEY `fk_provincias_idx` (`idProvincia`);
+  ADD KEY `idProvincia` (`idProvincia`);
 
 --
 -- Indices de la tabla `contactosproveedores`
@@ -741,10 +773,10 @@ ALTER TABLE `detallespedidos`
 -- Indices de la tabla `direcciones`
 --
 ALTER TABLE `direcciones`
-  ADD PRIMARY KEY (`idDrieccion`),
-  ADD KEY `fk_persona_idx` (`idPersona`),
-  ADD KEY `fk_ciudad_idx` (`idCiudad`),
-  ADD KEY `fk_domicilio_idx` (`idTipoDomicilio`);
+  ADD PRIMARY KEY (`idDireccion`),
+  ADD KEY `idCiudad` (`idCiudad`),
+  ADD KEY `idPersona` (`idPersona`),
+  ADD KEY `idTipoDomicilio` (`idTipoDomicilio`);
 
 --
 -- Indices de la tabla `empleados`
@@ -872,7 +904,7 @@ ALTER TABLE `proveedores`
 --
 ALTER TABLE `provincias`
   ADD PRIMARY KEY (`idProvincia`),
-  ADD KEY `fk_pais_idx` (`idpaises`);
+  ADD KEY `idPais` (`idPais`);
 
 --
 -- Indices de la tabla `puestofisico`
@@ -956,16 +988,22 @@ ALTER TABLE `tokens`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `ciudades`
+--
+ALTER TABLE `ciudades`
+  MODIFY `idCiudad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
 -- AUTO_INCREMENT de la tabla `contactosproveedores`
 --
 ALTER TABLE `contactosproveedores`
-  MODIFY `idContactoProveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idContactoProveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `direcciones`
 --
 ALTER TABLE `direcciones`
-  MODIFY `idDrieccion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idDireccion` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `facturas`
@@ -990,6 +1028,12 @@ ALTER TABLE `grupos`
 --
 ALTER TABLE `marcas`
   MODIFY `idMarca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `paises`
+--
+ALTER TABLE `paises`
+  MODIFY `idPais` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidosproveedores`
@@ -1026,6 +1070,12 @@ ALTER TABLE `productos`
 --
 ALTER TABLE `proveedores`
   MODIFY `idProveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `provincias`
+--
+ALTER TABLE `provincias`
+  MODIFY `idProvincia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `puestofisico`
@@ -1089,7 +1139,7 @@ ALTER TABLE `tokens`
 -- Filtros para la tabla `ciudades`
 --
 ALTER TABLE `ciudades`
-  ADD CONSTRAINT `fk_provincias` FOREIGN KEY (`idProvincia`) REFERENCES `provincias` (`idProvincia`);
+  ADD CONSTRAINT `ciudades_ibfk_1` FOREIGN KEY (`idProvincia`) REFERENCES `provincias` (`idProvincia`);
 
 --
 -- Filtros para la tabla `contactosproveedores`
@@ -1109,9 +1159,9 @@ ALTER TABLE `detallespedidos`
 -- Filtros para la tabla `direcciones`
 --
 ALTER TABLE `direcciones`
-  ADD CONSTRAINT `fk_ciudad` FOREIGN KEY (`idCiudad`) REFERENCES `ciudades` (`idCiudad`),
-  ADD CONSTRAINT `fk_domicilio` FOREIGN KEY (`idTipoDomicilio`) REFERENCES `tiposdomicilios` (`idTipoDomicilio`),
-  ADD CONSTRAINT `fk_persona` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`);
+  ADD CONSTRAINT `direcciones_ibfk_1` FOREIGN KEY (`idCiudad`) REFERENCES `ciudades` (`idCiudad`),
+  ADD CONSTRAINT `direcciones_ibfk_2` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`),
+  ADD CONSTRAINT `direcciones_ibfk_3` FOREIGN KEY (`idTipoDomicilio`) REFERENCES `tiposdomicilios` (`idTipoDomicilio`);
 
 --
 -- Filtros para la tabla `empleados`
@@ -1190,7 +1240,7 @@ ALTER TABLE `productostpmarcas`
 -- Filtros para la tabla `provincias`
 --
 ALTER TABLE `provincias`
-  ADD CONSTRAINT `fk_pais` FOREIGN KEY (`idpaises`) REFERENCES `paises` (`idPais`);
+  ADD CONSTRAINT `provincias_ibfk_1` FOREIGN KEY (`idPais`) REFERENCES `paises` (`idPais`);
 
 --
 -- Filtros para la tabla `stock`

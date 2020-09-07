@@ -153,10 +153,17 @@ td{
     width:700px;
 }
 .cart{
-  border-radius:25px;
-  font-size:15px
+  border-radius:30px;
+  font-size:20px;
+  background:#ffb74d;
+  color:white;
+  border:solid #ffb74d;
 }
+
 .user{
-  border-radius:25px;
-  font-size:15px
+  border-radius:30px;
+  font-size:20px;
+  background:#ffb74d;
+  color:white;
+  border:solid #ffb74d;
 }

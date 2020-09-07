@@ -10,9 +10,29 @@ while ($r=mysqli_fetch_array($select)) {
   $descripcion=$r['descripcion'];
 }
 $select2=mysqli_query($conexion,"SELECT * FROM grupos WHERE nombreGrupo!='CLIENTE'");
-
+$select3=mysqli_query($conexion,"SELECT idPais,nombrePais FROM paises ORDER BY nombrePais ASC");
+$select4=mysqli_query($conexion,"SELECT idProvincia,nombreProvincia FROM provincias ORDER BY nombreProvincia ASC");
 ?>
-
+<script language="javascript">
+ 	$(document).ready(function(){
+ 		$("#cbxpais").change(function () {	
+ 			$("#cbxpais option:selected").each(function () {
+ 				id_estado = $(this).val();
+ 				$.post("includes/getProvincia.php", { id_estado: id_estado }, function(data){
+ 					$("#cbxprovincia").html(data);
+ 				});            
+ 			});
+ 		});
+     $("#cbxprovincia").change(function () {	
+ 			$("#cbxprovincia option:selected").each(function () {
+ 				id_estado = $(this).val();
+ 				$.post("includes/getProvincia.php", { id_estado: id_estado }, function(data){
+ 					$("#cbxciudad").html(data);
+ 				});            
+ 			});
+ 		});
+ 	});
+ </script>
 <div class="row">
   
   <?php 
@@ -38,6 +58,30 @@ $select2=mysqli_query($conexion,"SELECT * FROM grupos WHERE nombreGrupo!='CLIENT
                <select class="form-control" id="tipodoc" name="tipodoc">
                  <option><?php echo $descripcion;?></option>
                </select>
+             </div>
+             <div class="form-group">
+               <label>Pais</label>
+               <select class="form-control" id="cbxpais" name="cbxpais">
+                 <?php while ($rsTP = $select3->fetch_assoc()){?>
+                 <option><?php echo $rsTP['nombrePais'];?></option>
+                 <?php } ?>
+               </select>
+             </div>
+             <div class="form-group">
+               <label>Ciudad</label>
+               <select class="form-control" id="cbxciudad" name="cbxciudad">
+                 <option>Seleccione ciudad</option>
+               </select>
+             </div>
+             <div class="row">
+                <div class="form-group col-md-6">
+                   <label>Calle</label>
+                   <input type="text" class="form-control" name="calle" id="calle"  placeholder="ingrese calle">
+                </div>
+                <div class="form-group col-md-6">
+                   <label>Altura</label>
+                   <input type="text" class="form-control" name="altura" id="altura"  placeholder="ingrese altura">
+                </div>
              </div>
              <div class="row">
                <div class="form-group col-md-6">
@@ -67,6 +111,28 @@ $select2=mysqli_query($conexion,"SELECT * FROM grupos WHERE nombreGrupo!='CLIENT
              <label>Numero de documento</label>
              <input type="text" class="form-control" name="numDocumento" id="numDocumento" placeholder="ingrese numero de documento">
            </div>
+           <div class="form-group">
+               <label>Provincia</label>
+               <select class="form-control" id="cbxprovincia" name="cbxprovincia">
+                   <option>seleccione provincia</option>
+               </select>
+           </div>
+           <div class="form-group">
+               <label>tipo de domicilio</label>
+               <select class="form-control" id="tipodoc" name="tipodoc">
+                 <option><?php echo $descripcion;?></option>
+               </select>
+           </div>
+           <div class="row">
+                <div class="form-group col-md-6">
+                   <label>Depto</label>
+                   <input type="text" class="form-control" name="dpto" id="dpto"  placeholder="ingrese departamento">
+                </div>
+                <div class="form-group col-md-6">
+                   <label>Piso</label>
+                   <input type="text" class="form-control" name="piso" id="piso"  placeholder="ingrese piso">
+                </div>
+             </div>
            <div class="form-group">
              <label>Numero de telefono</label>
              <input type="text" class="form-control" name="telefono" id="telefono" placeholder="ingrese numero de telefono" required>
