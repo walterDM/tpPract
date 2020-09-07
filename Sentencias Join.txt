@@ -15,3 +15,8 @@ SELECT pf.* from puestofisico as pf
 where not exists (select idPuestoFisico from productos as p where p.idPuestoFisico = pf.idPuestoFisico)
  UNION (Select pf.* from puestofisico as pf join productos as p 
 on pf.idPuestoFisico=p.idPuestoFisico where p.idProducto = 21)
+
+//traer todos los proveedores de un producto
+Select p.idProducto,p.descripcion,pp.precioCompra From productos as p, productos-proveedores as pp
+JOIN proveedores as pr on pp.idProveedor=pr.idProveedor
+where pp.idProveedor= 1 and p.idProducto=pp.idProducto;
