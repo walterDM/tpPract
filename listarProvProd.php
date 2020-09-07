@@ -1,10 +1,19 @@
-<?php require 'header.php' ?>
+<?php require ('header.php'); 
+
+if (isset($_GET['listarPP']) && !empty($_GET['listarPP'])) {
+	$buscar =$_GET['listarPP'];
+	/*if(!isset($_GET['pagina'])){
+		header("location:listaProvProd.php?listarPP=$buscar&pagina=1");
+	}*/
+}
+$consulta=
+?>
 <br>
-<form action="buscarlistaPP.php" method="GET-">
+<form action="listarProvProd.php" method="GET">
 	<div class="row justify-content-center">
 		<div class="col-md-4">
 			<label>Buscar Por:</label>
-			<select>
+			<select id="tpConsulta" name="tpConsulta">
 				<option value="0">
 					seleccione tipo de busqueda
 				</option>
@@ -49,28 +58,28 @@
 					<td style="padding-top:30px"><?php// echo $row['fechaNac'];?></td>
 					<td style="padding-top:30px"><?php// echo $Telefono;?></td>
 
-					<?php $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso FROM permisos AS p, grupospermisos AS up WHERE (p.nombrePermiso='buscar usuario' OR p.nombrePermiso='baja usuario' OR p.nombrePermiso='modificar usuario') AND p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
+					<?php/* $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso FROM permisos AS p, grupospermisos AS up WHERE (p.nombrePermiso='buscar usuario' OR p.nombrePermiso='baja usuario' OR p.nombrePermiso='modificar usuario') AND p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
 					while($r=mysqli_fetch_array($grupo)){
 						$nombrePermiso=$r['nombrePermiso'];
 						if($nombrePermiso=="baja usuario"){
-							?>
+							*/?>
 							<td><a href="#" style="border-radius:30px;font-size:20px" class="btn btn-light" data-toggle="modal" data-target="#info<?php echo $idPersona; ?>"><i class="fas fa-trash-alt"></i></a></td>
-						<?php                       }
+						<?php   /*                    }
 						if($nombrePermiso=="modificar usuario"){
 							$select4=mysqli_query($conexion,"SELECT g.nombreGrupo FROM grupos AS g,gruposusuarios AS gp WHERE g.nombreGrupo!='CLIENTE' AND g.idGrupo=gp.idGrupo AND gp.idPersona={$row['idPersona']}");
 							while($r=mysqli_fetch_array($select4)){
-								?>
+								*/?>
 								<td>
 									<form method="POST" action="modificarUsuario.php">
 										<button style="border-radius:30px;font-size:20px" type="submit" name="idPersona" value="<?php echo $row['idPersona'];?>" class="btn btn-light"><i class="fas fa-pencil-alt"></i></button>
 									</form>
 								</td>
-							<?php                               }
+							<?php /*                              }
 						}
-					}
+					}*/
 					?>
 				</tr>
-				<div data-backdrop="static"  class="modal fade" id="info<?php echo $idPersona;?>">
+				<div data-backdrop="static"  class="modal fade" id="info<?php //echo $idPersona;?>">
 					<div class="col-md-12 modal-dialog" >
 						<div class="modal-content">
 							<div class="modal-header">
