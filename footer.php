@@ -13,8 +13,10 @@
    				</div>
    				<div class="col-md-4">
    					<footer>
-   						<br>
+   						
    						<a style="color:white;text-decoration:none" href="contacto.php"> ENVIANOS TU CONSULTA</a>
+                     <br>
+                     <a href="preguntas.php">¿Preguntas Frecuentes?</a>
    					</footer>
    				</div>
    				<div class="col-md-4">

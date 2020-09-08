@@ -26,3 +26,15 @@ where pp.idProducto=p.idProducto and pp.idProveedor=1;
 
 //trae todos los productos de un proveedor + los datos de contacto de dicho proveedor
 Select p.idProducto,p.descripcion,pp.precio,pr.empresa,pr.idProveedor,cp.descripcion,cp.idTipoContacto From productos as p, productos_proveedores as pp JOIN proveedores as pr on pp.idProveedor=pr.idProveedor JOIN contactosproveedores as cp on pr.idProveedor=cp.idProveedor where pp.idProveedor= 1 and p.idProducto=pp.idProducto
+
+
+
+Select p.idProducto,p.descripcion,pp.precio,pr.empresa,pr.idProveedor,cp.descripcion,cp.idTipoContacto,m.nombreMarca,tp.descripcion 
+		   From productos as p, productos_proveedores as pp 
+		   JOIN proveedores as pr on pp.idProveedor=pr.idProveedor 
+		   JOIN contactosproveedores as cp on pr.idProveedor=cp.idProveedor
+           JOIN productostpmarcas as tpm on tpm.idProducto=pp.idProducto
+           join tiposproductos_marcas as tm on tm.idTpMarca =tpm.idTpMarca
+           JOIN marcas as m on tm.idMarca=m.idMarca
+           JOIN tiposproductos tp on tp.idTipoProducto=tm.idTipoProducto
+		   where pp.idProveedor= 1 and p.idProducto=pp.idProducto
