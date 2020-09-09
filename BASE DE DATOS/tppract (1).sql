@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-09-2020 a las 05:28:13
+-- Tiempo de generación: 09-09-2020 a las 05:47:54
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.9
 
@@ -112,7 +112,10 @@ CREATE TABLE `direcciones` (
 --
 
 INSERT INTO `direcciones` (`idDireccion`, `idCiudad`, `idPersona`, `idTipoDomicilio`, `calle`, `altura`, `dpto`, `piso`) VALUES
-(4, 14, 14, 1, 'afaafa', 22, '2', '2');
+(4, 14, 14, 1, 'afaafa', 22, '2', '2'),
+(5, 9, 11, 2, 'gajdgaj', 34, 'e', '4'),
+(6, 9, 12, 1, 'sfsf', 242, 'h', '3'),
+(7, 9, 10, 2, 'dgd', 343, 't', '3');
 
 -- --------------------------------------------------------
 
@@ -133,7 +136,7 @@ CREATE TABLE `empleados` (
 INSERT INTO `empleados` (`LegajoEmpleado`, `idPersona`) VALUES
 ('252525', 10),
 ('242424', 11),
-('352512', 13),
+('3476', 12),
 ('2515165', 14);
 
 -- --------------------------------------------------------
@@ -278,7 +281,6 @@ INSERT INTO `gruposusuarios` (`idPersona`, `idGrupo`) VALUES
 (10, 18),
 (11, 18),
 (12, 18),
-(13, 18),
 (14, 18);
 
 -- --------------------------------------------------------
@@ -404,7 +406,6 @@ INSERT INTO `personas` (`idPersona`, `numDocumento`, `idTipoDocumento`, `nombre`
 (10, 408474312, 1, 'Fabricio', 'Colavella', '1997-12-09', 'Fabricolavella', 'b279b7f4d0bc48a7660f007ae7983154b706ac57'),
 (11, 37200769, 1, 'walter', 'martinez', '1995-06-21', 'Waltermartinez', 'a213f9e4f1dbdba548d256335dc57bf65404210a'),
 (12, 95180213, 1, 'Esthefany', 'Graterox', '1997-08-20', 'Esthefanyg', '44f14b2ad2fa68bd07ccb6008d67ba4450b87ab3'),
-(13, 25251, 1, 'wtwtwt', 'wtwt', '2020-09-04', 'fabri23', 'b279b7f4d0bc48a7660f007ae7983154b706ac57'),
 (14, 212621, 1, 'agagag', 'gaag', '2020-09-10', 'fabri3', 'b279b7f4d0bc48a7660f007ae7983154b706ac57');
 
 -- --------------------------------------------------------
@@ -430,10 +431,10 @@ INSERT INTO `personascontactos` (`idPersonaContacto`, `idPersona`, `idTipoContac
 (8, 11, 2, '1145742345'),
 (15, 10, 1, 'colavella22@gmail.com'),
 (16, 10, 2, '1140397424'),
-(21, 13, 1, 'afafa@sjfh.com'),
-(22, 13, 2, '251512515'),
 (33, 14, 1, 'dqdq@gmail.com'),
-(34, 14, 2, '242155');
+(34, 14, 2, '242155'),
+(35, 12, 1, 'esthefany@gmail.com'),
+(36, 12, 2, '1146829453');
 
 -- --------------------------------------------------------
 
@@ -1027,7 +1028,7 @@ ALTER TABLE `contactosproveedores`
 -- AUTO_INCREMENT de la tabla `direcciones`
 --
 ALTER TABLE `direcciones`
-  MODIFY `idDireccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idDireccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `facturas`
@@ -1081,7 +1082,7 @@ ALTER TABLE `personas`
 -- AUTO_INCREMENT de la tabla `personascontactos`
 --
 ALTER TABLE `personascontactos`
-  MODIFY `idPersonaContacto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `idPersonaContacto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
