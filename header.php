@@ -189,7 +189,7 @@ function killSession(){
               <?php break;
               case "realizar pedidos":
               echo "<script>document.getElementById('gestiproveedores').hidden=false;</script>";?>
-              <form id="realizarPedidos" action="listaProvProd.php" method="POST">
+              <form id="realizarPedidos" action="realizarPedido.php" method="POST">
                 <button type="submit" class="dropdown-item submenu">Realizar pedidos</button>
               </form>
               <?php break;

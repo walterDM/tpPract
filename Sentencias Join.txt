@@ -38,3 +38,15 @@ Select p.idProducto,p.descripcion,pp.precio,pr.empresa,pr.idProveedor,cp.descrip
            JOIN marcas as m on tm.idMarca=m.idMarca
            JOIN tiposproductos tp on tp.idTipoProducto=tm.idTipoProducto
 		   where pp.idProveedor= 1 and p.idProducto=pp.idProducto
+
+
+
+
+//PRUEBAS
+SELECT p.idProducto,p.descripcion,pr.empresa, tpp.idTpMarca,tpp.precio, m.nombreMarca,tp.descripcion as tipoProducto FROM productos p 
+JOIN productostpmarcas tpp on p.idProducto=tpp.idProducto
+JOIN proveedores pr on tpp.idProveedor=pr.idProveedor
+JOIN tiposproductos_marcas tpm on tpm.idTpMarca=tpp.idTpMarca
+JOIN marcas m on m.idMarca= tpm.idMarca
+JOIN tiposproductos tp on tp.idTipoProducto=tpm.idTipoProducto
+WHERE pr.empresa LIKE "%zink%"
