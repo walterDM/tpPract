@@ -11,10 +11,20 @@ require("header.php");
    <div class="col-md-12 info formContacto">
      <form  method="POST" action="enviarEmail.php"  onsubmit="return valida2(this)">
        
-       <div class="form-group">
+     <!--   <div class="form-group">
          <label>Nombre</label>
          <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese su nombre">
-       </div>
+       </div> -->
+
+       <div class="form-group">
+          <label>Motivo de su consulta</label>
+          <select class="form-control" id="cbxMensaje" name="cbxMensaje">
+            <option>seleccione</option>
+            <option>Problemas al momento de registarte</option>
+            <option>Otros</option>
+          </select>
+        </div>
+      </div>
        
 
        <!-- <div class="col-md-6"> -->

@@ -9,7 +9,7 @@ require 'conexion.php';
 
 // Instantiation and passing `true` enables exceptions
 $mail = new PHPMailer(true);
-$nombre=$_POST['nombre'];
+$asunto=$_POST['cbxMensaje'];
 $correo=$_POST['correo'];
 $mensaje=$_POST['mensaje'];
 
@@ -44,7 +44,7 @@ try {
 
             // Content
             $mail->isHTML(true);                                  // Set email format to HTML
-            $mail->Subject = 'Solicitud  o consulta de cliente para GestiStock';
+            $mail->Subject = ($asunto);
             $mensajeHtml = nl2br($mensaje);
             $mail->Body  = ($mensaje);
              // "<html> 
