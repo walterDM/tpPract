@@ -4,7 +4,15 @@ require 'conexion.php';
 $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso FROM permisos AS p, grupospermisos AS up WHERE (p.nombrePermiso='buscar proveedor' OR p.nombrePermiso='baja proveedor' OR p.nombrePermiso='modificar proveedor') AND p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'"); 
 $consultaProv="SELECT * from proveedores";
 $query=mysqli_query($conexion,$consultaProv);
-
+$queryBP="SELECT p.idProducto,p.descripcion,pr.empresa, tpp.idTpMarca,tpp.precio, m.nombreMarca,tp.descripcion as tipoProducto FROM productos p 
+JOIN productostpmarcas tpp on p.idProducto=tpp.idProducto
+JOIN proveedores pr on tpp.idProveedor=pr.idProveedor
+JOIN tiposproductos_marcas tpm on tpm.idTpMarca=tpp.idTpMarca
+JOIN marcas m on m.idMarca= tpm.idMarca
+JOIN tiposproductos tp on tp.idTipoProducto=tpm.idTipoProducto
+WHERE pr.empresa LIKE '%zink%'";
+$resultBP=mysqli_query($conexion,$queryBP);
+$totalProductos=mysqli_num_rows($resultBP);
 ?>
 <?php if ($r=mysqli_fetch_array($grupo)) {?>
 	<br>
@@ -45,7 +53,7 @@ $query=mysqli_query($conexion,$consultaProv);
 				<th></th>
 			</thead>
 			<tbody>
-				<?php while ($row=mysqli_fetch_array($query)): ?>
+				<?php while ($row=mysqli_fetch_array($resultBP)): ?>
 					<tr>
 
 						<td style="text-align: center"><?php echo $row['descripcion'];?></td>
@@ -98,7 +106,7 @@ $query=mysqli_query($conexion,$consultaProv);
 			</tbody>
 			<tfoot>
 				<tr align="center">
-					<th colspan="12">Cantidad de registros encontrados: <?php// echo $total_usuarios?></th>
+					<th colspan="12">Cantidad de registros encontrados: <?php echo $totalProductos?></th>
 				</tr>
 			</tfoot>
 		</table>
