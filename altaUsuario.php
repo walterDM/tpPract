@@ -12,6 +12,7 @@ while ($r=mysqli_fetch_array($select)) {
 $select2=mysqli_query($conexion,"SELECT * FROM grupos WHERE nombreGrupo!='CLIENTE'");
 $select3=mysqli_query($conexion,"SELECT idPais,nombrePais FROM paises ORDER BY nombrePais ASC");
 $select4=mysqli_query($conexion,"SELECT idProvincia,nombreProvincia FROM provincias ORDER BY nombreProvincia ASC");
+$select5=mysqli_query($conexion,"SELECT idTipoDomicilio,descripcion FROM tiposdomicilios ORDER BY descripcion ASC");
 ?>
 <script language="javascript">
  	$(document).ready(function(){
@@ -123,8 +124,10 @@ $select4=mysqli_query($conexion,"SELECT idProvincia,nombreProvincia FROM provinc
            </div>
            <div class="form-group">
                <label>tipo de domicilio</label>
-               <select class="form-control" id="tipodoc" name="tipodoc">
-                 <option><?php echo $descripcion;?></option>
+               <select class="form-control" id="tipodomicilio" name="tipodomicilio">
+               <?php while ($rsTP = $select5->fetch_assoc()){?>
+                 <option value="<?php echo $rsTP['idTipoDomicilio']; ?>"><?php echo $rsTP['descripcion'];?></option>
+               <?php } ?>
                </select>
            </div>
            <div class="row">

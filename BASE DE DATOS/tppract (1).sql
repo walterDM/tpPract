@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-09-2020 a las 22:40:55
+-- Tiempo de generación: 09-09-2020 a las 05:28:13
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.9
 
@@ -107,6 +107,13 @@ CREATE TABLE `direcciones` (
   `piso` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `direcciones`
+--
+
+INSERT INTO `direcciones` (`idDireccion`, `idCiudad`, `idPersona`, `idTipoDomicilio`, `calle`, `altura`, `dpto`, `piso`) VALUES
+(4, 14, 14, 1, 'afaafa', 22, '2', '2');
+
 -- --------------------------------------------------------
 
 --
@@ -125,7 +132,9 @@ CREATE TABLE `empleados` (
 
 INSERT INTO `empleados` (`LegajoEmpleado`, `idPersona`) VALUES
 ('252525', 10),
-('242424', 11);
+('242424', 11),
+('352512', 13),
+('2515165', 14);
 
 -- --------------------------------------------------------
 
@@ -268,7 +277,9 @@ CREATE TABLE `gruposusuarios` (
 INSERT INTO `gruposusuarios` (`idPersona`, `idGrupo`) VALUES
 (10, 18),
 (11, 18),
-(12, 18);
+(12, 18),
+(13, 18),
+(14, 18);
 
 -- --------------------------------------------------------
 
@@ -392,7 +403,9 @@ CREATE TABLE `personas` (
 INSERT INTO `personas` (`idPersona`, `numDocumento`, `idTipoDocumento`, `nombre`, `apellido`, `fechaNac`, `usuario`, `contrasenia`) VALUES
 (10, 408474312, 1, 'Fabricio', 'Colavella', '1997-12-09', 'Fabricolavella', 'b279b7f4d0bc48a7660f007ae7983154b706ac57'),
 (11, 37200769, 1, 'walter', 'martinez', '1995-06-21', 'Waltermartinez', 'a213f9e4f1dbdba548d256335dc57bf65404210a'),
-(12, 95180213, 1, 'Esthefany', 'Graterox', '1997-08-20', 'Esthefanyg', '44f14b2ad2fa68bd07ccb6008d67ba4450b87ab3');
+(12, 95180213, 1, 'Esthefany', 'Graterox', '1997-08-20', 'Esthefanyg', '44f14b2ad2fa68bd07ccb6008d67ba4450b87ab3'),
+(13, 25251, 1, 'wtwtwt', 'wtwt', '2020-09-04', 'fabri23', 'b279b7f4d0bc48a7660f007ae7983154b706ac57'),
+(14, 212621, 1, 'agagag', 'gaag', '2020-09-10', 'fabri3', 'b279b7f4d0bc48a7660f007ae7983154b706ac57');
 
 -- --------------------------------------------------------
 
@@ -416,7 +429,11 @@ INSERT INTO `personascontactos` (`idPersonaContacto`, `idPersona`, `idTipoContac
 (7, 11, 1, 'martinezw@gmail.com'),
 (8, 11, 2, '1145742345'),
 (15, 10, 1, 'colavella22@gmail.com'),
-(16, 10, 2, '1140397424');
+(16, 10, 2, '1140397424'),
+(21, 13, 1, 'afafa@sjfh.com'),
+(22, 13, 2, '251512515'),
+(33, 14, 1, 'dqdq@gmail.com'),
+(34, 14, 2, '242155');
 
 -- --------------------------------------------------------
 
@@ -452,19 +469,6 @@ INSERT INTO `productos` (`idProducto`, `descripcion`, `idPuestoFisico`, `imagen`
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `productos-proveedores`
---
-
-DROP TABLE IF EXISTS `productos-proveedores`;
-CREATE TABLE `productos-proveedores` (
-  `idProveedor` int(11) NOT NULL,
-  `idProducto` int(11) NOT NULL,
-  `precioCompra` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `productostpmarcas`
 --
 
@@ -485,6 +489,19 @@ INSERT INTO `productostpmarcas` (`idProducto`, `idTpMarca`) VALUES
 (34, 4),
 (35, 2),
 (36, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `productos_proveedores`
+--
+
+DROP TABLE IF EXISTS `productos_proveedores`;
+CREATE TABLE `productos_proveedores` (
+  `idProducto` int(11) NOT NULL,
+  `idProveedor` int(11) NOT NULL,
+  `precio` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -657,8 +674,16 @@ INSERT INTO `tiposdocumentos` (`idTipoDocumento`, `descripcion`) VALUES
 DROP TABLE IF EXISTS `tiposdomicilios`;
 CREATE TABLE `tiposdomicilios` (
   `idTipoDomicilio` int(11) NOT NULL,
-  `descripción` varchar(45) NOT NULL
+  `descripcion` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tiposdomicilios`
+--
+
+INSERT INTO `tiposdomicilios` (`idTipoDomicilio`, `descripcion`) VALUES
+(1, 'Trabajo'),
+(2, 'Casa');
 
 -- --------------------------------------------------------
 
@@ -879,19 +904,18 @@ ALTER TABLE `productos`
   ADD KEY `FK_Fisico_idx` (`idPuestoFisico`);
 
 --
--- Indices de la tabla `productos-proveedores`
---
-ALTER TABLE `productos-proveedores`
-  ADD PRIMARY KEY (`idProveedor`,`idProducto`),
-  ADD KEY `fk_Proveedor_idx` (`idProveedor`),
-  ADD KEY `fk_Producto_idx` (`idProducto`);
-
---
 -- Indices de la tabla `productostpmarcas`
 --
 ALTER TABLE `productostpmarcas`
   ADD KEY `idProducto` (`idProducto`),
   ADD KEY `idTpMarca` (`idTpMarca`);
+
+--
+-- Indices de la tabla `productos_proveedores`
+--
+ALTER TABLE `productos_proveedores`
+  ADD PRIMARY KEY (`idProducto`,`idProveedor`),
+  ADD KEY `fk_proveedoresProd` (`idProveedor`);
 
 --
 -- Indices de la tabla `proveedores`
@@ -1003,7 +1027,7 @@ ALTER TABLE `contactosproveedores`
 -- AUTO_INCREMENT de la tabla `direcciones`
 --
 ALTER TABLE `direcciones`
-  MODIFY `idDireccion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idDireccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `facturas`
@@ -1051,13 +1075,13 @@ ALTER TABLE `permisos`
 -- AUTO_INCREMENT de la tabla `personas`
 --
 ALTER TABLE `personas`
-  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `personascontactos`
 --
 ALTER TABLE `personascontactos`
-  MODIFY `idPersonaContacto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `idPersonaContacto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -1105,7 +1129,7 @@ ALTER TABLE `tiposcontactos`
 -- AUTO_INCREMENT de la tabla `tiposdomicilios`
 --
 ALTER TABLE `tiposdomicilios`
-  MODIFY `idTipoDomicilio` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idTipoDomicilio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `tiposmovientos`
@@ -1223,18 +1247,18 @@ ALTER TABLE `productos`
   ADD CONSTRAINT `FK_Fisico` FOREIGN KEY (`idPuestoFisico`) REFERENCES `puestofisico` (`idPuestoFisico`);
 
 --
--- Filtros para la tabla `productos-proveedores`
---
-ALTER TABLE `productos-proveedores`
-  ADD CONSTRAINT `fk_ProductoLista` FOREIGN KEY (`idProducto`) REFERENCES `productos` (`idProducto`),
-  ADD CONSTRAINT `fk_ProveedorLista` FOREIGN KEY (`idProveedor`) REFERENCES `proveedores` (`idProveedor`);
-
---
 -- Filtros para la tabla `productostpmarcas`
 --
 ALTER TABLE `productostpmarcas`
   ADD CONSTRAINT `fkTpMprod` FOREIGN KEY (`idProducto`) REFERENCES `productos` (`idProducto`),
   ADD CONSTRAINT `fktpmpMarca` FOREIGN KEY (`idTpMarca`) REFERENCES `tiposproductos_marcas` (`idTpMarca`);
+
+--
+-- Filtros para la tabla `productos_proveedores`
+--
+ALTER TABLE `productos_proveedores`
+  ADD CONSTRAINT `fk_productosProv` FOREIGN KEY (`idProducto`) REFERENCES `productos` (`idProducto`),
+  ADD CONSTRAINT `fk_proveedoresProd` FOREIGN KEY (`idProveedor`) REFERENCES `proveedores` (`idProveedor`);
 
 --
 -- Filtros para la tabla `provincias`

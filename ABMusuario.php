@@ -13,6 +13,12 @@ if (isset($_POST['guardarUsuario'] )&& !empty($_POST['guardarUsuario'])) {
     $nombre=$_REQUEST['nombre'];
     $apellido=$_REQUEST['apellido'];
     $tipodoc=$_REQUEST['tipodoc'];
+    $idCiudad=$_POST['cbxciudad'];
+    $calle=$_POST['calle'];
+    $altura=$_POST['altura'];
+    $dpto=$_POST['dpto'];
+    $piso=$_POST['piso'];
+    $idTipoDomicilio=$_POST['tipodomicilio'];
     $num=$_REQUEST['numDocumento'];
     $fecha=$_REQUEST['fechaNac'];
     $user=$_REQUEST['usuario'];
@@ -60,6 +66,7 @@ if (isset($_POST['guardarUsuario'] )&& !empty($_POST['guardarUsuario'])) {
         $insertar3=mysqli_query($db,"INSERT INTO empleados VALUES($legajo,$idPersona)");
         $insert4=mysqli_query($db,"INSERT INTO personascontactos VALUES(00,$idPersona,$idTipoMail,'$email')");
         $insert5=mysqli_query($db,"INSERT INTO personascontactos VALUES(00,$idPersona,$idTipoTelefono,'$telefono')");
+        $insert6=mysqli_query($db,"INSERT INTO direcciones VALUES(00,$idCiudad,$idPersona,$idTipoDomicilio,'$calle',$altura,'$dpto','$piso')");
         header("location:altaUsuario.php?registrado=1");
     }
 }
@@ -70,6 +77,12 @@ if (isset($_POST['modificarUsuario'] )&& !empty($_POST['modificarUsuario'])) {
     $apellido=$_POST['apellido'];
     $tipodoc=$_POST['tipodoc'];
     $num=$_POST['numDocumento'];
+    $idCiudad=$_POST['cbxciudad'];
+    $calle=$_POST['calle'];
+    $altura=$_POST['altura'];
+    $dpto=$_POST['dpto'];
+    $piso=$_POST['piso'];
+    $idTipoDomicilio=$_POST['tipodomicilio'];
     $fecha=$_POST['fechaNac'];
     $idPersona=$_POST['idPersona'];
     $numDocumentoAnterior=$_POST['numDocumentoAnterior'];
@@ -99,6 +112,8 @@ if (isset($_POST['modificarUsuario'] )&& !empty($_POST['modificarUsuario'])) {
     $delete3=mysqli_query($db,"DELETE FROM personascontactos WHERE idPersona=$idPersona");
     $insertar3=mysqli_query($db,"INSERT INTO personascontactos VALUES(00,$idPersona,$idTipoMail,'$email')");
     $insertar4=mysqli_query($db,"INSERT INTO personascontactos VALUES(00,$idPersona,$idTipoTelefono,'$telefono')");
+    $delete4=mysqli_query($db,"DELETE FROM direcciones WHERE idPersona=$idPersona");
+    $insertar5=mysqli_query($db,"INSERT INTO direcciones VALUES(00,$idCiudad,$idPersona,$idTipoDomicilio,'$calle',$altura,'$dpto','$piso')");
     $actualizar="UPDATE personas SET numDocumento=$num,idTipoDocumento=$idTipoDocumento,nombre='$nombre',apellido='$apellido',fechaNac='$fecha' WHERE idPersona=$idPersona";
     $result=mysqli_query($db,$actualizar);
     $insertar5=mysqli_query($db,"INSERT INTO empleados VALUES($legajo,$idPersona)");
@@ -112,6 +127,7 @@ if(isset($_POST['eliminarUsuario']) && !empty($_POST['eliminarUsuario'])){
     $delete2=mysqli_query($db,"DELETE FROM empleados WHERE idPersona=$id");
     $delete3=mysqli_query($db,"DELETE FROM personascontactos WHERE idPersona=$id");
     $delete4=mysqli_query($db,"DELETE FROM personas WHERE idPersona=$id");
+    $delete5=mysqli_query($db,"DELETE FROM direcciones WHERE idPersona=$id");
     header("location:buscarUsuarios.php?eliminado=1");
 }
 ?>

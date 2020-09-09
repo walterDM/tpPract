@@ -11,9 +11,27 @@ while ($r=mysqli_fetch_array($select)) {
   $descripcion=$r['descripcion'];
 }
 $select2=mysqli_query($conexion,"SELECT * FROM grupos");
-
 ?>
-
+<script language="javascript">
+ 	$(document).ready(function(){
+ 		$("#cbxpais").change(function () {	
+ 			$("#cbxpais option:selected").each(function () {
+ 				id_estado = $(this).val();
+ 				$.post("includes/getProvincia.php", { id_estado: id_estado }, function(data){
+ 					$("#cbxprovincia").html(data);
+ 				});            
+ 			});
+ 		});
+     $("#cbxprovincia").change(function () {	
+ 			$("#cbxprovincia option:selected").each(function () {
+ 				id_ciudad = $(this).val();
+ 				$.post("includes/getCiudad.php", { id_ciudad: id_ciudad }, function(data){
+ 					$("#cbxciudad").html(data);
+ 				});            
+ 			});
+ 		});
+ 	});
+ </script>
 <div class="row">
   <?php 
   if(isset($_SESSION['login'])){
@@ -28,7 +46,37 @@ $select2=mysqli_query($conexion,"SELECT * FROM grupos");
         $tipo_dni=$r['descripcion'];
       }
       $consulta3=mysqli_query($conexion,"SELECT descripcion FROM tiposdocumentos");
-      
+      $select3=mysqli_query($conexion,"SELECT * FROM direcciones WHERE idPersona=$idPersona");
+      while($r=mysqli_fetch_array($select3)){
+        $idCiudad=$r['idCiudad'];
+        $idTipoDomicilio=$r['idTipoDomicilio'];
+        $calle=$r['calle'];
+        $altura=$r['altura'];
+        $dpto=$r['dpto'];
+        $piso=$r['piso'];
+      }
+      $select4=mysqli_query($conexion,"SELECT idProvincia,nombreCiudad FROM ciudades WHERE idCiudad=$idCiudad");
+      while($r=mysqli_fetch_array($select4)){
+        $idProvincia=$r['idProvincia'];
+        $nombreCiudad=$r['nombreCiudad'];
+      }
+      $select5=mysqli_query($conexion,"SELECT nombreProvincia,idPais FROM provincias WHERE idProvincia=$idProvincia");
+      while($r=mysqli_fetch_array($select5)){
+        $nombreProvincia=$r['nombreProvincia'];
+        $idPais=$r['idPais'];
+      }
+      $select6=mysqli_query($conexion,"SELECT nombrePais FROM paises WHERE idPais=$idPais");
+      while($r=mysqli_fetch_array($select6)){
+        $nombrePais=$r['nombrePais'];
+      }
+      $select7=mysqli_query($conexion,"SELECT idPais,nombrePais FROM paises ORDER BY nombrePais ASC");
+      $select8=mysqli_query($conexion,"SELECT idProvincia,nombreProvincia FROM provincias WHERE idPais=$idPais ORDER BY nombreProvincia ASC");
+      $select9=mysqli_query($conexion,"SELECT idCiudad,nombreCiudad FROM ciudades WHERE idProvincia=$idProvincia ORDER BY nombreCiudad ASC");
+      $select10=mysqli_query($conexion,"SELECT descripcion FROM tiposdomicilios WHERE idTipoDomicilio=$idTipoDomicilio");
+      while($r=mysqli_fetch_array($select10)){
+        $TipoDomicilio=$r['descripcion'];
+      }
+      $select11=mysqli_query($conexion,"SELECT idTipoDomicilio,descripcion FROM tiposdomicilios ORDER BY descripcion ASC");
       $consulta4=mysqli_query($conexion,"SELECT idGrupo FROM gruposusuarios WHERE idPersona=$idPersona");
       while($r=mysqli_fetch_array($consulta4)){
        $id_grupo=$r['idGrupo'];
@@ -77,6 +125,33 @@ $select2=mysqli_query($conexion,"SELECT * FROM grupos");
                  <?php }?>
                </select>
              </div>
+             <div class="form-group">
+               <label>Pais</label>
+               <select class="form-control" id="cbxpais" name="cbxpais">
+               	<option>Seleecione Pais</option>
+                 <?php while ($rsTP = $select7->fetch_assoc()){?>
+                 <option <?php if($nombrePais==$rsTP['nombrePais']) echo 'Selected'?>><?php echo $rsTP['nombrePais'];?></option>
+                 <?php } ?>
+               </select>
+             </div>
+             <div class="form-group">
+               <label>Ciudad</label>
+               <select class="form-control" id="cbxciudad" name="cbxciudad">
+               <?php while ($rsTP = $select9->fetch_assoc()){?>
+                 <option value="<?php echo $rsTP['idCiudad'];?>" <?php if($nombreCiudad==$rsTP['nombreCiudad']) echo 'Selected'?>><?php echo $rsTP['nombreCiudad'];?></option>
+                 <?php } ?>
+               </select>
+             </div>
+             <div class="row">
+                <div class="form-group col-md-6">
+                   <label>Calle</label>
+                   <input type="text" class="form-control" name="calle" id="calle" value="<?php echo $calle;?>"  placeholder="ingrese calle">
+                </div>
+                <div class="form-group col-md-6">
+                   <label>Altura</label>
+                   <input type="text" class="form-control" name="altura" id="altura" value="<?php echo $altura;?>"  placeholder="ingrese altura">
+                </div>
+             </div>
              <div class=row>
                <div class="form-group col-md-6">
                  <label>E-mail</label>
@@ -86,10 +161,6 @@ $select2=mysqli_query($conexion,"SELECT * FROM grupos");
                  <label>Repetir E-mail</label>
                  <input type="email" class="form-control" id="mail2" value="<?php echo $datoMail['descripcion'];?>" placeholder="ingrese su usuario">
                </div>
-             </div>
-             <div class="form-group">
-               <label>Usuario</label>
-               <input type="text" class="form-control" name="usuario" id="usuario" value="<?php echo $datos['usuario'];?>" placeholder="ingrese su usuario" <?php echo "disabled";?>>
              </div>
            </div>
            <div class="col-md-6">
@@ -106,12 +177,34 @@ $select2=mysqli_query($conexion,"SELECT * FROM grupos");
              <input type="text" class="form-control" name="numDocumento" id="numDocumento" value="<?php echo $datos['numDocumento'];?>" placeholder="ingrese numero de documento">
            </div>
            <div class="form-group">
-             <label>Numero de telefono</label>
-             <input type="text" class="form-control" name="telefono" id="telefono" value="<?php echo $datoTelefono['descripcion'];?>" placeholder="ingrese su telefono">
+               <label>Provincia</label>
+               <select class="form-control" id="cbxprovincia" name="cbxprovincia">
+               <?php while ($rsTP = $select8->fetch_assoc()){?>
+                <option value="<?php echo $rsTP['idProvincia'];?>" <?php if($nombreProvincia==$rsTP['nombreProvincia']) echo 'Selected'?>><?php echo $rsTP['nombreProvincia'];?></option>
+               <?php } ?>
+               </select>
            </div>
            <div class="form-group">
-             <label>Contraseña</label>
-             <input type="text" class="form-control" name="contrasenia" id="contr" value="<?php echo sha1($datos['contrasenia']);?>" placeholder="ingrese su contraseña" <?php echo "disabled";?>>
+               <label>tipo de domicilio</label>
+               <select class="form-control" id="tipodomicilio" name="tipodomicilio">
+               <?php while ($rsTP = $select11->fetch_assoc()){?>
+                 <option value="<?php echo $rsTP['idTipoDomicilio'];?>" <?php if($TipoDomicilio==$rsTP['descripcion']) echo 'Selected'?>><?php echo $rsTP['descripcion'];?></option>
+                 <?php } ?>
+               </select>
+           </div>
+           <div class="row">
+                <div class="form-group col-md-6">
+                   <label>Depto</label>
+                   <input type="text" class="form-control" name="dpto" id="dpto" value="<?php echo $dpto;?>"  placeholder="ingrese departamento">
+                </div>
+                <div class="form-group col-md-6">
+                   <label>Piso</label>
+                   <input type="text" class="form-control" name="piso" id="piso" value="<?php echo $piso;?>" placeholder="ingrese piso">
+                </div>
+             </div>
+           <div class="form-group">
+             <label>Numero de telefono</label>
+             <input type="text" class="form-control" name="telefono" id="telefono" value="<?php echo $datoTelefono['descripcion'];?>" placeholder="ingrese su telefono">
            </div>
          </div>
          <div class="col-md-12">
