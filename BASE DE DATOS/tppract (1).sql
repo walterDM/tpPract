@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-09-2020 a las 05:47:54
+-- Tiempo de generación: 09-09-2020 a las 06:10:42
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.9
 
@@ -476,20 +476,22 @@ INSERT INTO `productos` (`idProducto`, `descripcion`, `idPuestoFisico`, `imagen`
 DROP TABLE IF EXISTS `productostpmarcas`;
 CREATE TABLE `productostpmarcas` (
   `idProducto` int(11) NOT NULL,
-  `idTpMarca` int(11) NOT NULL
+  `idProveedor` int(11) NOT NULL,
+  `idTpMarca` int(11) NOT NULL,
+  `precio` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `productostpmarcas`
 --
 
-INSERT INTO `productostpmarcas` (`idProducto`, `idTpMarca`) VALUES
-(19, 1),
-(20, 3),
-(21, 3),
-(34, 4),
-(35, 2),
-(36, 1);
+INSERT INTO `productostpmarcas` (`idProducto`, `idProveedor`, `idTpMarca`, `precio`) VALUES
+(19, 1, 1, 22),
+(20, 1, 3, 32),
+(21, 1, 3, 42),
+(34, 1, 4, 44),
+(35, 1, 2, 56),
+(36, 1, 1, 25);
 
 -- --------------------------------------------------------
 
@@ -503,6 +505,14 @@ CREATE TABLE `productos_proveedores` (
   `idProveedor` int(11) NOT NULL,
   `precio` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `productos_proveedores`
+--
+
+INSERT INTO `productos_proveedores` (`idProducto`, `idProveedor`, `precio`) VALUES
+(19, 1, 60),
+(21, 1, 22);
 
 -- --------------------------------------------------------
 
@@ -524,10 +534,10 @@ CREATE TABLE `proveedores` (
 --
 
 INSERT INTO `proveedores` (`idProveedor`, `empresa`, `direccion`, `cuit`, `descripcion`) VALUES
-(1, 'sdsf', 'afafaf', '225626', 'wetwtw'),
-(2, 'wrqrtwsf', 'q4qrqr', '67432674', 'eyeyey'),
-(3, 'wwtwtwrq', 'wtwtwt', '473214', 'wrwrwr'),
-(4, 'scs', 'agafgag', '4141414', 'afafaf');
+(1, 'zink', 'afafaf', '225626', 'wetwtw'),
+(2, 'pok', 'q4qrqr', '67432674', 'eyeyey'),
+(3, 'jink', 'wtwtwt', '473214', 'wrwrwr'),
+(4, 'camp', 'agafgag', '4141414', 'afafaf');
 
 -- --------------------------------------------------------
 
@@ -908,8 +918,9 @@ ALTER TABLE `productos`
 -- Indices de la tabla `productostpmarcas`
 --
 ALTER TABLE `productostpmarcas`
-  ADD KEY `idProducto` (`idProducto`),
-  ADD KEY `idTpMarca` (`idTpMarca`);
+  ADD PRIMARY KEY (`idProducto`,`idProveedor`,`idTpMarca`),
+  ADD KEY `fk_proeedortpmp` (`idProveedor`),
+  ADD KEY `fk_tpmProdProv` (`idTpMarca`);
 
 --
 -- Indices de la tabla `productos_proveedores`
@@ -1251,8 +1262,9 @@ ALTER TABLE `productos`
 -- Filtros para la tabla `productostpmarcas`
 --
 ALTER TABLE `productostpmarcas`
-  ADD CONSTRAINT `fkTpMprod` FOREIGN KEY (`idProducto`) REFERENCES `productos` (`idProducto`),
-  ADD CONSTRAINT `fktpmpMarca` FOREIGN KEY (`idTpMarca`) REFERENCES `tiposproductos_marcas` (`idTpMarca`);
+  ADD CONSTRAINT `fk_productostpmP` FOREIGN KEY (`idProducto`) REFERENCES `productos` (`idProducto`),
+  ADD CONSTRAINT `fk_proeedortpmp` FOREIGN KEY (`idProveedor`) REFERENCES `proveedores` (`idProveedor`),
+  ADD CONSTRAINT `fk_tpmProdProv` FOREIGN KEY (`idTpMarca`) REFERENCES `tiposproductos_marcas` (`idTpMarca`);
 
 --
 -- Filtros para la tabla `productos_proveedores`
