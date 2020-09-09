@@ -24,7 +24,7 @@ require("header.php");
             <option>Otros</option>
           </select>
         </div>
-      </div>
+    
        
 
        <!-- <div class="col-md-6"> -->
