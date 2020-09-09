@@ -84,7 +84,7 @@ if (isset($_GET['cbxProv']) && !empty($_GET['cbxProv'])) {
 												<td style="text-align: center"><?php
 												$resultCT=mysqli_query($conexion,$queryCT);
 												while($rs=mysqli_fetch_array($resultCT)){ echo $rs['descripcion'];}?></td>
-												<td><input type="number" min="0" name="cant[]" style="width: 20%; margin-left: 40%;"></td>
+												<td><input type="number" min="0" name="cant[]"  style="width: 30%; margin-left: 35%;"></td>
 												<td><input type="checkbox" name="seleccionado[]" value="<?php echo $row['idTpMarca']?>"></td>
 												<td></td>
 											</tr>

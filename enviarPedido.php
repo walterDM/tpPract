@@ -13,6 +13,7 @@ if (isset($_POST['seleccionado']) && !empty($_POST['seleccionado']) && isset($_P
 			while ($r=mysqli_fetch_array($resultMTP)) {
 				echo "TIPO PRODUCTO: ".$r['descripcion']."<br>";
 				echo "Marca: ".$r['nombreMarca']."<br>";
+				echo "camtidad: ". $_POST['cant'][$i]."<br>";
 			}
 		};
 	}
