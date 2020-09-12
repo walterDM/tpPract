@@ -54,6 +54,7 @@ function killSession(){
     $grupo2=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
     $grupo3=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
     $grupo4=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
+    $grupo5=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
     $select=mysqli_query($conexion,"SELECT * FROM tiposdocumentos");
     $select2=mysqli_query($conexion,"SELECT * FROM tiposproductos");
     while ($r=mysqli_fetch_array($select)) {
@@ -131,10 +132,21 @@ function killSession(){
               <?php }?>
             </div>
           </li>
+          <?php 
+            while($r=mysqli_fetch_array($grupo5)){ 
+              $nombrePermiso=$r['nombrePermiso'];
+              switch($nombrePermiso){
+                case "contacto": ?>
           <li class="nav-item">
            <a class="nav-link" href="contacto.php">Contacto</a>
          </li>
-
+                <?php break; }
+              }
+              if ($id_usuario==0): ?>
+              <li class="nav-item">
+           <a class="nav-link" href="contacto.php">Contacto</a>
+         </li>
+              <?php endif;?>
          <li class="nav-item dropdown">
 
           <a id="gestiprod" href="#" style="color:white" class="btn  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" <?php echo "hidden";?>>Gestionar productos</a>

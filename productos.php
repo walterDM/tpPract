@@ -113,7 +113,7 @@
             <div class="card-body" style="height:90px">
               <p align="center" class="card-text"><?php echo $r['descripcion']."<br>$".$r['precio']; ?></p>
             </div>
-            <a class="btn btn-light" href="peliculas.php?id_pelicula=<?php echo $r['id_pelicula']; ?>&genero=<?php echo $peliculas; ?>&estado=1"><i class="fas fa-cart-plus"></i> Añadir a carrito</a>
+            <a class="btn btn-light" href="carrito.php?idProducto=<?php echo $r['idProducto'];?>"><i class="fas fa-cart-plus"></i> Añadir a carrito</a>
             <div>
               
               <?php
