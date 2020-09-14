@@ -37,7 +37,7 @@
                            class="cantidad">
                         </td>
                  	    	   <td style="padding-top:30px" class="subtotal"><h6 class="subtotal">subtotal: <?php echo "$".$datos[$i]['Precio']*$datos[$i]['Cantidad'];?></h6></td>
-                           <td><a href="eliminarCarrito.php?IdProducto=<?php echo $datos[$i]['IdProducto'];?>" style="border-radius:30px;font-size:20px" class="btn btn-light" ><i class="fas fa-trash-alt"></i></a></td>
+                           <td><a href="#" style="border-radius:30px;font-size:20px" class="btn btn-light eliminar" data-id="<?php echo $datos[$i]['IdProducto'];?>"><i class="fas fa-trash-alt"></i></a></td>
                            <?php    	
                   $total=($datos[$i]['Cantidad']*$datos[$i]['Precio'])+$total;
                   }?>
@@ -47,7 +47,7 @@
                     </div>
                  </div>
     	    <?php }else{
-    	     	echo '<div style="padding: 5%; margin-left:400px"><h2>el carrito de compras esta vacio</h2></div>';
+    	     	echo '<div class="col-md-12"><h2 align="center">el carrito de compras esta vacio</h2></div>';
            }
 
     	    ?>
@@ -79,6 +79,18 @@
                   $('#total').text('Total: '+e);
               });
             }
+         });
+         $('.eliminar').click(function(e){
+             e.preventDefault();
+             var id=$(this).attr('data-id');
+             $(this).parentsUntil('.carrito').remove();
+             $.post('eliminarCarrito.php',{
+                  IdProducto:id
+              },function(a){
+                 if(a=='0'){
+                    location.href="carrito.php";
+                 }
+              });
          });
       </script>
   </body>
