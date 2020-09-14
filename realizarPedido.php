@@ -28,9 +28,7 @@ $query=mysqli_query($conexion,$consultaProv);
 
 	</form>
 	<br>
-	<div class="col-md-12">
-		<div id="result" style="border: 1px solid white;height:300px; overflow-y: scroll;background:#fafafa"></div>
-	</div>
+	
 	<div class="row">
 		<div class="col-md-12">
 			<div id="result" style="border: 1px solid white;overflow-y: scroll;background:#fafafa;padding-top:15px">

@@ -22,6 +22,7 @@ if (isset($_GET['cbxProv']) && !empty($_GET['cbxProv'])) {
 }
 ?>
 <?php if ($r=mysqli_fetch_array($grupo)) {?>
+	
 	<br>
 	<form action="listarProducto.php" method="GET">
 		
