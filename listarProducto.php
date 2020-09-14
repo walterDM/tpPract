@@ -48,7 +48,7 @@ if (isset($_GET['cbxProv']) && !empty($_GET['cbxProv'])) {
 
 		<br>
 		
-		<form action="enviarPedido.php" method="POST">
+		<form action="pedidosExcel.php" method="POST">
 			<div class="row justify-content-center">
 				<div class="col-md-12">.
 					<div class="form-group">	
@@ -77,58 +77,60 @@ if (isset($_GET['cbxProv']) && !empty($_GET['cbxProv'])) {
 											<td style="text-align: center"><?php echo $row['nombreMarca'];?></td>
 											<td style="text-align: center"><?php echo $row['precio'];?></td>
 											<td style="text-align: center"><?php 
-											$resultCE=mysqli_query($conexion,$queryCE); 
-											while($r=mysqli_fetch_array($resultCE)){
-												echo $r['descripcion'];?>
-												<input type="hidden" name="idCP" value="<?php 
-												echo $r['idContactoProveedor'];} ?>"></td>
-												<td style="text-align: center"><?php
-												$resultCT=mysqli_query($conexion,$queryCT);
-												while($rs=mysqli_fetch_array($resultCT)){ echo $rs['descripcion'];}?></td>
-												<td><input type="number" min="0" name="cant[]"  style="width: 30%; margin-left: 35%;"></td>
-												<td><input type="checkbox" name="seleccionado[]" value="<?php echo $row['idTpMarca']?>"></td>
-												<td></td>
-											</tr>
-										<?php endwhile ?>
-
-									</tbody>
-									<tfoot>
-										<tr align="center">
-											<th colspan="12">Cantidad de registros encontrados: <?php echo $totalProductos?></th>
+												$resultCE=mysqli_query($conexion,$queryCE); 
+												while($r=mysqli_fetch_array($resultCE)){
+													echo $r['descripcion'];
+												?>
+												<input type="hidden" name="idCP" value='<?php 
+												echo $r['idContactoProveedor'];}?>'>
+											</td>
+											<td style="text-align: center"><?php
+											$resultCT=mysqli_query($conexion,$queryCT);
+											while($rs=mysqli_fetch_array($resultCT)){ echo $rs['descripcion'];}?></td>
+											<td><input type="number" min="0" name="cant[]"  style="width: 30%; margin-left: 35%;"></td>
+											<td><input type="checkbox" name="seleccionado[]" value="<?php echo $row['idTpMarca']?>"></td>
+											<td></td>
 										</tr>
-									</tfoot>
-								</table>
-							</div>
+									<?php endwhile ?>
+
+								</tbody>
+								<tfoot>
+									<tr align="center">
+										<th colspan="12">Cantidad de registros encontrados: <?php echo $totalProductos?></th>
+									</tr>
+								</tfoot>
+							</table>
 						</div>
 					</div>
-				</div>
-
-				<div class="row justify-content-center">
-					<div class="col-md-6" align="center">
-						<div class="form-group">
-
-							<button style="background:orange;color:white;width:30%;" type="submit"  id="btn2" class="btn btn-light">Enviar Pedido</button>
-						</div>
-					</div>
-				</div>
-
-			</form>
-
-
-
-
-
-
-
-
-
-
-
-		<?php }else{?>
-			<div class="col-md-12" style="padding-top:10px">
-				<div class="alert alert-warning" role="alert">
-					<h2 align="center">ACCESO DENEGADO</h2>
 				</div>
 			</div>
-		<?php } ?>
-		<?php require 'footer.php'; ?>
+
+			<div class="row justify-content-center">
+				<div class="col-md-6" align="center">
+					<div class="form-group">
+
+						<button style="background:orange;color:white;width:30%;" type="submit"  id="btn2" class="btn btn-light">Enviar Pedido</button>
+					</div>
+				</div>
+			</div>
+
+		</form>
+
+
+
+
+
+
+
+
+
+
+
+	<?php }else{?>
+		<div class="col-md-12" style="padding-top:10px">
+			<div class="alert alert-warning" role="alert">
+				<h2 align="center">ACCESO DENEGADO</h2>
+			</div>
+		</div>
+	<?php } ?>
+	<?php require 'footer.php'; ?>

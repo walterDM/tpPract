@@ -1,6 +1,6 @@
 <!--agregue un comentario-->
 <?php 
-header("location:carrito.php");
+//header("location:carrito.php");
 require("header.php"); 
 $db=conectar();
 $consulta=mysqli_query($db,"SELECT * FROM productos");
