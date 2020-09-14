@@ -113,7 +113,10 @@
             <div class="card-body" style="height:90px">
               <p align="center" class="card-text"><?php echo $r['descripcion']."<br>$".$r['precio']; ?></p>
             </div>
-            <a class="btn btn-light" href="carrito.php?idProducto=<?php echo $r['idProducto'];?>"><i class="fas fa-cart-plus"></i> Añadir a carrito</a>
+            <form action="arraycarrito.php" method="GET">
+             <input type="text" name="pagina" value="<?php echo $_GET['pagina'];?>" hidden>
+             <input type="text" name="categoria" value="<?php echo $categoria;?>" hidden>
+             <button class="btn btn-light" name="idProducto" value="<?php echo $r['idProducto']?>"><i class="fas fa-cart-plus"></i> Añadir a carrito</button>
             <div>
               
               <?php

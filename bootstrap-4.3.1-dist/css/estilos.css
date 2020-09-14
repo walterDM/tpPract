@@ -171,3 +171,11 @@ td{
 .bList{
   margin-top: .3%;
 }
+.carrito{
+  padding-top:30px;
+}
+.carrito div{
+   background:#ffb74d;
+   padding:20px;
+   border-radius:30px
+}

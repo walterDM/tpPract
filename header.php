@@ -91,7 +91,7 @@ function killSession(){
                  </li>
                  <?php else: ?>
                    <li class="nav-item active">
-                     <a class="btn btn-light cart" href="#"><i class="fas fa-cart-plus"></i></a>
+                     <a class="btn btn-light cart" href="carrito.php"><i class="fas fa-cart-plus"></i></a>
                    </li>
                    <li class="nav-item">
                     <a class="btn btn-light user" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
