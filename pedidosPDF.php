@@ -1,25 +1,37 @@
 <?php 
 require 'conexion.php';
+include 'plantillaPDF.php'; 
 if (isset($_POST['seleccionado']) && !empty($_POST['seleccionado']) && isset($_POST['cant'])) {
-	require 'Classes/PHPExcel.php';
+
 	$vari=$_POST['seleccionado'];
 	$cant[]=$_POST['cant'];
 	$idFactura=2;
 	$filename="Factura__".$idFactura;//id Factura
-	$objExcel=new PHPExcel();
+	$pedido=10;
+	$fechaActual = date('d-m-Y');
 
-	$objExcel->getProperties()
-	->setCreator("empleado")
-	->setTitle("exportación")
-	;
 
-	$objExcel->setActiveSheetIndex(0);
-	$objExcel->getActiveSheet()->setTitle("Pedido");
+	$pdf= new PDF();
+	
+	$pdf->AddPage();
+	$pdf->AliasNbPages();
 
-	$objExcel->getActiveSheet()->setCellValue("A1","Producto");
-	$objExcel->getActiveSheet()->setCellValue("B1","Cantidad");
-	$objExcel->getActiveSheet()->setCellValue("C1","Precio");
+	$pdf->SetXY(150,10);
+	$pdf->Cell(70,6,utf8_decode('Pedido N°: '.$idFactura),0,0,'C',0);
+	$y= $pdf->GetY();
+	$pdf->SetXY(150,$y+5);
+	$pdf->Cell(70,6,utf8_decode('Fecha: '.$fechaActual),0,0,'C',0);
+	$y= $pdf->GetY();
+	$pdf->SetY($y+25);
+	$pdf->SetFillColor(232,232,232);
+	$pdf->SetFont('Arial','B',14);
+	$pdf->Cell(70,6,'Tipo Producto',1,0,'C',1);
+	$pdf->Cell(70,6,'Marca',1,0,'C',1);
+	$pdf->Cell(30,6,'Cantidad',1,1,'C',1);
 
+	
+
+	$pdf->SetFont('Arial','B',12);
 	for ($i=0; $i < sizeof($vari) ; $i++) { 
 		$queryMTP="SELECT m.nombreMarca as marca, tp.descripcion as tProducto FROM marcas as m
 		JOIN tiposproductos_marcas as tpm  on tpm.idMarca= m.idMarca 
@@ -27,18 +39,13 @@ if (isset($_POST['seleccionado']) && !empty($_POST['seleccionado']) && isset($_P
 		where tpm.idTpMarca=$vari[$i]";
 		$resultMTP=mysqli_query($conexion,$queryMTP);
 		while ($r=mysqli_fetch_array($resultMTP)) {
-			$objExcel->getActiveSheet()->setCellValue('A'.($i+2),$r['tProducto']);
-			$objExcel->getActiveSheet()->setCellValue('B'.($i+2),$r['marca']);
-			$objExcel->getActiveSheet()->setCellValue('C'.($i+2),$_POST['cant'][$i]);
+			$pdf->Cell(70,6,$r['tProducto'],0,0,'C',0);
+			$pdf->Cell(70,6,$r['marca'],0,0,'C',0);
+			$pdf->Cell(30,6,$_POST['cant'][$i],0,1	,'C',0);
 
 		}
 	};
-
-	header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-	header('Content-Disposition: attachment;filename="Productos.xlsx"');
-	header('Cache-Control: max-age=0');;
-
-	$objWriter= new PHPExcel_Writer_Excel2007($objExcel);
-	$objWriter->save('php://output');
+	$pdf->Output();
+	
 }
 ?>

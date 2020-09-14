@@ -48,7 +48,7 @@ if (isset($_GET['cbxProv']) && !empty($_GET['cbxProv'])) {
 
 		<br>
 		
-		<form action="pedidosExcel.php" method="POST">
+		<form action="pedidosPDF.php" method="POST">
 			<div class="row justify-content-center">
 				<div class="col-md-12">.
 					<div class="form-group">	
