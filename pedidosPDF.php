@@ -5,7 +5,7 @@ if (isset($_POST['seleccionado']) && !empty($_POST['seleccionado']) && isset($_P
 
 	$vari=$_POST['seleccionado'];
 	$cant[]=$_POST['cant'];
-	$idFactura=2;
+	$idFactura=3;
 	$filename="Factura__".$idFactura;//id Factura
 	$pedido=10;
 	$fechaActual = date('d-m-Y');
@@ -39,13 +39,15 @@ if (isset($_POST['seleccionado']) && !empty($_POST['seleccionado']) && isset($_P
 		where tpm.idTpMarca=$vari[$i]";
 		$resultMTP=mysqli_query($conexion,$queryMTP);
 		while ($r=mysqli_fetch_array($resultMTP)) {
+			$pdf->Ln(2);
 			$pdf->Cell(70,6,$r['tProducto'],0,0,'C',0);
 			$pdf->Cell(70,6,$r['marca'],0,0,'C',0);
-			$pdf->Cell(30,6,$_POST['cant'][$i],0,1	,'C',0);
+			$pdf->Cell(30,6,$_POST['cant'][$i],0,1,'C',0);
+
 
 		}
 	};
-	$pdf->Output();
-	
+	$pdf->Output('F','PedidosCreados/'.$filename.'.pdf');
+	header("location:index.php");
 }
 ?>
