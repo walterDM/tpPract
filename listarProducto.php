@@ -50,6 +50,7 @@ if (isset($_GET['cbxProv']) && !empty($_GET['cbxProv'])) {
 		<br>
 		
 		<form action="pedidosPDF.php" method="POST">
+			<input type="hidden" name="idProveedor" value="<?php echo $idProv; ?>">
 			<div class="row justify-content-center">
 				<div class="col-md-12">.
 					<div class="form-group">	
@@ -57,7 +58,6 @@ if (isset($_GET['cbxProv']) && !empty($_GET['cbxProv'])) {
 							<table class="table striped" style="background:#fafafa;height:300px">
 								<thead>
 									<th style="text-align: center;">Producto</th>
-									<th style="text-align: center;">Proveedor</th>
 									<th style="text-align: center;">Tipo Producto</th>
 									<th style="text-align: center;">Marca</th>
 									<!--<th>Proveedor</th>-->
@@ -72,8 +72,9 @@ if (isset($_GET['cbxProv']) && !empty($_GET['cbxProv'])) {
 									<?php while ($row=mysqli_fetch_array($resultBP)): ?>
 										<tr>
 
-											<td style="text-align: center"><?php echo $row['descripcion'];?></td>
-											<td style="text-align: center"><?php echo $row['empresa'];?></td>
+											<td style="text-align: center"><?php echo $row['descripcion']; 
+											echo "<input type='hidden' name='idProducto[]' value=". $row['idProducto'].">";?></td>
+											
 											<td style="text-align: center"><?php echo $row['tipoProducto'];?></td>
 											<td style="text-align: center"><?php echo $row['nombreMarca'];?></td>
 											<td style="text-align: center"><?php echo $row['precio'];?></td>
@@ -91,6 +92,7 @@ if (isset($_GET['cbxProv']) && !empty($_GET['cbxProv'])) {
 											<td><input type="number" min="0" name="cant[]"  style="width: 30%; margin-left: 35%;"></td>
 											<td><input type="checkbox" name="seleccionado[]" value="<?php echo $row['idTpMarca']?>"></td>
 											<td></td>
+
 										</tr>
 									<?php endwhile ?>
 

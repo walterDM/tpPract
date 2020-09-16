@@ -1,15 +1,38 @@
 <?php 
+session_start();
 require 'conexion.php';
 include 'plantillaPDF.php'; 
 if (isset($_POST['seleccionado']) && !empty($_POST['seleccionado']) && isset($_POST['cant'])) {
 
+	$idPersona=$_SESSION['login'];
+	$idProv=$_POST['idProveedor'];
+	$idContacto=$_POST['idCP'];
 	$vari=$_POST['seleccionado'];
-	$cant[]=$_POST['cant'];
-	$idFactura=3;
-	$filename="Factura__".$idFactura;//id Factura
-	$pedido=10;
-	$fechaActual = date('Y-m-d');
+	$prod=$_POST['idProducto'];
+	$cant=$_POST['cant'];
 
+	$queryEmpleado="SELECT LegajoEmpleado as legajo FROM empleados where idPersona=$idPersona";
+	$resultEMP=mysqli_query($conexion,$queryEmpleado);
+	while ($r=mysqli_fetch_array($resultEMP)) {
+		$legajoEmp=$r['legajo'];
+	}
+	$fechaBase=date('Y-m-d');
+	$insertPedido="INSERT INTO `pedidosproveedores`(`idProveedor`, `LegajoEmpleado`, `FechaPedido`) VALUES ($idProv,$legajoEmp,now())";
+	$insertar=mysqli_query($conexion,$insertPedido);
+	$idPedido=mysqli_insert_id($conexion);
+	for ($i=0; $i <sizeof($vari) ; $i++) { 
+		
+		$InsertDP="INSERT INTO `detallespedidos`(`idPedidoProveedor`, `idProducto`, `Cantidad`) VALUES ($idPedido,$prod[$i],$cant[$i])";
+		$queryDP=mysqli_query($conexion,$InsertDP);
+	}
+	$queryProv="SELECT empresa from proveedores where idProveedor=$idProv";
+	$queryP=mysqli_query($conexion,$queryProv);
+	while($rs=mysqli_fetch_array($queryP)){
+		$empresa=$rs['empresa'];
+	}
+	
+	$filename="Pedido__".$empresa."__".$idPedido;//id Factura
+	$fechaActual = date('d-m-Y');
 
 	$pdf= new PDF();
 	
@@ -17,7 +40,7 @@ if (isset($_POST['seleccionado']) && !empty($_POST['seleccionado']) && isset($_P
 	$pdf->AliasNbPages();
 
 	$pdf->SetXY(150,10);
-	$pdf->Cell(70,6,utf8_decode('Pedido N°: '.$idFactura),0,0,'C',0);
+	$pdf->Cell(70,6,utf8_decode('Pedido N°: '.$idPedido),0,0,'C',0);
 	$y= $pdf->GetY();
 	$pdf->SetXY(150,$y+5);
 	$pdf->Cell(70,6,utf8_decode('Fecha: '.$fechaActual),0,0,'C',0);
@@ -48,6 +71,6 @@ if (isset($_POST['seleccionado']) && !empty($_POST['seleccionado']) && isset($_P
 		}
 	};
 	$pdf->Output('F','PedidosCreados/'.$filename.'.pdf');
-	header("location:index.php");
+	header("location:index.php?pedido=1");
 }
 ?>
