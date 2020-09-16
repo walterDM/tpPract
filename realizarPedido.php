@@ -31,22 +31,7 @@ $query=mysqli_query($conexion,$consultaProv);
 	
 	<div class="row">
 		<div class="col-md-12">
-			<div id="result" style="border: 1px solid white;overflow-y: scroll;background:#fafafa;padding-top:15px">
-				<table class="table striped" style="background:#fafafa;height:300px">
-					<thead>
-						<th>Empresa</th>
-						<th>Direccion</th>
-						<th>Cuit</th>
-						<th>Descripcion</th>
-						<th>Telefono</th>
-						<th>Email</th>
-						<th></th>
-						<th></th>
-					</thead>
-					<tbody>
-					</tbody>
-				</table>
-			</div>
+			 <div id="result" style="border: 1px solid white;height:300px; overflow-y: scroll;background:#fafafa"></div>
 		</div>
 	</div>
 
