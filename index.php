@@ -82,4 +82,5 @@ if(isset($_GET['cambiar']) && $_GET['cambiar']==1){
 if (isset($_GET['pedido']) && !empty($_GET['pedido']) && $_GET['pedido']=1) {
   echo '<script> alert("Se ha Creado el Pedido");</script>';
 }
+
  ?>
