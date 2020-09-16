@@ -6,7 +6,8 @@ $consultaProv="SELECT * from proveedores";
 $query=mysqli_query($conexion,$consultaProv);
 if (isset($_GET['cbxProv']) && !empty($_GET['cbxProv'])) {
 	$idProv=$_GET['cbxProv'];
-	$queryBP="SELECT p.idProducto,p.descripcion,pr.empresa, tpp.idTpMarca,tpp.precio, m.nombreMarca,tp.descripcion as tipoProducto FROM productos p 
+	$queryBP="SELECT DISTINCT p.idProducto,p.descripcion,pr.empresa, tpp.idTpMarca,tpp.precio, m.nombreMarca,
+	tp.descripcion as tipoProducto FROM productos p 
 	JOIN productostpmarcas tpp on p.idProducto=tpp.idProducto
 	JOIN proveedores pr on tpp.idProveedor=pr.idProveedor
 	JOIN tiposproductos_marcas tpm on tpm.idTpMarca=tpp.idTpMarca
@@ -77,9 +78,9 @@ if (isset($_GET['cbxProv']) && !empty($_GET['cbxProv'])) {
 											<td style="text-align: center"><?php echo $row['nombreMarca'];?></td>
 											<td style="text-align: center"><?php echo $row['precio'];?></td>
 											<td style="text-align: center"><?php 
-												$resultCE=mysqli_query($conexion,$queryCE); 
-												while($r=mysqli_fetch_array($resultCE)){
-													echo $r['descripcion'];
+											$resultCE=mysqli_query($conexion,$queryCE); 
+											while($r=mysqli_fetch_array($resultCE)){
+												echo $r['descripcion'];
 												?>
 												<input type="hidden" name="idCP" value='<?php 
 												echo $r['idContactoProveedor'];}?>'>

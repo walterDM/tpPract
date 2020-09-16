@@ -8,7 +8,7 @@ if (isset($_POST['seleccionado']) && !empty($_POST['seleccionado']) && isset($_P
 	$idFactura=3;
 	$filename="Factura__".$idFactura;//id Factura
 	$pedido=10;
-	$fechaActual = date('d-m-Y');
+	$fechaActual = date('Y-m-d');
 
 
 	$pdf= new PDF();

@@ -1,4 +1,5 @@
 <?php     
+
 function conectar(){
   $conexion= mysqli_connect("127.0.0.1","root","","tppract");
   if (!$conexion) {
