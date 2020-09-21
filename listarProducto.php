@@ -49,7 +49,7 @@ if (isset($_GET['cbxProv']) && !empty($_GET['cbxProv'])) {
 
 		<br>
 		
-		<form action="pedidosPDF.php" method="POST">
+		<form action="pedidosExcel.php" method="POST">
 			<input type="hidden" name="idProveedor" value="<?php echo $idProv; ?>">
 			<div class="row justify-content-center">
 				<div class="col-md-12">.
@@ -75,8 +75,8 @@ if (isset($_GET['cbxProv']) && !empty($_GET['cbxProv'])) {
 											<td style="text-align: center"><?php echo $row['descripcion']; 
 											echo "<input type='hidden' name='idProducto[]' value=". $row['idProducto'].">";?></td>
 											
-											<td style="text-align: center"><?php echo $row['tipoProducto'];?></td>
-											<td style="text-align: center"><?php echo $row['nombreMarca'];?></td>
+											<td style="text-align: center"><input type="text" style="border-style: none; margin-left: 30%" name="tp[]" id="tp" value="<?php echo $row['tipoProducto']; ?>"></td>
+											<td ><input type="text" style="border-style: none; margin-left: 30%" name="marca[]" id="marca" value="<?php echo $row['nombreMarca']; ?>"></td>
 											<td style="text-align: center"><?php echo $row['precio'];?></td>
 											<td style="text-align: center"><?php 
 											$resultCE=mysqli_query($conexion,$queryCE); 
@@ -89,7 +89,7 @@ if (isset($_GET['cbxProv']) && !empty($_GET['cbxProv'])) {
 											<td style="text-align: center"><?php
 											$resultCT=mysqli_query($conexion,$queryCT);
 											while($rs=mysqli_fetch_array($resultCT)){ echo $rs['descripcion'];}?></td>
-											<td><input type="number" min="0" name="cant[]"  style="width: 30%; margin-left: 35%;"></td>
+											<td><input type="number" min="0" name="cant[]" id="cant" style="width: 30%; margin-left: 35%;"></td>
 											<td><input type="checkbox" name="seleccionado[]" value="<?php echo $row['idTpMarca']?>"></td>
 											<td></td>
 
