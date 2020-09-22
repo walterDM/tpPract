@@ -1,49 +1,58 @@
-<script type="text/javascript">
-window.onload = function envioEmail(){
-        setTimeout(enviar(),hora());
-        break;
-      } 
-      function hora(){
-        horaActual= new Date();
-        horaProg= new Date();
-        horaProg.setHours(17);
-        horaProg.setMinutes(21);
-        horaProg.setSeconds(30);
-        return  (horaActual.getTime() - horaProg.getTime() ); 
+	<?php  	
+	require 'conexion.php';	
+	?>
+	<script type="text/javascript">
+		function totalEP(){
+			var total=0
+			<?php 
+			$select ="SELECT * from estadospedidos where idEstado=1";
+			$queryTEP=mysqli_query($conexion,$select);
 
-      }
-      function enviar(){
-<?php  require 'header.php';?>
+			$cantidadEP = mysqli_num_rows($queryTEP);
+			?>
+			total='<?php echo $cantidadEP ?>';
+			total= parseInt(total);
+			return total;
+		}
+	
+		var ejecutar=setInterval(enviar, 60000);
+		var cantidadTEP=  totalEP();
 
-		<?php
-		use PHPMailer\PHPMailer\PHPMailer;
-		use PHPMailer\PHPMailer\Exception;
+		
 
-		require 'phpmailer/Exception.php';
-		require 'phpmailer/PHPMailer.php';
-		require 'phpmailer/SMTP.php';
-		require 'conexion.php';
 
-		$selectEP="SELECT * from estadospedidos where idEstado=1";
-		$queryEP=mysqli_query($conexion,$selectEP);
-		while ($row=mysqli_fetch_array($queryEP)) {
-			$idPedido=$row['idPedidoProveedor'];
-			$idCP=$row['idContactoProveedor'];
+		function enviar(){
+		
+			
+			<?php
+			use PHPMailer\PHPMailer\PHPMailer;
+			use PHPMailer\PHPMailer\Exception;
 
-			$selectCP="SELECT * from contactosproveedores where idContactoProveedor=$idCP";
-			$queryCP=mysqli_query($conexion,$selectCP);
-			while ($rs=mysqli_fetch_array($queryCP)) {
-				$idProveedor=$rs['idProveedor'];
-				$emailProv=$rs['descripcion'];
-			}
+			require 'phpmailer/Exception.php';
+			require 'phpmailer/PHPMailer.php';
+			require 'phpmailer/SMTP.php';
+
+
+			$selectEP="SELECT * from estadospedidos where idEstado=1 limit 0,3";
+			$queryEP=mysqli_query($conexion,$selectEP);
+			while ($row=mysqli_fetch_array($queryEP)) {
+				$idPedido=$row['idPedidoProveedor'];
+				$idCP=$row['idContactoProveedor'];
+
+				$selectCP="SELECT * from contactosproveedores where idContactoProveedor=$idCP";
+				$queryCP=mysqli_query($conexion,$selectCP);
+				while ($rs=mysqli_fetch_array($queryCP)) {
+					$idProveedor=$rs['idProveedor'];
+					$emailProv=$rs['descripcion'];
+				}
 
 // Instantiation and passing `true` enables exceptions
-			$mail = new PHPMailer(true);
-			
-	
+				$mail = new PHPMailer(true);
+
+
 		//$sql=mysqli_query($conexion,"INSERT INTO fechas VALUES(00,'$fecha_inicio')");
 
-			try {
+				try {
 		    //Server settings
 		    $mail->SMTPDebug = 0;                      // Enable verbose debug output
 		    $mail->isSMTP();                                            // Send using SMTP
@@ -68,7 +77,7 @@ window.onload = function envioEmail(){
 		    
 
 		    // Attachments
-			$mail->addAttachment('PedidosCreados/Pedido__'.$idPedido.'.pdf');         // Add attachments
+			$mail->addAttachment('PedidosCreados/Pedido__'.$idPedido.'.csv');         // Add attachments
 		   // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 
 		    // Content
@@ -81,7 +90,7 @@ window.onload = function envioEmail(){
 		    </head>
 		    <body> 
 		    <h1 align='center'>GestiStock</h1>
-		    <div style='background:black;color:white;padding:20px'><h2>Solicitud de restablecimiento de contraseña</h2></div>
+		    <div style='background:black;color:white;padding:20px'><h2>Solicitud de Pedido GestiStock</h2></div>
 		    <p>Buenos dias se le deja adjunto PDF con los productos solicitados para reponer nuestro Stock. ATTE: Gesti Stock </p>
 		    
 		    </body> 
@@ -91,36 +100,27 @@ window.onload = function envioEmail(){
 
 		    $mail->send();
 		    
-		} catch (Exception $e) {
-		    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-			
-			exit();
-		}
-		if ($mail) {
-			$alterEP="UPDATE `estadospedidos` SET `idEstado`=2 WHERE idPedidoProveedor=$idPedido";
-			$queryAEP=mysqli_query($conexion,$alterEP);
-		}
+		   } catch (Exception $e) {
+		   	echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+
+		   	exit();
+		   }
+		   if ($mail) {
+		   	$alterEP="UPDATE `estadospedidos` SET `idEstado`=2 WHERE idPedidoProveedor=$idPedido";
+		   	$queryAEP=mysqli_query($conexion,$alterEP);
+		   }
 
 }//end while
 
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		if (cantidadTEP==0) {
+				clearInterval(ejecutar);
+			}
+cantidadTEP=cantidadTEP-1;
+if (cantidadTEP<0) {
+	cantidadTEP=0;
 }
-
-<?php require 'footer.php'; ?>
+}
 </script>
+
+

@@ -1,0 +1,8 @@
+   ;;;nro Legajo Empleado: 242424
+;;;Empresa: zink
+;;;Fecha Pedido: 22-09-2020
+;GestiStock
+tipo Producto;Marca;Cantidad
+lacteos;ilolay;2
+bebidas;cocacola;4
+bebidas;fanta;2

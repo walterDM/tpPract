@@ -1,0 +1,10 @@
+   ;;;nro Legajo Empleado: 242424
+;;;Empresa: zink
+;;;Fecha Pedido: 22-09-2020
+;GestiStock
+tipo Producto;Marca;Cantidad
+lacteos;ilolay;2
+bebidas;cocacola;2
+bebidas;fanta;2
+<br />
+<b>Notice</b>:  Undefined variable: filname in <b>D:\Xampp\htdocs\tpPract\pedidosExcel.php</b> on line <b>74</b><br />
