@@ -6,7 +6,8 @@ $consultaProv="SELECT * from proveedores";
 $query=mysqli_query($conexion,$consultaProv);
 if (isset($_GET['cbxProv']) && !empty($_GET['cbxProv'])) {
 	$idProv=$_GET['cbxProv'];
-	$queryBP="SELECT p.idProducto,p.descripcion,pr.empresa, tpp.idTpMarca,tpp.precio, m.nombreMarca,tp.descripcion as tipoProducto FROM productos p 
+	$queryBP="SELECT DISTINCT p.idProducto,p.descripcion,pr.empresa, tpp.idTpMarca,tpp.precio, m.nombreMarca,
+	tp.descripcion as tipoProducto FROM productos p 
 	JOIN productostpmarcas tpp on p.idProducto=tpp.idProducto
 	JOIN proveedores pr on tpp.idProveedor=pr.idProveedor
 	JOIN tiposproductos_marcas tpm on tpm.idTpMarca=tpp.idTpMarca
@@ -48,7 +49,8 @@ if (isset($_GET['cbxProv']) && !empty($_GET['cbxProv'])) {
 
 		<br>
 		
-		<form action="pedidosPDF.php" method="POST">
+		<form action="pedidosExcel.php" method="POST">
+			<input type="hidden" name="idProveedor" value="<?php echo $idProv; ?>">
 			<div class="row justify-content-center">
 				<div class="col-md-12">.
 					<div class="form-group">	
@@ -56,7 +58,6 @@ if (isset($_GET['cbxProv']) && !empty($_GET['cbxProv'])) {
 							<table class="table striped" style="background:#fafafa;height:300px">
 								<thead>
 									<th style="text-align: center;">Producto</th>
-									<th style="text-align: center;">Proveedor</th>
 									<th style="text-align: center;">Tipo Producto</th>
 									<th style="text-align: center;">Marca</th>
 									<!--<th>Proveedor</th>-->
@@ -71,15 +72,16 @@ if (isset($_GET['cbxProv']) && !empty($_GET['cbxProv'])) {
 									<?php while ($row=mysqli_fetch_array($resultBP)): ?>
 										<tr>
 
-											<td style="text-align: center"><?php echo $row['descripcion'];?></td>
-											<td style="text-align: center"><?php echo $row['empresa'];?></td>
-											<td style="text-align: center"><?php echo $row['tipoProducto'];?></td>
-											<td style="text-align: center"><?php echo $row['nombreMarca'];?></td>
+											<td style="text-align: center"><?php echo $row['descripcion']; 
+											echo "<input type='hidden' name='idProducto[]' value=". $row['idProducto'].">";?></td>
+											
+											<td style="text-align: center"><input type="text" style="border-style: none; margin-left: 30%" name="tp[]" id="tp" value="<?php echo $row['tipoProducto']; ?>"></td>
+											<td ><input type="text" style="border-style: none; margin-left: 30%" name="marca[]" id="marca" value="<?php echo $row['nombreMarca']; ?>"></td>
 											<td style="text-align: center"><?php echo $row['precio'];?></td>
 											<td style="text-align: center"><?php 
-												$resultCE=mysqli_query($conexion,$queryCE); 
-												while($r=mysqli_fetch_array($resultCE)){
-													echo $r['descripcion'];
+											$resultCE=mysqli_query($conexion,$queryCE); 
+											while($r=mysqli_fetch_array($resultCE)){
+												echo $r['descripcion'];
 												?>
 												<input type="hidden" name="idCP" value='<?php 
 												echo $r['idContactoProveedor'];}?>'>
@@ -87,9 +89,10 @@ if (isset($_GET['cbxProv']) && !empty($_GET['cbxProv'])) {
 											<td style="text-align: center"><?php
 											$resultCT=mysqli_query($conexion,$queryCT);
 											while($rs=mysqli_fetch_array($resultCT)){ echo $rs['descripcion'];}?></td>
-											<td><input type="number" min="0" name="cant[]"  style="width: 30%; margin-left: 35%;"></td>
+											<td><input type="number" min="0" name="cant[]" id="cant" style="width: 30%; margin-left: 35%;"></td>
 											<td><input type="checkbox" name="seleccionado[]" value="<?php echo $row['idTpMarca']?>"></td>
 											<td></td>
+
 										</tr>
 									<?php endwhile ?>
 

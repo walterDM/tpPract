@@ -1,99 +1,80 @@
-<!--<!DOCTYPE html>
-<html>
-   <head>
-      <title>Productos</title>
-      <style>
-          .pagination li a{
-                background:white;
-                color:#ffb74d;
-            }
-            .pagination li a:hover{
-                background:white;
-                color:#ffb74d;
-            }
-            .pagination .active a{
-                background:#ffb74d;
-                color:white;
-            }
-      </style>
-    </head>-->
-    
-    <?php 
-    require("conexion.php");
-    if (isset($_GET['categoria'])) {
-     $categoria = $_GET['categoria'];
-     if(!isset($_GET['pagina'])){
-       header("location:productos.php?categoria=$categoria&pagina=1");
-     }
-     
-   }
-   require("header.php");
 
-   $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
-   $consulta=mysqli_query($conexion,"SELECT idTipoProducto FROM tiposproductos WHERE descripcion='$categoria'");
-   while($r=mysqli_fetch_array($consulta)){
-    $idTipoProducto=$r['idTipoProducto'];
-  }
-  $consulta2 = mysqli_query($conexion, "SELECT p.* from productos as p 
-    join productostpmarcas as pp on pp.idProducto=p.idProducto
-    join tiposproductos_marcas as tpm on tpm.idTpMarca = pp.idTpMarca
-    where tpm.idTipoProducto=$idTipoProducto 
-    and p.estado='Activo'");
-  $productos_x_pag = 4;
-  
-  $total_productos = mysqli_num_rows($consulta2);
-  $paginas = $total_productos / $productos_x_pag;
-  $paginas = ceil($paginas);
-  ?>
-  <!--<div class="container">-->
-    <div class="row">
-      <div class="col-md-12">
-        <nav class="navbar navbar-expand-lg navbar-light" style="float:right">
-          <ul class="navbar-nav mr-auto" style="padding-top:10px">
-           <?php while($r=mysqli_fetch_array($grupo)){
-            $nombrePermiso=$r['nombrePermiso'];?>
-            <?php if($nombrePermiso=="crear estante"){?>
-             <li class="nav-item">
-               <a class="btn btn-warning" style="color:white" href="#" data-toggle="modal" data-target="#crearestante"><i class="far fa-arrow-alt-circle-up"></i>Alta estante</a>
-             </li>
-           <?php }
-         }?>
-       </ul>
-     </nav>
-     <div data-backdrop="static"  class="modal fade" id="crearestante">
-      <div class="col-md-12 modal-dialog" >
-        <div class="modal-content">
-          <div class="modal-header" style="background:#ffb74d;color:white">
-           <h4 class="modal-title">Alta estante</h4>
-           <button style="color:white" type="button" class="close" data-dismiss="modal">X</button>
-         </div>
-         <div class="modal-body" style="background:#ffb74d;color:white">
-          <form action="ABMproductos.php" method="POST">
-            <div class="form-row">
-              <div class="form-group col-md-12">
-                <label style="float:left" for="inputEmail4">crear estante</label>
-                <input class="form-control" type="text" name="estante" id="estante" required placeholder="nombre de estante">
-                <input class="form-control" type="text" name="categoria" id="categoria" value="<?php echo $categoria;?>" hidden>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label style="float:left" for="inputEmail4">Fila</label>
-                <input class="form-control" type="text" name="fila" id="fila" required placeholder="cantidad de filas">
-              </div>
-              <div class="form-group col-md-6">
-                <label style="float:left" for="inputEmail4">Columna</label>
-                <input class="form-control" type="text" name="columna" id="columna" required placeholder="cantidad de columnas">
-              </div>
-            </div>
-            <div class="form-group" align="center">
-             <button type="submit" class="btn btn-light" name="Altaestante" value="Altaestante" style="width:50%">Crear</button>
-           </div>
-         </form>
-       </div>
+<?php 
+require("conexion.php");
+if (isset($_GET['categoria'])) {
+ $categoria = $_GET['categoria'];
+ if(!isset($_GET['pagina'])){
+   header("location:productos.php?categoria=$categoria&pagina=1");
+ }
+
+}
+require("header.php");
+
+$grupo=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
+$consulta=mysqli_query($conexion,"SELECT idTipoProducto FROM tiposproductos WHERE descripcion='$categoria'");
+while($r=mysqli_fetch_array($consulta)){
+  $idTipoProducto=$r['idTipoProducto'];
+}
+$consulta2 = mysqli_query($conexion, "SELECT p.* from productos as p 
+  join productostpmarcas as pp on pp.idProducto=p.idProducto
+  join tiposproductos_marcas as tpm on tpm.idTpMarca = pp.idTpMarca
+  where tpm.idTipoProducto=$idTipoProducto 
+  and p.estado='Activo'");
+$productos_x_pag = 4;
+
+$total_productos = mysqli_num_rows($consulta2);
+$paginas = $total_productos / $productos_x_pag;
+$paginas = ceil($paginas);
+?>
+
+<div class="row">
+  <div class="col-md-12">
+    <nav class="navbar navbar-expand-lg navbar-light" style="float:right">
+      <ul class="navbar-nav mr-auto" style="padding-top:10px">
+       <?php while($r=mysqli_fetch_array($grupo)){
+        $nombrePermiso=$r['nombrePermiso'];?>
+        <?php if($nombrePermiso=="crear estante"){?>
+         <li class="nav-item">
+           <a class="btn btn-warning" style="color:white" href="#" data-toggle="modal" data-target="#crearestante"><i class="far fa-arrow-alt-circle-up"></i>Alta estante</a>
+         </li>
+       <?php }
+     }?>
+   </ul>
+ </nav>
+ <div data-backdrop="static"  class="modal fade" id="crearestante">
+  <div class="col-md-12 modal-dialog" >
+    <div class="modal-content">
+      <div class="modal-header" style="background:#ffb74d;color:white">
+       <h4 class="modal-title">Alta estante</h4>
+       <button style="color:white" type="button" class="close" data-dismiss="modal">X</button>
      </div>
+     <div class="modal-body" style="background:#ffb74d;color:white">
+      <form action="ABMproductos.php" method="POST">
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label style="float:left" for="inputEmail4">crear estante</label>
+            <input class="form-control" type="text" name="estante" id="estante" required placeholder="nombre de estante">
+            <input class="form-control" type="text" name="categoria" id="categoria" value="<?php echo $categoria;?>" hidden>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label style="float:left" for="inputEmail4">Fila</label>
+            <input class="form-control" type="text" name="fila" id="fila" required placeholder="cantidad de filas">
+          </div>
+          <div class="form-group col-md-6">
+            <label style="float:left" for="inputEmail4">Columna</label>
+            <input class="form-control" type="text" name="columna" id="columna" required placeholder="cantidad de columnas">
+          </div>
+        </div>
+        <div class="form-group" align="center">
+         <button type="submit" class="btn btn-light" name="Altaestante" value="Altaestante" style="width:50%">Crear</button>
+       </div>
+     </form>
    </div>
  </div>
+</div>
+</div>
 </div>
 <div class="col-md-12">
   <?php if (isset($_GET['pagina'])) {
@@ -117,11 +98,11 @@
              <input type="text" name="pagina" value="<?php echo $_GET['pagina'];?>" hidden>
              <input type="text" name="categoria" value="<?php echo $categoria;?>" hidden>
              <button class="btn btn-light" name="idProducto" value="<?php echo $r['idProducto']?>"><i class="fas fa-cart-plus"></i> Añadir a carrito</button>
-            <div>
-              
+             <div>
+
               <?php
               if (isset($_SESSION['login'])) {
-                
+
                $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
                while($rs=mysqli_fetch_array($grupo)){
                 $nombrePermiso=$rs['nombrePermiso'];
@@ -165,7 +146,7 @@
                   <h6><strong>vencimiento: </strong><?php echo $r['fechaCaducidad']; ?></h6>
                 </div>
                 <?php if (isset($_SESSION['login']) && $_SESSION['login'] > 0) {
-                  
+
                   $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
                   while($rs=mysqli_fetch_array($grupo)){
                     $nombrePermiso=$rs['nombrePermiso'];
@@ -189,7 +170,9 @@
         </div>
       </div>
     </div>
-  <?php } ?>
+  <?php } 
+}
+?>
 </div>
 <div class="container" style="padding-top:40px">
   <nav arial-label="page navigation">
@@ -202,6 +185,7 @@
     </ul>
   </nav>
 </div>
+<<<<<<< HEAD
                     <!-- <div class="container" style="padding-top:40px">
                         <nav arial-label="page navigation">
                             <ul class="pagination justify-content-center">
@@ -250,3 +234,9 @@
                         echo "<script>alert('el producto fue añadido exitosamente!');</script>";
                    }
                 ?>
+=======
+</div>
+</div>
+
+<?php require 'footer.php'; ?>
+>>>>>>> 0fafcd9a2aa37edef483771274ca26cbc2b0ab4d

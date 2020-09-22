@@ -71,10 +71,16 @@ if (isset($_GET['recuperar'])&& $_GET['recuperar']==3){
  
 }
 if(isset($_GET['cambiar']) && $_GET['cambiar']==1){
-  echo '<script> alert("su contraseña ha sido cambiada, ingrese con su contraseña nueva");</script>';
+  
   
 }
 ?>
 
 
 <?php require 'footer.php' ?>
+<?php 
+if (isset($_GET['pedido']) && !empty($_GET['pedido']) && $_GET['pedido']=1) {
+  echo '<script> alert("Se ha Creado el Pedido");</script>';
+}
+
+ ?>
