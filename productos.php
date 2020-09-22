@@ -242,4 +242,11 @@
                   </div>
                 </div>
                 
-                <?php require 'footer.php'; ?>
+                <?php require 'footer.php'; 
+                      if(isset($_GET['estadocarrito'])&& $_GET['estadocarrito']==2){
+                           echo "<script>alert('el producto ya fue agregado al carrito anteriormente');</script>";
+                      }
+                      if(isset($_GET['estadocarrito'])&& $_GET['estadocarrito']==1){
+                        echo "<script>alert('el producto fue añadido exitosamente!');</script>";
+                   }
+                ?>

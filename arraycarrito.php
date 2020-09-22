@@ -16,8 +16,7 @@
    	    	}
    	    }
    	    if ($encontro==true) {
-   	    	$arreglo[$numero]['Cantidad']=$arreglo[$numero]['Cantidad']+1;
-   	    	$_SESSION['carrito']=$arreglo;
+			header("location:productos.php?categoria=$categoria&pagina=$pagina&estadocarrito=2");
    	    }else{
    	    	$nombre="";
             $precio=0;
@@ -37,7 +36,8 @@
                            'Imagen'=>$img,
                            'Cantidad'=>1);
         	array_push($arreglo, $prodNuevo);
-        	$_SESSION['carrito']=$arreglo;
+			$_SESSION['carrito']=$arreglo;
+			header("location:productos.php?categoria=$categoria&pagina=$pagina&estadocarrito=1");
    	    }
    	}
    }else{
@@ -62,5 +62,4 @@
             $_SESSION['carrito']=$arreglo;
         }
     }
-    header("location:productos.php?categoria=$categoria&pagina=$pagina");
 ?>

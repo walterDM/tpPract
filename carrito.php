@@ -31,12 +31,12 @@
                  	    	<td style="padding-top:30px"><?php echo $datos[$i]['Descripcion'];?></span>
                  	    	<td style="padding-top:30px"><?php echo "$".$datos[$i]['Precio'];?></span>
                  	    	<td style="padding-top:30px">
-                           <input type="number" MIN="1" MAX="<?php echo $datos[$i]['CantidadProd'];?>" value="<?php echo $datos[$i]['Cantidad']; ?>"
+                           <input id="cant" type="number" MIN="1" MAX="<?php echo $datos[$i]['CantidadProd'];?>" data-cantidad="<?php echo $datos[$i]['CantidadProd'];?>" value="<?php echo $datos[$i]['Cantidad']; ?>"
                            data-precio="<?php echo $datos[$i]['Precio'];?>"
                            data-id="<?php echo $datos[$i]['IdProducto'];?>"
                            class="cantidad">
                         </td>
-                 	    	   <td style="padding-top:30px" class="subtotal"><h6 class="subtotal">subtotal: <?php echo "$".$datos[$i]['Precio']*$datos[$i]['Cantidad'];?></h6></td>
+                 	    	   <td style="padding-top:30px" class="subtotal"><?php echo "$".$datos[$i]['Precio']*$datos[$i]['Cantidad'];?></td>
                            <td><a href="#" style="border-radius:30px;font-size:20px" class="btn btn-light eliminar" data-id="<?php echo $datos[$i]['IdProducto'];?>"><i class="fas fa-trash-alt"></i></a></td>
                            <?php    	
                   $total=($datos[$i]['Cantidad']*$datos[$i]['Precio'])+$total;
@@ -69,8 +69,12 @@
               // alert("entered: " + inputVal);
               var id=$(this).attr('data-id');
               var precio=$(this).attr('data-precio');
+              var cantstock=$(this).attr('data-cantidad');
               var cantidad=$(this).val();
-              $(this).parentsUntil('.carrito').find('.subtotal').text('Subtotal: '+(precio*cantidad));
+              if(cantidad>cantstock){
+                  alert("hola");
+              }else{
+              $(this).parentsUntil('.carrito').find('.subtotal').text('$'+(precio*cantidad));
               $.post('modificarCarrito.php',{
                   IdProducto:id,
                   Precio:precio,
@@ -78,6 +82,7 @@
               },function(e){
                   $('#total').text('Total: '+e);
               });
+              }
             }
          });
          $('.eliminar').click(function(e){
