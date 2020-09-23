@@ -13,8 +13,13 @@ conectar();
 if (isset($_POST['guardarProveedor'] )&& !empty($_POST['guardarProveedor'])) {
     $db=conectar();
     $empresa=$_POST['empresa'];
-    $direccion=$_POST['direccion'];
     $cuit=$_POST['cuit'];
+    $idCiudad=$_POST['cbxciudad'];
+    $calle=$_POST['calle'];
+    $altura=$_POST['altura'];
+    $dpto=$_POST['dpto'];
+    $piso=$_POST['piso'];
+    $idTipoDomicilio=$_POST['tipodomicilio'];
     $telefono=$_POST['telefono'];
     $email=$_POST['correo'];
     $descripcion=$_POST['descripcion'];
@@ -32,7 +37,7 @@ if (isset($_POST['guardarProveedor'] )&& !empty($_POST['guardarProveedor'])) {
 
 }else{
 
-  $insert1=mysqli_query($db, "INSERT INTO proveedores VALUES (00,'$empresa','$direccion','$cuit','$descripcion') ");
+  $insert1=mysqli_query($db, "INSERT INTO proveedores VALUES (00,'$empresa','$cuit','$descripcion') ");
 
   $consulta1=mysqli_query($db,"SELECT idTipoContacto FROM tiposcontactos WHERE descripcion='email'");
   while ($r=mysqli_fetch_array($consulta1)) {
@@ -47,8 +52,9 @@ while($r=mysqli_fetch_array($consulta3)){$idProveedor=$r['idProveedor'];}
 $insert2=mysqli_query($db,"INSERT INTO contactosproveedores VALUES (00,$idProveedor,$idTipoMail,
     '$email')");
 $insert3=mysqli_query($db,"INSERT INTO contactosproveedores VALUES (00,$idProveedor,$idTipoTelefono,'$telefono')");
-header("location:altaProveedor.php?registrado=1");
 }
+ $insert4=mysqli_query($db,"INSERT INTO direccionesprov VALUES(00,$idCiudad,$idProveedor,$idTipoDomicilio,'$calle',$altura,'$dpto','$piso')");
+        header("location:altaProveedor.php?registrado=1");
 }
 
 
