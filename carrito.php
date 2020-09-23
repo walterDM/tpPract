@@ -71,9 +71,10 @@
               var precio=$(this).attr('data-precio');
               var cantstock=$(this).attr('data-cantidad');
               var cantidad=$(this).val();
-              if(cantidad>cantstock){
-                  alert("hola");
-              }else{
+              
+              /*if(cantidad>cantstock){
+                  alert("cantidad no disponible");
+              }else{*/
               $(this).parentsUntil('.carrito').find('.subtotal').text('$'+(precio*cantidad));
               $.post('modificarCarrito.php',{
                   IdProducto:id,
@@ -82,7 +83,7 @@
               },function(e){
                   $('#total').text('Total: '+e);
               });
-              }
+              //}
             }
          });
          $('.eliminar').click(function(e){

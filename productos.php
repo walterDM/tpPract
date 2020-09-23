@@ -185,44 +185,10 @@ $paginas = ceil($paginas);
     </ul>
   </nav>
 </div>
-<<<<<<< HEAD
-                    <!-- <div class="container" style="padding-top:40px">
-                        <nav arial-label="page navigation">
-                            <ul class="pagination justify-content-center">
-                                <li class="page-item <?php //echo $_GET['pagina'] <= 1 ? 'disabled' : '' ?>"><a class="page-link" href="peliculas.php?genero=<?php //echo $peliculas; ?>&pagina=<?php //echo $_GET['pagina'] - 1 ?>">Anterior</a></li>
-                               <?php //for ($i = 1; $i <= $paginas; $i++) : ?>
-                                    <li class="<?php //echo $_GET['pagina'] == $i ? 'active' : '' ?>"><a class="page-link" href="peliculas.php?genero=<?php //echo $peliculas; ?>&pagina=<?php //echo $i ?>"><?php// echo $i ?></a></li>
-                                <?php// endfor ?>
-                                <li class="page-item <?php// echo $_GET['pagina'] >= $paginas ? 'disabled' : '' ?>"><a class="page-link" href="peliculas.php?genero=<?php// echo $peliculas; ?>&pagina=<?php //echo $_GET['pagina'] + 1 ?>">Siguiente</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <?php
-                    //if (isset($_GET['eliminado']) && $_GET['eliminado'] == 1) {
-                       // echo "<script>alert('la pelicula ha sido eliminada');</script>";
-                    }
-                   // if (isset($_GET['estado']) && $_GET['estado'] == 1) {
-                      //  echo "<script>alert('datos guardados');</script>";
-                    //}
-                   // if (isset($_GET['estado']) && $_GET['estado'] == 2) {
-                      //  echo "<script>alert('datos modificados');</script>";
-                    //}
-                    //if (isset($_GET['estado']) && $_GET['estado'] == 3) {
-                      //  echo "<script>alert('no se pudo cargar la pelicula con ese titulo porque ya existe');</script>";
-                  //  }
-                   // if (isset($_GET['id_pelicula']) && (isset($_GET['estado']) && $_GET['estado'] == 4)) {
-                      //  $idPelicula = $_GET['id_pelicula'];
-                       // $prod = mysqli_query($conexion, "select * from usuarios_movies where id_usuario='$idUser' and id_pelicula='$idPelicula'");
-                        //if (mysqli_num_rows($prod) > 0) {
-                        //    echo "<script>alert('no puede agregar una pelicula que ya se encuentra en la lista');</script>";
-                 //       } //else {
-                            //$insertar = mysqli_query($conexion, "insert into usuarios_movies(id_usuario,id_pelicula)values('$idUser','$idPelicula')");
-                            //echo "<script>alert('pelicula agregada');</script>";
-                     //   }
-                  //  } 
-                //}
+
             
-                    ?> -->
+            
+                  
                   </div>
                 </div>
                 
@@ -234,9 +200,5 @@ $paginas = ceil($paginas);
                         echo "<script>alert('el producto fue añadido exitosamente!');</script>";
                    }
                 ?>
-=======
 </div>
 </div>
-
-<?php require 'footer.php'; ?>
->>>>>>> 0fafcd9a2aa37edef483771274ca26cbc2b0ab4d

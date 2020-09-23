@@ -59,7 +59,8 @@
 						   'CantidadProd'=>$cantidadProd,
                            'Imagen'=>$img,
                            'Cantidad'=>1);
-            $_SESSION['carrito']=$arreglo;
+			$_SESSION['carrito']=$arreglo;
+			header("location:productos.php?categoria=$categoria&pagina=$pagina&estadocarrito=1");
         }
     }
 ?>

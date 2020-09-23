@@ -241,7 +241,7 @@ while ($r=mysqli_fetch_array($select)) {
                       <?php break;
                       case "listar cliente":
                       echo "<script>document.getElementById('gestiusuarios').hidden=false;</script>";?>
-                      <form id="listarCliente" action="" method="POST">
+                      <form id="listarCliente" action="listarClientes.php" method="POST">
                         <button type="submit" class="dropdown-item">Listar clientes</button>
                       </form>
                       <?php break;
