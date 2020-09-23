@@ -39,7 +39,6 @@ if(isset($_POST['buscar']) && !empty($_POST['buscar'])){
      <table class="table striped" style="background:#fafafa;height:300px">
        <thead>
          <th>Empresa</th>
-         <th>Direccion</th>
          <th>Cuit</th>
          <th>Descripcion</th>
          <th>Telefono</th>
@@ -74,7 +73,6 @@ if(isset($_POST['buscar']) && !empty($_POST['buscar'])){
           ?>
           <tr>
             <td style="padding-top:30px"><?php echo $row['empresa'];?></td>
-            <td style="padding-top:30px"><?php echo $row['direccion'];?></td>
             <td style="padding-top:30px"><?php echo $row['cuit'];?></td>
             <td style="padding-top:30px"><?php echo $row['descripcion'];?></td>
             
