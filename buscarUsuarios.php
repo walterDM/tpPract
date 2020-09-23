@@ -14,7 +14,7 @@
       <div class="col-md-12" align="center" style="padding-top:20px">
         <form action="buscarUser.php?pagina=1" method="POST">
          <div class="input-group mb-3">
-          <input id="usuario" name="usuario" style="width:70%" type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="ingrese la pelicula a buscar">
+          <input id="usuario" name="usuario" style="width:70%" type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="ingrese el usuario a buscar">
           <div class="input-group-append">
             <button name="buscar" value="buscar" style="border-color: #e0e0e0;background:white" class="btn btn-outline-warning" id="button-addon2"><i class="fas fa-search"></i></button>
           </div>
