@@ -63,8 +63,13 @@ if (isset($_POST['modificarProveedor'] )&& !empty($_POST['modificarProveedor']))
 
     $idProveedor=$_POST['idProveedor'];
     $empresa=$_POST['empresa'];
-    $direccion=$_POST['direccion'];
     $cuit=$_POST['cuit'];
+    $idCiudad=$_POST['cbxciudad'];
+    $calle=$_POST['calle'];
+    $altura=$_POST['altura'];
+    $dpto=$_POST['dpto'];
+    $piso=$_POST['piso'];
+    $idTipoDomicilio=$_POST['tipodomicilio'];
     $telefono=$_POST['telefono'];
     $email=$_POST['correo'];
     $descripcion=$_POST['descripcion'];
@@ -86,6 +91,9 @@ if (isset($_POST['modificarProveedor'] )&& !empty($_POST['modificarProveedor']))
                             $delete=mysqli_query($db,"DELETE FROM contactosproveedores WHERE idProveedor=$idProveedor");
                             $insertar1=mysqli_query($db,"INSERT INTO contactosproveedores VALUES(00,$idProveedor,$idTipoMail,'$email')");
                             $insertar2=mysqli_query($db,"INSERT INTO contactosproveedores VALUES(00,$idProveedor,$idTipoTelefono,'$telefono')");
+                            $delete2=mysqli_query($db,"DELETE FROM direccionesprov WHERE idProveedor=$idProveedor");
+
+                            $insertar3=mysqli_query($db,"INSERT INTO direccionesprov VALUES(00,$idCiudad,$idProveedor,$idTipoDomicilio,'$calle',$altura,'$dpto','$piso')");
                             
                             header("location:buscarProveedor.php?pagina=1&mod=1");
                             
