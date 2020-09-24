@@ -94,12 +94,47 @@ $paginas = ceil($paginas);
             <div class="card-body" style="height:90px">
               <p align="center" class="card-text"><?php echo $r['descripcion']."<br>$".$r['precio']; ?></p>
             </div>
-            <form action="arraycarrito.php" method="GET">
-             <input type="text" name="pagina" value="<?php echo $_GET['pagina'];?>" hidden>
-             <input type="text" name="categoria" value="<?php echo $categoria;?>" hidden>
-             <button class="btn btn-light" name="idProducto" value="<?php echo $r['idProducto']?>"><i class="fas fa-cart-plus"></i> Añadir a carrito</button>
-             <div>
+             <a style="float: left;margin: 5px;border-radius:30px" class="btn btn-light" href="#" data-toggle="modal" data-target="#carrito<?php echo $r['idProducto']; ?>"><i class="fas fa-cart-plus"></i> Añadir a carrito</a>
+             <div data-backdrop="static" class="modal" id="carrito<?php echo $r['idProducto']; ?>">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header" style="background:#ffb74d;color:white">
+              <h4 class="modal-title">informacion</h4>
+              <button type="button" class="close" data-dismiss="modal">X</button>
+            </div>
+            <div class="modal-body" style="background:#ffb74d;color:white">
+              <div class="row">
+                <div class="col-md-6">
+                  <img src="imagenes/<?php echo $r['imagen']; ?>" style="width:70%"><br>
+                </div>
+                <div class="col-md-6">
+                  <h6><strong>producto: </strong><?php echo $r['descripcion']; ?></h6>
+                  <h6><strong>precio: $</strong><?php echo $r['precio']; ?></h6>
+                  <h6><strong>cantidad de stock: </strong><?php echo $r['cantidadProd']; ?></h6>
+                  <h6><strong>lote: </strong><?php echo $r['Lote']; ?></h6>
+                  <h6><strong>vencimiento: </strong><?php echo $r['fechaCaducidad']; ?></h6>
+                </div>
+            </div>
+            <div class="row" style="padding-top:20px">
+               <div class="col-md-12">
+             
+                   
+                     <label>Cantidad</label>
+                     <input type="number" MIN="1" MAX="<?php echo $r['CantidadProd'];?>" id="cantidad" name="cantidad">
+                     <input type="text" name="pagina" value="<?php echo $_GET['pagina'];?>" hidden>
+                     <input type="text" name="categoria" value="<?php echo $categoria;?>" hidden>
+                  
+                   <button class="btn btn-light" name="idProducto" value="<?php echo $r['idProducto']?>"><i class="fas fa-cart-plus"></i> Añadir a carrito</button>
+                 
+               </div>
+            </div>
+          </div>
 
+        </div>
+      </div>
+    </div>
+             <div>
+             
               <?php
               if (isset($_SESSION['login'])) {
 

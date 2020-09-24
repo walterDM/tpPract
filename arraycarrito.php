@@ -34,7 +34,7 @@
 						   'Precio'=>$precio,
 						   'CantidadProd'=>$cantidadProd,
                            'Imagen'=>$img,
-                           'Cantidad'=>1);
+                           'Cantidad'=>$_GET['cantidad']);
         	array_push($arreglo, $prodNuevo);
 			$_SESSION['carrito']=$arreglo;
 			header("location:productos.php?categoria=$categoria&pagina=$pagina&estadocarrito=1");
@@ -58,7 +58,7 @@
 						   'Precio'=>$precio,
 						   'CantidadProd'=>$cantidadProd,
                            'Imagen'=>$img,
-                           'Cantidad'=>1);
+                           'Cantidad'=>$_GET['cantidad']);
 			$_SESSION['carrito']=$arreglo;
 			header("location:productos.php?categoria=$categoria&pagina=$pagina&estadocarrito=1");
         }
