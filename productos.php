@@ -117,15 +117,14 @@ $paginas = ceil($paginas);
             </div>
             <div class="row" style="padding-top:20px">
                <div class="col-md-12">
-             
-                   
+                  <form action="arraycarrito.php" method="GET" onsubmit="return stock(this)">
                      <label>Cantidad</label>
-                     <input type="number" MIN="1" MAX="<?php echo $r['CantidadProd'];?>" id="cantidad" name="cantidad">
+                     <input type="number" MIN="1" MAX="<?php echo $r['cantidadProd'];?>" id="cantidad" name="cantidad" VALUE="1">
                      <input type="text" name="pagina" value="<?php echo $_GET['pagina'];?>" hidden>
+                     <input type="text" id="cantstock" value="<?php echo $r['cantidadProd'];?>" hidden>
                      <input type="text" name="categoria" value="<?php echo $categoria;?>" hidden>
-                  
-                   <button class="btn btn-light" name="idProducto" value="<?php echo $r['idProducto']?>"><i class="fas fa-cart-plus"></i> Añadir a carrito</button>
-                 
+                     <button class="btn btn-light" name="idProducto" value="<?php echo $r['idProducto']?>" onclick="stock();"><i class="fas fa-cart-plus"></i> Añadir a carrito</button>
+                  </form>  
                </div>
             </div>
           </div>
