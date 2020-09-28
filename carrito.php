@@ -1,4 +1,6 @@
-<?php require("header.php");?>
+<?php 
+      require("header.php");
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -35,6 +37,7 @@
                            data-precio="<?php echo $datos[$i]['Precio'];?>"
                            data-id="<?php echo $datos[$i]['IdProducto'];?>"
                            class="cantidad">
+                     
                         </td>
                  	    	   <td style="padding-top:30px" class="subtotal"><?php echo "$".$datos[$i]['Precio']*$datos[$i]['Cantidad'];?></td>
                            <td><a href="#" style="border-radius:30px;font-size:20px" class="btn btn-light eliminar" data-id="<?php echo $datos[$i]['IdProducto'];?>"><i class="fas fa-trash-alt"></i></a></td>
@@ -57,7 +60,11 @@
       <hr>
       <h3 align="center" style="color: green" id="total">total: $<?php echo $total;?></h3>
       <div align="center">
-         <a class="btn btn-light" href="#">Finalizar compra</a>
+       <?php if($total!=0){?>
+                  <form action="domicilioCompra.php" method="POST">
+                     <button class="btn btn-light" name="comprar" value="comprar"> Comprar</button>
+                  </form>
+       <?php }?>
       </div>
       <?php
          require("footer.php");
@@ -71,10 +78,12 @@
               var precio=$(this).attr('data-precio');
               var cantstock=$(this).attr('data-cantidad');
               var cantidad=$(this).val();
-              
-              /*if(cantidad>cantstock){
+              if(cantidad<1){
                   alert("cantidad no disponible");
-              }else{*/
+              }
+              if(cantidad>cantstock){
+                 alert("cantidad no disponible");
+              }else{
               $(this).parentsUntil('.carrito').find('.subtotal').text('$'+(precio*cantidad));
               $.post('modificarCarrito.php',{
                   IdProducto:id,
@@ -83,7 +92,7 @@
               },function(e){
                   $('#total').text('Total: '+e);
               });
-              //}
+              }
             }
          });
          $('.eliminar').click(function(e){
