@@ -49,7 +49,7 @@ if (isset($_GET['cbxProv']) && !empty($_GET['cbxProv'])) {
 
 		<br>
 		
-		<form action="pedidosExcel.php" method="POST">
+		<form action="insertarPedido.php" method="POST">
 			<input type="hidden" name="idProveedor" value="<?php echo $idProv; ?>">
 			<div class="row justify-content-center">
 				<div class="col-md-12">.
@@ -119,16 +119,6 @@ if (isset($_GET['cbxProv']) && !empty($_GET['cbxProv'])) {
 
 		</form>
 
-
-
-
-
-
-
-
-
-
-
 	<?php }else{?>
 		<div class="col-md-12" style="padding-top:10px">
 			<div class="alert alert-warning" role="alert">
@@ -137,3 +127,5 @@ if (isset($_GET['cbxProv']) && !empty($_GET['cbxProv'])) {
 		</div>
 	<?php } ?>
 	<?php require 'footer.php'; ?>
+
+	

@@ -52,3 +52,11 @@ $query=mysqli_query($conexion,$consultaProv);
 
 
 <?php require 'footer.php' ?>
+<?php 
+	if (isset($_GET['pedido'])&&$_GET['pedido']==1) {
+		echo "<script>alert('pedido Creado');</script>";
+	}
+	if (isset($_GET['pedido'])&&$_GET['pedido']==0) {
+		echo "<script>alert('No se Pudo Crear el pedido');</script>";
+	}
+	?>
