@@ -97,6 +97,47 @@ if(isset($_POST['comprar']) && !empty($_POST['comprar'])){
                          </div> 
                       </form>
                    </div>
+          <?php }else{ 
+                   $consulta=mysqli_query($conexion,"SELECT * FROM direcciones WHERE idPersona=$idPersona");
+                   $datos=mysqli_fetch_assoc($consulta);
+                   $consulta2=mysqli_query($conexion,"SELECT nombreCiudad FROM ciudades WHERE idCiudad='{$datos['idCiudad']}'");
+                   $ciudad=mysqli_fetch_assoc($consulta2);?>
+                   <div class="col-md-12" style="padding-top:60px">
+                      <h3 align="center">Enviar pedido a la siguiente dirección:</h3>
+                   </div>
+                   <div class="col-md-12" style="background:#ffb74d;color:white;border-radius:50px;padding:50px">
+                      <div class="row">
+                          <div class="col-md-2">
+                             <h4><?php echo "Ciudad <br><br>".$ciudad['nombreCiudad'];?></h4>
+                          </div>
+                          <div class="col-md-2">
+                             <h4><?php echo "Calle <br><br>".$datos['calle'];?></h4>
+                          </div>
+                          <div class="col-md-2">
+                             <h4> <?php echo "Altura <br><br>".$datos['altura'];?></h4>
+                          </div>
+                          <div class="col-md-2">
+                             <h4><?php echo "Piso <br><br>".$datos['piso'];?></h4>
+                          </div>
+                          <div class="col-md-2">
+                             <h4><?php echo "Depto <br><br>".$datos['dpto'];?></h4>
+                          </div>
+                      </div>
+                      <div class="row" style="padding-top:40px">
+                         <div class="col-md-12">
+                             <h4>
+                             <div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+  <label class="form-check-label" for="inlineRadio1">Usar esta dirección</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+  <label class="form-check-label" for="inlineRadio2">Otra</label>
+</div>
+                             </h4>
+                         </div>
+                      </div>
+                   </div>
           <?php }?> 
        </div>
    </div>
