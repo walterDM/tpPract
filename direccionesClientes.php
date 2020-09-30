@@ -8,7 +8,7 @@
     $dpto=$_POST['dpto'];
     $piso=$_POST['piso'];
     $idTipoDomicilio=$_POST['tipodomicilio'];  
-    $insert6=mysqli_query($conexion,"INSERT INTO direcciones VALUES(00,$idCiudad,$idPersona,$idTipoDomicilio,'$calle',$altura,'$dpto','$piso')");
-    header("location:carrito.php");
+    $insert=mysqli_query($conexion,"INSERT INTO direcciones VALUES(00,$idCiudad,$idPersona,$idTipoDomicilio,'$calle',$altura,'$dpto','$piso')");
+    header("location:altadireccion.php?agregado=1");
   }
 ?>

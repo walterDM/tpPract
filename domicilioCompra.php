@@ -1,5 +1,5 @@
 <?php
-if(isset($_POST['comprar']) && !empty($_POST['comprar'])){
+if(isset($_POST['comprar'])){
     require("conexion.php");
     require("header.php");
     $idPersona=$_SESSION['login'];
@@ -122,6 +122,7 @@ if(isset($_POST['comprar']) && !empty($_POST['comprar'])){
                       </div>
                    </div>
                    <br>
+                   <form id="formulario">
                    <?php while($r=mysqli_fetch_array($consulta)){
                          $consulta2=mysqli_query($conexion,"SELECT nombreCiudad FROM ciudades WHERE idCiudad='{$r['idCiudad']}'");
                    ?>
@@ -147,6 +148,7 @@ if(isset($_POST['comprar']) && !empty($_POST['comprar'])){
                                <div class="form-check form-check-inline">
                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
                                    <label class="form-check-label" for="inlineRadio1"></label>
+                                 </form>
                                 </div>
                              </h4>
                           </div>
@@ -154,10 +156,24 @@ if(isset($_POST['comprar']) && !empty($_POST['comprar'])){
                      <?php } ?>
                       <div class="row" style="padding-top:40px" align="center">
                          <div class="col-md-12">
-                             <a href="#" class="btn btn-light">Agregar otra dirección</a>
+                             <a style="width:20%" href="altadireccion.php" class="btn btn-light">Agregar otra dirección</a>
+                             <input style="width:20%" type="button" id="boton" value="Enviar" class="btn btn-light">
                          </div>
                       </div>
+                      </form>
                    </div>
+                   <!--<script type="text/javascript">
+	                     $(document).ready(function(){
+		                     $("#boton").click(function () {	 
+			                     if( $("#formulario input[name='inlineRadioOptions']:radio").is(':checked')) {  
+				                     alert("Bien!!!, la edad seleccionada es: " + $('input:radio[name=inlineRadioOptions]:checked').val());
+				                      $("#formulario").submit();  
+				                  } else{  
+					                  alert("Selecciona la edad por favor!!!");  
+					               }  
+		                     });
+	                     });
+                   </script>-->
           <?php }?> 
        </div>
    </div>
