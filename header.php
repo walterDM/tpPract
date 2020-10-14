@@ -47,7 +47,7 @@ function killSession(){
     <title>GestiStock</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="bootstrap-4.3.1-dist/css/estilos.css">
+    <link rel="stylesheet" type="text/css" href="../tpPract/bootstrap-4.3.1-dist/css/estilos.css">
     
 
   </head>
@@ -258,19 +258,19 @@ while ($r=mysqli_fetch_array($select)) {
                     switch($nombrePermiso){
                       case "reportes de ventas":
                       echo "<script>document.getElementById('reportes').hidden=false;</script>";?>
-                      <form id="Rventas" action="" method="POST">
+                      <form id="Rventas" action="reportesVentas.php" method="POST">
                         <button type="submit" class="dropdown-item submenu">Reportes de ventas</button>
                       </form>
                       <?php break;
                       case "reportes de stock":
                       echo "<script>document.getElementById('reportes').hidden=false;</script>";?> 
-                      <form id="Rstock" action="" method="POST">
+                      <form id="Rstock" action="reportesStock.php" method="POST">
                         <button type="submit" class="dropdown-item submenu">Reportes de stock</button>
                       </form>
                       <?php break;
                       case "reportes de caducidad":
                       echo "<script>document.getElementById('reportes').hidden=false;</script>";?>
-                      <form id="Rcaducidad" action="" method="POST">
+                      <form id="Rcaducidad" action="reportesCaducidad.php" method="POST">
                         <button type="submit" class="dropdown-item submenu">Reportes de caducidad</button>
                       </form>
                       <?php break;
