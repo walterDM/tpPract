@@ -157,8 +157,14 @@ if(isset($_POST['comprar'])){
                       <div class="row" style="padding-top:40px" align="center">
                          <div class="col-md-12">
                              <a style="width:20%" href="altadireccion.php" class="btn btn-light">Agregar otra dirección</a>
-                             <input style="width:20%" type="button" id="boton" value="Enviar" class="btn btn-light">
+
+                              <a style="width:20%" href="TarjetaCliente.php" class="btn btn-light">Continuar</a>
+
+
+
+                            <!--  <input style="width:20%" type="button" id="boton" value="Enviar" class="btn btn-light"> -->
                          </div>
+
                       </div>
                       </form>
                    </div>
