@@ -33,7 +33,8 @@ if(isset($_POST['comprar'])){
  </script>
    <div class="container">
        <div class="row">
-          <?php if(mysqli_num_rows($select)<1){?>
+          <?php 
+            if(mysqli_num_rows($select)<1){?>
                    <div class="col-md-12" style="padding-top:120px">
                       <form action="direccionesClientes.php" method="POST">
                          <div class="row">
@@ -143,21 +144,19 @@ if(isset($_POST['comprar'])){
                              <h4><?php echo $r['dpto'];?></h4>
                           </div>
                           <div class="col-md-2">
-                     
                              <h4>
-                               <div class="form-check form-check-inline">
-                                   <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                   <label class="form-check-label" for="inlineRadio1"></label>
-                                 </form>
-                                </div>
-                             </h4>
+                                <form method="POST" action="ModDomicilioCompra.php">
+                                    <input type="text" name="idDireccion" id="idDireccion" value="<?php echo $r['idDireccion']?>" hidden>
+                                    <button name="cambiar" value="cambiar" class="btn btn-light">Actualizar</button>
+                                </form>
+                              </h4>
                           </div>
                       </div>
                      <?php } ?>
                       <div class="row" style="padding-top:40px" align="center">
                          <div class="col-md-12">
                              <a style="width:20%" href="altadireccion.php" class="btn btn-light">Agregar otra dirección</a>
-                             <input style="width:20%" type="button" id="boton" value="Enviar" class="btn btn-light">
+                             <button style="width:20%" type="submit" id="boton" class="btn btn-light">Continuar</button>
                          </div>
                       </div>
                       </form>
@@ -174,11 +173,10 @@ if(isset($_POST['comprar'])){
 		                     });
 	                     });
                    </script>-->
+                  
           <?php }?> 
        </div>
    </div>
 <?php
-}else{
-    header("location:index.php");
 }
 ?>
