@@ -166,7 +166,21 @@ if(isset($_POST['comprar'])){
                      <?php /* } */?>
                       <div class="row" style="padding-top:40px" align="center">
                          <div class="col-md-12">
+<<<<<<< HEAD
                              <button style="width:20%" type="submit" id="boton" class="btn btn-light">Continuar</button>
+=======
+                             <a style="width:20%" href="altadireccion.php" class="btn btn-light">Agregar otra dirección</a>
+
+                            
+
+
+                              <a style="width:20%" href="TarjetaCliente.php" class="btn btn-light">Continuar</a>
+
+
+
+                            <!--  <input style="width:20%" type="button" id="boton" value="Enviar" class="btn btn-light"> -->
+
+>>>>>>> 56e824e7a9d5e59b1a9dd20f67cdb62d654c475c
                          </div>
                       </div>
                       </form>-->
