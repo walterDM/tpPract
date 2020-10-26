@@ -31,6 +31,14 @@ if(isset($_POST['comprar'])){
 	
 	
  </script>
+ <style>
+     td {border: 1px #DDD solid; padding: 5px; cursor: pointer;}
+
+.selected {
+       background-color: brown;
+       color: #FFF;
+}
+  </style>
    <div class="container">
        <div class="row">
           <?php 
@@ -106,70 +114,62 @@ if(isset($_POST['comprar'])){
                    </div>
                    <div class="col-md-12" style="background:#ffb74d;color:white;border-radius:50px;padding:50px">
                    <div class="row">
-                      <div class="col-md-2">
-                         <h4>Ciudad</h4>
-                      </div>
-                      <div class="col-md-2">
-                         <h4>Calle</h4>
-                      </div>
-                      <div class="col-md-2">
-                         <h4>Altura</h4>
-                      </div>
-                      <div class="col-md-2">
-                         <h4>Piso</h4>
-                      </div>
-                      <div class="col-md-2">
-                         <h4>Depto</h4>
-                      </div>
-                   </div>
-                   <br>
-                   <form id="formulario">
-                   <?php while($r=mysqli_fetch_array($consulta)){
+                      <table class="table striped" id="tabla">
+                      <thead>
+                        <th>Ciudad</th>
+                        <th>Calle</th>
+                        <th>Altura</th>
+                        <th>Piso</th>
+                        <th>Depto</th>
+                      </thead>
+                      <tbody>
+                      <?php while($r=mysqli_fetch_array($consulta)){
                          $consulta2=mysqli_query($conexion,"SELECT nombreCiudad FROM ciudades WHERE idCiudad='{$r['idCiudad']}'");
+                      ?>
+                        <tr>
+                           <td><?php while($rs=mysqli_fetch_array($consulta2)){ echo $rs['nombreCiudad']; } ?></td>
+                           <td><?php echo $r['calle'];?></td>
+                           <td><?php echo $r['altura'];?></td>
+                           <td><?php echo $r['piso'];?></td>
+                           <td><?php echo $r['dpto'];?></td>
+                        </tr>
+                      <?php }?>
+                     </tbody>
+                  </table>
+                  <input class="btn btn-light" type="button" id="tst" value="OK" onclick="fnselect()" />
+                   <!--<form id="formulario" method="post">
+                   <?php /*while($r=mysqli_fetch_array($consulta)){
+                         $consulta2=mysqli_query($conexion,"SELECT nombreCiudad FROM ciudades WHERE idCiudad='{$r['idCiudad']}'");*/
                    ?>
                       <div class="row">
                           <div class="col-md-2">
-                           <?php while($rs=mysqli_fetch_array($consulta2)){?><h4><?php echo $rs['nombreCiudad'];?></h4><?php } ?>
+                           <?php /* while($rs=mysqli_fetch_array($consulta2)){?><h4><?php echo $rs['nombreCiudad'];?></h4><?php } */?>
                           </div>
                           <div class="col-md-2">
-                             <h4><?php echo $r['calle'];?></h4>
+                             <h4><?php /* echo $r['calle'];*/?></h4>
                           </div>
                           <div class="col-md-2">
-                             <h4> <?php echo $r['altura'];?></h4>
+                             <h4> <?php /*echo $r['altura']; */?></h4>
                           </div>
                           <div class="col-md-2">
-                             <h4><?php echo $r['piso'];?></h4>
+                             <h4><?php /* echo $r['piso'];*/?></h4>
                           </div>
                           <div class="col-md-2">
-                             <h4><?php echo $r['dpto'];?></h4>
+                             <h4><?php /* echo $r['dpto'];*/?></h4>
                           </div>
                           <div class="col-md-2">
-                             <h4>
-                                <form method="POST" action="ModDomicilioCompra.php">
-                                    <input type="text" name="idDireccion" id="idDireccion" value="<?php echo $r['idDireccion']?>" hidden>
-                                    <button name="cambiar" value="cambiar" class="btn btn-light">Actualizar</button>
-                                </form>
-                              </h4>
+     
+                                   <a href="ModDomicilioCompra.php?idDireccion=<?php /* echo $r['idDireccion'];*/?>" class="btn btn-light">Actualizar</a>
+    
                           </div>
                       </div>
-                     <?php } ?>
+                     <?php /* } */?>
                       <div class="row" style="padding-top:40px" align="center">
                          <div class="col-md-12">
-                             <a style="width:20%" href="altadireccion.php" class="btn btn-light">Agregar otra dirección</a>
-<<<<<<< HEAD
                              <button style="width:20%" type="submit" id="boton" class="btn btn-light">Continuar</button>
-=======
-
-                              <a style="width:20%" href="TarjetaCliente.php" class="btn btn-light">Continuar</a>
-
-
-
-                            <!--  <input style="width:20%" type="button" id="boton" value="Enviar" class="btn btn-light"> -->
->>>>>>> 370091ef50e2e91ecee6085b37303288aeca0f18
                          </div>
-
                       </div>
-                      </form>
+                      </form>-->
                    </div>
                    <!--<script type="text/javascript">
 	                     $(document).ready(function(){
@@ -183,7 +183,19 @@ if(isset($_POST['comprar'])){
 		                     });
 	                     });
                    </script>-->
-                  
+                   <script>
+       var table = document.getElementById('table'),
+       selected = table.getElementsByClassName('selected');
+table.onclick = highlight;
+function highlight(e) {
+       if (selected[0]) selected[0].className = '';
+       e.target.parentNode.className = 'selected';
+}
+function fnselect(){
+var $row=$(this).parent().find('td');
+       var clickeedID=$row.eq(0).text();
+       alert($("tr.selected td:first" ).html());
+       </script>
           <?php }?> 
        </div>
    </div>

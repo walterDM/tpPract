@@ -57,7 +57,6 @@ if (isset($_POST['guardarUsuario'] )&& !empty($_POST['guardarUsuario'])) {
         }
     }
     else{
-        $insert6=mysqli_query($db,"INSERT INTO direcciones VALUES(00,$idCiudad,$idPersona,$idTipoDomicilio,'$calle',$altura,'$dpto','$piso')");
         $insertar=mysqli_query($db,"INSERT INTO personas VALUES (00,$num,$idTipoDocumento,'$nombre','$apellido','$fecha','$user','$pass')");
         $select3=mysqli_query($db,"SELECT idPersona FROM personas WHERE numDocumento='$num'");
         while($r=mysqli_fetch_array($select3)){
@@ -67,6 +66,7 @@ if (isset($_POST['guardarUsuario'] )&& !empty($_POST['guardarUsuario'])) {
         $insertar3=mysqli_query($db,"INSERT INTO empleados VALUES($legajo,$idPersona)");
         $insert4=mysqli_query($db,"INSERT INTO personascontactos VALUES(00,$idPersona,$idTipoMail,'$email')");
         $insert5=mysqli_query($db,"INSERT INTO personascontactos VALUES(00,$idPersona,$idTipoTelefono,'$telefono')");
+        $insert6=mysqli_query($db,"INSERT INTO direcciones VALUES(00,$idCiudad,$idPersona,$idTipoDomicilio,'$calle',$altura,'$dpto','$piso')");
         header("location:altaUsuario.php?registrado=1");
     }
 }
