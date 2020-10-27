@@ -7,7 +7,7 @@
 			$this->SetFont('Arial','B',15);
 			$this->cell(30);
 			$this->SetXY(40,20);
-			$this->cell(120,10,'Pedido a Proveedores',0,0,'C');
+			$this->cell(120,10,'Reporte Stock',0,0,'C');
 
 			$this->Ln(20);
 
