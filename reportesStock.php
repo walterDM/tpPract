@@ -12,24 +12,26 @@ if (isset($_GET['tProducto'])) {
 
 //////trae los productos sin filtro///////
 if (!isset($_GET['tProducto'])||(isset($_GET['tProducto'])&&$_GET['tProducto']==0)) {
-
-
-$queryStockIni="SELECT p.descripcion as prod, p.cantidadProd, p.lote, pf.estante, pf.fila, pf.columna, tp.descripcion as tprod
+$queryStocktp="SELECT p.descripcion as prod, p.cantidadProd as cant, p.lote, pf.estante, 
+	pf.fila, pf.columna, tp.descripcion as tprod, m.nombreMarca as marca
 from productos as p
 JOIN puestofisico as pf on p.idPuestoFisico=pf.idPuestoFisico
 JOIN productostpmarcas as pm on pm.idProducto=p.idProducto
 JOIN tiposproductos_marcas as tpm on pm.idTpMarca=tpm.idTpMarca
-JOIN tiposproductos as tp on tpm.idTipoProducto=tp.idTipoProducto";
-$rsStockIni=mysqli_query($conexion,$queryStockIni);
+JOIN tiposproductos as tp on tpm.idTipoProducto=tp.idTipoProducto
+JOIN marcas as m on tpm.idMarca=m.idMarca";
+
 }
 //////trae los productos filtrados//////
-if (isset($_GET['tProducto'])) {
-	$queryStocktp="SELECT p.descripcion as prod, p.cantidadProd, p.lote, pf.estante, pf.fila, pf.columna, tp.descripcion as tprod
+if (isset($_GET['tProducto']) && $_GET['tProducto']!=0) {
+	$queryStocktp="SELECT p.descripcion as prod, p.cantidadProd as cant, p.lote, pf.estante, 
+	pf.fila, pf.columna, tp.descripcion as tprod, m.nombreMarca as marca
 	from productos as p
 	JOIN puestofisico as pf on p.idPuestoFisico=pf.idPuestoFisico
 	JOIN productostpmarcas as pm on pm.idProducto=p.idProducto
 	JOIN tiposproductos_marcas as tpm on pm.idTpMarca=tpm.idTpMarca
 	JOIN tiposproductos as tp on tpm.idTipoProducto=tp.idTipoProducto
+	JOIN marcas as m on tpm.idMarca=m.idMarca
 	WHERE tpm.idTipoProducto=$tipo";
 	
 }
@@ -53,7 +55,7 @@ $rsTp=mysqli_query($conexion,$queryTp);
 				<?php }; ?>
 
 			</select>
-			<button name="buscar" value="0" style="border-color: #e0e0e0;background:white" class="btn btn-outline-warning" id="button-addon2"><i class="fas fa-search"></i></button>
+			<button name="buscar" value="0" style="border-color:#e0e0e0;background:white" class="btn btn-outline-warning" id="button-addon2"><i class="fas fa-search"></i></button>
 			
 		</div>
 		<div class="col-md-6">
@@ -74,10 +76,10 @@ $rsTp=mysqli_query($conexion,$queryTp);
 			<tr>
 				<th>Producto</th>		
 				<th>Tipo Producto</th>
-				<th>Cantidad</th>
+				<th>Marca</th>
 				<th>lote</th>
 				<th>Puesto</th>
-
+				<th>Cantidad</th>
 			</tr>
 			<?php 
           			///////si se realizo algun filtro///////
@@ -88,9 +90,10 @@ $rsTp=mysqli_query($conexion,$queryTp);
 					<tr>
 					<td><?php echo $rs1['prod']; ?></td>
 					<td><?php echo $rs1['tprod']; ?></td>
-					<td><?php echo $rs1['cantidadProd']; ?></td>
+					<td><?php echo $rs1['marca']; ?></td>
 					<td><?php echo $rs1['lote']; ?></td>
 					<td><?php echo $rs1['estante'].'-'.$rs1['fila'].'-'.$rs1['columna']; ?></td>
+					<td><?php echo $rs1['cant']; ?></td>
 					</tr>
 					
 				<?php };
@@ -100,15 +103,16 @@ $rsTp=mysqli_query($conexion,$queryTp);
 			<?php
           			///////si no se utiliza algun filtro///////
 			if(!isset($_GET['tProducto'])|| $_GET['tProducto']==0):
-				while ($rs=mysqli_fetch_array($rsStockIni)):?>
+				$rsStockTp=mysqli_query($conexion,$queryStocktp);
+				while ($rs=mysqli_fetch_array($rsStockTp)):?>
 					<tr>
 					<td><?php echo $rs['prod']; ?></td>
 					<td><?php echo $rs['tprod']; ?></td>
-					<td><?php echo $rs['cantidadProd']; ?></td>
+					<td><?php echo $rs['marca']; ?></td>
 					<td><?php echo $rs['lote']; ?></td>
 					<td><?php echo $rs['estante'].'-'.$rs['fila'].'-'.$rs['columna']; ?></td>
+					<td><?php echo $rs['cant']; ?></td>
 					</tr>
-					
 				<?php endwhile;
 			endif ?>
 		</table>

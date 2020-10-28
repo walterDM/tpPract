@@ -1,7 +1,8 @@
 <?php 
 session_start();
 require 'conexion.php';
-include 'includes/plantillaPDF.php';
+include 'includes/plantillaStock.php';
+$tipo=0;
 if (isset($_GET['tProducto'])&& isset($_GET['buscar'])) {
 	$tipo=$_GET['tProducto'];
 	header("location:reportesStock.php?tProducto=$tipo");
@@ -19,7 +20,7 @@ if (isset($_GET['exportPDF']) && !empty($_GET['exportPDF']) && $_GET['tProducto'
 	JOIN tiposproductos_marcas as tpm on pm.idTpMarca=tpm.idTpMarca
 	JOIN tiposproductos as tp on tpm.idTipoProducto=tp.idTipoProducto
 	JOIN marcas as m on tpm.idMarca=m.idMarca
-	WHERE tpm.idTipoProducto=5";
+	WHERE tpm.idTipoProducto=$tipo";
 
 	$rsStockTp=mysqli_query($conexion,$queryStocktp);
 }else if(isset($_GET['exportPDF']) && !empty($_GET['exportPDF']) && $_GET['tProducto']==0){
@@ -33,34 +34,21 @@ if (isset($_GET['exportPDF']) && !empty($_GET['exportPDF']) && $_GET['tProducto'
 	JOIN marcas as m on tpm.idMarca=m.idMarca";
 	$rsStockTp=mysqli_query($conexion,$queryStockIni);
 }
-/*
-	echo '<table class="table striped" style="background:#fafafa;">';
-	
-	while ($rs1=mysqli_fetch_array($rsStockTp)){?>
-					<tr>
-					<td><?php echo $rs1['prod']; ?></td>
-					<td><?php echo $rs1['tprod']; ?></td>
-					<td><?php echo $rs1['cantidadProd']; ?></td>
-					<td><?php echo $rs1['lote']; ?></td>
-					<td><?php echo $rs1['estante'].'-'.$rs1['fila'].'-'.$rs1['columna']; ?></td>
-					</tr>
-					
-				<?php };
-				echo "</table>";*/
 
 
-				$idPersona=$_SESSION['login'];
+
+$idPersona=$_SESSION['login'];
 
 
-				$queryEmpleado="SELECT LegajoEmpleado as legajo FROM empleados where idPersona=$idPersona";
-				$resultEMP=mysqli_query($conexion,$queryEmpleado);
-				while ($r=mysqli_fetch_array($resultEMP)) {
-					$legajoEmp=$r['legajo'];
-				}
-				$fechaBase=date('Y-m-d');
+$queryEmpleado="SELECT LegajoEmpleado as legajo FROM empleados where idPersona=$idPersona";
+$resultEMP=mysqli_query($conexion,$queryEmpleado);
+while ($r=mysqli_fetch_array($resultEMP)) {
+	$legajoEmp=$r['legajo'];
+}
+$fechaBase=date('Y-m-d');
 
-				$fechaActual = date('d-m-Y');
-	$filename="reporte__".$fechaActual;//id Factura
+$fechaActual = date('d-m-Y');
+	$filename="reporte__".$fechaActual.$tipo;//id Factura
 	
 
 	$pdf= new PDF();
@@ -115,6 +103,6 @@ if (isset($_GET['exportPDF']) && !empty($_GET['exportPDF']) && $_GET['tProducto'
 	}
 	
 	$pdf->Output('F','reportesCreados/'.$filename.'.pdf');
-	header("location:index.php?Reporte=1");
+	//header("location:index.php?Reporte=1");
 
 	?>
