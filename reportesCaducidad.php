@@ -12,8 +12,8 @@ if (!isset($_GET['fHasta'])|| !isset($_GET['fDesde'])) {
 	$rsStockIni=mysqli_query($conexion,$queryStockIni);
 }
 if (isset($_GET['fHasta'])|| isset($_GET['fDesde'])) {
-	$fd=$_GET['fDesde'];
-	$fh=$_GET['fHasta'];
+	$fd=formatFecha($_GET['fDesde']);
+	$fh=formatFecha($_GET['fHasta']);
 	echo "$fd";
 	$queryFechatp="SELECT p.descripcion as prod,p.fechaCaducidad, p.cantidadProd as cant, p.lote, pf.estante, pf.fila, pf.columna, tp.descripcion as tprod, m.nombreMarca as marca 
 	from productos as p 
@@ -23,7 +23,7 @@ if (isset($_GET['fHasta'])|| isset($_GET['fDesde'])) {
 	JOIN tiposproductos as tp on tpm.idTipoProducto=tp.idTipoProducto 
 	JOIN marcas as m on tpm.idMarca=m.idMarca
 	WHERE p.fechaCaducidad >= '$fd' p.fechaCaducidad< '$fh'";
-
+	$rsFechaTp=mysqli_query($conexion,$queryFechatp);
 } 
 function formatFecha($fecha){
 	$rs=date("Y-m-d", strtotime($fecha) );
@@ -80,7 +80,7 @@ function formatFecha($fecha){
           			///////si se realizo algun filtro///////
 			//p.descripcion as prod, p.cantidadProd, p.lote, pf.estante, pf.fila, pf.columna, tp.descripcion as tprod
 					if(isset($_POST['fHasta'])):
-						$rsFechaTp=mysqli_query($conexion,$queryFechatp);
+						
 						while ($rs1=mysqli_fetch_array($rsFechaTp)){?>
 							<tr>
 								<td><?php echo $rs1['prod']; ?></td>
