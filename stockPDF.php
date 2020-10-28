@@ -1,7 +1,7 @@
 <?php 
 session_start();
 require 'conexion.php';
-include 'plantillaPDF.php';
+include 'includes/plantillaPDF.php';
 if (isset($_GET['tProducto'])&& isset($_GET['buscar'])) {
 	$tipo=$_GET['tProducto'];
 	header("location:reportesStock.php?tProducto=$tipo");
@@ -22,6 +22,17 @@ if (isset($_GET['exportPDF']) && !empty($_GET['exportPDF']) && $_GET['tProducto'
 	WHERE tpm.idTipoProducto=5";
 
 	$rsStockTp=mysqli_query($conexion,$queryStocktp);
+}else if(isset($_GET['exportPDF']) && !empty($_GET['exportPDF']) && $_GET['tProducto']==0){
+	$queryStockIni="SELECT p.descripcion as prod, p.cantidadProd as cant, p.lote, pf.estante, 
+	pf.fila, pf.columna, tp.descripcion as tprod, m.nombreMarca as marca
+	from productos as p
+	JOIN puestofisico as pf on p.idPuestoFisico=pf.idPuestoFisico
+	JOIN productostpmarcas as pm on pm.idProducto=p.idProducto
+	JOIN tiposproductos_marcas as tpm on pm.idTpMarca=tpm.idTpMarca
+	JOIN tiposproductos as tp on tpm.idTipoProducto=tp.idTipoProducto
+	JOIN marcas as m on tpm.idMarca=m.idMarca";
+	$rsStockTp=mysqli_query($conexion,$queryStockIni);
+}
 /*
 	echo '<table class="table striped" style="background:#fafafa;">';
 	
@@ -104,6 +115,6 @@ if (isset($_GET['exportPDF']) && !empty($_GET['exportPDF']) && $_GET['tProducto'
 	}
 	
 	$pdf->Output('F','reportesCreados/'.$filename.'.pdf');
-	header("location:index.php?pedido=1");
-}
-?>
+	header("location:index.php?Reporte=1");
+
+	?>
