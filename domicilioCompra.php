@@ -122,7 +122,7 @@ if(isset($_POST['comprar'])){
                         <th>Piso</th>
                         <th>Depto</th>
                       </thead>
-                      <tbody>
+                      <tbody class="l1s">
                       <?php while($r=mysqli_fetch_array($consulta)){
                          $consulta2=mysqli_query($conexion,"SELECT nombreCiudad FROM ciudades WHERE idCiudad='{$r['idCiudad']}'");
                       ?>
@@ -132,6 +132,7 @@ if(isset($_POST['comprar'])){
                            <td><?php echo $r['altura'];?></td>
                            <td><?php echo $r['piso'];?></td>
                            <td><?php echo $r['dpto'];?></td>
+                           <td><button class="btn btn-primary l1s" id="nombre" value="hola">Seleccionar</button></td>
                         </tr>
                       <?php }?>
                      </tbody>
@@ -166,21 +167,7 @@ if(isset($_POST['comprar'])){
                      <?php /* } */?>
                       <div class="row" style="padding-top:40px" align="center">
                          <div class="col-md-12">
-<<<<<<< HEAD
-                             <button style="width:20%" type="submit" id="boton" class="btn btn-light">Continuar</button>
-=======
-                             <a style="width:20%" href="altadireccion.php" class="btn btn-light">Agregar otra dirección</a>
 
-                            
-
-
-                              <a style="width:20%" href="TarjetaCliente.php" class="btn btn-light">Continuar</a>
-
-
-
-                            <!--  <input style="width:20%" type="button" id="boton" value="Enviar" class="btn btn-light"> -->
-
->>>>>>> 56e824e7a9d5e59b1a9dd20f67cdb62d654c475c
                          </div>
                       </div>
                       </form>-->
@@ -198,18 +185,14 @@ if(isset($_POST['comprar'])){
 	                     });
                    </script>-->
                    <script>
-       var table = document.getElementById('table'),
-       selected = table.getElementsByClassName('selected');
-table.onclick = highlight;
-function highlight(e) {
-       if (selected[0]) selected[0].className = '';
-       e.target.parentNode.className = 'selected';
-}
-function fnselect(){
-var $row=$(this).parent().find('td');
-       var clickeedID=$row.eq(0).text();
-       alert($("tr.selected td:first" ).html());
-       </script>
+                       $(document).ready(function() {
+		$("button.l1s").click(function(){
+			id = $(this).parents("td").find("button").eq(0).html();
+         nombre=document.getElementById('nombre').value;
+			alert(nombre);
+		});
+	});
+                  </script>
           <?php }?> 
        </div>
    </div>
