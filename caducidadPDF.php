@@ -3,8 +3,9 @@ session_start();
 require 'conexion.php';
 include 'includes/plantillaCad.php';
 if (isset($_POST['buscar'])) {
-	$fh=$_POST['fHasta'];
-	$fd=$_POST['fDesde'];
+	$fd = date("Y-m-d", strtotime($_POST['fDesde']));
+    $fh = date("Y-m-d", strtotime($_POST['fHasta']));
+	
 	header("location:reportesCaducidad.php?fDesde=$fd&fHasta=$fh");
 }
 
@@ -92,6 +93,6 @@ $fechaActual = date('d-m-Y');
 	}
 	
 	$pdf->Output('F','reportesCreados/'.$filename.'.pdf');
-	//header("location:index.php?Reporte=1");
+	header("location:index.php?Reporte=1");
 
 	?>
