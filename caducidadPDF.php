@@ -9,7 +9,7 @@ if (isset($_POST['buscar'])) {
 	header("location:reportesCaducidad.php?fDesde=$fd&fHasta=$fh");
 }
 
-
+if
 	$queryFechatp="SELECT p.descripcion as prod,p.fechaCaducidad as venc, p.cantidadProd as cant, p.lote, pf.estante, pf.fila, pf.columna, tp.descripcion as tprod, m.nombreMarca as marca 
 	from productos as p 
 	JOIN puestofisico as pf on p.idPuestoFisico=pf.idPuestoFisico 
