@@ -32,12 +32,9 @@ if(isset($_POST['comprar'])){
 	
  </script>
  <style>
-     td {border: 1px #DDD solid; padding: 5px; cursor: pointer;}
+     td {border: 4px #ffb74d solid; padding: 5px;}
+     th {border: 4px #ffb74d solid; padding: 5px;}
 
-.selected {
-       background-color: brown;
-       color: #FFF;
-}
   </style>
    <div class="container">
        <div class="row">
@@ -109,18 +106,18 @@ if(isset($_POST['comprar'])){
           <?php }else{ 
                    $consulta=mysqli_query($conexion,"SELECT * FROM direcciones WHERE idPersona=$idPersona");
           ?>
+                   
                    <div class="col-md-12" style="padding-top:60px">
                       <h3 align="center">Enviar pedido a la siguiente dirección:</h3>
                    </div>
-                   <div class="col-md-12" style="background:#ffb74d;color:white;border-radius:50px;padding:50px">
-                   <div class="row">
-                      <table class="table striped" id="tabla">
+                      <table class="table striped">
                       <thead>
                         <th>Ciudad</th>
                         <th>Calle</th>
                         <th>Altura</th>
                         <th>Piso</th>
                         <th>Depto</th>
+                        <th></th>
                       </thead>
                       <tbody class="l1s">
                       <?php while($r=mysqli_fetch_array($consulta)){
@@ -132,67 +129,35 @@ if(isset($_POST['comprar'])){
                            <td><?php echo $r['altura'];?></td>
                            <td><?php echo $r['piso'];?></td>
                            <td><?php echo $r['dpto'];?></td>
-                           <td><button class="btn btn-primary l1s" id="nombre" value="hola">Seleccionar</button></td>
+                           <td><a class="btn btn-light" href="#" data-toggle="modal" data-target="#seleccionar<?php echo $r['idDireccion'];?>">Seleccionar</a></td>
                         </tr>
+                        <div data-backdrop="static" class="modal" id="seleccionar<?php echo $r['idDireccion']; ?>">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header" style="background:#ffb74d;color:white">
+                              <h4 class="modal-title">Direccion seleccionada</h4>
+                              <button type="button" class="close" data-dismiss="modal">X</button>
+                            </div>
+                            <div class="modal-body" style="background:#ffb74d;color:white">
+                                 <?php $sql=mysqli_query($conexion,"SELECT * FROM direcciones WHERE idDireccion={$r['idDireccion']}");
+                                       $datos=mysqli_fetch_assoc($sql);
+                                       echo "<h4>¿Estás seguro que deseas recibir el pedido en la siguiente direccion?</h4><br>";
+                                       echo "<h4 align='center'>".$datos['calle']."  ".$datos['altura']."</h4>";
+                                 ?>
+                                 <div align="center">
+                                     <a href="#" class="btn btn-light">Aceptar</a>
+                                     <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                                 </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
                       <?php }?>
                      </tbody>
                   </table>
-                  <input class="btn btn-light" type="button" id="tst" value="OK" onclick="fnselect()" />
-                   <!--<form id="formulario" method="post">
-                   <?php /*while($r=mysqli_fetch_array($consulta)){
-                         $consulta2=mysqli_query($conexion,"SELECT nombreCiudad FROM ciudades WHERE idCiudad='{$r['idCiudad']}'");*/
-                   ?>
-                      <div class="row">
-                          <div class="col-md-2">
-                           <?php /* while($rs=mysqli_fetch_array($consulta2)){?><h4><?php echo $rs['nombreCiudad'];?></h4><?php } */?>
-                          </div>
-                          <div class="col-md-2">
-                             <h4><?php /* echo $r['calle'];*/?></h4>
-                          </div>
-                          <div class="col-md-2">
-                             <h4> <?php /*echo $r['altura']; */?></h4>
-                          </div>
-                          <div class="col-md-2">
-                             <h4><?php /* echo $r['piso'];*/?></h4>
-                          </div>
-                          <div class="col-md-2">
-                             <h4><?php /* echo $r['dpto'];*/?></h4>
-                          </div>
-                          <div class="col-md-2">
-     
-                                   <a href="ModDomicilioCompra.php?idDireccion=<?php /* echo $r['idDireccion'];*/?>" class="btn btn-light">Actualizar</a>
-    
-                          </div>
-                      </div>
-                     <?php /* } */?>
-                      <div class="row" style="padding-top:40px" align="center">
-                         <div class="col-md-12">
-
-                         </div>
-                      </div>
-                      </form>-->
+                  <div class="col-md-12" align="center">
+                       <a href="altadireccion.php" class="btn btn-light">Agregar otra direccion</a>
                    </div>
-                   <!--<script type="text/javascript">
-	                     $(document).ready(function(){
-		                     $("#boton").click(function () {	 
-			                     if( $("#formulario input[name='inlineRadioOptions']:radio").is(':checked')) {  
-				                     alert("Bien!!!, la edad seleccionada es: " + $('input:radio[name=inlineRadioOptions]:checked').val());
-				                      $("#formulario").submit();  
-				                  } else{  
-					                  alert("Selecciona la edad por favor!!!");  
-					               }  
-		                     });
-	                     });
-                   </script>-->
-                   <script>
-                       $(document).ready(function() {
-		$("button.l1s").click(function(){
-			id = $(this).parents("td").find("button").eq(0).html();
-         nombre=document.getElementById('nombre').value;
-			alert(nombre);
-		});
-	});
-                  </script>
           <?php }?> 
        </div>
    </div>
