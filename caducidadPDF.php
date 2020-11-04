@@ -2,14 +2,14 @@
 session_start();
 require 'conexion.php';
 include 'includes/plantillaCad.php';
-if (isset($_POST['buscar'])) {
+if (isset($_POST['buscar']) && $_POST['buscar']==0) {
 	$fd = date("Y-m-d", strtotime($_POST['fDesde']));
-    $fh = date("Y-m-d", strtotime($_POST['fHasta']));
+	$fh = date("Y-m-d", strtotime($_POST['fHasta']));
 	
 	header("location:reportesCaducidad.php?fDesde=$fd&fHasta=$fh");
 }
+if ($_POST['exportPDF']) {
 
-if
 	$queryFechatp="SELECT p.descripcion as prod,p.fechaCaducidad as venc, p.cantidadProd as cant, p.lote, pf.estante, pf.fila, pf.columna, tp.descripcion as tprod, m.nombreMarca as marca 
 	from productos as p 
 	JOIN puestofisico as pf on p.idPuestoFisico=pf.idPuestoFisico 
@@ -22,17 +22,17 @@ if
 
 
 
-$idPersona=$_SESSION['login'];
+	$idPersona=$_SESSION['login'];
 
 
-$queryEmpleado="SELECT LegajoEmpleado as legajo FROM empleados where idPersona=$idPersona";
-$resultEMP=mysqli_query($conexion,$queryEmpleado);
-while ($r=mysqli_fetch_array($resultEMP)) {
-	$legajoEmp=$r['legajo'];
-}
-$fechaBase=date('Y-m-d');
+	$queryEmpleado="SELECT LegajoEmpleado as legajo FROM empleados where idPersona=$idPersona";
+	$resultEMP=mysqli_query($conexion,$queryEmpleado);
+	while ($r=mysqli_fetch_array($resultEMP)) {
+		$legajoEmp=$r['legajo'];
+	}
+	$fechaBase=date('Y-m-d');
 
-$fechaActual = date('d-m-Y');
+	$fechaActual = date('d-m-Y');
 	$filename="reporte__".$fechaActual;//id Factura
 	
 
@@ -94,5 +94,5 @@ $fechaActual = date('d-m-Y');
 	
 	$pdf->Output('F','reportesCreados/'.$filename.'.pdf');
 	header("location:index.php?Reporte=1");
-
-	?>
+}
+?>
