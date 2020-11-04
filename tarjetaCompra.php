@@ -63,7 +63,7 @@
                                       
                                  ?>
                                  <div align="center">
-                                     <a href="tarjetaCompra.php" class="btn btn-light" >Aceptar</a>
+                                     <a href="facturaCompra.php" class="btn btn-light" >Aceptar</a>
                                      <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
                                  </div>
                             </div>
