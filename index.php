@@ -80,7 +80,7 @@ if(isset($_GET['cambiar']) && $_GET['cambiar']==1){
 <?php require 'footer.php' ?>
 <?php 
 if (isset($_GET['Reporte']) && !empty($_GET['Reporte']) && $_GET['Reporte']=1) {
-  echo '<script> alert("Se ha Creado el Reporte de Stock");</script>';
+  echo '<script> alert("Se ha Exportado satisfactoriamente el reporte deseado");</script>';
 }
 
  ?>

@@ -53,7 +53,7 @@ if ($_POST['exportPDF']) {
 	$fechaBase=date('Y-m-d');
 
 	$fechaActual = date('d-m-Y');
-	$filename="reporte__".$fechaActual;//id Factura
+	$filename="reporteCaducidad__".$fechaActual;//id Factura
 	
 
 	$pdf= new PDF();

@@ -127,7 +127,6 @@ function formatFecha($fecha){
 </form>
 
 <?php 
-else:
-header("location:index.php/");
+
 endif;
 require 'footer.php'; ?>

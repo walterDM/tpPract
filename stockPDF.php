@@ -48,7 +48,7 @@ while ($r=mysqli_fetch_array($resultEMP)) {
 $fechaBase=date('Y-m-d');
 
 $fechaActual = date('d-m-Y');
-	$filename="reporte__".$fechaActual.$tipo;//id Factura
+	$filename="reporteStock__".$fechaActual.$tipo;//id Factura
 	
 
 	$pdf= new PDF();
