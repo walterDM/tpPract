@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-11-2020 a las 17:44:04
+-- Tiempo de generación: 04-11-2020 a las 17:57:07
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.3.22
 
@@ -272,16 +272,17 @@ CREATE TABLE `facturas` (
   `idPersona` int(11) NOT NULL,
   `totalApagar` double NOT NULL,
   `fechaPedido` date NOT NULL,
-  `TipoFactura` int(11) NOT NULL,
-  `NumeroFactura` int(11) NOT NULL
+  `TipoFactura` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `facturas`
 --
 
-INSERT INTO `facturas` (`idFacturaVenta`, `idPersona`, `totalApagar`, `fechaPedido`, `TipoFactura`, `NumeroFactura`) VALUES
-(1, 10, 500, '2020-10-03', 1, 1);
+INSERT INTO `facturas` (`idFacturaVenta`, `idPersona`, `totalApagar`, `fechaPedido`, `TipoFactura`) VALUES
+(1, 10, 500, '2020-10-03', 1),
+(2, 15, 440, '2020-11-02', 1),
+(3, 12, 240, '2020-11-01', 2);
 
 -- --------------------------------------------------------
 
@@ -1309,7 +1310,7 @@ ALTER TABLE `direccionesprov`
 -- AUTO_INCREMENT de la tabla `facturas`
 --
 ALTER TABLE `facturas`
-  MODIFY `idFacturaVenta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idFacturaVenta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `fechas`
