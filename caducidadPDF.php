@@ -2,21 +2,41 @@
 session_start();
 require 'conexion.php';
 include 'includes/plantillaCad.php';
-if (isset($_POST['buscar']) && $_POST['buscar']==0) {
+if (isset($_POST['buscar']) && $_POST['buscar']==0 && isset($_POST['fDesde']) && isset($_POST['fHasta'])) {
 	$fd = date("Y-m-d", strtotime($_POST['fDesde']));
 	$fh = date("Y-m-d", strtotime($_POST['fHasta']));
 	
 	header("location:reportesCaducidad.php?fDesde=$fd&fHasta=$fh");
 }
+if (isset($_POST['buscar']) && $_POST['buscar']==0 && isset($_POST['fDesde']) && !isset($_POST['fHasta'])) {
+	$fd = date("Y-m-d", strtotime($_POST['fDesde']));
+	$fh = date("Y-m-d");
+	
+	header("location:reportesCaducidad.php?fDesde=$fd&fHasta=$fh");
+}
 if ($_POST['exportPDF']) {
+	if (!isset($_POST['fDesde']) && !isset($_POST['fHasta']) ) {	
 
-	$queryFechatp="SELECT p.descripcion as prod,p.fechaCaducidad as venc, p.cantidadProd as cant, p.lote, pf.estante, pf.fila, pf.columna, tp.descripcion as tprod, m.nombreMarca as marca 
-	from productos as p 
-	JOIN puestofisico as pf on p.idPuestoFisico=pf.idPuestoFisico 
-	JOIN productostpmarcas as pm on pm.idProducto=p.idProducto 
-	JOIN tiposproductos_marcas as tpm on pm.idTpMarca=tpm.idTpMarca 
-	JOIN tiposproductos as tp on tpm.idTipoProducto=tp.idTipoProducto 
-	JOIN marcas as m on tpm.idMarca=m.idMarca";
+		$queryFechatp="SELECT p.descripcion as prod,p.fechaCaducidad as venc, p.cantidadProd as cant, p.lote, pf.estante, pf.fila, pf.columna, tp.descripcion as tprod, m.nombreMarca as marca 
+		from productos as p 
+		JOIN puestofisico as pf on p.idPuestoFisico=pf.idPuestoFisico 
+		JOIN productostpmarcas as pm on pm.idProducto=p.idProducto 
+		JOIN tiposproductos_marcas as tpm on pm.idTpMarca=tpm.idTpMarca 
+		JOIN tiposproductos as tp on tpm.idTipoProducto=tp.idTipoProducto 
+		JOIN marcas as m on tpm.idMarca=m.idMarca";
+	}
+	if (isset($_POST['fDesde'])){
+		$hoy= date("Y-m-d");
+		$queryFechatp="SELECT p.descripcion as prod,p.fechaCaducidad as venc, p.cantidadProd as cant, p.lote, pf.estante, pf.fila, pf.columna, tp.descripcion as tprod, m.nombreMarca as marca 
+		from productos as p 
+		JOIN puestofisico as pf on p.idPuestoFisico=pf.idPuestoFisico 
+		JOIN productostpmarcas as pm on pm.idProducto=p.idProducto 
+		JOIN tiposproductos_marcas as tpm on pm.idTpMarca=tpm.idTpMarca 
+		JOIN tiposproductos as tp on tpm.idTipoProducto=tp.idTipoProducto 
+		JOIN marcas as m on tpm.idMarca=m.idMarca
+		WHERE p.fechaCaducidad BETWEEN '$fd' AND '$hoy'";
+
+	}
 	$rsFechaTp=mysqli_query($conexion,$queryFechatp);
 
 

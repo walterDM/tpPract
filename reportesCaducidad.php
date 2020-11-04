@@ -1,4 +1,5 @@
 <?php require 'header.php';
+if (isset($_SESSION['grupo']) && ($_SESSION['grupo']==18 || $_SESSION['grupo']==20)):
 //////trae los productos sin filtro///////
 if (!isset($_GET['fHasta'])|| !isset($_GET['fDesde'])) {
 	$queryStockIni="SELECT p.descripcion as prod,p.fechaCaducidad as venc, p.cantidadProd as cant, p.lote, pf.estante, 
@@ -11,7 +12,7 @@ if (!isset($_GET['fHasta'])|| !isset($_GET['fDesde'])) {
 	JOIN marcas as m on tpm.idMarca=m.idMarca";
 	$rsStockIni=mysqli_query($conexion,$queryStockIni);
 }
-if (isset($_GET['fDesde']) ) {
+if (isset($_GET['fDesde']) && isset($_GET['fHasta'])) {
 	$fd = date("Y-m-d", strtotime($_GET['fDesde']));
 	$fh = date("Y-m-d", strtotime($_GET['fHasta']));
 
@@ -41,19 +42,19 @@ function formatFecha($fecha){
 			
 
 			<label for="fDesde">Desde</label>
-			<input type="date" name="fDesde" <?php if (isset($_GET['fDesde'])) {
+			<input type="date" id="fDesde" name="fDesde" <?php if (isset($_GET['fDesde'])) {
 				echo "value='".$_GET['fDesde']."'";
 			} ?>>
 
 
 			<label for="fHasta">Hasta</label>
-			<input type="date" name="fHasta" <?php if (isset($_GET['fHasta'])) {
+			<input type="date" id="fHasta" name="fHasta" <?php if (isset($_GET['fHasta'])) {
 				echo "value='".$_GET['fHasta']."'";
 			} ?>>
-
-
-			<button name="buscar" value="0" style="border-color: #e0e0e0;background:white" class="btn btn-outline-warning" id="button-addon2"><i class="fas fa-search"></i></button>
 			
+
+			<button name="buscar" value="0"  style="border-color: #e0e0e0;background:white" class="btn btn-outline-warning" id="button-addon2"><i class="fas fa-search"></i></button>
+
 		</div>
 		<div class="col-md-6">
 
@@ -61,7 +62,7 @@ function formatFecha($fecha){
 
 	</div>
 
-	
+
 
 	<br>
 
@@ -125,4 +126,8 @@ function formatFecha($fecha){
 
 </form>
 
-<?php require 'footer.php'; ?>
+<?php 
+else:
+header("location:index.php/");
+endif;
+require 'footer.php'; ?>
