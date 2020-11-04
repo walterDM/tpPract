@@ -3,9 +3,9 @@
     require("conexion.php");
     require("header.php");
     $idPersona=$_SESSION['login'];
-     $select=mysqli_query($conexion,"SELECT idTipoTarjeta FROM tipostarjetas WHERE idPersona=$idPersona");
+    //  $select=mysqli_query($conexion,"SELECT idTipoTarjeta FROM tipostarjetas WHERE idPersona=$idPersona");
   
-    $select5=mysqli_query($conexion,"SELECT idTipoTarjeta,descripcion FROM tipostarjetas ORDER BY descripcion ASC"); 
+    // $select5=mysqli_query($conexion,"SELECT idTipoTarjeta,descripcion FROM tipostarjetas ORDER BY descripcion ASC"); 
  
    
 ?>
@@ -37,10 +37,13 @@
                       <tbody class="l1s">
                       <?php while($r=mysqli_fetch_array($consulta)){
                          $consulta2=mysqli_query($conexion,"SELECT  *FROM tarjetasCliente WHERE idTarjetaCliente='{$r['idTarjetaCliente']}'");
+
+                          $consul=mysqli_query($conexion,"SELECT  descripcion FROM tipostarjetas WHERE idTipoTarjeta='{$r['idTipoTarjeta']}'");
                       ?>
                         <tr>
                            <td><?php while($rs=mysqli_fetch_array($consulta2)){ echo $rs['numTarjeta']; } ?></td>
-                           <td><?php echo $r['idTipoTarjeta'];?></td>
+                            <td><?php while($rs=mysqli_fetch_array($consul)){ echo $rs['descripcion']; } ?></td>
+                    
                            <td><?php echo $r['fechaVencimiento'];?></td>
                            <td><?php echo $r['codBanco'];?></td>
                       
