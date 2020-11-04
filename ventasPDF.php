@@ -19,11 +19,11 @@ if (isset($_POST['buscar']) && $_POST['buscar']==0 && isset($_POST['fDesde']) &&
 if (isset($_POST['exportPDF'])&& isset($_POST['fDesde'])) {
 	
 	if ((empty($_POST['fDesde']) && empty($_POST['fHasta'])) ) {	
-		echo "ENTRE EN EL IF 1";
+		
 		$queryFechatp="SELECT f.idFacturaVenta as nFact, f.totalApagar as total, f.fechaPedido as fp, p.nombre,p.apellido from facturas as f JOIN personas as p on p.idPersona=f.idPersona";
 	}
 	if (!isset($_POST['fHasta']) && !empty($_POST['fDesde'])){
-		echo "ENTRE EN EL IF 2";
+		
 		$fd = date("Y-m-d", strtotime($_POST['fDesde']));
 		$hoy= date("Y-m-d");
 		$queryFechatp="SELECT f.idFacturaVenta as nFact, f.totalApagar as total, f.fechaPedido as fp, p.nombre,p.apellido 
@@ -34,7 +34,7 @@ if (isset($_POST['exportPDF'])&& isset($_POST['fDesde'])) {
 
 	}
 	elseif (isset($_POST['fDesde']) && isset($_POST['fHasta'])&&(!empty($_POST['fDesde']) && !empty($_POST['fHasta']))){
-		echo "ENTRE EN EL IF 3";
+		
 		$fd = date("Y-m-d", strtotime($_POST['fDesde']));
 		$fh = date("Y-m-d", strtotime($_POST['fHasta']));
 		$queryFechatp="SELECT f.idFacturaVenta as nFact, f.totalApagar as total, f.fechaPedido as fp, p.nombre,p.apellido 
@@ -43,10 +43,8 @@ if (isset($_POST['exportPDF'])&& isset($_POST['fDesde'])) {
 
 		WHERE f.fechaPedido BETWEEN '$fd' AND '$fh'";
 
-	}else{
-		echo "entre al ELSE";
 	}
-	echo $queryFechatp;
+	
 	$rsFechaTp=mysqli_query($conexion,$queryFechatp);
 
 
@@ -128,6 +126,6 @@ if (isset($_POST['exportPDF'])&& isset($_POST['fDesde'])) {
 	$pdf->Cell(150,6,"TOTAL VENDIDO PERIODO = ".$totalV,0,0,'C',1);
 	
 	$pdf->Output('F','reportesCreados/'.$filename.'.pdf');
-	//header("location:index.php?Reporte=1");
+	header("location:index.php?Reporte=1");
 }
 ?>
