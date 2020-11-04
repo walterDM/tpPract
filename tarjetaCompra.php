@@ -3,6 +3,9 @@
     require("conexion.php");
     require("header.php");
     $idPersona=$_SESSION['login'];
+    $total=$_POST['total'];
+    $calle=$_POST['calle'];
+    $altura=$_POST['altura'];
     //  $select=mysqli_query($conexion,"SELECT idTipoTarjeta FROM tipostarjetas WHERE idPersona=$idPersona");
   
     // $select5=mysqli_query($conexion,"SELECT idTipoTarjeta,descripcion FROM tipostarjetas ORDER BY descripcion ASC"); 
@@ -63,7 +66,12 @@
                                       
                                  ?>
                                  <div align="center">
-                                     <a href="facturaCompra.php" class="btn btn-light" >Aceptar</a>
+                                     <form action="facturaCompra.php" method="POST">
+                                         <input type="text" id="total" name="total" value="<?php echo $total;?>" hidden>
+                                         <input type="text" id="calle" name="calle" value="<?php echo $calle;?>" hidden>
+                                         <input type="text" id="altura" name="altura" value="<?php echo $altura;?>" hidden>
+                                         <button class="btn btn-light" >Aceptar</button>
+                                     </form>
                                      <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
                                  </div>
                             </div>

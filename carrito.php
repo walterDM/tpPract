@@ -62,6 +62,7 @@
       <div align="center">
        <?php if($total!=0){?>
                   <form action="domicilioCompra.php" method="POST">
+                     <input type="text" id="total" name="total" value="<?php echo $total;?>" hidden>
                      <button class="btn btn-light" name="comprar" value="comprar"> Comprar</button>
                   </form>
        <?php }?>

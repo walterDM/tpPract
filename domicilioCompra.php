@@ -3,6 +3,7 @@ if(isset($_POST['comprar'])){
     require("conexion.php");
     require("header.php");
     $idPersona=$_SESSION['login'];
+    $total=$_POST['total'];
     $select=mysqli_query($conexion,"SELECT idTipoDomicilio FROM direcciones WHERE idPersona=$idPersona");
     $select3=mysqli_query($conexion,"SELECT idPais,nombrePais FROM paises ORDER BY nombrePais ASC");
     $select4=mysqli_query($conexion,"SELECT idProvincia,nombreProvincia FROM provincias ORDER BY nombreProvincia ASC");
@@ -145,7 +146,12 @@ if(isset($_POST['comprar'])){
                                        echo "<h4 align='center'>".$datos['calle']."  ".$datos['altura']."</h4>";
                                  ?>
                                  <div align="center">
-                                     <a href="tarjetaCompra.php" class="btn btn-light" >Aceptar</a>
+                                     <form action="tarjetaCompra.php" method="POST">
+                                         <input type="text" id="total" name="total" value="<?php echo $total;?>" hidden>
+                                         <input type="text" id="calle" name="calle" value="<?php echo $datos['calle'];?>" hidden>
+                                         <input type="text" id="altura" name="altura" value="<?php echo $datos['altura'];?>" hidden>
+                                         <button class="btn btn-light" >Aceptar</button>
+                                     </form>
                                      <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
                                  </div>
                             </div>
