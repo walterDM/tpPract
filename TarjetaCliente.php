@@ -26,7 +26,7 @@
                               <div class="row">
                                 <div class="form-group col-md-12">
                                   <label>Numero Tarjeta</label>
-                                  <input type="text" class="form-control" name="numTarjeta" id="numeroTarjeta"  placeholder="ingrese el numero Tarjeta">
+                                  <input type="text" class="form-control" name="numTarjeta" id="numTarjeta"  placeholder="ingrese el numero Tarjeta">
                                 </div>
                                 <div class="form-group col-md-12">
                                   <label>Fecha vencimiento</label>
@@ -40,7 +40,7 @@
                                <div class="row">
                                   <div class="form-group col-md-12">
                                      <label>Codigo de seguridad</label>
-                                     <input type="text" class="form-control" name="codigo" id="codigo"  placeholder="ingrese el codigo">
+                                     <input type="text" class="form-control" name="codBanco" id="codBanco"  placeholder="ingrese el codigo">
                                   </div>
                                 
                                </div>
