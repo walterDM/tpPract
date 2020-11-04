@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-09-2020 a las 17:54:57
--- Versión del servidor: 10.1.38-MariaDB
--- Versión de PHP: 7.3.2
+-- Tiempo de generación: 04-11-2020 a las 17:44:04
+-- Versión del servidor: 10.4.14-MariaDB
+-- Versión de PHP: 7.3.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -21,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `tppract`
 --
+CREATE DATABASE IF NOT EXISTS `tppract` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `tppract`;
 
 -- --------------------------------------------------------
 
@@ -28,6 +29,7 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `ciudades`
 --
 
+DROP TABLE IF EXISTS `ciudades`;
 CREATE TABLE `ciudades` (
   `idCiudad` int(11) NOT NULL,
   `nombreCiudad` varchar(45) DEFAULT NULL,
@@ -54,6 +56,7 @@ INSERT INTO `ciudades` (`idCiudad`, `nombreCiudad`, `idProvincia`) VALUES
 -- Estructura de tabla para la tabla `contactosproveedores`
 --
 
+DROP TABLE IF EXISTS `contactosproveedores`;
 CREATE TABLE `contactosproveedores` (
   `idContactoProveedor` int(11) NOT NULL,
   `idProveedor` int(11) NOT NULL,
@@ -66,16 +69,16 @@ CREATE TABLE `contactosproveedores` (
 --
 
 INSERT INTO `contactosproveedores` (`idContactoProveedor`, `idProveedor`, `idTipoContacto`, `descripcion`) VALUES
-(1, 3, 1, 'walter.m.d92@gmail.com'),
+(1, 3, 1, 'consultaphpedi@gmail.com'),
 (2, 3, 2, '252525'),
-(11, 4, 1, 'walter.m.d92@gmail.com'),
+(11, 4, 1, 'consultaphpedi@gmail.com'),
 (12, 4, 2, '41414'),
-(13, 1, 1, 'walter.m.d92@gmail.com'),
+(13, 1, 1, 'consultaphpedi@gmail.com'),
 (14, 1, 2, '234556'),
-(15, 2, 1, 'walter.m.d92@gmail.com'),
+(15, 2, 1, 'consultaphpedi@gmail.com'),
 (16, 2, 2, '45697956'),
 (17, 2, 2, '30004243'),
-(18, 5, 1, 'prueba@hotmail.com'),
+(18, 5, 1, 'consultaphpedi@gmail.com'),
 (19, 5, 2, '1123456579');
 
 -- --------------------------------------------------------
@@ -84,6 +87,7 @@ INSERT INTO `contactosproveedores` (`idContactoProveedor`, `idProveedor`, `idTip
 -- Estructura de tabla para la tabla `detallespedidos`
 --
 
+DROP TABLE IF EXISTS `detallespedidos`;
 CREATE TABLE `detallespedidos` (
   `idPedidoProveedor` int(11) NOT NULL,
   `idProducto` int(11) NOT NULL,
@@ -105,7 +109,23 @@ INSERT INTO `detallespedidos` (`idPedidoProveedor`, `idProducto`, `cantidad`) VA
 (4, 19, 3),
 (5, 21, 2),
 (6, 36, 2),
-(6, 20, 2);
+(6, 20, 2),
+(7, 36, 2),
+(7, 20, 6),
+(8, 19, 4),
+(9, 21, 3),
+(10, 36, 2),
+(10, 20, 3),
+(10, 34, 2),
+(11, 36, 2),
+(11, 20, 3),
+(11, 34, 2),
+(12, 36, 2),
+(12, 20, 3),
+(12, 34, 2),
+(13, 21, 2),
+(14, 36, 2),
+(14, 20, 2);
 
 -- --------------------------------------------------------
 
@@ -113,6 +133,7 @@ INSERT INTO `detallespedidos` (`idPedidoProveedor`, `idProducto`, `cantidad`) VA
 -- Estructura de tabla para la tabla `direcciones`
 --
 
+DROP TABLE IF EXISTS `direcciones`;
 CREATE TABLE `direcciones` (
   `idDireccion` int(11) NOT NULL,
   `idCiudad` int(11) NOT NULL,
@@ -133,7 +154,9 @@ INSERT INTO `direcciones` (`idDireccion`, `idCiudad`, `idPersona`, `idTipoDomici
 (5, 9, 11, 2, 'gajdgaj', 34, 'e', '4'),
 (6, 9, 12, 1, 'sfsf', 242, 'h', '3'),
 (7, 9, 10, 2, 'dgd', 343, 't', '3'),
-(8, 9, 15, 2, 'belgrano', 1358, '', '');
+(8, 9, 15, 2, 'belgrano', 1358, '', ''),
+(9, 9, 16, 1, 'belgrano', 1191, '', ''),
+(10, 9, 16, 1, 'asd', 124, '', '');
 
 -- --------------------------------------------------------
 
@@ -141,6 +164,7 @@ INSERT INTO `direcciones` (`idDireccion`, `idCiudad`, `idPersona`, `idTipoDomici
 -- Estructura de tabla para la tabla `direccionesprov`
 --
 
+DROP TABLE IF EXISTS `direccionesprov`;
 CREATE TABLE `direccionesprov` (
   `idDireccion` int(11) NOT NULL,
   `idCiudad` int(11) NOT NULL,
@@ -165,6 +189,7 @@ INSERT INTO `direccionesprov` (`idDireccion`, `idCiudad`, `idProveedor`, `idTipo
 -- Estructura de tabla para la tabla `empleados`
 --
 
+DROP TABLE IF EXISTS `empleados`;
 CREATE TABLE `empleados` (
   `LegajoEmpleado` varchar(45) NOT NULL,
   `idPersona` int(11) NOT NULL
@@ -187,6 +212,7 @@ INSERT INTO `empleados` (`LegajoEmpleado`, `idPersona`) VALUES
 -- Estructura de tabla para la tabla `estadospedidos`
 --
 
+DROP TABLE IF EXISTS `estadospedidos`;
 CREATE TABLE `estadospedidos` (
   `idPedidoProveedor` int(11) NOT NULL,
   `idContactoProveedor` int(11) NOT NULL,
@@ -203,7 +229,15 @@ INSERT INTO `estadospedidos` (`idPedidoProveedor`, `idContactoProveedor`, `idEst
 (4, 15, 2),
 (3, 13, 2),
 (5, 1, 2),
-(6, 13, 2);
+(6, 13, 2),
+(7, 13, 2),
+(8, 15, 2),
+(9, 1, 2),
+(10, 13, 2),
+(11, 13, 2),
+(12, 13, 2),
+(13, 1, 2),
+(14, 13, 1);
 
 -- --------------------------------------------------------
 
@@ -211,13 +245,20 @@ INSERT INTO `estadospedidos` (`idPedidoProveedor`, `idContactoProveedor`, `idEst
 -- Estructura de tabla para la tabla `facturadetalles`
 --
 
+DROP TABLE IF EXISTS `facturadetalles`;
 CREATE TABLE `facturadetalles` (
   `idFactura` int(11) NOT NULL,
   `idProducto` int(11) NOT NULL,
-  `cantidad` int(11) NOT NULL,
-  `precioUnidad` double NOT NULL,
-  `precioTotal` double NOT NULL
+  `cantidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `facturadetalles`
+--
+
+INSERT INTO `facturadetalles` (`idFactura`, `idProducto`, `cantidad`) VALUES
+(1, 19, 2),
+(1, 20, 2);
 
 -- --------------------------------------------------------
 
@@ -225,15 +266,22 @@ CREATE TABLE `facturadetalles` (
 -- Estructura de tabla para la tabla `facturas`
 --
 
+DROP TABLE IF EXISTS `facturas`;
 CREATE TABLE `facturas` (
   `idFacturaVenta` int(11) NOT NULL,
   `idPersona` int(11) NOT NULL,
   `totalApagar` double NOT NULL,
   `fechaPedido` date NOT NULL,
-  `LegajoEmpleado` int(11) NOT NULL,
   `TipoFactura` int(11) NOT NULL,
   `NumeroFactura` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `facturas`
+--
+
+INSERT INTO `facturas` (`idFacturaVenta`, `idPersona`, `totalApagar`, `fechaPedido`, `TipoFactura`, `NumeroFactura`) VALUES
+(1, 10, 500, '2020-10-03', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -241,6 +289,7 @@ CREATE TABLE `facturas` (
 -- Estructura de tabla para la tabla `fechas`
 --
 
+DROP TABLE IF EXISTS `fechas`;
 CREATE TABLE `fechas` (
   `id` int(11) NOT NULL,
   `fecha` datetime NOT NULL
@@ -262,6 +311,7 @@ INSERT INTO `fechas` (`id`, `fecha`) VALUES
 -- Estructura de tabla para la tabla `grupos`
 --
 
+DROP TABLE IF EXISTS `grupos`;
 CREATE TABLE `grupos` (
   `idGrupo` int(11) NOT NULL,
   `nombreGrupo` varchar(45) NOT NULL
@@ -282,6 +332,7 @@ INSERT INTO `grupos` (`idGrupo`, `nombreGrupo`) VALUES
 -- Estructura de tabla para la tabla `grupospermisos`
 --
 
+DROP TABLE IF EXISTS `grupospermisos`;
 CREATE TABLE `grupospermisos` (
   `idGrupo` int(11) NOT NULL,
   `idPermiso` int(11) NOT NULL
@@ -328,6 +379,7 @@ INSERT INTO `grupospermisos` (`idGrupo`, `idPermiso`) VALUES
 -- Estructura de tabla para la tabla `gruposusuarios`
 --
 
+DROP TABLE IF EXISTS `gruposusuarios`;
 CREATE TABLE `gruposusuarios` (
   `idPersona` int(11) NOT NULL,
   `idGrupo` int(11) NOT NULL
@@ -342,7 +394,8 @@ INSERT INTO `gruposusuarios` (`idPersona`, `idGrupo`) VALUES
 (11, 18),
 (12, 18),
 (14, 18),
-(15, 18);
+(15, 18),
+(16, 19);
 
 -- --------------------------------------------------------
 
@@ -350,6 +403,7 @@ INSERT INTO `gruposusuarios` (`idPersona`, `idGrupo`) VALUES
 -- Estructura de tabla para la tabla `marcas`
 --
 
+DROP TABLE IF EXISTS `marcas`;
 CREATE TABLE `marcas` (
   `idMarca` int(11) NOT NULL,
   `nombreMarca` varchar(45) NOT NULL
@@ -368,9 +422,37 @@ INSERT INTO `marcas` (`idMarca`, `nombreMarca`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `members`
+--
+
+DROP TABLE IF EXISTS `members`;
+CREATE TABLE `members` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `phone` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `created` date NOT NULL,
+  `modified` date NOT NULL,
+  `status` enum('1','0') COLLATE utf8_unicode_ci NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `members`
+--
+
+INSERT INTO `members` (`id`, `name`, `email`, `phone`, `created`, `modified`, `status`) VALUES
+(1, 'maxi', 'maxi@gmail.com', '433445566', '2020-07-23', '0000-00-00', '1'),
+(2, 'juan', 'juan@gmail.com', '2345577666', '2020-08-12', '0000-00-00', '1'),
+(3, 'juan11', 'juan34@gmail.com', '776688544332', '2020-09-08', '0000-00-00', '1'),
+(4, 'juan123', 'juan321@gmail.com', '312312442135', '2020-09-01', '0000-00-00', '1');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `paises`
 --
 
+DROP TABLE IF EXISTS `paises`;
 CREATE TABLE `paises` (
   `idPais` int(11) NOT NULL,
   `nombrePais` varchar(45) NOT NULL
@@ -390,6 +472,7 @@ INSERT INTO `paises` (`idPais`, `nombrePais`) VALUES
 -- Estructura de tabla para la tabla `pedidosproveedores`
 --
 
+DROP TABLE IF EXISTS `pedidosproveedores`;
 CREATE TABLE `pedidosproveedores` (
   `idPedidoProveedor` int(11) NOT NULL,
   `idProveedor` int(11) NOT NULL,
@@ -407,7 +490,15 @@ INSERT INTO `pedidosproveedores` (`idPedidoProveedor`, `idProveedor`, `LegajoEmp
 (3, 1, '242424', '2020-09-16'),
 (4, 2, '242424', '2020-09-16'),
 (5, 3, '242424', '2020-09-16'),
-(6, 1, '242424', '2020-09-16');
+(6, 1, '242424', '2020-09-16'),
+(7, 1, '242424', '2020-09-23'),
+(8, 2, '242424', '2020-09-23'),
+(9, 3, '242424', '2020-09-23'),
+(10, 1, '242424', '2020-09-29'),
+(11, 1, '242424', '2020-09-29'),
+(12, 1, '242424', '2020-09-29'),
+(13, 3, '242424', '2020-09-29'),
+(14, 1, '242424', '2020-10-14');
 
 -- --------------------------------------------------------
 
@@ -415,6 +506,7 @@ INSERT INTO `pedidosproveedores` (`idPedidoProveedor`, `idProveedor`, `LegajoEmp
 -- Estructura de tabla para la tabla `permisos`
 --
 
+DROP TABLE IF EXISTS `permisos`;
 CREATE TABLE `permisos` (
   `idPermiso` int(11) NOT NULL,
   `nombrePermiso` varchar(45) NOT NULL
@@ -455,6 +547,7 @@ INSERT INTO `permisos` (`idPermiso`, `nombrePermiso`) VALUES
 -- Estructura de tabla para la tabla `personas`
 --
 
+DROP TABLE IF EXISTS `personas`;
 CREATE TABLE `personas` (
   `idPersona` int(11) NOT NULL,
   `numDocumento` int(11) NOT NULL,
@@ -475,7 +568,8 @@ INSERT INTO `personas` (`idPersona`, `numDocumento`, `idTipoDocumento`, `nombre`
 (11, 37200769, 1, 'walter', 'martinez', '1995-06-21', 'Waltermartinez', 'a213f9e4f1dbdba548d256335dc57bf65404210a'),
 (12, 95180213, 1, 'Esthefany', 'Graterox', '1997-08-20', 'Esthefanyg', '44f14b2ad2fa68bd07ccb6008d67ba4450b87ab3'),
 (14, 212621, 1, 'agagag', 'gaag', '2020-09-10', 'fabri3', 'b279b7f4d0bc48a7660f007ae7983154b706ac57'),
-(15, 23345443, 1, 'Oscar ', 'quintero', '2002-07-15', 'practica', '8cb2237d0679ca88db6464eac60da96345513964');
+(15, 23345443, 1, 'Oscar ', 'quintero', '2002-07-15', 'practica', '8cb2237d0679ca88db6464eac60da96345513964'),
+(16, 25669365, 1, 'nombre', 'apellido', '1998-09-10', 'nombre', '7088f91898a8b3f32260d7c6ea3a04828bf53fb2');
 
 -- --------------------------------------------------------
 
@@ -483,6 +577,7 @@ INSERT INTO `personas` (`idPersona`, `numDocumento`, `idTipoDocumento`, `nombre`
 -- Estructura de tabla para la tabla `personascontactos`
 --
 
+DROP TABLE IF EXISTS `personascontactos`;
 CREATE TABLE `personascontactos` (
   `idPersonaContacto` int(11) NOT NULL,
   `idPersona` int(11) NOT NULL,
@@ -504,7 +599,9 @@ INSERT INTO `personascontactos` (`idPersonaContacto`, `idPersona`, `idTipoContac
 (35, 12, 1, 'esthefany@gmail.com'),
 (36, 12, 2, '1146829453'),
 (37, 15, 1, 'ejemplo@gmail.com'),
-(38, 15, 2, '2223344');
+(38, 15, 2, '2223344'),
+(39, 16, 1, 'consultaphpedi@gmail.com'),
+(40, 16, 2, '47659585');
 
 -- --------------------------------------------------------
 
@@ -512,6 +609,7 @@ INSERT INTO `personascontactos` (`idPersonaContacto`, `idPersona`, `idTipoContac
 -- Estructura de tabla para la tabla `productos`
 --
 
+DROP TABLE IF EXISTS `productos`;
 CREATE TABLE `productos` (
   `idProducto` int(11) NOT NULL,
   `descripcion` varchar(45) NOT NULL,
@@ -542,6 +640,7 @@ INSERT INTO `productos` (`idProducto`, `descripcion`, `idPuestoFisico`, `imagen`
 -- Estructura de tabla para la tabla `productostpmarcas`
 --
 
+DROP TABLE IF EXISTS `productostpmarcas`;
 CREATE TABLE `productostpmarcas` (
   `idProducto` int(11) NOT NULL,
   `idProveedor` int(11) NOT NULL,
@@ -567,6 +666,7 @@ INSERT INTO `productostpmarcas` (`idProducto`, `idProveedor`, `idTpMarca`, `prec
 -- Estructura de tabla para la tabla `productos_proveedores`
 --
 
+DROP TABLE IF EXISTS `productos_proveedores`;
 CREATE TABLE `productos_proveedores` (
   `idProducto` int(11) NOT NULL,
   `idProveedor` int(11) NOT NULL,
@@ -587,6 +687,7 @@ INSERT INTO `productos_proveedores` (`idProducto`, `idProveedor`, `precio`) VALU
 -- Estructura de tabla para la tabla `proveedores`
 --
 
+DROP TABLE IF EXISTS `proveedores`;
 CREATE TABLE `proveedores` (
   `idProveedor` int(11) NOT NULL,
   `empresa` varchar(45) NOT NULL,
@@ -611,6 +712,7 @@ INSERT INTO `proveedores` (`idProveedor`, `empresa`, `cuit`, `descripcion`) VALU
 -- Estructura de tabla para la tabla `provincias`
 --
 
+DROP TABLE IF EXISTS `provincias`;
 CREATE TABLE `provincias` (
   `idProvincia` int(11) NOT NULL,
   `nombreProvincia` varchar(45) DEFAULT NULL,
@@ -633,6 +735,7 @@ INSERT INTO `provincias` (`idProvincia`, `nombreProvincia`, `idPais`) VALUES
 -- Estructura de tabla para la tabla `puestofisico`
 --
 
+DROP TABLE IF EXISTS `puestofisico`;
 CREATE TABLE `puestofisico` (
   `idPuestoFisico` int(11) NOT NULL,
   `estante` varchar(45) NOT NULL,
@@ -673,14 +776,15 @@ INSERT INTO `puestofisico` (`idPuestoFisico`, `estante`, `fila`, `columna`) VALU
 -- Estructura de tabla para la tabla `stock`
 --
 
+DROP TABLE IF EXISTS `stock`;
 CREATE TABLE `stock` (
   `idStock` int(11) NOT NULL,
-  `LegajoEmpleado` varchar(45) NOT NULL,
+  `LegajoEmpleado` varchar(45) DEFAULT NULL,
   `idProducto` int(11) NOT NULL,
   `idTipoMovimiento` int(11) NOT NULL,
   `fechaMovimiento` date NOT NULL,
   `cantidad` int(11) DEFAULT NULL,
-  `idPedidoProveedor` int(11) DEFAULT NULL,
+  `idPedidoProveedor` int(11) NOT NULL,
   `idFacturaVenta` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -690,6 +794,7 @@ CREATE TABLE `stock` (
 -- Estructura de tabla para la tabla `tarjetascliente`
 --
 
+DROP TABLE IF EXISTS `tarjetascliente`;
 CREATE TABLE `tarjetascliente` (
   `idTarjetaCliente` int(11) NOT NULL,
   `numTarjeta` int(11) NOT NULL,
@@ -699,12 +804,21 @@ CREATE TABLE `tarjetascliente` (
   `codBanco` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `tarjetascliente`
+--
+
+INSERT INTO `tarjetascliente` (`idTarjetaCliente`, `numTarjeta`, `idTipoTarjeta`, `fechaVencimiento`, `idPersona`, `codBanco`) VALUES
+(1, 2145341, 0, '2021-10-06', 11, ''),
+(2, 2147483647, 1, '2020-10-29', 16, '');
+
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `tipoestados`
 --
 
+DROP TABLE IF EXISTS `tipoestados`;
 CREATE TABLE `tipoestados` (
   `idEstado` int(11) NOT NULL,
   `descripcion` varchar(20) NOT NULL
@@ -724,6 +838,7 @@ INSERT INTO `tipoestados` (`idEstado`, `descripcion`) VALUES
 -- Estructura de tabla para la tabla `tiposcontactos`
 --
 
+DROP TABLE IF EXISTS `tiposcontactos`;
 CREATE TABLE `tiposcontactos` (
   `idTipoContacto` int(11) NOT NULL,
   `descripcion` varchar(45) NOT NULL
@@ -743,6 +858,7 @@ INSERT INTO `tiposcontactos` (`idTipoContacto`, `descripcion`) VALUES
 -- Estructura de tabla para la tabla `tiposdocumentos`
 --
 
+DROP TABLE IF EXISTS `tiposdocumentos`;
 CREATE TABLE `tiposdocumentos` (
   `idTipoDocumento` int(11) NOT NULL,
   `descripcion` varchar(45) NOT NULL
@@ -761,6 +877,7 @@ INSERT INTO `tiposdocumentos` (`idTipoDocumento`, `descripcion`) VALUES
 -- Estructura de tabla para la tabla `tiposdomicilios`
 --
 
+DROP TABLE IF EXISTS `tiposdomicilios`;
 CREATE TABLE `tiposdomicilios` (
   `idTipoDomicilio` int(11) NOT NULL,
   `descripcion` varchar(45) NOT NULL
@@ -777,9 +894,31 @@ INSERT INTO `tiposdomicilios` (`idTipoDomicilio`, `descripcion`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tiposfacturas`
+--
+
+DROP TABLE IF EXISTS `tiposfacturas`;
+CREATE TABLE `tiposfacturas` (
+  `idTipoFactura` int(11) NOT NULL,
+  `descripcion` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `tiposfacturas`
+--
+
+INSERT INTO `tiposfacturas` (`idTipoFactura`, `descripcion`) VALUES
+(1, 'A'),
+(2, 'B'),
+(3, 'C');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `tiposmovientos`
 --
 
+DROP TABLE IF EXISTS `tiposmovientos`;
 CREATE TABLE `tiposmovientos` (
   `idTipoMoviento` int(11) NOT NULL,
   `nombreMovimiento` varchar(45) NOT NULL,
@@ -792,6 +931,7 @@ CREATE TABLE `tiposmovientos` (
 -- Estructura de tabla para la tabla `tiposproductos`
 --
 
+DROP TABLE IF EXISTS `tiposproductos`;
 CREATE TABLE `tiposproductos` (
   `idTipoProducto` int(11) NOT NULL,
   `descripcion` varchar(45) NOT NULL
@@ -811,6 +951,7 @@ INSERT INTO `tiposproductos` (`idTipoProducto`, `descripcion`) VALUES
 -- Estructura de tabla para la tabla `tiposproductos_marcas`
 --
 
+DROP TABLE IF EXISTS `tiposproductos_marcas`;
 CREATE TABLE `tiposproductos_marcas` (
   `idTpMarca` int(11) NOT NULL,
   `idMarca` int(11) NOT NULL,
@@ -833,10 +974,19 @@ INSERT INTO `tiposproductos_marcas` (`idTpMarca`, `idMarca`, `idTipoProducto`) V
 -- Estructura de tabla para la tabla `tipostarjetas`
 --
 
+DROP TABLE IF EXISTS `tipostarjetas`;
 CREATE TABLE `tipostarjetas` (
   `idTipoTarjeta` int(11) NOT NULL,
   `descripcion` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tipostarjetas`
+--
+
+INSERT INTO `tipostarjetas` (`idTipoTarjeta`, `descripcion`) VALUES
+(0, 'Debito'),
+(1, 'Credito');
 
 -- --------------------------------------------------------
 
@@ -844,6 +994,7 @@ CREATE TABLE `tipostarjetas` (
 -- Estructura de tabla para la tabla `tokens`
 --
 
+DROP TABLE IF EXISTS `tokens`;
 CREATE TABLE `tokens` (
   `idToken` int(11) NOT NULL,
   `token` varchar(45) DEFAULT NULL,
@@ -902,6 +1053,13 @@ ALTER TABLE `empleados`
   ADD KEY `fk_personaEmp_idx` (`idPersona`);
 
 --
+-- Indices de la tabla `estadospedidos`
+--
+ALTER TABLE `estadospedidos`
+  ADD KEY `idContactoProveedor` (`idContactoProveedor`),
+  ADD KEY `idPedidoProveedor` (`idPedidoProveedor`);
+
+--
 -- Indices de la tabla `facturadetalles`
 --
 ALTER TABLE `facturadetalles`
@@ -914,7 +1072,9 @@ ALTER TABLE `facturadetalles`
 --
 ALTER TABLE `facturas`
   ADD PRIMARY KEY (`idFacturaVenta`),
-  ADD KEY `fkPersonaFac_idx` (`idPersona`);
+  ADD KEY `fkPersonaFac_idx` (`idPersona`),
+  ADD KEY `TipoFactura` (`TipoFactura`),
+  ADD KEY `TipoFactura_2` (`TipoFactura`);
 
 --
 -- Indices de la tabla `fechas`
@@ -949,6 +1109,12 @@ ALTER TABLE `gruposusuarios`
 --
 ALTER TABLE `marcas`
   ADD PRIMARY KEY (`idMarca`);
+
+--
+-- Indices de la tabla `members`
+--
+ALTER TABLE `members`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `paises`
@@ -1072,6 +1238,12 @@ ALTER TABLE `tiposdomicilios`
   ADD PRIMARY KEY (`idTipoDomicilio`);
 
 --
+-- Indices de la tabla `tiposfacturas`
+--
+ALTER TABLE `tiposfacturas`
+  ADD PRIMARY KEY (`idTipoFactura`);
+
+--
 -- Indices de la tabla `tiposmovientos`
 --
 ALTER TABLE `tiposmovientos`
@@ -1125,7 +1297,7 @@ ALTER TABLE `contactosproveedores`
 -- AUTO_INCREMENT de la tabla `direcciones`
 --
 ALTER TABLE `direcciones`
-  MODIFY `idDireccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idDireccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `direccionesprov`
@@ -1137,7 +1309,7 @@ ALTER TABLE `direccionesprov`
 -- AUTO_INCREMENT de la tabla `facturas`
 --
 ALTER TABLE `facturas`
-  MODIFY `idFacturaVenta` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idFacturaVenta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `fechas`
@@ -1158,6 +1330,12 @@ ALTER TABLE `marcas`
   MODIFY `idMarca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT de la tabla `members`
+--
+ALTER TABLE `members`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT de la tabla `paises`
 --
 ALTER TABLE `paises`
@@ -1167,7 +1345,7 @@ ALTER TABLE `paises`
 -- AUTO_INCREMENT de la tabla `pedidosproveedores`
 --
 ALTER TABLE `pedidosproveedores`
-  MODIFY `idPedidoProveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idPedidoProveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `permisos`
@@ -1179,13 +1357,13 @@ ALTER TABLE `permisos`
 -- AUTO_INCREMENT de la tabla `personas`
 --
 ALTER TABLE `personas`
-  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `personascontactos`
 --
 ALTER TABLE `personascontactos`
-  MODIFY `idPersonaContacto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `idPersonaContacto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -1221,7 +1399,7 @@ ALTER TABLE `stock`
 -- AUTO_INCREMENT de la tabla `tarjetascliente`
 --
 ALTER TABLE `tarjetascliente`
-  MODIFY `idTarjetaCliente` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idTarjetaCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `tipoestados`
@@ -1240,6 +1418,12 @@ ALTER TABLE `tiposcontactos`
 --
 ALTER TABLE `tiposdomicilios`
   MODIFY `idTipoDomicilio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `tiposfacturas`
+--
+ALTER TABLE `tiposfacturas`
+  MODIFY `idTipoFactura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `tiposmovientos`
@@ -1304,6 +1488,13 @@ ALTER TABLE `empleados`
   ADD CONSTRAINT `fk_personaEmp` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`);
 
 --
+-- Filtros para la tabla `estadospedidos`
+--
+ALTER TABLE `estadospedidos`
+  ADD CONSTRAINT `estadospedidos_ibfk_1` FOREIGN KEY (`idPedidoProveedor`) REFERENCES `pedidosproveedores` (`idPedidoProveedor`),
+  ADD CONSTRAINT `estadospedidos_ibfk_2` FOREIGN KEY (`idContactoProveedor`) REFERENCES `contactosproveedores` (`idContactoProveedor`);
+
+--
 -- Filtros para la tabla `facturadetalles`
 --
 ALTER TABLE `facturadetalles`
@@ -1314,7 +1505,8 @@ ALTER TABLE `facturadetalles`
 -- Filtros para la tabla `facturas`
 --
 ALTER TABLE `facturas`
-  ADD CONSTRAINT `fkPersonaFac` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`);
+  ADD CONSTRAINT `fkPersonaFac` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`),
+  ADD CONSTRAINT `fk_tipoFactura` FOREIGN KEY (`TipoFactura`) REFERENCES `tiposfacturas` (`idTipoFactura`);
 
 --
 -- Filtros para la tabla `grupospermisos`
