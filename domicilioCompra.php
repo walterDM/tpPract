@@ -145,7 +145,7 @@ if(isset($_POST['comprar'])){
                                        echo "<h4 align='center'>".$datos['calle']."  ".$datos['altura']."</h4>";
                                  ?>
                                  <div align="center">
-                                     <a href="#" class="btn btn-light">Aceptar</a>
+                                     <a href="tarjetaCompra.php" class="btn btn-light" >Aceptar</a>
                                      <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
                                  </div>
                             </div>
