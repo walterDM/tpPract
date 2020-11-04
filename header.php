@@ -103,10 +103,10 @@ while ($r=mysqli_fetch_array($select)) {
                    <i class="fas fa-user-alt"></i>
                  </a>
                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                   <form action="miperfil.php" method="POST">
-                     <input text="text" name="nombre_usuario" id="nombre_usuario" value="<?php echo $nombre_usuario;?>" hidden>
+                  <!-- <form action="miperfil.php" method="POST">
+                     <input text="text" name="nombre_usuario" id="nombre_usuario" value="<?php// echo $nombre_usuario;?>" hidden>
                      <button  type="submit" class="dropdown-item" name="perfil" value="perfil">Mi perfil</button>
-                   </form>
+                   </form>-->
                    <form action="index.php" method="POST">
                      <button  type="submit" class="dropdown-item" name="borrarSesion" onclick="<?php killSession();?>">Cerrar Sesión</button>
                    </form>
