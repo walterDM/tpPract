@@ -15,6 +15,7 @@ if (isset($_SESSION['login'])) {
   $id_usuario=$_SESSION['login'];
   $nombre_usuario=$_SESSION['usuario'];
   $idGrupo=$_SESSION['grupo'];
+  echo $id_usuario . " nombre_Usuario". $nombre_usuario. " ". $idGrupo;
 }
 
 function killSession(){
@@ -25,17 +26,7 @@ function killSession(){
     header("location:index.php");
   }
 }
-/*if (isset($_POST['titulo'])) {
-  $titulo=$_POST['titulo'];
-}else{
-  $titulo='inicio';
-}
 
-  function titulo($title){
-    $titulo=$title;
-    return $titulo;
-  }
-//$titulo=titulo('inicio');*/
   ?>
   <?php 
 

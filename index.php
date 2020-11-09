@@ -2,6 +2,7 @@
 <?php 
 //header("location:carrito.php");
 require("header.php"); 
+
 $db=conectar();
 $consulta=mysqli_query($db,"SELECT * FROM productos");
 $total_productos=mysqli_num_rows($consulta);

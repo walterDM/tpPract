@@ -15,12 +15,14 @@ $consulta= mysqli_query($db,"SELECT * FROM personas where usuario='$usuario' and
 if($p=mysqli_fetch_assoc($consulta)){
 	$idPersona=$p['idPersona'];
 	if ($p['usuario']==$usuario && $p['contrasenia']==$password) {
-		$id=$p['idPersona'];
-		$select=mysqli_query($db,"SELECT idGrupo FROM gruposusuarios WHERE idPersona=$id");
-		while($r=mysqli_fetch_array($select)){$idGrupo=$r['idGrupo'];}
+		$select=mysqli_query($db,"SELECT idGrupo FROM gruposusuarios WHERE idPersona=$idPersona");
+		while($r=mysqli_fetch_array($select)){
+			$idGrupo=$r['idGrupo'];
+			$_SESSION['grupo']=$idGrupo;
+		}
 		$_SESSION['login']=$p['idPersona'];
 		$_SESSION['usuario']=$p['usuario'];
-		$_SESSION['grupo']=$idGrupo;
+		echo $idPersona;
 		header("location:index.php");
 	}
 	
