@@ -25,10 +25,14 @@ if (isset($_SESSION['grupo']) && ($_SESSION['grupo']==18 || $_SESSION['grupo']==
 		$rs=date("Y-m-d", strtotime($fecha) );
 		return $rs;
 	} ?>
-
+	<div class="row">
+		<div class="col-md-12">
+			<h2>Reportes de Ventas</h2>
+		</div>
+	</div>
 	<form action="ventasPDF.php" method="POST">
 		<div class="row justify-content-center">
-
+			<div class="col-md-1"></div>		
 			<div class="col-md-6">
 
 

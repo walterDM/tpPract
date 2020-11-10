@@ -40,9 +40,13 @@ $queryTp="SELECT tp.descripcion, tp.idTipoProducto from tiposproductos as tp";
 $rsTp=mysqli_query($conexion,$queryTp);
 
 ?>
+
+<div class="row">
+		<div class="col-md-12">
+			<h2>Reporte de Stock</h2>
+		</div>
+	</div>
 <br>
-
-
 <form action="stockPDF.php" method="GET">
 	<div class="row justify-content-center">
 		

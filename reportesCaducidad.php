@@ -34,7 +34,11 @@ function formatFecha($fecha){
 	$rs=date("Y-m-d", strtotime($fecha) );
 	return $rs;
 } ?>
-
+<div class="row">
+		<div class="col-md-12">
+			<h2>Reporte de Caducidad</h2>
+		</div>
+	</div>
 <form action="caducidadPDF.php" method="POST">
 	<div class="row justify-content-center">
 		

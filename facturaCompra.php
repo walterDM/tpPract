@@ -9,12 +9,29 @@ $fecha=date('Y-m-d');
 $calle=$_POST['calle'];
 $altura=$_POST['altura'];
 $datos=$_SESSION['carrito'];
-$insert=mysqli_query($conexion,"INSERT INTO facturas VALUES(00,$idPersona,$total,'$fecha',1,4)");
+echo $idPersona." ".$total." ".$fecha." ";
+$insert=mysqli_query($conexion,"INSERT INTO facturas VALUES(00,$idPersona,$total,'$fecha',3)");
 $idFactura=mysqli_insert_id($conexion);
+//TRAIGO DATOS PARA EL ORIGEN DEL NUMERO DE FACTURA
+$querynFact="SELECT df.numFactura n,tt.Abreviacion a
+FROM `datosfacturas` as df
+JOIN tipostransacciones as tt on tt.idTipoTransaccion=df.idTipoTransaccion
+WHERE idFactura = (
+              SELECT MAX(idFactura) 
+              FROM `datosfacturas` 
+             )";
+$rsnFact=mysqli_query($conexion,$querynFact);
+
+while ($rn=mysqli_fetch_array($rsnFact)) {
+	$nFact=$rn['n']+1;
+	$numFactura= "001-".$rn['a'].$nFact;}
+echo $numFactura;
+$insert=mysqli_query($conexion,"INSERT INTO datosfacturas (idFactura, numFactura)VALUES($idFactura,$nFact)");
 for ($i=0; $i<count($datos);$i++){ 
 	$idProd=$datos[$i]['IdProducto'];
 	$cant=$datos[$i]['Cantidad'];
-$insertDetalle=mysqli_query($conexion,"INSERT INTO facturasdetalles VALUES($idFactura,$idProd,$cant");
+	$precio=$datos[$i]['Precio'];
+$insertDetalle=mysqli_query($conexion,"INSERT INTO facturasdetalles VALUES($idFactura,$idProd,$cant,$precio");
 }
 $cliente=$_SESSION['login'];
 $nombreC=mysqli_query($conexion,"SELECT nombre, apellido from personas where idPersona=$cliente");
@@ -29,7 +46,7 @@ while ($r=mysqli_fetch_array($nombreC)) {
 	
 	$y= $pdf->GetY();
 	$pdf->SetXY(150,$y+5);
-	$pdf->Cell(70,6,utf8_decode('Factura N°: '.$idFactura),0,0,'C',0);
+	$pdf->Cell(70,6,utf8_decode('Factura N°: ').$numFactura,0,0,'C',0);
 	$y= $pdf->GetY();
 	$pdf->SetXY(150,$y+5);
 	$pdf->Cell(70,6,utf8_decode('Fecha: '.$fecha),0,0,'C',0);
@@ -63,5 +80,5 @@ while ($r=mysqli_fetch_array($nombreC)) {
 	$pdf->SetFont('Arial','B',14);
 	$pdf->SetFillColor(232,232,232);
 	$pdf->Cell(115,6,"Total Compra : ".$totalC,1,0,'C',1);
-$pdf->Output();
+	$pdf->Output();
 ?>
