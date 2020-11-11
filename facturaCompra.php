@@ -10,13 +10,35 @@ $fechaP=date('d-m-Y');
 $calle=$_POST['calle'];
 $altura=$_POST['altura'];
 $datos=$_SESSION['carrito'];
+<<<<<<< HEAD
 $insert=mysqli_query($conexion,"INSERT INTO facturas VALUES(00,$idPersona,$total,'$fecha')");
 $idFactura=mysqli_insert_id($conexion);
 
+=======
+echo $idPersona." ".$total." ".$fecha." ";
+$insert=mysqli_query($conexion,"INSERT INTO facturas VALUES(00,$idPersona,$total,'$fecha',3)");
+$idFactura=mysqli_insert_id($conexion);
+//TRAIGO DATOS PARA EL ORIGEN DEL NUMERO DE FACTURA
+$querynFact="SELECT df.numFactura n,tt.Abreviacion a
+FROM `datosfacturas` as df
+JOIN tipostransacciones as tt on tt.idTipoTransaccion=df.idTipoTransaccion
+WHERE idFactura = (
+              SELECT MAX(idFactura) 
+              FROM `datosfacturas` 
+             )";
+$rsnFact=mysqli_query($conexion,$querynFact);
+
+while ($rn=mysqli_fetch_array($rsnFact)) {
+	$nFact=$rn['n']+1;
+	$numFactura= "001-".$rn['a'].$nFact;}
+echo $numFactura;
+$insert=mysqli_query($conexion,"INSERT INTO datosfacturas (idFactura, numFactura)VALUES($idFactura,$nFact)");
+>>>>>>> 2c0a76c1833afcfa5db1923a859130c6abfd961e
 for ($i=0; $i<count($datos);$i++){ 
 	$idProd=$datos[$i]['IdProducto'];
 	$cant=$datos[$i]['Cantidad'];
 	$precio=$datos[$i]['Precio'];
+<<<<<<< HEAD
 $insertDetalle=mysqli_query($conexion,"INSERT INTO `facturadetalles`(`idFactura`, `idProducto`, `cantidad`, `precioUnitario`) VALUES ($idFactura,$idProd,$cant,$precio)");
 //se trae las cantidades con respecto a cada item del carrito y se le hace el update correspondiente
 $queryProd="SELECT cantidadProd as cant from productos where idProducto = $idProd";
@@ -30,6 +52,9 @@ while ($rProd= mysqli_fetch_array($rsProd)) {
 $updateProd="UPDATE `productos` SET `cantidadProd`=$cantN,`estado`='$estado'
  WHERE idProducto=$idProd";
  $queryUpdate=mysqli_query($conexion, $updateProd);
+=======
+$insertDetalle=mysqli_query($conexion,"INSERT INTO facturasdetalles VALUES($idFactura,$idProd,$cant,$precio");
+>>>>>>> 2c0a76c1833afcfa5db1923a859130c6abfd961e
 }
 
 //TRAIGO DATOS PARA EL ORIGEN DEL NUMERO DE FACTURA
@@ -68,6 +93,7 @@ while ($r=mysqli_fetch_array($nombreC)) {
 	$pdf->SetXY(140,$y-4);
 	$pdf->Cell(70,6,utf8_decode('Factura N°: '.$numFactura),0,0,'C',0);
 	$y= $pdf->GetY();
+<<<<<<< HEAD
 	$pdf->SetXY(140,$y+10);
 	$pdf->Cell(70,6,utf8_decode('Fecha: '.$fechaP),0,0,'C',0);
 	$pdf->setXY(10,35);
@@ -75,6 +101,14 @@ while ($r=mysqli_fetch_array($nombreC)) {
 	$pdf->Cell(30,6,"Tipo Factura : ".$tFact,0,0,'C',0);
 	$y=$pdf->GetY();
 	$pdf->setXY(20,$y+10);
+=======
+	$pdf->SetXY(150,$y+5);
+	$pdf->Cell(70,6,utf8_decode('Factura N°: ').$numFactura,0,0,'C',0);
+	$y= $pdf->GetY();
+	$pdf->SetXY(150,$y+5);
+	$pdf->Cell(70,6,utf8_decode('Fecha: '.$fecha),0,0,'C',0);
+	$pdf->setXY(20,50);
+>>>>>>> 2c0a76c1833afcfa5db1923a859130c6abfd961e
 	$pdf->SetFillColor(232,232,232);
 	$pdf->Cell(30,6,"Cliente : ".$ncliente,0,0,'C',0);
 	$y=$pdf->GetY();
@@ -110,6 +144,11 @@ while ($r=mysqli_fetch_array($nombreC)) {
 	$pdf->Ln(8);
 	$pdf->SetFont('Arial','B',14);
 	$pdf->SetFillColor(232,232,232);
+<<<<<<< HEAD
 	$pdf->Cell(165,6,"Total Compra : ".$totalC,1,0,'C',1);
 $pdf->Output();
+=======
+	$pdf->Cell(115,6,"Total Compra : ".$totalC,1,0,'C',1);
+	$pdf->Output();
+>>>>>>> 2c0a76c1833afcfa5db1923a859130c6abfd961e
 ?>
