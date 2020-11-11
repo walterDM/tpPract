@@ -3,7 +3,7 @@ if(isset($_POST['comprar'])){
     require("conexion.php");
     require("header.php");
     $idPersona=$_SESSION['login'];
-    $total=$_POS T['total'];
+    $total=$_SESSION['total'];
     $select=mysqli_query($conexion,"SELECT idTipoDomicilio FROM direcciones WHERE idPersona=$idPersona");
     $select3=mysqli_query($conexion,"SELECT idPais,nombrePais FROM paises ORDER BY nombrePais ASC");
     $select4=mysqli_query($conexion,"SELECT idProvincia,nombreProvincia FROM provincias ORDER BY nombreProvincia ASC");
@@ -144,13 +144,12 @@ if(isset($_POST['comprar'])){
                                        $datos=mysqli_fetch_assoc($sql);
                                        echo "<h4>¿Estás seguro que deseas recibir el pedido en la siguiente direccion?</h4><br>";
                                        echo "<h4 align='center'>".$datos['calle']."  ".$datos['altura']."</h4>";
+                                       $_SESSION['calle']=$datos['calle'];
+                                       $_SESSION['altura']=$datos['altura'];
                                  ?>
                                  <div align="center">
                                      <form action="tarjetaCompra.php" method="POST">
-                                         <input type="text" id="total" name="total" value="<?php echo $total;?>" hidden>
-                                         <input type="text" id="calle" name="calle" value="<?php echo $datos['calle'];?>" hidden>
-                                         <input type="text" id="altura" name="altura" value="<?php echo $datos['altura'];?>" hidden>
-                                         <button class="btn btn-light" >Aceptar</button>
+                                         <button class="btn btn-light" name="tarjetas" value="tarjetas">Aceptar</button>
                                      </form>
                                      <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
                                  </div>
@@ -168,5 +167,7 @@ if(isset($_POST['comprar'])){
        </div>
    </div>
 <?php
+}else{
+   header("location:index.php");
 }
 ?>

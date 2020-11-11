@@ -46,7 +46,7 @@
                                </div>
                             </div>
                             <div class="col-md-12" align="center">
-                              <button style="width: 50%;" name="tarjetascliente" value="tarjetascliente" id="btn2" class="btn btn-light">Agregar tarjeta </button>
+                              <button style="width: 50%;" id="btn2" class="btn btn-light">Agregar tarjeta </button>
                             </div>
                          </div> 
                       </form>
@@ -54,7 +54,7 @@
 
                    <div class="col-md-12" align="center">
                       <form method="POST" action="tarjetaCompra.php">
-                         <button style="width: 50%;" class="btn btn-light" name="comprar" value="comprar">Volver</button>
+                         <button style="width: 50%;" class="btn btn-light" name="tarjetas" value="tarjetas">Volver</button>
                       </form>
                    </div>
                  </div>

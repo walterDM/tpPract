@@ -1,16 +1,11 @@
 <?php
-
+if(isset($_POST['tarjetas'])){
     require("conexion.php");
     require("header.php");
     $idPersona=$_SESSION['login'];
-    $total=$_POST['total'];
-    $calle=$_POST['calle'];
-    $altura=$_POST['altura'];
-    //  $select=mysqli_query($conexion,"SELECT idTipoTarjeta FROM tipostarjetas WHERE idPersona=$idPersona");
-  
-    // $select5=mysqli_query($conexion,"SELECT idTipoTarjeta,descripcion FROM tipostarjetas ORDER BY descripcion ASC"); 
- 
-   
+    $total=$_SESSION['total'];
+    $calle=$_SESSION['calle'];
+    $altura=$_SESSION['altura'];
 ?>
 <style>
      td {border: 4px #ffb74d solid; padding: 5px;}
@@ -87,4 +82,8 @@
        
        </div>
    </div>
-          
+  <?php
+  }else{
+     header("location:index.php");
+  }
+  ?>        

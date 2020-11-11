@@ -43,6 +43,7 @@
                            <td><a href="#" style="border-radius:30px;font-size:20px" class="btn btn-light eliminar" data-id="<?php echo $datos[$i]['IdProducto'];?>"><i class="fas fa-trash-alt"></i></a></td>
                            <?php    	
                   $total=($datos[$i]['Cantidad']*$datos[$i]['Precio'])+$total;
+                  $_SESSION['total']=$total;
                   }?>
                   </tr>
                   </tbody>
@@ -62,7 +63,7 @@
       <div align="center">
        <?php if($total!=0){?>
                   <form action="domicilioCompra.php" method="POST">
-                     <input type="text" id="total" name="total" value="<?php echo $total;?>" hidden>
+                
                      <button class="btn btn-light" name="comprar" value="comprar"> Comprar</button>
                   </form>
        <?php }?>
