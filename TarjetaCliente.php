@@ -53,7 +53,7 @@
                    </div>
 
                    <div class="col-md-12" align="center">
-                      <form method="POST" action="domicilioCompra.php">
+                      <form method="POST" action="tarjetaCompra.php">
                          <button style="width: 50%;" class="btn btn-light" name="comprar" value="comprar">Volver</button>
                       </form>
                    </div>

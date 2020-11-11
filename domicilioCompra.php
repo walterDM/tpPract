@@ -3,7 +3,7 @@ if(isset($_POST['comprar'])){
     require("conexion.php");
     require("header.php");
     $idPersona=$_SESSION['login'];
-    $total=$_POST['total'];
+    $total=$_POS T['total'];
     $select=mysqli_query($conexion,"SELECT idTipoDomicilio FROM direcciones WHERE idPersona=$idPersona");
     $select3=mysqli_query($conexion,"SELECT idPais,nombrePais FROM paises ORDER BY nombrePais ASC");
     $select4=mysqli_query($conexion,"SELECT idProvincia,nombreProvincia FROM provincias ORDER BY nombreProvincia ASC");
