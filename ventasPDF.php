@@ -20,24 +20,24 @@ if (isset($_POST['exportPDF'])&& isset($_POST['fDesde'])) {
 	
 	if ((empty($_POST['fDesde']) && empty($_POST['fHasta'])) ) {	
 		
-		$queryFechatp="SELECT f.idFacturaVenta as nFact, f.totalApagar as total, f.fechaPedido as fp, p.nombre,p.apellido from facturas as f JOIN personas as p on p.idPersona=f.idPersona";
+		$queryFechatp="SELECT DISTINCT f.idFacturaVenta as nFact, f.totalApagar as total, f.fechaPedido as fp, p.nombre,p.apellido from facturas as f JOIN personas as p on p.idPersona=f.idPersona";
 	}
 	if (!isset($_POST['fHasta']) && !empty($_POST['fDesde'])){
 		
 		$fd = date("Y-m-d", strtotime($_POST['fDesde']));
-		$hoy= date("Y-m-d");
-		$queryFechatp="SELECT f.idFacturaVenta as nFact, f.totalApagar as total, f.fechaPedido as fp, p.nombre,p.apellido 
+		$fh= date("Y-m-d");
+		$queryFechatp="SELECT DISTINCT f.idFacturaVenta as nFact, f.totalApagar as total, f.fechaPedido as fp, p.nombre,p.apellido 
 		from facturas as f 
 		JOIN personas as p on p.idPersona=f.idPersona
 
-		WHERE f.fechaPedido BETWEEN '$fd' AND  '$hoy'";
+		WHERE f.fechaPedido BETWEEN '$fd' AND  '$fh'";
 
 	}
 	elseif (isset($_POST['fDesde']) && isset($_POST['fHasta'])&&(!empty($_POST['fDesde']) && !empty($_POST['fHasta']))){
 		
 		$fd = date("Y-m-d", strtotime($_POST['fDesde']));
 		$fh = date("Y-m-d", strtotime($_POST['fHasta']));
-		$queryFechatp="SELECT f.idFacturaVenta as nFact, f.totalApagar as total, f.fechaPedido as fp, p.nombre,p.apellido 
+		$queryFechatp="SELECT DISTINCT f.idFacturaVenta as nFact, f.totalApagar as total, f.fechaPedido as fp, p.nombre,p.apellido 
 		from facturas as f 
 		JOIN personas as p on p.idPersona=f.idPersona
 
@@ -76,14 +76,31 @@ if (isset($_POST['exportPDF'])&& isset($_POST['fDesde'])) {
 	$y= $pdf->GetY();
 	$pdf->SetXY(150,$y+5);
 	$pdf->Cell(70,6,utf8_decode('Fecha: '.$fechaActual),0,0,'C',0);
+	
+	if (isset($_POST['fDesde']) && isset($_POST['fHasta']) && !empty($_POST['fDesde']) && !empty($_POST['fHasta']) ){
+		$newfd=date("d/m/Y", strtotime($fd));
+		$newfh=date("d/m/Y", strtotime($fh));
+		$y= $pdf->GetY();
+		$pdf->SetXY(20,$y+15);
+		$pdf->Cell(70,6,utf8_decode('Desde: '.$newfd),0,0,'C',0);
+		$y=$pdf->GetY();
+		$x=$pdf->GetX();
+		$pdf->SetXY($x+20,$y);
+		$pdf->Cell(70,6,utf8_decode('Desde: '.$newfh),0,0,'C',0);
+	}else{
+		$hoy=date("d/m/Y");
+		$y= $pdf->GetY();
+		$pdf->SetXY(20,$y+15);
+		$pdf->Cell(70,6,utf8_decode('Ventas Hasta: '.$hoy),0,0,'C',0);
+	}
+
 	$y= $pdf->GetY();
-	$pdf->SetY($y+25);
+	$pdf->SetY($y+15);
 	$pdf->SetX(30);
 	$pdf->SetFillColor(232,232,232);
 	$pdf->SetFont('Arial','B',12);
 	$pdf->Cell(35,10,'Factura',1,0,'C',1);
 	$pdf->Cell(50,10,'Cliente',1,0,'C',1);
-	
 	$pdf->Cell(35,10,'Fecha Factura',1,0,'C',1);
 	$pdf->Cell(30,10,'Total Factura',1,0,'C',1);
 	
@@ -125,7 +142,7 @@ if (isset($_POST['exportPDF'])&& isset($_POST['fDesde'])) {
 	$pdf->SetX(30);
 	$pdf->Cell(150,6,"TOTAL VENDIDO PERIODO = ".$totalV,0,0,'C',1);
 	
-	$pdf->Output('F','reportesCreados/'.$filename.'.pdf');
+	$pdf->Output('I',$filename.'.pdf');
 	header("location:index.php?Reporte=1");
 }
 ?>

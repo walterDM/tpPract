@@ -35,6 +35,8 @@ function formatFecha($fecha){
 	return $rs;
 } ?>
 
+<h2>Reportes Caducidad</h2>
+
 <form action="caducidadPDF.php" method="POST">
 	<div class="row justify-content-center">
 		

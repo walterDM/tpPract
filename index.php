@@ -6,7 +6,7 @@ require("header.php");
 $db=conectar();
 $consulta=mysqli_query($db,"SELECT * FROM productos");
 $total_productos=mysqli_num_rows($consulta);
-if (isset($_SESSION['login'])) {
+if (isset($_SESSION['login']) && !empty($_SESSION['login'])) {
   $idgrupo=$_SESSION['grupo'];
 }
 ?>

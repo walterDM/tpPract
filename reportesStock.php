@@ -41,7 +41,7 @@ $rsTp=mysqli_query($conexion,$queryTp);
 
 ?>
 <br>
-
+<h2>Reporte Stock</h2>
 
 <form action="stockPDF.php" method="GET">
 	<div class="row justify-content-center">

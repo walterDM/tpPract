@@ -26,6 +26,8 @@ if (isset($_SESSION['grupo']) && ($_SESSION['grupo']==18 || $_SESSION['grupo']==
 		return $rs;
 	} ?>
 
+	<h2>Reporte Ventas</h2>
+
 	<form action="ventasPDF.php" method="POST">
 		<div class="row justify-content-center">
 

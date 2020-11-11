@@ -11,11 +11,11 @@ $id_usuario=0;
 $idGrupo=0;
 $nombre_usuario="";
 session_start();
-if (isset($_SESSION['login'])) {
+if (isset($_SESSION['login']) && !empty($_SESSION['login'])) {
   $id_usuario=$_SESSION['login'];
   $nombre_usuario=$_SESSION['usuario'];
   $idGrupo=$_SESSION['grupo'];
-  echo $id_usuario . " nombre_Usuario". $nombre_usuario. " ". $idGrupo;
+ 
 }
 
 function killSession(){
