@@ -442,8 +442,9 @@ while ($r=mysqli_fetch_array($select)) {
         <script src="https://kit.fontawesome.com/2be8605e79.js"></script>
         <script>
          function form(v){
-          ok=true;
-          msg="ERROR: \n";
+          var ok=true;
+          var fechaactual=new Date();
+          var msg="ERROR: \n";
           if(v.elements['contr'].value != v.elements['contr2'].value){
             msg+="las contraseñas no coinciden \n";
             ok=false;

@@ -34,7 +34,7 @@ if(isset($_POST['tarjetas'])){
                       </thead>
                       <tbody class="l1s">
                       <?php while($r=mysqli_fetch_array($consulta)){
-                         $consulta2=mysqli_query($conexion,"SELECT  *FROM tarjetasCliente WHERE idTarjetaCliente='{$r['idTarjetaCliente']}'");
+                         $consulta2=mysqli_query($conexion,"SELECT  * FROM tarjetasCliente WHERE idTarjetaCliente='{$r['idTarjetaCliente']}'");
 
                           $consul=mysqli_query($conexion,"SELECT  descripcion FROM tipostarjetas WHERE idTipoTarjeta='{$r['idTipoTarjeta']}'");
                       ?>
@@ -62,9 +62,7 @@ if(isset($_POST['tarjetas'])){
                                  ?>
                                  <div align="center">
                                      <form action="facturaCompra.php" method="POST">
-                                         <input type="text" id="total" name="total" value="<?php echo $total;?>" hidden>
-                                         <input type="text" id="calle" name="calle" value="<?php echo $calle;?>" hidden>
-                                         <input type="text" id="altura" name="altura" value="<?php echo $altura;?>" hidden>
+                    
                                          <button class="btn btn-light" >Aceptar</button>
                                      </form>
                                      <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>

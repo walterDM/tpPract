@@ -46,7 +46,7 @@
                                </div>
                             </div>
                             <div class="col-md-12" align="center">
-                              <button style="width: 50%;" id="btn2" class="btn btn-light">Agregar tarjeta </button>
+                              <button style="width: 50%;" id="btn2" name="tarjetascliente" value="tarjetascliente" class="btn btn-light">Agregar tarjeta </button>
                             </div>
                          </div> 
                       </form>

@@ -12,9 +12,9 @@ conectar();
 function imagen(){
     if (isset($_POST['Modificar'])) {
         $id=$_POST['id'];
-        $db=conectar();
+        $conexion=conectar();
         $consulta= "SELECT imagen from productos where idProductos='$id'";
-        $query=mysqli_query($db,$consulta);
+        $query=mysqli_query($conexion,$consulta);
        //     $imgBD=$query->fetch_array(MYSQL_ASSOC);
         
         if (empty($_FILES['imagen'])) {
@@ -85,7 +85,7 @@ function imagen(){
 
 //se procede a guardar en la base de datos la informacion cargada
 if (isset($_POST['guardar'] )&& !empty($_POST['guardar'])) {
-	$db=conectar();
+	$conexion=conectar();
 	$nombre=$_POST['descripcion'];
     $lote=$_POST['lote'];
     $idTipoProducto=$_POST['cbxTipoProducto'];//trae el id del tipo de producto
@@ -102,36 +102,37 @@ if (isset($_POST['guardar'] )&& !empty($_POST['guardar'])) {
    // $fila=$_POST['fila'];
   //  $columna=$_POST['columna'];
     $nombreImg=imagen();
+    $idprov=$_POST['idProveedor'];
     $consultaIdTpM="SELECT idTpMarca from tiposproductos_marcas where idTipoProducto='$idTipoProducto' and idMarca='$idMarca'";
-    $consultaTpm=mysqli_query($db,$consultaIdTpM);
-    $idTpM="";
+    $consultaTpm=mysqli_query($conexion,$consultaIdTpM);
+ 
     while($r=mysqli_fetch_array($consultaTpm)){
         $idTpM=$r['idTpMarca'];
     }
-    //$Insert=mysqli_query($db,"INSERT INTO filacolumna VALUES($idPuestoFisico,$fila,$columna)");
-    $Insert2=mysqli_query($db,"INSERT INTO productos values (00,'$nombre',$idPuestoFisico,'$nombreImg','$lote','$fechaCaducidad',$cantidad,$precio,'$estado')");
-    $ultimoRegistro="SELECT MAX(idProductos) AS id FROM productos";
-    $consultaUltReg=mysqli_query($db,$ultimoRegistro);
-    $id="";
+    //$Insert=mysqli_query($conexion,"INSERT INTO filacolumna VALUES($idPuestoFisico,$fila,$columna)");
+    $Insert2=mysqli_query($conexion,"INSERT INTO productos values (00,'$nombre',$idPuestoFisico,'$nombreImg','$lote','$fechaCaducidad',$cantidad,$precio,'$estado')");
+    $ultimoRegistro="SELECT MAX(idProducto) AS id FROM productos";
+    $consultaUltReg=mysqli_query($conexion,$ultimoRegistro);
+  
     while ($r=mysqli_fetch_array($consultaUltReg)) {
         $id=$r['id'];
     }
     
-    echo "$id";
-    $Insert3=mysqli_query($db,"INSERT INTO productostpmarcas values($id,$idTpM)");
-    if ($Insert3) {
+   
+    $Insert3=mysqli_query($conexion,"INSERT INTO productostpmarcas values($id,$idprov,$idTpM,$precio)");
+ 
         header("location:altaProducto.php?estado=1");
-    }
+
     
 
 }
 
 if(isset($_POST['Modificar']) && !empty($_POST['Modificar'])){
-    $db=conectar();
+    $conexion=conectar();
     $nombre=$_POST['descripcion'];
     $lote=$_POST['lote'];
     $idTipoProducto=$_POST['cbxTipoProducto'];
-    $select=mysqli_query($db,"SELECT descripcion FROM tiposproductos WHERE idTipoProducto=$idTipoProducto");
+    $select=mysqli_query($conexion,"SELECT descripcion FROM tiposproductos WHERE idTipoProducto=$idTipoProducto");
     while($r=mysqli_fetch_array($select)){
         $descripcion=$r['descripcion'];
     };
@@ -162,9 +163,9 @@ if(isset($_POST['Modificar']) && !empty($_POST['Modificar'])){
      cantidadProd=$cantidad,
      precio=$precio,
      estado='$estado' WHERE idProducto='$id'";
-     $enviar=mysqli_query($db,$actualizar);
+     $enviar=mysqli_query($conexion,$actualizar);
      $actualizartp="UPDATE productostpmarcas SET idTpMarca=$idTpMarca where idProducto=$id";
-     $enviartpm=mysqli_query($db,$actualizartp);
+     $enviartpm=mysqli_query($conexion,$actualizartp);
      header("location:productos.php?categoria=$descripcion&pagina=1");
  }else{
      $actualizar="UPDATE productos SET 
@@ -175,33 +176,33 @@ if(isset($_POST['Modificar']) && !empty($_POST['Modificar'])){
      cantidadProd=$cantidad,
      precio=$precio,
      estado='$estado' WHERE idProducto=$id";
-     $enviar=mysqli_query($db,$actualizar);
+     $enviar=mysqli_query($conexion,$actualizar);
      $actualizartp="UPDATE productostpmarcas SET idTpMarca=$idTpMarca where idProducto=$id";
-     $enviartpm=mysqli_query($db,$actualizartp);
+     $enviartpm=mysqli_query($conexion,$actualizartp);
      header("location:productos.php?categoria=$descripcion&pagina=1");
 
  }
 }
 
 if(isset($_POST['Altaestante']) && !empty($_POST['Altaestante'])){
-    $db=conectar();
+    $conexion=conectar();
     $estante=$_POST['estante'];
     $categoria=$_POST['categoria'];
     $fila=$_POST['fila'];
     $columna=$_POST['columna'];
     for($i=1;$i<=$fila;$i++){
         for($j=1;$j<=$columna;$j++){
-            $insert=mysqli_query($db,"INSERT INTO puestofisico VALUES(00,'$estante',$i,$j)");
+            $insert=mysqli_query($conexion,"INSERT INTO puestofisico VALUES(00,'$estante',$i,$j)");
         }
     }
     header("location:productos.php?categoria=$categoria&pagina=1");
 }
 if(isset($_POST['idProductos']) && !empty($_POST['idProductos'])){
-    $db=conectar();
+    $conexion=conectar();
     $idProductos=$_POST['idProductos'];
     $categoria=$_POST['categoria'];
     $actualizar="UPDATE productos SET estado='Inactivo' WHERE idProductos='$idProductos'";
-    $enviar=mysqli_query($db,$actualizar);
+    $enviar=mysqli_query($conexion,$actualizar);
     header("location:productos.php?categoria=$categoria&pagina=1");
 }
 
