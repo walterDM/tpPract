@@ -22,7 +22,11 @@ if(isset($_POST['buscar']) && !empty($_POST['buscar'])){
  <br><br>
  <div class="col-md-12">
   <?php if (isset($_GET['pagina'])) {
-    $dato=$_POST['empresa'];
+     function limpiarString($s) {
+       $result = preg_replace("/[^a-zA-Z0-9]+/", "", html_entity_decode($s, ENT_QUOTES));
+       return $result;
+    }   
+    $dato=limpiarString($_POST['empresa']);
     $consulta=mysqli_query($conexion,"SELECT empresa FROM proveedores WHERE idProveedor='$dato'"); 
     while($r=mysqli_fetch_array($consulta)){$user=$r['empresa'];}
     $sql =mysqli_query($conexion,"SELECT * FROM proveedores WHERE (empresa LIKE'$dato%') ");
