@@ -7,6 +7,7 @@ function conectar(){
   } 
   return $conexion;
 }
+
 $id_usuario=0;
 $idGrupo=0;
 $nombre_usuario="";

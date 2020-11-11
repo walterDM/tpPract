@@ -1,29 +1,36 @@
  <?php 
  require("conexion.php");
- function limpiarString($texto){
+/* function limpiarString($texto){
   $textoLimpio = preg_replace('([^A-Za-z0-9])', '', $texto);	
   if (!empty($textoLimpio)) {
     return $textoLimpio;
   }else{
    return 'error';
- }    					
+ }    	*/
+ function limpiarString($s) {
+       $result = preg_replace("/[^a-zA-Z0-9]+/", "", html_entity_decode($s, ENT_QUOTES));
+       return $result;
+}				
  
-}
+
 if (isset($_GET['busqueda']) && !empty($_GET['busqueda'])) {
  $buscar =limpiarString($_GET['busqueda']);
  if(!isset($_GET['pagina'])){
    header("location:buscarProducto.php?busqueda=$buscar&pagina=1");
  }
 }
-if (isset($_GET['busqueda'])&& $_GET['busqueda']=='error') {
-  echo "<script type='text/javascript'>alert('no se permiten  caracteres especiales');</script>";
-};
 
 
 
 require("header.php");
 $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
-$consulta=mysqli_query($conexion,"SELECT * FROM productos WHERE (descripcion like '%$buscar%') and estado='activo' order by descripcion asc");
+if (isset($buscar) && strlen($buscar)>=1 && ($_GET['busqueda'])) {
+$consulta=mysqli_query($conexion,"SELECT * FROM productos WHERE (descripcion like '%$buscar%') and estado='activo' 
+  order by descripcion asc");
+}else{
+  $consulta=mysqli_query($conexion,"SELECT * FROM productos WHERE estado='activo' 
+  order by descripcion asc");
+};
 $productos_x_pag = 4; 
 $total_productos=mysqli_num_rows($consulta);
 
@@ -37,7 +44,11 @@ $paginas = ceil($paginas);?>
                     /*$consulta1=mysqli_query($conexion,"SELECT idTipoProducto FROM tiposproductos WHERE descripcion='$categoria'");
                     while($r=mysqli_fetch_array($consulta1)){$idTipoProducto=$r['idTipoProducto'];}*/
                     $iniciar = ($_GET['pagina'] - 1) * $productos_x_pag;
-                    $consulta2=mysqli_query($conexion,"SELECT * FROM productos WHERE (descripcion like '%$buscar%') and estado='activo' order by descripcion asc LIMIT $iniciar,$productos_x_pag");?>
+                    if (isset($buscar) && strlen($buscar)>=1 && ($_GET['busqueda'])) {
+                    $consulta2=mysqli_query($conexion,"SELECT * FROM productos WHERE (descripcion like '%$buscar%') and estado='activo' order by descripcion asc LIMIT $iniciar,$productos_x_pag");
+                    }else{
+                      $consulta2=mysqli_query($conexion,"SELECT * FROM productos WHERE estado='activo' order by descripcion asc LIMIT $iniciar,$productos_x_pag");
+                    }?>
                     <div class="row">
                      <?php
                      if(mysqli_num_rows($consulta2)>0){
