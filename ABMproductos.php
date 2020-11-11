@@ -102,7 +102,8 @@ if (isset($_POST['guardar'] )&& !empty($_POST['guardar'])) {
    // $fila=$_POST['fila'];
   //  $columna=$_POST['columna'];
     $nombreImg=imagen();
-    $idprov=$_POST['idProveedor'];
+    $idprov=$_POST['cbxProv'];
+    echo $idprov;
     $consultaIdTpM="SELECT idTpMarca from tiposproductos_marcas where idTipoProducto='$idTipoProducto' and idMarca='$idMarca'";
     $consultaTpm=mysqli_query($conexion,$consultaIdTpM);
  
@@ -111,12 +112,12 @@ if (isset($_POST['guardar'] )&& !empty($_POST['guardar'])) {
     }
     //$Insert=mysqli_query($conexion,"INSERT INTO filacolumna VALUES($idPuestoFisico,$fila,$columna)");
     $Insert2=mysqli_query($conexion,"INSERT INTO productos values (00,'$nombre',$idPuestoFisico,'$nombreImg','$lote','$fechaCaducidad',$cantidad,$precio,'$estado')");
-    $ultimoRegistro="SELECT MAX(idProducto) AS id FROM productos";
-    $consultaUltReg=mysqli_query($conexion,$ultimoRegistro);
+    $id=mysqli_insert_id($conexion);
+    //$consultaUltReg=mysqli_query($conexion,$ultimoRegistro);
   
-    while ($r=mysqli_fetch_array($consultaUltReg)) {
+    /*while ($r=mysqli_fetch_array($consultaUltReg)) {
         $id=$r['id'];
-    }
+    }*/
     
    
     $Insert3=mysqli_query($conexion,"INSERT INTO productostpmarcas values($id,$idprov,$idTpM,$precio)");

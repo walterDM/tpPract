@@ -92,7 +92,7 @@
  					<label>Proveedor</label>
  					<select class="form-control" id="cbxProv" name="cbxProv">
  						<option value="0">seleccionar Proveedor</option>
- 						<?php while ($rsProv = $selectProv->fetch_assoc()) {?>
+ 						<?php while ($rsProv=mysqli_fetch_array($selectProv)) {?>
  							<option value="<?php echo $rsProv['idProveedor']; ?>"><?php echo $rsProv['empresa']; ?>
  						</option>
  					<?php } ?>
