@@ -3,39 +3,67 @@ if (isset($_SESSION['grupo']) && ($_SESSION['grupo']==18 || $_SESSION['grupo']==
 
 //////trae los productos sin filtro///////
 	if (!isset($_GET['fHasta'])|| !isset($_GET['fDesde'])) {
-		$queryFacturasIni="SELECT f.idFacturaVenta as nFact, f.totalApagar as total, f.fechaPedido as fp, p.nombre,p.apellido from facturas as f JOIN personas as p on p.idPersona=f.idPersona";
+		
+		$consulta=mysqli_query($conexion,"SELECT count(idFacturaVenta) as cantFact FROM facturas as f WHERE  f.fechaPedido");
+		while($r=mysqli_fetch_array($consulta)){
+			$cantFact=$r['cantFact'];
+		}
+
+		$facturas_x_pag = 5;
+		$paginas = $cantFact / $facturas_x_pag;
+		$paginas = ceil($paginas);
+		$iniciar = ($_GET['pagina'] - 1) * $facturas_x_pag;
+
+		$queryFacturasIni="SELECT f.totalApagar as total, f.fechaPedido as fp, p.nombre,p.apellido, dt.numFactura as nFact from facturas as f 
+			JOIN personas as p on p.idPersona=f.idPersona 
+			JOIN datosfacturas as dt on dt.idFactura=f.idFacturaVenta
+			order by dt.numFactura limit $iniciar,$facturas_x_pag ";
 		$rsFacturasIni=mysqli_query($conexion,$queryFacturasIni);
 	}
 	if (isset($_GET['fDesde']) && isset($_GET['fHasta'])) {
 		$fd = date("Y-m-d", strtotime($_GET['fDesde']));
 		$fh = date("Y-m-d", strtotime($_GET['fHasta']));
+			
+		$consulta=mysqli_query($conexion,"SELECT count(idFacturaVenta) as cantFact FROM facturas as f WHERE f.fechaPedido BETWEEN '$fd' AND '$fh'");
+		while($r=mysqli_fetch_array($consulta)){
+			$cantFact=$r['cantFact'];
+		}
 
+		$facturas_x_pag = 5;
+		$paginas = $cantFact / $facturas_x_pag;
+		$paginas = ceil($paginas);
+		$iniciar = ($_GET['pagina'] - 1) * $facturas_x_pag;
 
 		$queryFechatp="SELECT f.idFacturaVenta as nFact, f.totalApagar as total, f.fechaPedido as fp, p.nombre,p.apellido 
 		from facturas as f 
 		JOIN personas as p on p.idPersona=f.idPersona
-
-		WHERE f.fechaPedido BETWEEN '$fd' AND '$fh'";
-		
-
+		WHERE f.fechaPedido BETWEEN '$fd' AND '$fh' order by f.fechaPedido limit$iniciar,$facturas_x_pag";
 		$rsFechaTp=mysqli_query($conexion,$queryFechatp);
+
+
 	}
 
 	function formatFecha($fecha){
 		$rs=date("Y-m-d", strtotime($fecha) );
 		return $rs;
-	} ?>
-<<<<<<< HEAD
+	} 
 
-	<h2>Reporte Ventas</h2>
 
-=======
+	
+	if (isset($_GET['fDesde']) && isset($_GET['fHasta'])) {
+		$select = mysqli_query($conexion, "SELECT * FROM facturas as f WHERE f.fechaPedido BETWEEN '$fd' AND '$fh' limit $iniciar,$facturas_x_pag");
+	}else{
+		$select = mysqli_query($conexion, "SELECT * FROM facturas as f limit $iniciar,$facturas_x_pag ");
+	}
+	?>
+
+
 	<div class="row">
 		<div class="col-md-12">
 			<h2>Reportes de Ventas</h2>
 		</div>
 	</div>
->>>>>>> 2c0a76c1833afcfa5db1923a859130c6abfd961e
+
 	<form action="ventasPDF.php" method="POST">
 		<div class="row justify-content-center">
 			<div class="col-md-1"></div>		
@@ -92,9 +120,9 @@ if (isset($_SESSION['grupo']) && ($_SESSION['grupo']==18 || $_SESSION['grupo']==
 									<td><?php echo $rs1['total']; ?></td>
 									<?php  $totalV+=$rs1['total']?>
 								</tr>
-								
+
 							<?php };?>
-								<tr class="ftable">
+							<tr class="ftable">
 								<td></td>
 								<td></td>
 								<td ><?php echo "TOTAL VENDIDO EN EL PERIODO = ".$totalV ?></td>
@@ -131,7 +159,33 @@ if (isset($_SESSION['grupo']) && ($_SESSION['grupo']==18 || $_SESSION['grupo']==
 		<button name="exportPDF" value="export" style="border-color: #e0e0e0;background:white" class="btn btn-outline-warning" id="button-addon2">EXPORTAR PDF</button>
 
 	</form>
+	<div class="container" style="padding-top:40px">
+		<nav arial-label="page navigation">
+			<ul class="pagination justify-content-center">
+				<li class="page-item <?php echo $_GET['pagina'] <= 1 ? 'disabled' : '' ?>">
+					<form action="reportesVentas.php?pagina=<?php echo $_GET['pagina'] - 1 ?>" method="POST">
+						<input id="empresa" name="empresa" value="<?php echo $dato;?>" style="width:70%" type="text" class="form-control" aria-label="Text input with dropdown button" hidden>
+						<button name="buscar" value="buscar" class="page-link" id="button-addon2">Anteriror</button>
 
+					</form>
+				</li>
+				<?php for ($i = 1; $i <= $paginas; $i++) : ?>
+					<li class="<?php echo $_GET['pagina'] == $i ? 'active' : '' ?>">
+						<form action="reportesVentas.php?pagina=<?php echo $i ?>" method="POST">
+							<input id="empresa" name="empresa" value="<?php echo $dato;?>" style="width:70%" type="text" class="form-control" aria-label="Text input with dropdown button" hidden>
+							<button name="buscar" value="buscar" class="page-link" id="button-addon2"><?php echo $i ?></button>
+						</form>
+					</li>
+				<?php endfor ?>
+				<li class="page-item <?php echo $_GET['pagina'] >= $paginas ? 'disabled' : '' ?>">
+					<form action="reportesVentas.php?pagina=<?php echo $_GET['pagina'] + 1 ?>" method="POST">
+						<input id="empresa" name="empresa" value="<?php echo $dato;?>" style="width:70%" type="text" class="form-control" aria-label="Text input with dropdown button" hidden>
+						<button name="buscar" value="buscar" class="page-link" id="button-addon2">Siguiente</button>
+					</form>
+				</li>
+			</ul>
+		</nav>
+	</div>
 	<?php 	
 endif;
 require 'footer.php'; ?>

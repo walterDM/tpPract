@@ -251,7 +251,7 @@ while ($r=mysqli_fetch_array($select)) {
                     switch($nombrePermiso){
                       case "reportes de ventas":
                       echo "<script>document.getElementById('reportes').hidden=false;</script>";?>
-                      <form id="Rventas" action="reportesVentas.php" method="POST">
+                      <form id="Rventas" action="reportesVentas.php?pagina=1" method="POST">
                         <button type="submit" class="dropdown-item submenu">Reportes de ventas</button>
                       </form>
                       <?php break;

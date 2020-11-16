@@ -30,7 +30,7 @@ $rsnFact=mysqli_query($conexion,$querynFact);
 
 while ($rn=mysqli_fetch_array($rsnFact)) {
 	$nFact=$rn['n']+1;
-	$numFactura= "001-".$rn['a'].$nFact;}
+	$numFactura= "001-".$nFact;}
 echo $numFactura;
 $insert=mysqli_query($conexion,"INSERT INTO datosfacturas (idFactura, numFactura)VALUES($idFactura,$nFact)");
 for ($i=0; $i<count($datos);$i++){ 
