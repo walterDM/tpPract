@@ -44,7 +44,7 @@ $paginas = ceil($paginas);?>
                     /*$consulta1=mysqli_query($conexion,"SELECT idTipoProducto FROM tiposproductos WHERE descripcion='$categoria'");
                     while($r=mysqli_fetch_array($consulta1)){$idTipoProducto=$r['idTipoProducto'];}*/
                     $iniciar = ($_GET['pagina'] - 1) * $productos_x_pag;
-                    if (isset($buscar) && strlen($buscar)>=1 && ($_GET['busqueda'])) {
+                    if (isset($buscar) && strlen($buscar)>=1 && !empty($_GET['busqueda'])) {
                     $consulta2=mysqli_query($conexion,"SELECT * FROM productos WHERE (descripcion like '%$buscar%') and estado='activo' order by descripcion asc LIMIT $iniciar,$productos_x_pag");
                     }else{
                       $consulta2=mysqli_query($conexion,"SELECT * FROM productos WHERE estado='activo' order by descripcion asc LIMIT $iniciar,$productos_x_pag");

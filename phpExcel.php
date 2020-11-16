@@ -1,6 +1,6 @@
 <?php 
 //
-require 'vendor/autoload.php';
+//require 'vendor/autoload.php';
 require 'conexion.php';
 
 //load phpspreadsheet class using namespaces
@@ -9,7 +9,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
-function export($pedido){
+function exportPedido($pedido){
 	require 'conexion.php';
 		
 	$idPedido=$pedido;
@@ -92,7 +92,7 @@ function export($pedido){
 	//no se utiliza mas ↑ se canbia por query que traiga datos con respecto al id recibido
 
 
-	$filename="Archivos/pedido__".$idPedido.".xlsx";
+	$filename="archivos/pedido__".$idPedido.".xlsx";
 	$queryDP="SELECT dp.cantidad as cant, m.nombreMarca as marca, tp.descripcion as tp 
 	FROM detallespedidos as dp 
 	JOIN productos as p on p.idProducto=dp.idProducto
@@ -130,7 +130,7 @@ function export($pedido){
 }
 
 function borrarArchivo($pedido){
-	unlink('Archivos/pedido__'.$pedido.'.xlsx');
+	unlink('archivos/pedido__'.$pedido.'.xlsx');
 }
 
 

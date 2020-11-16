@@ -19,7 +19,7 @@ $consulta2 = mysqli_query($conexion, "SELECT p.* from productos as p
   join productostpmarcas as pp on pp.idProducto=p.idProducto
   join tiposproductos_marcas as tpm on tpm.idTpMarca = pp.idTpMarca
   where tpm.idTipoProducto=$idTipoProducto 
-  and p.estado='Activo'");
+  and p.idEstado=1 and cantidadProd >=1");
 $productos_x_pag = 4;
 
 $total_productos = mysqli_num_rows($consulta2);
@@ -85,7 +85,7 @@ $paginas = ceil($paginas);
       join productostpmarcas as pp on pp.idProducto=p.idProducto
       join tiposproductos_marcas as tpm on tpm.idTpMarca = pp.idTpMarca
       where tpm.idTipoProducto=$idTipoProducto 
-      and p.estado='Activo' limit $iniciar,$productos_x_pag");?>
+      and p.idEstado=1 and cantidadProd>=1 limit $iniciar,$productos_x_pag");?>
       <div class="row">
        <?php while ($r = mysqli_fetch_array($consulta3)) { ?>
         <div align="center" class="col-md-3" style="padding:1%;">

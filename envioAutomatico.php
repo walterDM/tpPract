@@ -41,7 +41,7 @@ require 'phpExcel.php';
 			$idCP=$row['idContactoProveedor'];
 
 			//llamar Funcion Export la cual se encarga de crear el excel a enviar
-			export($idPedido);
+			exportPedido($idPedido);
 
 			$selectCP="SELECT cp.idProveedor, cp.descripcion from contactosproveedores as cp where idContactoProveedor=$idCP";
 			$queryCP=mysqli_query($conexion,$selectCP);
@@ -110,7 +110,7 @@ require 'phpExcel.php';
 		if ($mail) {
 			$alterEP="UPDATE `estadospedidos` SET `idEstado`=2 WHERE idPedidoProveedor=$idPedido";
 			$queryAEP=mysqli_query($conexion,$alterEP);
-			borrarArchivo($idPedido);
+			//borrarArchivo($idPedido);
 			
 		}
 

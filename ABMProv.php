@@ -73,21 +73,22 @@ if (isset($_POST['modificarProveedor'] )&& !empty($_POST['modificarProveedor']))
     $telefono=$_POST['telefono'];
     $email=$_POST['correo'];
     $descripcion=$_POST['descripcion'];
+
+    echo "idProv".$idProveedor;
     $consulta1=mysqli_query($db,"SELECT idTipoContacto FROM tiposcontactos WHERE descripcion='email'");
     while($r=mysqli_fetch_array($consulta1)){$idTipoMail=$r['idTipoContacto'];}
     $consulta2=mysqli_query($db,"SELECT idTipoContacto FROM tiposcontactos WHERE descripcion='telefono'");
     while($r=mysqli_fetch_array($consulta2)){$idTipoTelefono=$r['idTipoContacto'];}
-   /* $consultabd=mysqli_query($db,"SELECT * from proveedores where idProveedor=$idProveedor")
+  /* $consultabd=mysqli_query($db,"SELECT * from proveedores where idProveedor=$idProveedor");
     while ($r=mysqli_fetch_array($consultabd)) {
         $empresaBD=$r['empresa'];
-        $direccion=
+    
     }*/
-        /*$query="UPDATE proveedores SET 
+        $query=mysqli_query($db,"UPDATE proveedores SET 
                             empresa='$empresa',
-                            direccion='$direccion',
                             cuit='$cuit',
                             descripcion='$descripcion'
-                            WHERE idProveedor=$idProveedor";*/
+                            WHERE idProveedor=$idProveedor");
                             $delete=mysqli_query($db,"DELETE FROM contactosproveedores WHERE idProveedor=$idProveedor");
                             $insertar1=mysqli_query($db,"INSERT INTO contactosproveedores VALUES(00,$idProveedor,$idTipoMail,'$email')");
                             $insertar2=mysqli_query($db,"INSERT INTO contactosproveedores VALUES(00,$idProveedor,$idTipoTelefono,'$telefono')");
@@ -98,4 +99,14 @@ if (isset($_POST['modificarProveedor'] )&& !empty($_POST['modificarProveedor']))
                             header("location:buscarProveedor.php?pagina=1&mod=1");
                             
                         }
+
+
+if (isset($_POST['eliminarUsuario']) && !empty($_POST['eliminarUsuario'])) {
+    $idProv=$_POST['eliminarUsuario'];
+
+    $query=mysqli_query($conexion,"UPDATE proveedores SET 
+                            idEstado=2
+                            WHERE idProveedor=$idProv");
+    header("location:buscarProveedor.php?pagina=1&mod=1");
+}
                         ?>
