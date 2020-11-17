@@ -61,8 +61,7 @@ if(isset($_POST['tarjetas'])){
                                       
                                  ?>
                                  <div align="center">
-                                     <form action="facturaCompra.php" method="POST">
-                    
+                                     <form action="altaFactura.php" method="POST">
                                          <button class="btn btn-light" >Aceptar</button>
                                      </form>
                                      <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>

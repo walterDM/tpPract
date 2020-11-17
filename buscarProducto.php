@@ -24,11 +24,11 @@ if (isset($_GET['busqueda']) && !empty($_GET['busqueda'])) {
 
 require("header.php");
 $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
-if (isset($buscar) && strlen($buscar)>=1 && ($_GET['busqueda'])) {
-$consulta=mysqli_query($conexion,"SELECT * FROM productos WHERE (descripcion like '%$buscar%') and estado='activo' 
+if (isset($buscar) && strlen($buscar)>=1 ){
+$consulta=mysqli_query($conexion,"SELECT * FROM productos WHERE (descripcion like '%$buscar%') and idEstado=1 
   order by descripcion asc");
 }else{
-  $consulta=mysqli_query($conexion,"SELECT * FROM productos WHERE estado='activo' 
+  $consulta=mysqli_query($conexion,"SELECT * FROM productos WHERE idEstado=1 
   order by descripcion asc");
 };
 $productos_x_pag = 4; 
@@ -45,9 +45,9 @@ $paginas = ceil($paginas);?>
                     while($r=mysqli_fetch_array($consulta1)){$idTipoProducto=$r['idTipoProducto'];}*/
                     $iniciar = ($_GET['pagina'] - 1) * $productos_x_pag;
                     if (isset($buscar) && strlen($buscar)>=1 && !empty($_GET['busqueda'])) {
-                    $consulta2=mysqli_query($conexion,"SELECT * FROM productos WHERE (descripcion like '%$buscar%') and estado='activo' order by descripcion asc LIMIT $iniciar,$productos_x_pag");
+                    $consulta2=mysqli_query($conexion,"SELECT * FROM productos WHERE (descripcion like '%$buscar%') and idEstado=1 order by descripcion asc LIMIT $iniciar,$productos_x_pag");
                     }else{
-                      $consulta2=mysqli_query($conexion,"SELECT * FROM productos WHERE estado='activo' order by descripcion asc LIMIT $iniciar,$productos_x_pag");
+                      $consulta2=mysqli_query($conexion,"SELECT * FROM productos WHERE idEstado=1 order by descripcion asc LIMIT $iniciar,$productos_x_pag");
                     }?>
                     <div class="row">
                      <?php
