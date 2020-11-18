@@ -19,8 +19,8 @@ try {
             $mail->isSMTP();                                            // Send using SMTP
             $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-            $mail->Username   = 'tuspelisfc@gmail.com';                     // SMTP username
-            $mail->Password   = 'Pelisfc_1997';                             // SMTP password
+            $mail->Username   = 'consultaphpedi@gmail.com';                     // SMTP username
+            $mail->Password   = 'Beltran2019';                             // SMTP password
             $mail->SMTPOptions = array(
                 'ssl' => array(
                     'verify_peer' => false,
@@ -34,7 +34,7 @@ try {
             //Recipients
             $mail->setFrom('consultaGestiStock@gmail.com', 'Consulta desde Pagina');
             // $mail->setFrom('tuspelisfc@gmail.com', 'noReply');
-            $mail->addAddress('tuspelisfc@gmail.com');     // Add a recipient
+            $mail->addAddress('consultaphpedi@gmail.com');     // Add a recipient
             //$mail->addAddress('ellen@example.com');               // Name is optional
             
 

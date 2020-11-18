@@ -1,0 +1,19 @@
+
+
+------------------------ALTA PROVEEDOR--------------------------------------------------------------
+
+
+
+ EMPRESA            MacroProv
+
+ CUIT              30619369579
+
+ CALLE              Ameghino 518 
+
+ TELEFONO           1124536708
+
+ EMAIL              consultaphpedi@gmail.com
+ 
+ DESCRIPCION        Azucar
+
+ 

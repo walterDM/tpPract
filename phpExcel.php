@@ -12,7 +12,7 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 function exportPedido($pedido){
 	require 'conexion.php';
 		
-	$idPedido=1;
+	$idPedido=$pedido;
 	$reader= IOFactory::createReader('Xlsx');
 	$sheet=$reader->load("archivos/template.xlsx");
 

@@ -39,7 +39,7 @@ while ($r=mysqli_fetch_array($nombreC)) {
 	$ncliente=$r['nombre']." ".$r['apellido'];
 };
 $y= $pdf->GetY();
-$pdf->setXY(20,50);
+$pdf->setXY(15,50);
 $pdf->SetFillColor(232,232,232);
 $pdf->Cell(30,6,"Cliente : ".$ncliente,0,0,'C',0);
 //Dirreccion de entrega
@@ -47,14 +47,14 @@ $calle=$_SESSION['calle'];
 $altura=$_SESSION['altura'];
 
 $y=$pdf->GetY();
-$pdf->setXY(30,$y+10);
+$pdf->setXY(35,$y+10);
 $pdf->SetFillColor(232,232,232);
 $pdf->Cell(30,6,"Domicilio de Entrega : ".$calle." ".$altura,0,0,'C',0);
 $y= $pdf->GetY();
 $pdf->SetY($y+25);
 $pdf->SetFillColor(232,232,232);
 $pdf->SetFont('Arial','B',14);
-$pdf->Cell(35,10,'Producto',1,0,'C',1);
+$pdf->Cell(45,10,'Producto',1,0,'C',1);
 $pdf->Cell(30,10,'Cant.',1,0,'C',1);
 $pdf->Cell(50,10,'Precio Unitario',1,0,'C',1);
 $pdf->Cell(50,10,'Total Producto',1,0,'C',1);
@@ -68,7 +68,7 @@ while($rf=mysqli_fetch_array($rsFD)){
 	$pdf->Ln(4);
 	$pdf->SetFillColor(232,232,232);
 	$pdf->SetFont('Arial','B',14);
-$pdf->Cell(35,10,$rf['d'],1,0,'C',1);
+$pdf->Cell(45,10,$rf['d'],1,0,'C',1);
 $pdf->Cell(30,10,$rf['c'],1,0,'C',1);
 $pdf->Cell(50,10,$rf['pu'],1,0,'C',1);
 $pdf->Cell(50,10,$subTotal,1,0,'C',1);
@@ -79,7 +79,7 @@ $pdf->Ln(8);
 $pdf->SetFont('Arial','B',14);
 $pdf->SetFillColor(232,232,232);
 
-$pdf->Cell(165,6,"Total Compra : ".$totalC,1,0,'C',1);
+$pdf->Cell(175,6,"Total Compra : ".$totalC,1,0,'C',1);
 $pdf->Output('I',utf8_decode($filename).'.pdf');
 	//header("location:index.php");
 }

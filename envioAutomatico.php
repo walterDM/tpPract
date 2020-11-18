@@ -110,7 +110,7 @@ require 'phpExcel.php';
 		if ($mail) {
 			$alterEP="UPDATE `estadospedidos` SET `idEstado`=2 WHERE idPedidoProveedor=$idPedido";
 			$queryAEP=mysqli_query($conexion,$alterEP);
-			//borrarArchivo($idPedido);
+			borrarArchivo($idPedido);
 			
 		}
 
