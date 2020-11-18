@@ -17,6 +17,10 @@ $select=mysqli_query($conexion,"SELECT * FROM tiposproductos");
 			$idTipoProducto="";
 			$idMarca="";
 			$idPuestoFisico=$datos['idPuestoFisico'];
+			$obtenerEstado=mysqli_query($conexion,"SELECT descripcion FROM estados WHERE idEstado='{$datos['idEstado']}'");
+			while($r=mysqli_fetch_array($obtenerEstado)){
+				$descripcion=$r['descripcion'];
+			}
 			$consulta2=mysqli_query($conexion,"SELECT tp.* FROM tiposproductos as tp 
 				join tiposproductos_marcas as tpm on tpm.idTipoProducto=tp.idTipoProducto 
 				join productostpmarcas as pm on pm.idTpMarca=tpm.idTpMarca 
@@ -161,9 +165,9 @@ $select=mysqli_query($conexion,"SELECT * FROM tiposproductos");
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Estado</label>
-								<select class="form-control" id="estado" name="estado">
-									<option <?php if($datos['estado']=="Activo") echo 'Selected'?>>Activo</option>
-									<option <?php if($datos['estado']=="Inactivo") echo 'Selected'?>>Inactivo</option>
+								<select class="form-control" id="idestado" name="idestado">
+								    <option <?php if($descripcion=='Activo') echo 'Selected'?> value="<?php echo $datos['idEstado']?>">Activo</option>
+								    <option <?php if($descripcion=='Inactivo') echo 'Selected'?> value="<?php echo $datos['idEstado']?>">Inactivo</option>
 								</select>
 							</div>
 						</div>  

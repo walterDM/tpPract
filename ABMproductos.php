@@ -97,6 +97,8 @@ if (isset($_POST['guardar'] )&& !empty($_POST['guardar'])) {
     $cantidad=$_POST['cantidadProd'];
     $precio=$_POST['precio'];
     $estado=$_POST['estado'];
+    $obtenerEstado=mysqli_query($conexion,"SELECT idEstado FROM estados WHERE descripcion='$estado'");
+    while($r=mysqli_fetch_array($obtenerEstado)){$idEstado=$r['idEstado'];}
    // $estante=$_POST['estante'];
     $idPuestoFisico=$_POST['idPuestoFisico'];
    // $fila=$_POST['fila'];
@@ -111,7 +113,7 @@ if (isset($_POST['guardar'] )&& !empty($_POST['guardar'])) {
         $idTpM=$r['idTpMarca'];
     }
     //$Insert=mysqli_query($conexion,"INSERT INTO filacolumna VALUES($idPuestoFisico,$fila,$columna)");
-    $Insert2=mysqli_query($conexion,"INSERT INTO productos values (00,'$nombre',$idPuestoFisico,'$nombreImg','$lote','$fechaCaducidad',$cantidad,$precio,'$estado')");
+    $Insert2=mysqli_query($conexion,"INSERT INTO productos values (00,'$nombre',$idPuestoFisico,'$nombreImg','$lote','$fechaCaducidad',$cantidad,$precio,$idEstado)");
     $id=mysqli_insert_id($conexion);
     //$consultaUltReg=mysqli_query($conexion,$ultimoRegistro);
   
@@ -141,7 +143,7 @@ if(isset($_POST['Modificar']) && !empty($_POST['Modificar'])){
     $fechaCaducidad=$_POST['fechaCaducidad'];
     $cantidad=$_POST['cantidadProd'];
     $precio=$_POST['precio'];
-    $estado=$_POST['estado'];
+    $idEstado=$_POST['idestado'];
     $estante=$_POST['idPuestoFisico'];
     
     $idPuestoFisico=$_POST['idPuestoFisico'];
@@ -163,7 +165,7 @@ if(isset($_POST['Modificar']) && !empty($_POST['Modificar'])){
      fechaCaducidad='$fechaCaducidad',
      cantidadProd=$cantidad,
      precio=$precio,
-     estado='$estado' WHERE idProducto='$id'";
+     idEstado=$idEstado WHERE idProducto='$id'";
      $enviar=mysqli_query($conexion,$actualizar);
      $actualizartp="UPDATE productostpmarcas SET idTpMarca=$idTpMarca where idProducto=$id";
      $enviartpm=mysqli_query($conexion,$actualizartp);
@@ -176,7 +178,7 @@ if(isset($_POST['Modificar']) && !empty($_POST['Modificar'])){
      fechaCaducidad='$fechaCaducidad',
      cantidadProd=$cantidad,
      precio=$precio,
-     estado='$estado' WHERE idProducto=$id";
+     idEstado=$idEstado WHERE idProducto=$id";
      $enviar=mysqli_query($conexion,$actualizar);
      $actualizartp="UPDATE productostpmarcas SET idTpMarca=$idTpMarca where idProducto=$id";
      $enviartpm=mysqli_query($conexion,$actualizartp);
@@ -198,12 +200,13 @@ if(isset($_POST['Altaestante']) && !empty($_POST['Altaestante'])){
     }
     header("location:productos.php?categoria=$categoria&pagina=1");
 }
-if(isset($_POST['idProductos']) && !empty($_POST['idProductos'])){
+if(isset($_POST['eliminarProducto']) && !empty($_POST['eliminarProducto'])){
     $conexion=conectar();
-    $idProductos=$_POST['idProductos'];
+    $idProducto=$_POST['idProducto'];
     $categoria=$_POST['categoria'];
-    $actualizar="UPDATE productos SET estado='Inactivo' WHERE idProductos='$idProductos'";
-    $enviar=mysqli_query($conexion,$actualizar);
+    $estado=mysqli_query($conexion,"SELECT idEstado FROM estados WHERE descripcion='Inactivo'");
+    while($r=mysqli_fetch_array($estado)){$idEstado=$r['idEstado'];}
+    $actualizar=mysqli_query($conexion,"UPDATE productos SET idEstado=$idEstado WHERE idProducto=$idProducto");
     header("location:productos.php?categoria=$categoria&pagina=1");
 }
 

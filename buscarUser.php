@@ -12,7 +12,7 @@ if(isset($_POST['buscar']) && !empty($_POST['buscar'])){
     <div class="col-md-12" align="center" style="padding-top:20px">
       <form action="buscarUser.php?pagina=1" method="POST">
        <div class="input-group mb-3">
-        <input id="usuario" name="usuario" style="width:70%" type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="ingrese la pelicula a buscar">
+        <input id="usuario" name="usuario" style="width:70%" type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="ingrese el usuario a buscar">
         <div class="input-group-append">
          <button name="buscar" value="buscar" style="border-color: #e0e0e0;background:white" class="btn btn-outline-warning" id="button-addon2"><i class="fas fa-search"></i></button>
        </div>
@@ -25,17 +25,19 @@ if(isset($_POST['buscar']) && !empty($_POST['buscar'])){
      function limpiarString($s) {
        $result = preg_replace("/[^a-zA-Z0-9]+/", "", html_entity_decode($s, ENT_QUOTES));
        return $result;
-    }   
+      }   
+    $estado=mysqli_query($conexion,"SELECT idEstado FROM estados WHERE descripcion='Activo'");
+    while($r=mysqli_fetch_array($estado)){$idEstado=$r['idEstado'];}
     $dato=limpiarString($_POST['usuario']);
     $consulta=mysqli_query($conexion,"SELECT usuario FROM personas WHERE idPersona='$id_usuario'"); 
     while($r=mysqli_fetch_array($consulta)){$user=$r['usuario'];}
-    $sql =mysqli_query($conexion,"SELECT * FROM personas WHERE (usuario LIKE'$dato%') AND usuario!='$user'");
+    $sql =mysqli_query($conexion,"SELECT * FROM personas WHERE (usuario LIKE'$dato%') AND usuario!='$user' AND idEstado=$idEstado");
     $usuarios_x_pag = 2;
     $total_usuarios = mysqli_num_rows($sql);
     $paginas = $total_usuarios / $usuarios_x_pag;
     $paginas = ceil($paginas);
     $iniciar = ($_GET['pagina'] - 1) * $usuarios_x_pag;
-    $select = mysqli_query($conexion, "SELECT * FROM personas WHERE (usuario LIKE'$dato%') AND usuario!='$user' limit $iniciar,$usuarios_x_pag");
+    $select = mysqli_query($conexion, "SELECT * FROM personas WHERE (usuario LIKE'$dato%') AND usuario!='$user' AND idEstado=$idEstado  limit $iniciar,$usuarios_x_pag");
     ?>
     <div id="result" style="border: 1px solid white;overflow-y: scroll;background:#fafafa;padding-top:15px">
      <table class="table striped" style="background:#fafafa;height:300px">
@@ -80,7 +82,7 @@ if(isset($_POST['buscar']) && !empty($_POST['buscar'])){
           <td style="padding-top:30px"><?php echo $Mail;?></td>
           <td style="padding-top:30px"><?php echo $row['usuario'];?></td>
           <td style="padding-top:30px"><?php while($r=mysqli_fetch_array($select3)){ echo $r['nombreGrupo'];}?></td>
-          <?php                     $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso FROM permisos AS p, grupospermisos AS up WHERE (p.nombrePermiso='buscar usuario' OR p.nombrePermiso='baja usuario' OR p.nombrePermiso='modificar usuario') AND p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
+          <?php $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso FROM permisos AS p, grupospermisos AS up WHERE (p.nombrePermiso='buscar usuario' OR p.nombrePermiso='baja usuario' OR p.nombrePermiso='modificar usuario') AND p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
           while($r=mysqli_fetch_array($grupo)){
             $nombrePermiso=$r['nombrePermiso'];
             if($nombrePermiso=="baja usuario"){

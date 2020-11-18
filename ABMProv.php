@@ -12,6 +12,8 @@ conectar();
 
 if (isset($_POST['guardarProveedor'] )&& !empty($_POST['guardarProveedor'])) {
     $db=conectar();
+    $estado=mysqli_query($db,"SELECT idEstado FROM estados WHERE descripcion='Activo'");
+    while($r=mysqli_fetch_array($estado)){$idEstado=$r['idEstado'];}
     $empresa=$_POST['empresa'];
     $cuit=$_POST['cuit'];
     $idCiudad=$_POST['cbxciudad'];
@@ -37,7 +39,7 @@ if (isset($_POST['guardarProveedor'] )&& !empty($_POST['guardarProveedor'])) {
 
 }else{
 
-  $insert1=mysqli_query($db, "INSERT INTO proveedores VALUES (00,'$empresa','$cuit','$descripcion') ");
+  $insert1=mysqli_query($db, "INSERT INTO proveedores VALUES (00,'$empresa','$cuit','$descripcion',$idEstado) ");
 
   $consulta1=mysqli_query($db,"SELECT idTipoContacto FROM tiposcontactos WHERE descripcion='email'");
   while ($r=mysqli_fetch_array($consulta1)) {
@@ -102,10 +104,13 @@ if (isset($_POST['modificarProveedor'] )&& !empty($_POST['modificarProveedor']))
 
 
 if (isset($_POST['eliminarUsuario']) && !empty($_POST['eliminarUsuario'])) {
-    $idProv=$_POST['eliminarUsuario'];
+    $db=conectar();
+    $estado=mysqli_query($db,"SELECT idEstado FROM estados WHERE descripcion='Inactivo'");
+    while($r=mysqli_fetch_array($estado)){$idEstado=$r['idEstado'];}
+    $idProv=$_POST['idProveedor'];
 
-    $query=mysqli_query($conexion,"UPDATE proveedores SET 
-                            idEstado=2
+    $query=mysqli_query($db,"UPDATE proveedores SET 
+                            idEstado=$idEstado
                             WHERE idProveedor=$idProv");
     header("location:buscarProveedor.php?pagina=1&mod=1");
 }

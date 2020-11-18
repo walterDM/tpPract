@@ -11,6 +11,8 @@
     $telefono=$_POST['telefono'];
     $pass=sha1($_REQUEST['contrasenia']);
     $grupo=mysqli_query($conexion,"SELECT idGrupo FROM grupos WHERE nombreGrupo='CLIENTE'");
+    $estado=mysqli_query($conexion,"SELECT idEstado FROM estados WHERE descripcion='Activo'");
+    while($r=mysqli_fetch_array($estado)){$idEstado=$r['idEstado'];}
     while($r=mysqli_fetch_array($grupo)){$idGrupo=$r['idGrupo'];}
     $consulta1=mysqli_query($conexion,"SELECT idTipoContacto FROM tiposcontactos WHERE descripcion='email'");
     while($r=mysqli_fetch_array($consulta1)){$idTipoMail=$r['idTipoContacto'];}
@@ -35,7 +37,7 @@
         }
     }
     else{
-        $insertar=mysqli_query($conexion,"INSERT INTO personas VALUES (00,$num,$idTipoDocumento,'$nombre','$apellido','$fecha','$user','$pass')");
+        $insertar=mysqli_query($conexion,"INSERT INTO personas VALUES (00,$num,$idTipoDocumento,'$nombre','$apellido','$fecha','$user','$pass',$idEstado)");
         $select3=mysqli_query($conexion,"SELECT idPersona FROM personas WHERE numDocumento='$num'");
         while($r=mysqli_fetch_array($select3)){
             $idPersona=$r['idPersona'];

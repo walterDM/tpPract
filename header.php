@@ -165,12 +165,12 @@ while ($r=mysqli_fetch_array($select)) {
                         <button type="submit" class="dropdown-item submenu">Buscar producto</button>
                       </form>
                       <?php break;
-                      case "realizar envios":
-                      echo "<script>document.getElementById('gestiprod').hidden=false;</script>";?>
-                      <form id="realizarEnvio" action="" method="POST">
+                     /* case "realizar envios":
+                      echo "<script>document.getElementById('gestiprod').hidden=false;</script>";*/?>
+                     <!-- <form id="realizarEnvio" action="" method="POST">
                         <button type="submit" class="dropdown-item submenu">Realizar envios</button>
-                      </form>
-                      <?php break;
+                      </form> -->
+                      <?php // break;
                     }
                   }
                   ?>

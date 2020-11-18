@@ -188,9 +188,10 @@ $paginas = ceil($paginas);
                       case "baja producto":?>
                       <div class="col-md-6">
                        <br>
-                       <form method="POST" action="ABM.php">
+                       <form method="POST" action="ABMproductos.php">
                         <input type="text" name="categoria" id="categoria" value="<?php echo $categoria;?>" hidden>
-                        <button style="margin-left: 35px;" type="submit" name="idProductos" value="<?php echo $r['idProducto']; ?>" class="btn btn-light">Eliminar</button>
+                        <input type="text" name="idProducto" id="idProducto" value="<?php echo $r['idProducto'];?>" hidden>
+                        <button style="margin-left: 35px;" name="eliminarProducto" value="eliminarProducto" class="btn btn-light">Eliminar</button>
 
                       </form>
                     </div>

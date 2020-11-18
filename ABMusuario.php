@@ -26,6 +26,8 @@ if (isset($_POST['guardarUsuario'] )&& !empty($_POST['guardarUsuario'])) {
     $telefono=$_POST['telefono'];
     $pass=sha1($_REQUEST['contrasenia']);
     $nombreGrupo=$_POST['nombreGrupo'];
+    $estado=mysqli_query($db,"SELECT idEstado FROM estados WHERE descripcion='Activo'");
+    while($r=mysqli_fetch_array($estado)){$idEstado=$r['idEstado'];}
     $consulta1=mysqli_query($db,"SELECT idTipoContacto FROM tiposcontactos WHERE descripcion='email'");
     while($r=mysqli_fetch_array($consulta1)){$idTipoMail=$r['idTipoContacto'];}
     $consulta2=mysqli_query($db,"SELECT idTipoContacto FROM tiposcontactos WHERE descripcion='telefono'");
@@ -57,7 +59,7 @@ if (isset($_POST['guardarUsuario'] )&& !empty($_POST['guardarUsuario'])) {
         }
     }
     else{
-        $insertar=mysqli_query($db,"INSERT INTO personas VALUES (00,$num,$idTipoDocumento,'$nombre','$apellido','$fecha','$user','$pass')");
+        $insertar=mysqli_query($db,"INSERT INTO personas VALUES (00,$num,$idTipoDocumento,'$nombre','$apellido','$fecha','$user','$pass',$idEstado)");
         $select3=mysqli_query($db,"SELECT idPersona FROM personas WHERE numDocumento='$num'");
         while($r=mysqli_fetch_array($select3)){
             $idPersona=$r['idPersona'];
@@ -122,12 +124,12 @@ if (isset($_POST['modificarUsuario'] )&& !empty($_POST['modificarUsuario'])) {
 }
 if(isset($_POST['eliminarUsuario']) && !empty($_POST['eliminarUsuario'])){
     $db=conectar();
+    $select=mysqli_query($db,"SELECT idEstado FROM estados WHERE descripcion='Inactivo'");
+    while($r=mysqli_fetch_array($select)){
+        $idEstado=$r['idEstado'];
+    }
     $id=$_POST['idPersona'];
-    $delete1=mysqli_query($db,"DELETE FROM gruposusuarios WHERE idPersona=$id");
-    $delete2=mysqli_query($db,"DELETE FROM empleados WHERE idPersona=$id");
-    $delete3=mysqli_query($db,"DELETE FROM personascontactos WHERE idPersona=$id");
-    $delete4=mysqli_query($db,"DELETE FROM personas WHERE idPersona=$id");
-    $delete5=mysqli_query($db,"DELETE FROM direcciones WHERE idPersona=$id");
+    $update=mysqli_query($db,"UPDATE personas SET idEstado=$idEstado WHERE idPersona=$id");
     header("location:buscarUsuarios.php?eliminado=1");
 }
 ?>
