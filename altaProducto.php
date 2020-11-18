@@ -2,7 +2,7 @@
  require("conexion.php");
 
  $select=mysqli_query($conexion,"SELECT idTipoProducto, descripcion FROM tiposproductos ORDER BY descripcion ASC");
- $selectProv=mysqli_query($conexion,"SELECT idProveedor, empresa FROM proveedores ORDER BY empresa ASC");
+ $selectProv=mysqli_query($conexion,"SELECT idProveedor, empresa FROM proveedores where idEstado=1 ORDER BY empresa ASC");
  $select3=mysqli_query($conexion,"SELECT * from puestofisico as pf where not exists (select idPuestoFisico from productos as p where p.idPuestoFisico = pf.idPuestoFisico)");
  ?>
  <script language="javascript">
