@@ -12,7 +12,7 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 function exportPedido($pedido){
 	require 'conexion.php';
 		
-	$idPedido=$pedido;
+	$idPedido=1;
 	$reader= IOFactory::createReader('Xlsx');
 	$sheet=$reader->load("archivos/template.xlsx");
 
@@ -75,8 +75,13 @@ function exportPedido($pedido){
 
 //styling arrays end
 //seteo de fecha
-	$fechaActual = date('d-m-Y');
-
+	$fechaBD= mysqli_query($conexion,"SELECT FechaPedido as fp from pedidosproveedores where idPedidoProveedor=$idPedido");
+	while ($rsF=mysqli_fetch_array($fechaBD)) {
+		$fechaActual =$rsF['fp'];
+		$fechaActual= date('d-m-Y', strtotime($fechaActual));
+		
+	}
+	
 	$sheetContent->setCellValue('D1','Fecha: '.$fechaActual);
 	$sheetContent->getStyle('D1')->applyFromArray($tableHead);
 	$fila=5;

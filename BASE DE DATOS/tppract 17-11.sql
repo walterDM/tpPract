@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-11-2020 a las 21:11:31
+-- Tiempo de generación: 18-11-2020 a las 04:45:50
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.9
 
@@ -105,7 +105,9 @@ INSERT INTO `datosfacturas` (`idFactura`, `idTipoFactura`, `idTipoTransaccion`, 
 (8, 3, 1, 200),
 (10, 3, 1, 201),
 (11, 3, 1, 202),
-(12, 3, 1, 203);
+(12, 3, 1, 203),
+(13, 3, 1, 204),
+(14, 3, 1, 205);
 
 -- --------------------------------------------------------
 
@@ -119,6 +121,13 @@ CREATE TABLE `detallespedidos` (
   `idProducto` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `detallespedidos`
+--
+
+INSERT INTO `detallespedidos` (`idPedidoProveedor`, `idProducto`, `cantidad`) VALUES
+(1, 36, 4);
 
 -- --------------------------------------------------------
 
@@ -152,7 +161,9 @@ INSERT INTO `direcciones` (`idDireccion`, `idCiudad`, `idPersona`, `idTipoDomici
 (12, 9, 18, 2, 'gorriti', 2365, '', ''),
 (14, 9, 19, 2, 'belgrano', 1154, '', ''),
 (16, 9, 10, 2, 'dgd', 343, 't', '3'),
-(17, 14, 14, 1, 'afaafa', 22, '2', '2');
+(17, 14, 14, 1, 'afaafa', 22, '2', '2'),
+(18, 9, 20, 1, 'belgrano', 1190, '', ''),
+(19, 9, 21, 2, 'belgrano', 1358, '', '');
 
 -- --------------------------------------------------------
 
@@ -202,7 +213,8 @@ INSERT INTO `empleados` (`LegajoEmpleado`, `idPersona`) VALUES
 ('3476', 12),
 ('2515165', 14),
 ('2342', 15),
-('423452', 19);
+('423452', 19),
+('12384', 21);
 
 -- --------------------------------------------------------
 
@@ -237,6 +249,13 @@ CREATE TABLE `estadospedidos` (
   `idEstado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `estadospedidos`
+--
+
+INSERT INTO `estadospedidos` (`idPedidoProveedor`, `idContactoProveedor`, `idEstado`) VALUES
+(1, 13, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -261,7 +280,10 @@ INSERT INTO `facturadetalles` (`idFactura`, `idProducto`, `cantidad`, `precioUni
 (10, 36, 1, 445),
 (11, 36, 2, 445),
 (12, 20, 2, 120),
-(12, 37, 2, 23);
+(12, 37, 2, 23),
+(13, 21, 2, 130),
+(14, 20, 3, 120),
+(14, 21, 2, 130);
 
 -- --------------------------------------------------------
 
@@ -286,7 +308,9 @@ INSERT INTO `facturas` (`idFacturaVenta`, `idPersona`, `totalApagar`, `fechaPedi
 (9, 11, 445, '2020-11-17'),
 (10, 11, 445, '2020-11-17'),
 (11, 11, 445, '2020-11-17'),
-(12, 11, 286, '2020-11-17');
+(12, 11, 286, '2020-11-17'),
+(13, 20, 260, '2020-11-17'),
+(14, 20, 620, '2020-11-17');
 
 -- --------------------------------------------------------
 
@@ -384,7 +408,9 @@ INSERT INTO `gruposusuarios` (`idPersona`, `idGrupo`) VALUES
 (16, 19),
 (17, 19),
 (18, 19),
-(19, 21);
+(19, 21),
+(20, 19),
+(21, 20);
 
 -- --------------------------------------------------------
 
@@ -407,33 +433,6 @@ INSERT INTO `marcas` (`idMarca`, `nombreMarca`) VALUES
 (4, 'serenisima'),
 (5, 'cocacola'),
 (6, 'fanta');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `members`
---
-
-DROP TABLE IF EXISTS `members`;
-CREATE TABLE `members` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `phone` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
-  `created` date NOT NULL,
-  `modified` date NOT NULL,
-  `status` enum('1','0') COLLATE utf8_unicode_ci NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Volcado de datos para la tabla `members`
---
-
-INSERT INTO `members` (`id`, `name`, `email`, `phone`, `created`, `modified`, `status`) VALUES
-(1, 'maxi', 'maxi@gmail.com', '433445566', '2020-07-23', '0000-00-00', '1'),
-(2, 'juan', 'juan@gmail.com', '2345577666', '2020-08-12', '0000-00-00', '1'),
-(3, 'juan11', 'juan34@gmail.com', '776688544332', '2020-09-08', '0000-00-00', '1'),
-(4, 'juan123', 'juan321@gmail.com', '312312442135', '2020-09-01', '0000-00-00', '1');
 
 -- --------------------------------------------------------
 
@@ -468,6 +467,13 @@ CREATE TABLE `pedidosproveedores` (
   `LegajoEmpleado` varchar(45) NOT NULL,
   `FechaPedido` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `pedidosproveedores`
+--
+
+INSERT INTO `pedidosproveedores` (`idPedidoProveedor`, `idProveedor`, `LegajoEmpleado`, `FechaPedido`) VALUES
+(1, 1, '242424', '2020-11-17');
 
 -- --------------------------------------------------------
 
@@ -542,7 +548,9 @@ INSERT INTO `personas` (`idPersona`, `numDocumento`, `idTipoDocumento`, `nombre`
 (16, 25669365, 1, 'pablo', 'Gonzalez', '1998-09-10', 'nombre', '7088f91898a8b3f32260d7c6ea3a04828bf53fb2', 1),
 (17, 23631935, 1, '', 'garcia', '2004-06-29', 'germang', 'e9a9eeb2e0e2d7a11629cbd38ebcb8db0ee52dec', 1),
 (18, 54321432, 1, 'gonzalo', 'Jara', '2002-11-05', 'jarag', 'c8a4c46985fc4832bce1d24a3f555ab6bd397323', 1),
-(19, 33800978, 1, 'carlos', 'Jara', '2001-11-08', 'cjara', 'c8a4c46985fc4832bce1d24a3f555ab6bd397323', 1);
+(19, 33800978, 1, 'carlos', 'Jara', '2001-11-08', 'cjara', 'c8a4c46985fc4832bce1d24a3f555ab6bd397323', 1),
+(20, 35966826, 1, 'juan', 'Perez', '2003-11-05', 'juanP', 'd96dbce9b3a3a2a2165a9bd59cdd59bc2078cf77', 1),
+(21, 23567899, 1, 'Miguel', 'Perez', '2003-02-11', 'miguelP', '1bc47f1f9397d59445930db7ac383b78ff70341d', 1);
 
 -- --------------------------------------------------------
 
@@ -580,7 +588,11 @@ INSERT INTO `personascontactos` (`idPersonaContacto`, `idPersona`, `idTipoContac
 (51, 10, 1, 'consultaphpedi@gmail.com'),
 (52, 10, 2, '1140397424'),
 (53, 14, 1, 'consultaphpedi@gmail.com'),
-(54, 14, 2, '242155');
+(54, 14, 2, '242155'),
+(55, 20, 1, 'unEjemplo@gmail.com'),
+(56, 20, 2, '1169256498'),
+(57, 21, 1, 'unEjemplo1@gmail.com'),
+(58, 21, 2, '1159987552');
 
 -- --------------------------------------------------------
 
@@ -612,9 +624,9 @@ INSERT INTO `productos` (`idProducto`, `descripcion`, `idPuestoFisico`, `imagen`
 (34, 'fanta', 7, 'coca 225.jpg', 'wa221', '2020-08-21', 21, 22, 1),
 (35, 'leche Serenisima', 8, 'serenisima.jpg', 'asd', '2020-08-27', 0, 34, 1),
 (36, 'chocolatada', 25, 'index.jpg', 'asd2134', '2020-08-27', 36, 445, 1),
-(37, 'asfpkn', 9, '', '1234', '2020-11-10', 31, 23, 1),
+(37, 'asfpkn', 9, '', '1234', '2020-11-10', 31, 23, 2),
 (39, '34312', 11, 'fanta225.jpg', '123', '2020-11-12', 32, 43, 1),
-(42, 'afsdf', 15, '', '1234', '2020-11-13', 12, 32, 1),
+(42, 'afsdf', 15, '', '1234', '2020-11-13', 12, 32, 2),
 (43, 'produto 001', 16, 'coca 225.jpg', '2452', '2021-11-11', 23, 113, 1);
 
 -- --------------------------------------------------------
@@ -785,7 +797,7 @@ CREATE TABLE `stock` (
 DROP TABLE IF EXISTS `tarjetascliente`;
 CREATE TABLE `tarjetascliente` (
   `idTarjetaCliente` int(11) NOT NULL,
-  `numTarjeta` int(11) NOT NULL,
+  `numTarjeta` varchar(16) NOT NULL,
   `idTipoTarjeta` int(11) NOT NULL,
   `fechaVencimiento` date NOT NULL,
   `idPersona` int(11) NOT NULL,
@@ -797,10 +809,11 @@ CREATE TABLE `tarjetascliente` (
 --
 
 INSERT INTO `tarjetascliente` (`idTarjetaCliente`, `numTarjeta`, `idTipoTarjeta`, `fechaVencimiento`, `idPersona`, `codBanco`) VALUES
-(1, 2145341, 0, '2021-10-06', 11, ''),
-(2, 2147483647, 1, '2020-10-29', 16, ''),
-(3, 2147483647, 1, '2022-10-18', 17, '259'),
-(4, 2147483647, 1, '2021-11-03', 18, '231');
+(1, '2145341', 0, '2021-10-06', 11, ''),
+(2, '2147483647', 1, '2020-10-29', 16, ''),
+(3, '2147483647', 1, '2022-10-18', 17, '259'),
+(4, '2147483647', 1, '2021-11-03', 18, '231'),
+(5, '2568956324127858', 1, '2021-01-16', 20, '263');
 
 -- --------------------------------------------------------
 
@@ -1128,12 +1141,6 @@ ALTER TABLE `marcas`
   ADD PRIMARY KEY (`idMarca`);
 
 --
--- Indices de la tabla `members`
---
-ALTER TABLE `members`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indices de la tabla `paises`
 --
 ALTER TABLE `paises`
@@ -1323,7 +1330,7 @@ ALTER TABLE `contactosproveedores`
 -- AUTO_INCREMENT de la tabla `direcciones`
 --
 ALTER TABLE `direcciones`
-  MODIFY `idDireccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `idDireccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `direccionesprov`
@@ -1341,7 +1348,7 @@ ALTER TABLE `estados`
 -- AUTO_INCREMENT de la tabla `facturas`
 --
 ALTER TABLE `facturas`
-  MODIFY `idFacturaVenta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `idFacturaVenta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `grupos`
@@ -1356,12 +1363,6 @@ ALTER TABLE `marcas`
   MODIFY `idMarca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT de la tabla `members`
---
-ALTER TABLE `members`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
 -- AUTO_INCREMENT de la tabla `paises`
 --
 ALTER TABLE `paises`
@@ -1371,7 +1372,7 @@ ALTER TABLE `paises`
 -- AUTO_INCREMENT de la tabla `pedidosproveedores`
 --
 ALTER TABLE `pedidosproveedores`
-  MODIFY `idPedidoProveedor` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPedidoProveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `permisos`
@@ -1383,13 +1384,13 @@ ALTER TABLE `permisos`
 -- AUTO_INCREMENT de la tabla `personas`
 --
 ALTER TABLE `personas`
-  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `personascontactos`
 --
 ALTER TABLE `personascontactos`
-  MODIFY `idPersonaContacto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `idPersonaContacto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -1425,7 +1426,7 @@ ALTER TABLE `stock`
 -- AUTO_INCREMENT de la tabla `tarjetascliente`
 --
 ALTER TABLE `tarjetascliente`
-  MODIFY `idTarjetaCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idTarjetaCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `tipoestados`
@@ -1525,7 +1526,8 @@ ALTER TABLE `direcciones`
 -- Filtros para la tabla `direccionesprov`
 --
 ALTER TABLE `direccionesprov`
-  ADD CONSTRAINT `FK_dirPRov` FOREIGN KEY (`idProveedor`) REFERENCES `proveedores` (`idProveedor`);
+  ADD CONSTRAINT `FK_dirPRov` FOREIGN KEY (`idProveedor`) REFERENCES `proveedores` (`idProveedor`),
+  ADD CONSTRAINT `FK_dirProvCiudad` FOREIGN KEY (`idCiudad`) REFERENCES `ciudades` (`idCiudad`);
 
 --
 -- Filtros para la tabla `empleados`

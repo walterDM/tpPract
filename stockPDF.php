@@ -21,10 +21,11 @@ if (isset($_GET['exportPDF']) && !empty($_GET['exportPDF']) && $_GET['tProducto'
 	JOIN tiposproductos as tp on tpm.idTipoProducto=tp.idTipoProducto
 	JOIN marcas as m on tpm.idMarca=m.idMarca
 	WHERE tpm.idTipoProducto=$tipo";
+	
 
-	$rsStockTp=mysqli_query($conexion,$queryStocktp);
 }else if(isset($_GET['exportPDF']) && !empty($_GET['exportPDF']) && $_GET['tProducto']==0){
-	$queryStockIni="SELECT p.descripcion as prod, p.cantidadProd as cant, p.lote, pf.estante, 
+	
+	$queryStocktp="SELECT p.descripcion as prod, p.cantidadProd as cant, p.lote, pf.estante, 
 	pf.fila, pf.columna, tp.descripcion as tprod, m.nombreMarca as marca
 	from productos as p
 	JOIN puestofisico as pf on p.idPuestoFisico=pf.idPuestoFisico
@@ -32,10 +33,10 @@ if (isset($_GET['exportPDF']) && !empty($_GET['exportPDF']) && $_GET['tProducto'
 	JOIN tiposproductos_marcas as tpm on pm.idTpMarca=tpm.idTpMarca
 	JOIN tiposproductos as tp on tpm.idTipoProducto=tp.idTipoProducto
 	JOIN marcas as m on tpm.idMarca=m.idMarca";
-	$rsStockTp=mysqli_query($conexion,$queryStockIni);
+	
+
 }
-
-
+$rsStockTp=mysqli_query($conexion,$queryStocktp);
 
 $idPersona=$_SESSION['login'];
 
@@ -102,7 +103,7 @@ $fechaActual = date('d-m-Y');
 
 	}
 	
-	$pdf->Output('I',$filename.'.pdf');
-	//header("location:index.php?Reporte=1");
+	$pdf->Output('F',"reportesCreados/".$filename.'.pdf');
+	header("location:index.php?Reporte=1");
 
 	?>

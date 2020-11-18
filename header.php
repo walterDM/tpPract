@@ -161,9 +161,7 @@ while ($r=mysqli_fetch_array($select)) {
                       <?php break;
                       case "buscar producto":
                       echo "<script>document.getElementById('gestiprod').hidden=false;</script>";?>
-                      <form id="buscarProducto" action="" method="POST">
-                        <button type="submit" class="dropdown-item submenu">Buscar producto</button>
-                      </form>
+                      
                       <?php break;
                      /* case "realizar envios":
                       echo "<script>document.getElementById('gestiprod').hidden=false;</script>";*/?>

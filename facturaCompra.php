@@ -80,7 +80,7 @@ $pdf->SetFont('Arial','B',14);
 $pdf->SetFillColor(232,232,232);
 
 $pdf->Cell(165,6,"Total Compra : ".$totalC,1,0,'C',1);
-$pdf->Output('I',$filename.'.pdf');
+$pdf->Output('I',utf8_decode($filename).'.pdf');
 	//header("location:index.php");
 }
 ?>

@@ -2,13 +2,14 @@
 session_start();
 require 'conexion.php';
 include 'includes/plantillaCad.php';
-if (isset($_POST['buscar']) && $_POST['buscar']==0 && isset($_POST['fDesde']) && isset($_POST['fHasta'])) {
+if (isset($_POST['buscar']) && $_POST['buscar']==0 && isset($_POST['fDesde']) && isset($_POST['fHasta']) && !empty($_POST['fHasta'])) {
 	$fd = date("Y-m-d", strtotime($_POST['fDesde']));
 	$fh = date("Y-m-d", strtotime($_POST['fHasta']));
 	
+	
 	header("location:reportesCaducidad.php?fDesde=$fd&fHasta=$fh");
 }
-if (isset($_POST['buscar']) && $_POST['buscar']==0 && isset($_POST['fDesde']) && !isset($_POST['fHasta'])) {
+if (isset($_POST['buscar']) && $_POST['buscar']==0 && isset($_POST['fDesde']) && isset($_POST['fHasta'])&& empty($_POST['fHasta'])) {
 	$fd = date("Y-m-d", strtotime($_POST['fDesde']));
 	$fh = date("Y-m-d");
 	

@@ -3,17 +3,17 @@ session_start();
 require 'conexion.php';
 include 'includes/plantillaV.php';
 
-if (isset($_POST['buscar']) && $_POST['buscar']==0 && isset($_POST['fDesde']) && isset($_POST['fHasta'])) {
+if (isset($_POST['buscar']) && $_POST['buscar']==0 && isset($_POST['fDesde']) && isset($_POST['fHasta']) && !empty($_POST['fHasta'])) {
 	$fd = date("Y-m-d", strtotime($_POST['fDesde']));
 	$fh = date("Y-m-d", strtotime($_POST['fHasta']));
 	
-	header("location:reportesVentas.php?fDesde=$fd&fHasta=$fh");
+	header("location:reportesVentas.php?pagina=1&fDesde=$fd&fHasta=$fh");
 }
-if (isset($_POST['buscar']) && $_POST['buscar']==0 && isset($_POST['fDesde']) && !isset($_POST['fHasta'])) {
+if (isset($_POST['buscar']) && $_POST['buscar']==0 && isset($_POST['fDesde']) && isset($_POST['fHasta']) && empty($_POST['fHasta'])) {
 	$fd = date("Y-m-d", strtotime($_POST['fDesde']));
 	$fh = date("Y-m-d");
 	
-	header("location:reportesVentas.php?fDesde=$fd&fHasta=$fh");
+	header("location:reportesVentas.php?pagina=1&fDesde=$fd&fHasta=$fh");
 }
 
 if (isset($_POST['exportPDF'])&& isset($_POST['fDesde'])) {
@@ -29,8 +29,7 @@ if (isset($_POST['exportPDF'])&& isset($_POST['fDesde'])) {
 		$queryFechatp="SELECT DISTINCT f.idFacturaVenta as nFact, f.totalApagar as total, f.fechaPedido as fp, p.nombre,p.apellido 
 		from facturas as f 
 		JOIN personas as p on p.idPersona=f.idPersona
-
-		WHERE f.fechaPedido BETWEEN '$fd' AND  '$fh'";
+		WHERE f.fechaPedido BETWEEN '$fd' AND '$fh'";
 
 	}
 	elseif (isset($_POST['fDesde']) && isset($_POST['fHasta'])&&(!empty($_POST['fDesde']) && !empty($_POST['fHasta']))){
@@ -40,11 +39,10 @@ if (isset($_POST['exportPDF'])&& isset($_POST['fDesde'])) {
 		$queryFechatp="SELECT DISTINCT f.idFacturaVenta as nFact, f.totalApagar as total, f.fechaPedido as fp, p.nombre,p.apellido 
 		from facturas as f 
 		JOIN personas as p on p.idPersona=f.idPersona
-
 		WHERE f.fechaPedido BETWEEN '$fd' AND '$fh'";
 
 	}
-	
+	echo $queryFechatp;
 	$rsFechaTp=mysqli_query($conexion,$queryFechatp);
 
 

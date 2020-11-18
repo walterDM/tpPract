@@ -20,6 +20,7 @@ if (isset($_SESSION['grupo']) && ($_SESSION['grupo']==18 || $_SESSION['grupo']==
 			order by dt.numFactura limit $iniciar,$facturas_x_pag ";
 		$rsFacturasIni=mysqli_query($conexion,$queryFacturasIni);
 	}
+
 	if (isset($_GET['fDesde']) && isset($_GET['fHasta'])) {
 		$fd = date("Y-m-d", strtotime($_GET['fDesde']));
 		$fh = date("Y-m-d", strtotime($_GET['fHasta']));
@@ -37,7 +38,8 @@ if (isset($_SESSION['grupo']) && ($_SESSION['grupo']==18 || $_SESSION['grupo']==
 		$queryFechatp="SELECT f.idFacturaVenta as nFact, f.totalApagar as total, f.fechaPedido as fp, p.nombre,p.apellido 
 		from facturas as f 
 		JOIN personas as p on p.idPersona=f.idPersona
-		WHERE f.fechaPedido BETWEEN '$fd' AND '$fh' order by f.fechaPedido limit$iniciar,$facturas_x_pag";
+		WHERE f.fechaPedido BETWEEN '$fd' AND '$fh' order by f.fechaPedido limit $iniciar,$facturas_x_pag";
+		
 		$rsFechaTp=mysqli_query($conexion,$queryFechatp);
 
 

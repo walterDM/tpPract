@@ -55,7 +55,7 @@ function formatFecha($fecha){
 			<label for="fHasta">Hasta</label>
 			<input type="date" id="fHasta" name="fHasta" <?php if (isset($_GET['fHasta'])) {
 				echo "value='".$_GET['fHasta']."'";
-			} ?>>
+			}else{echo "value='".date("d-m-Y")."'";} ?>>
 			
 
 			<button name="buscar" value="0"  style="border-color: #e0e0e0;background:white" class="btn btn-outline-warning" id="button-addon2"><i class="fas fa-search"></i></button>
