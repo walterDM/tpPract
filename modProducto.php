@@ -17,7 +17,14 @@ $select=mysqli_query($conexion,"SELECT * FROM tiposproductos");
 			$idTipoProducto="";
 			$idMarca="";
 			$idPuestoFisico=$datos['idPuestoFisico'];
+			$selectProveedores=mysqli_query($conexion,"SELECT idProveedor FROM productostpmarcas WHERE idProducto=$id");
+			$idProv=mysqli_fetch_assoc($selectProveedores);
+			$selectDescriProv=mysqli_query($conexion,"SELECT empresa FROM proveedores WHERE idProveedor={$idProv['idProveedor']}");
+			while($r=mysqli_fetch_array($selectDescriProv)){
+				$empresa=$r['empresa'];
+			}
 			$obtenerEstado=mysqli_query($conexion,"SELECT descripcion FROM estados WHERE idEstado='{$datos['idEstado']}'");
+			$selectProv=mysqli_query($conexion,"SELECT empresa FROM proveedores where idEstado=1 ORDER BY empresa ASC");
 			while($r=mysqli_fetch_array($obtenerEstado)){
 				$descripcion=$r['descripcion'];
 			}
@@ -138,12 +145,11 @@ $select=mysqli_query($conexion,"SELECT * FROM tiposproductos");
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Proveedor</label>
-								<select id="cbxProv" name="cbxProv" class="form-control" >
-									<option value="0">seleccion</option>
-									<?php $consulta3=mysqli_query($conexion,"SELECT idTipoProducto, descripcion FROM tiposproductos ORDER BY descripcion ASC");
-									while($r=mysqli_fetch_array($consulta3)){?>
+								<select id="idProveedor" name="idProveedor" class="form-control" disabled>
+									<?php
+									while($r=mysqli_fetch_array($selectProv)){?>
 										
-										<option value="<?php echo $r['idTipoProducto'];?>" <?php  if($idTipoProducto==$r['idTipoProducto']){ echo'selected';}?>><?php echo $r['descripcion'];?></option>
+										<option value="<?php echo $r['idProveedor'];?>" <?php  if($r['empresa']==$empresa){ echo'selected';}?>><?php echo $r['empresa'];?></option>
 									<?php }?>
 								</select>
 							</div>
