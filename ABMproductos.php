@@ -203,12 +203,21 @@ if(isset($_POST['Altaestante']) && !empty($_POST['Altaestante'])){
     header("location:productos.php?categoria=$categoria&pagina=1");
 }
 
-    $id=$_POST['i'];
+    //$id=$_POST['i'];
+    //$eliminar=$_POST['eliminarProducto'];
     //$categoria=$_POST['categoria'];
     /*$estado=mysqli_query($conexion,"SELECT idEstado FROM estados WHERE descripcion='Inactivo'");
     while($r=mysqli_fetch_array($estado)){$idEstado=$r['idEstado'];}
     $actualizar=mysqli_query($conexion,"UPDATE productos SET idEstado=$idEstado WHERE idProducto=$idProducto");*/
-    echo "<script>alert($id);</script>";
+    //echo '<div class="msjB">hola</div>';
+    if(isset($_GET['idProducto']) && !empty($_GET['idProducto'])){
+    $idproducto=$_GET['idProducto'];
 
+ $estado=mysqli_query($conexion,"SELECT idEstado FROM estados WHERE descripcion='Inactivo'");
+    while($r=mysqli_fetch_array($estado)){$idEstado=$r['idEstado'];}
+    $actualizar=mysqli_query($conexion,"UPDATE productos SET idEstado=$idEstado WHERE idProducto=$idProducto");
+  
+ mysqli_query($conexion,$actualizar);
+    }
 
 ?>

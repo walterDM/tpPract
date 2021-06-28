@@ -149,7 +149,7 @@ $paginas = ceil($paginas);
                   <?php break; 
                   case "baja producto":
                   ?>
-                  <a style="float: left;margin: 5px;border-radius:30px" class="btn btn-light" href="#" data-toggle="modal" data-target="#info<?php echo $r['idProducto']; ?>"><i class="fas fa-trash-alt"></i></a>
+                  <a style="float: left;margin: 5px;border-radius:30px" class="btn btn-light" href="#" onclick="eliminarDato($r['idProducto'])"><i class="fas fa-trash-alt"></i></a>
                   <?php break;
                 }
               }
@@ -192,7 +192,7 @@ $paginas = ceil($paginas);
                         <input type="text" id="i" name="i">
                         
                         <button style="margin-left: 35px;" class="btn btn-light" name="eliminarProducto" id="eliminarProducto" value="eliminarProducto" onclick="eliminar()">Eliminar</button>
-                       
+                        <div id="result"></div>
                      
                     </div>
                   <?php }
