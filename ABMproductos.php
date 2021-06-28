@@ -124,8 +124,8 @@ if (isset($_POST['guardar'] )&& !empty($_POST['guardar'])) {
    
     $Insert3=mysqli_query($conexion,"INSERT INTO productostpmarcas values($id,$idprov,$idTpM,$precio)");
  
-        header("location:altaProducto.php?estado=1");
-
+        //header("location:altaProducto.php?estado=1");
+        echo "<script>alert('fue dado de alta con exito');</script>";
     
 
 }
@@ -169,7 +169,8 @@ if(isset($_POST['Modificar']) && !empty($_POST['Modificar'])){
      $enviar=mysqli_query($conexion,$actualizar);
      $actualizartp="UPDATE productostpmarcas SET idTpMarca=$idTpMarca where idProducto=$id";
      $enviartpm=mysqli_query($conexion,$actualizartp);
-     header("location:productos.php?categoria=$descripcion&pagina=1");
+     //header("location:productos.php?categoria=$descripcion&pagina=1");
+     echo "<script>alert('datos modificados con exito');</script>";
  }else{
      $actualizar="UPDATE productos SET 
      descripcion='$nombre',
@@ -182,7 +183,8 @@ if(isset($_POST['Modificar']) && !empty($_POST['Modificar'])){
      $enviar=mysqli_query($conexion,$actualizar);
      $actualizartp="UPDATE productostpmarcas SET idTpMarca=$idTpMarca where idProducto=$id";
      $enviartpm=mysqli_query($conexion,$actualizartp);
-     header("location:productos.php?categoria=$descripcion&pagina=1");
+     //header("location:productos.php?categoria=$descripcion&pagina=1");
+     echo "<script>alert($nombreImg);</script>";
 
  }
 }
@@ -200,14 +202,13 @@ if(isset($_POST['Altaestante']) && !empty($_POST['Altaestante'])){
     }
     header("location:productos.php?categoria=$categoria&pagina=1");
 }
-if(isset($_POST['eliminarProducto']) && !empty($_POST['eliminarProducto'])){
-    $conexion=conectar();
-    $idProducto=$_POST['idProducto'];
-    $categoria=$_POST['categoria'];
-    $estado=mysqli_query($conexion,"SELECT idEstado FROM estados WHERE descripcion='Inactivo'");
+
+    $id=$_POST['i'];
+    //$categoria=$_POST['categoria'];
+    /*$estado=mysqli_query($conexion,"SELECT idEstado FROM estados WHERE descripcion='Inactivo'");
     while($r=mysqli_fetch_array($estado)){$idEstado=$r['idEstado'];}
-    $actualizar=mysqli_query($conexion,"UPDATE productos SET idEstado=$idEstado WHERE idProducto=$idProducto");
-    header("location:productos.php?categoria=$categoria&pagina=1");
-}
+    $actualizar=mysqli_query($conexion,"UPDATE productos SET idEstado=$idEstado WHERE idProducto=$idProducto");*/
+    echo "<script>alert($id);</script>";
+
 
 ?>

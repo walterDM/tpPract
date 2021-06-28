@@ -45,33 +45,7 @@ $select=mysqli_query($conexion,"SELECT * FROM tiposproductos");
 				UNION (Select pf.* from puestofisico as pf join productos as p 
 				on pf.idPuestoFisico=p.idPuestoFisico where p.idProducto =$id) order by idPuestoFisico asc ");
 				?>
-				<script language="javascript">
-					$(document).ready(function(){
-						$("#cbxTipoProducto").change(function () {
-							
-							$('#cbxMarca').find('option').remove().end().append('<option value="whatever"></option>').val('whatever');
-							
-							$("#cbxTipoProducto option:selected").each(function () {
-								id_estado = $(this).val();
-								$.post("includes/getMarcar.php", { id_estado: id_estado }, function(data){
-									$("#cbxMarca").html(data);
-								});            
-							});
-						})
-					});
-
-					$(document).ready(function(){
-						$("#cbxTipoProducto").change(function () {	
-							$("#cbxTipoProducto option:selected").each(function () {
-								id_estado = $(this).val();
-								$.post("includes/getMarcar.php", { id_estado: id_estado }, function(data){
-									$("#cbxMarca").html(data);
-								});            
-							});
-						})
-					});
-				</script>
-				<form  method="POST" action="ABMproductos.php" enctype="multipart/form-data" autocomplete="off"  onsubmit="return valida2(this)">
+				<form enctype="multipart/form-data" id="fupForm" >
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
@@ -130,6 +104,7 @@ $select=mysqli_query($conexion,"SELECT * FROM tiposproductos");
 							<div class="form-group">
 								<label>Precio</label>
 								<input type="text" class="form-control" name="precio" id="precio" value="<?php echo $datos['precio'];?>" placeholder="ingrese precio">
+								<input type="text" class="form-control" name="Modificar" id="Modificar" value="Modificar" hidden>
 							</div>
 						</div>
 
@@ -186,7 +161,7 @@ $select=mysqli_query($conexion,"SELECT * FROM tiposproductos");
 						<div class="row justify-content-center">
 							<div class="col-md-6" align="center">
 								<div class="form-group">
-									<button style="background:orange;color:white;width:30%;margin-top:10%" type="submit" name="Modificar" value="Modificar" id="btn2" class="btn btn-light">Actualizar Producto</button>
+									<button style="background:orange;color:white;width:30%;margin-top:10%" type="submit" class="btn btn-light">Actualizar Producto</button>
 								</div>
 							</div>
 						</div>	
@@ -195,3 +170,4 @@ $select=mysqli_query($conexion,"SELECT * FROM tiposproductos");
 			</div>
 		</div>
 		<?php require 'footer.php'; ?>
+		<script type="text/javascript" src="js/modProducto.js"></script>

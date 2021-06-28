@@ -8,8 +8,8 @@ function conectar(){
 	return $conexion;
 }
 conectar();
-$usuario=$_POST['usuario'];
-$password=sha1($_POST['contrasenia']);
+$usuario=$_REQUEST['us'];
+$password=sha1($_REQUEST['contrasenia']);
 $db=conectar();
 $consulta= mysqli_query($db,"SELECT * FROM personas where usuario='$usuario' and contrasenia='$password'"); 
 if($p=mysqli_fetch_assoc($consulta)){
@@ -22,11 +22,11 @@ if($p=mysqli_fetch_assoc($consulta)){
 		}
 		$_SESSION['login']=$p['idPersona'];
 		$_SESSION['usuario']=$p['usuario'];
-		echo $idPersona;
-		header("location:index.php");
+		echo '<div class="msjB">Bienvenido</div>';
+		echo "<script>window.location.href='index.php'</script>";
 	}
 	
 }else{
-	header("location:index.php?error=1");
+	echo '<div class="msj">Usuario o contraseña incorrecta</div>';
 }
 ?>

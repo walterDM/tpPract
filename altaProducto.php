@@ -19,7 +19,7 @@
  </script>
  <div class="row">
  	<div class="col-md-12" style="padding-top:50px">
- 		<form  method="POST" action="ABMproductos.php" enctype="multipart/form-data" autocomplete="off"  onsubmit="return valida2(this)">
+	    <form enctype="multipart/form-data" id="fupForm" >
  			<div class="row">
  				<div class="col-md-6">
  					<div class="form-group">
@@ -64,6 +64,7 @@
  						<div class="form-group">
  							<label>Precio</label>
  							<input type="text" class="form-control" name="precio" id="precio" placeholder="ingrese precio">
+							 <input type="text" class="form-control" name="guardar" id="guardar" value="guardar" hidden>
  						</div>
  					</div>
  				</div>
@@ -108,11 +109,12 @@
  		</div>
  		<div class="col-md-12" align="center">
  			<div class="form-group">
- 				<button style="background:orange;color:white;width:30%" type="submit" name="guardar" value="guardar" id="btn2" class="btn btn-light">guardar producto</button>
+ 				<button style="background:orange;color:white;width:30%" type="submit" class="btn btn-light submitBtn">guardar producto</button>
  			</div>
  		</div>
  	</div>
- </form>
+   </form>
 </div>
 </div>
 <?php require 'footer.php'; ?>
+<script type="text/javascript" src="js/modProducto.js"></script>

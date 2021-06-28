@@ -41,7 +41,21 @@ function killSession(){
     <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../tpPract/bootstrap-4.3.1-dist/css/estilos.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
     
+    .msj{
+  background: red;
+  color: #ffffff;
+  padding: 8px;
+  display: block;
+}    
+.msjB{
+  background: green;
+  color: #ffffff;
+  padding: 8px;
+  display: block;
+} 
+    </style>
 
   </head>
   <body>
@@ -310,20 +324,21 @@ while ($r=mysqli_fetch_array($select)) {
           </div>
           <div class="col-md-12" style="background:#e0e0e0">
             <div class="modal-body" >
-              <form action="login.php" method="POST">
+              
                 <div class="form-group" id="user-group">
                   <label for="user">Usuario</label>
-                  <i class="fas fa-user"></i><input type="text" class="form-control" name="usuario" id="usuario"  placeholder="ingrese su e-mail">
+                  <i class="fas fa-user"></i><input type="text" class="form-control" name="us" id="us"  placeholder="ingrese su e-mail">
                 </div>
                 <div class="form-group" id="password-group">
                   <label for="contra">Contraseña</label>
                   <i class="fas fa-lock"></i><input type="password" class="form-control" name="contrasenia" id="contrasenia" placeholder="ingrese su contraseña">
                 </div>
+                <div id="result"></div>
                 <div align="center"><a style="color:black;text-decoration:none" href="#" data-toggle="modal" data-target="#recuperar" onclick="recup()">¿Olvidaste tu contraseña?</a></div>
                 <div align="center" class="form-group">
-                  <button style="margin-top:7%;width:50%" type="submit" class="btn btn-light"  name="acept" value="acept">Ingresar</button>
+                  <button style="margin-top:7%;width:50%" type="submit" class="btn btn-light" onclick="buscar()">Ingresar</button>
                 </div>
-              </form>
+              
             </div>
           </div> 
         </div>
@@ -437,6 +452,7 @@ while ($r=mysqli_fetch_array($select)) {
         ?>
         <script type="text/javascript" src="jquery.min.js"></script>
         <script src="bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/login.js"></script>
         <script src="https://kit.fontawesome.com/2be8605e79.js"></script>
         <script>
          function form(v){
@@ -459,5 +475,6 @@ while ($r=mysqli_fetch_array($select)) {
         function recup(){
          document.getElementById('ingresar').hidden=true;
        }
+       
      </script>  
 
