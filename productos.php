@@ -149,7 +149,11 @@ $paginas = ceil($paginas);
                   <?php break; 
                   case "baja producto":
                   ?>
-                  <a style="float: left;margin: 5px;border-radius:30px" class="btn btn-light" href="#" onclick="eliminarDato($r['idProducto'])"><i class="fas fa-trash-alt"></i></a>
+                  <form action="" enctype="multipart/form-data" id="fupForm">
+                    <input type="text" name="id" name="id" hidden>
+                    <input type="text" name="eliminarProducto" name="eliminarProducto"  hidden>
+                    <button type="submit" style="float: left;margin: 5px;border-radius:30px" class="btn btn-light"><i class="fas fa-trash-alt"></i></button>
+                  </form>
                   <?php break;
                 }
               }
