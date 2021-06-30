@@ -170,4 +170,4 @@ $select=mysqli_query($conexion,"SELECT * FROM tiposproductos");
 			</div>
 		</div>
 		<?php require 'footer.php'; ?>
-		<script type="text/javascript" src="js/modProducto.js"></script>
+		<script type="text/javascript" src="js/ABMproductos.js"></script>

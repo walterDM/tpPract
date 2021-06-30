@@ -120,9 +120,9 @@ $paginas = ceil($paginas);
                   <form action="arraycarrito.php" method="GET" onsubmit="return stock(this)">
                      <label>Cantidad</label>
                      <input type="number" MIN="1" MAX="<?php echo $r['cantidadProd'];?>" id="cantidad" name="cantidad" VALUE="1">
-                     <input type="text" name="pagina" value="<?php echo $_GET['pagina'];?>" hidden>
+                     <input type="text" name="pagina" id="pagina" value="<?php echo $_GET['pagina'];?>" hidden>
                      <input type="text" id="cantstock" value="<?php echo $r['cantidadProd'];?>" hidden>
-                     <input type="text" name="categoria" value="<?php echo $categoria;?>" hidden>
+                     <input type="text" name="categoria" id="categoria" value="<?php echo $categoria;?>" hidden>
                      <button class="btn btn-light" name="idProducto" value="<?php echo $r['idProducto']?>" onclick="stock();"><i class="fas fa-cart-plus"></i> Añadir a carrito</button>
                   </form>  
                </div>
@@ -148,12 +148,13 @@ $paginas = ceil($paginas);
                   </form>
                   <?php break; 
                   case "baja producto":
+                  
+                   
                   ?>
-                  <form action="" enctype="multipart/form-data" id="fupForm">
-                    <input type="text" name="id" name="id" hidden>
-                    <input type="text" name="eliminarProducto" name="eliminarProducto"  hidden>
-                    <button type="submit" style="float: left;margin: 5px;border-radius:30px" class="btn btn-light"><i class="fas fa-trash-alt"></i></button>
-                  </form>
+                  <input type="text" name="pag" id="pag" value="<?php echo $_GET['pagina'];?>" hidden>
+                  <input type="text" name="categ" id="categ" value="<?php echo $categoria;?>" hidden>
+                  <a style="text-decoration:underline;cursor:pointer; float: left;margin-right:5px;border-radius:30px;margin-top: 2%" class="btn btn-light card-text" href="#" onclick="eliminarDato(<?php echo $r['idProducto']?>,<?php echo $_GET['pagina']?>)"><i class="fas fa-trash-alt"></i></a>
+                  <div id="result"></div>
                   <?php break;
                 }
               }
@@ -183,26 +184,6 @@ $paginas = ceil($paginas);
                   <h6><strong>lote: </strong><?php echo $r['Lote']; ?></h6>
                   <h6><strong>vencimiento: </strong><?php echo $r['fechaCaducidad']; ?></h6>
                 </div>
-                <?php if (isset($_SESSION['login']) && $_SESSION['login'] > 0) {
-
-                  $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
-                  while($rs=mysqli_fetch_array($grupo)){
-                    $nombrePermiso=$rs['nombrePermiso'];
-                    switch($nombrePermiso) {
-                      case "baja producto":?>
-                      <div class="col-md-6">
-                       <br>
-                       
-                        <input type="text" id="i" name="i">
-                        
-                        <button style="margin-left: 35px;" class="btn btn-light" name="eliminarProducto" id="eliminarProducto" value="eliminarProducto" onclick="eliminar()">Eliminar</button>
-                        <div id="result"></div>
-                     
-                    </div>
-                  <?php }
-                }
-              }
-              ?>
             </div>
           </div>
 
@@ -241,4 +222,4 @@ $paginas = ceil($paginas);
                 ?>
 </div>
 </div>
-<script type="text/javascript" src="js/modProducto.js"></script>
+<script type="text/javascript" src="js/ABMproductos.js"></script>

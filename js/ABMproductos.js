@@ -41,51 +41,29 @@ $(document).ready(function(){
         console.log(jqXHR.statusText);
     });
   });
-  function eliminar(){
-    var eliminar = confirm("De verdad desea eliminar este dato?")
-      if ( eliminar ) {
-$.ajax({
-    url: 'ABMproductos.php',
-    type: 'POST',
-    data:new FormData(this),
-    contentType: false,
-    cache: false,
-    processData:false,
-})
-.done(function(response){
-    $("#result").html(response);
-})
-.fail(function(jqXHR){
-    console.log(jqXHR.statusText);
 });
-}
-}
+function eliminarDato(idProducto,pagina){
+    var eliminar = confirm('De verdad desea eliminar este dato?');
+    var categoria=document.getElementById('categ').value;
 
-});
-
-function eliminar(){
-   
-      //instanciamos el objetoAjax
-      $.ajax({
-        url: 'ABMproductos.php',
-        type: 'get',
-        data: { 
-           
-            id: document.getElementById('id').value, 
-            
-
-        },
-      
-      
-      })
-      .done(function(response){
-        $("#result").html(response);
-    })
-    .fail(function(jqXHR){
-        console.log(jqXHR.statusText);
-    });
-      //como hacemos uso del metodo GET
-      //colocamos null
-
-
-}
+    if ( eliminar ) {
+          
+          $.ajax({
+            url: 'ABMProductos.php',
+            type: 'POST',
+            data: { 
+                id: idProducto,
+                categ: categoria,
+                pag: pagina,
+              
+            },
+         })
+         .done(function(response){
+            $("#result").html(response);
+         })
+         .fail(function(jqXHR){
+            console.log(jqXHR.statusText);
+         });
+         alert('El producto ha sido eliminado');
+    }
+} 

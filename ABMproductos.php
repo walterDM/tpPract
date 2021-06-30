@@ -192,7 +192,7 @@ if(isset($_POST['Modificar']) && !empty($_POST['Modificar'])){
 if(isset($_POST['Altaestante']) && !empty($_POST['Altaestante'])){
     $conexion=conectar();
     $estante=$_POST['estante'];
-    $categoria=$_POST['categoria'];
+    $categoria=$_POST['categ'];
     $fila=$_POST['fila'];
     $columna=$_POST['columna'];
     for($i=1;$i<=$fila;$i++){
@@ -202,23 +202,15 @@ if(isset($_POST['Altaestante']) && !empty($_POST['Altaestante'])){
     }
     header("location:productos.php?categoria=$categoria&pagina=1");
 }
-
-    //$id=$_POST['i'];
-    //$eliminar=$_POST['eliminarProducto'];
-    //$categoria=$_POST['categoria'];
-    /*$estado=mysqli_query($conexion,"SELECT idEstado FROM estados WHERE descripcion='Inactivo'");
-    while($r=mysqli_fetch_array($estado)){$idEstado=$r['idEstado'];}
-    $actualizar=mysqli_query($conexion,"UPDATE productos SET idEstado=$idEstado WHERE idProducto=$idProducto");*/
-    //echo '<div class="msjB">hola</div>';
-if(isset($_POST['eliminarProducto']) && !empty($_POST['eliminarProducto'])){ 
+if(isset($_POST['id']) && !empty($_POST['id'])){ 
+    require("conexion.php");
     $idproducto=$_POST['id'];
-
-
- $estado=mysqli_query($conexion,"SELECT idEstado FROM estados WHERE descripcion='Inactivo'");
+    $categoria=$_POST['categ'];
+    $pagina=$_POST['pag'];
+    $estado=mysqli_query($conexion,"SELECT idEstado FROM estados WHERE descripcion='Inactivo'");
     while($r=mysqli_fetch_array($estado)){$idEstado=$r['idEstado'];}
-    $actualizar=mysqli_query($conexion,"UPDATE productos SET idEstado=$idEstado WHERE idProducto=$idProducto");
-  
- mysqli_query($conexion,$actualizar);
+    $actualizar=mysqli_query($conexion,"UPDATE productos SET idEstado=$idEstado WHERE idProducto=$idproducto");
     
-    }
+    echo "<script>window.location.href ='productos.php?categoria=$categoria&pagina=$pagina';</script>";
+}
 ?>
