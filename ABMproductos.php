@@ -202,7 +202,7 @@ if(isset($_POST['Altaestante']) && !empty($_POST['Altaestante'])){
     }
     header("location:productos.php?categoria=$categoria&pagina=1");
 }
-if(isset($_POST['id']) && !empty($_POST['id'])){ 
+if(isset($_POST['delete']) && !empty($_POST['delete'])){ 
     require("conexion.php");
     $idproducto=$_POST['id'];
     $categoria=$_POST['categ'];

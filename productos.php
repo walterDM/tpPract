@@ -153,6 +153,7 @@ $paginas = ceil($paginas);
                   ?>
                   <input type="text" name="pag" id="pag" value="<?php echo $_GET['pagina'];?>" hidden>
                   <input type="text" name="categ" id="categ" value="<?php echo $categoria;?>" hidden>
+                  <input type="text" name="eliminarProducto" id="eliminarProducto" value="eliminarProducto" hidden>
                   <a style="text-decoration:underline;cursor:pointer; float: left;margin-right:5px;border-radius:30px;margin-top: 2%" class="btn btn-light card-text" href="#" onclick="eliminarDato(<?php echo $r['idProducto']?>,<?php echo $_GET['pagina']?>)"><i class="fas fa-trash-alt"></i></a>
                   <div id="result"></div>
                   <?php break;
