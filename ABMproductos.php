@@ -184,7 +184,7 @@ if(isset($_POST['Modificar']) && !empty($_POST['Modificar'])){
      $actualizartp="UPDATE productostpmarcas SET idTpMarca=$idTpMarca where idProducto=$id";
      $enviartpm=mysqli_query($conexion,$actualizartp);
      //header("location:productos.php?categoria=$descripcion&pagina=1");
-     echo "<script>alert($nombreImg);</script>";
+     echo "<script>alert('datos modificados con exito');</script>";
 
  }
 }

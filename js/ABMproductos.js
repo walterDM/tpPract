@@ -46,7 +46,6 @@ function eliminarDato(idProducto,pagina){
     var eliminar = confirm('De verdad desea eliminar este dato?');
     var categoria=document.getElementById('categ').value;
     var eliminarProducto=document.getElementById('eliminarProducto').value;
-    alert(eliminarProducto);
     if ( eliminar ) {
           
           $.ajax({
