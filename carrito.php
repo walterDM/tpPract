@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Carrito de compras</title>
+    <title>Carrito de compra</title>
 
   </head>
   <body>
