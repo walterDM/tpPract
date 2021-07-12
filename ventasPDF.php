@@ -20,50 +20,46 @@ if (isset($_POST['exportPDF'])&& isset($_POST['fDesde'])) {
 	
 	if ((empty($_POST['fDesde']) && empty($_POST['fHasta'])) ) {	
 		
-		$queryFechatp="SELECT DISTINCT f.idFacturaVenta as nFact, f.totalApagar as total, f.fechaPedido as fp, p.nombre,p.apellido from facturas as f JOIN personas as p on p.idPersona=f.idPersona";
+		$queryFechatp="SELECT DISTINCT f.idFacturaVenta as nFact, f.totalApagar as total, f.fechaPedido as fp, p.nombre,p.apellido from facturas as f 
+			JOIN personas as p on p.idPersona = f.idPersona";
 	}
 	if (!isset($_POST['fHasta']) && !empty($_POST['fDesde'])){
 		
 		$fd = date("Y-m-d", strtotime($_POST['fDesde']));
 		$fh= date("Y-m-d");
-		$queryFechatp="SELECT DISTINCT f.idFacturaVenta as nFact, f.totalApagar as total, f.fechaPedido as fp, p.nombre,p.apellido 
+		$queryFechatp="SELECT DISTINCT f.idFacturaVenta as nFact, f.totalApagar as total, f.fechaPedido as fp, p.nombre, p.apellido 
 		from facturas as f 
-		JOIN personas as p on p.idPersona=f.idPersona
+		JOIN personas as p on p.idPersona = f.idPersona
 		WHERE f.fechaPedido BETWEEN '$fd' AND '$fh'";
 
 	}
-	elseif (isset($_POST['fDesde']) && isset($_POST['fHasta'])&&(!empty($_POST['fDesde']) && !empty($_POST['fHasta']))){
+	elseif (isset($_POST['fDesde']) && isset($_POST['fHasta'])&&(!empty($_POST['fDesde']) 
+		&& !empty($_POST['fHasta']))){
 		
 		$fd = date("Y-m-d", strtotime($_POST['fDesde']));
 		$fh = date("Y-m-d", strtotime($_POST['fHasta']));
 		$queryFechatp="SELECT DISTINCT f.idFacturaVenta as nFact, f.totalApagar as total, f.fechaPedido as fp, p.nombre,p.apellido 
-		from facturas as f 
-		JOIN personas as p on p.idPersona=f.idPersona
-		WHERE f.fechaPedido BETWEEN '$fd' AND '$fh'";
-
+			from facturas as f 
+			JOIN personas as p on p.idPersona = f.idPersona
+			WHERE f.fechaPedido BETWEEN '$fd' AND '$fh'";
 	}
 	echo $queryFechatp;
 	$rsFechaTp=mysqli_query($conexion,$queryFechatp);
 
-
-
-
 	$idPersona=$_SESSION['login'];
-
-
-	$queryEmpleado="SELECT LegajoEmpleado as legajo FROM empleados where idPersona=$idPersona";
+	$queryEmpleado="SELECT LegajoEmpleado as legajo FROM empleados 
+	where idPersona=$idPersona";
 	$resultEMP=mysqli_query($conexion,$queryEmpleado);
 	while ($r=mysqli_fetch_array($resultEMP)) {
 		$legajoEmp=$r['legajo'];
 	}
+	
 	$fechaBase=date('Y-m-d');
-
 	$fechaActual = date('d-m-Y');
 	$filename="reporteVenta__".$fechaActual;//id Factura
 	
 
 	$pdf= new PDF();
-	
 	$pdf->AddPage();
 	$pdf->AliasNbPages();
 
@@ -140,7 +136,7 @@ if (isset($_POST['exportPDF'])&& isset($_POST['fDesde'])) {
 	$pdf->SetX(30);
 	$pdf->Cell(150,6,"TOTAL VENDIDO PERIODO = ".$totalV,0,0,'C',1);
 	
-	$pdf->Output('I',$filename.'.pdf');
+	$pdf->Output('F',$filename.'.pdf');
 	header("location:index.php?Reporte=1");
 }
 ?>
