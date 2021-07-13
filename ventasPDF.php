@@ -136,7 +136,7 @@ if (isset($_POST['exportPDF'])&& isset($_POST['fDesde'])) {
 	$pdf->SetX(30);
 	$pdf->Cell(150,6,"TOTAL VENDIDO PERIODO = ".$totalV,0,0,'C',1);
 	
-	$pdf->Output('F',$filename.'.pdf');
+	$pdf->Output('F',"reportesCreados/ReportesVentas/".$filename.'.pdf');
 	header("location:index.php?Reporte=1");
 }
 ?>

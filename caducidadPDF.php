@@ -130,7 +130,7 @@ if ($_POST['exportPDF']) {
 
 	}
 	
-	$pdf->Output('I',$filename.'.pdf');
+	$pdf->Output('F',"reportesCreados/ReportesCaducidad/".$filename.'.pdf');
 	header("location:index.php?Reporte=1");
 }
 ?>

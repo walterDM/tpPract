@@ -103,7 +103,7 @@ $fechaActual = date('d-m-Y');
 
 	}
 	
-	$pdf->Output('F',"reportesCreados/".$filename.'.pdf');
+	$pdf->Output('F',"reportesCreados/ReportesStock/".$filename.'.pdf');
 	header("location:index.php?Reporte=1");
 
 	?>
