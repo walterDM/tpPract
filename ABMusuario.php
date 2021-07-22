@@ -119,7 +119,7 @@ if (isset($_POST['modificarUsuario'] )&& !empty($_POST['modificarUsuario'])) {
     $actualizar="UPDATE personas SET numDocumento=$num,idTipoDocumento=$idTipoDocumento,nombre='$nombre',apellido='$apellido',fechaNac='$fecha' WHERE idPersona=$idPersona";
     $result=mysqli_query($db,$actualizar);
     $insertar5=mysqli_query($db,"INSERT INTO empleados VALUES($legajo,$idPersona)");
-    header("location:buscarUsuarios.php?actualizado=1");
+    header("location:buscarUsuarios.php?Actualizado=1");
     
 }
 if(isset($_POST['eliminarUsuario']) && !empty($_POST['eliminarUsuario'])){

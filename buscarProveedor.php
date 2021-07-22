@@ -44,6 +44,9 @@ $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso FROM permisos AS p, grupos
 if (isset($_GET['mod']) && $_GET['mod']=1) {
  echo "<script type='text/javascript'>alert('fue modificado con exito');</script>";
 }
+if (isset($_GET['eliminar']) && $_GET['eliminar']=1) {
+  echo "<script type='text/javascript'>alert('fue eliminado con exito');</script>";
+ }
 if (isset($_GET['error']) && $_GET['error']=2) {
  echo "<script type='text/javascript'>alert('no fue modificado');</script>";
 }

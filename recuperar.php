@@ -72,7 +72,13 @@ if(isset($_GET['idPersona']) && isset($_GET['cambiar'])){
   $id=$_GET['idPersona'];
   $password=sha1($_POST['contr']);
   $actualizar=mysqli_query($conexion,"UPDATE personas SET contrasenia='$password' WHERE idPersona='$id'"); 
-  header("location:index.php?cambiar=1");
+  echo 
+  '<div class="col-md-12" style="padding-top:10px">
+     <div class="alert alert-warning" role="alert">
+       <h2 align="center">se cambio su contraseña</h2>
+       <a href="index.php">ir al inicio de session</a>
+     </div>
+  </div>';
 }?>
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>

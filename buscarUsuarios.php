@@ -41,4 +41,12 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/2be8605e79.js"></script>
 
-<?php require 'footer.php'; ?>
+<?php require 'footer.php'; 
+ 
+      if (isset($_GET['Actualizado'])&& $_GET['Actualizado']==1) {
+           echo "<script type='text/javascript'>alert('fue modificado con exito');</script>";
+      }
+      if (isset($_GET['eliminado'])&& $_GET['eliminado']==1) {
+        echo "<script type='text/javascript'>alert('fue eliminado con exito');</script>";
+   }
+?>

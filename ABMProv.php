@@ -112,6 +112,6 @@ if (isset($_POST['eliminarUsuario']) && !empty($_POST['eliminarUsuario'])) {
     $query=mysqli_query($db,"UPDATE proveedores SET 
                             idEstado=$idEstado
                             WHERE idProveedor=$idProv");
-    header("location:buscarProveedor.php?pagina=1&mod=1");
+    header("location:buscarProveedor.php?pagina=1&eliminar=1");
 }
                         ?>
