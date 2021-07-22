@@ -173,7 +173,7 @@ $rsTp2=mysqli_query($conexion,$queryTp2);
 	    $total_productos = mysqli_num_rows($resultadoM);
 	    $paginas = $total_productos / $productos_x_pag;
 	    $paginas = ceil($paginas);
-		if (isset($_GET['pagina'])) {s
+		if (isset($_GET['pagina'])) {
 			$iniciar = ($_GET['pagina'] - 1) * $productos_x_pag;
 			$consulta1=mysqli_query($conexion,"SELECT p.descripcion as prod, p.cantidadProd as cant, p.lote, pf.estante, 
 			pf.fila, pf.columna, tp.descripcion as tprod, m.nombreMarca as marca
