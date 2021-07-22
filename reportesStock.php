@@ -1,53 +1,57 @@
-<?php require 'header.php';
+<?php 
+
+
+
+require 'header.php';
 $tipo=0;
 ////////////Variable del combo/////////////
 
-if (isset($_GET['tProducto'])) {
-	$tipo=$_GET['tProducto'];
-	
-}
 
-
-	
-
-//////trae los productos sin filtro///////
-if (!isset($_GET['tProducto'])||(isset($_GET['tProducto'])&&$_GET['tProducto']==0)) {
-$queryStocktp="SELECT p.descripcion as prod, p.cantidadProd as cant, p.lote, pf.estante, 
-	pf.fila, pf.columna, tp.descripcion as tprod, m.nombreMarca as marca
-from productos as p
-JOIN puestofisico as pf on p.idPuestoFisico=pf.idPuestoFisico
-JOIN productostpmarcas as pm on pm.idProducto=p.idProducto
-JOIN tiposproductos_marcas as tpm on pm.idTpMarca=tpm.idTpMarca
-JOIN tiposproductos as tp on tpm.idTipoProducto=tp.idTipoProducto
-JOIN marcas as m on tpm.idMarca=m.idMarca";
-
-}
-//////trae los productos filtrados//////
-if (isset($_GET['tProducto']) && $_GET['tProducto']!=0) {
-	$queryStocktp="SELECT p.descripcion as prod, p.cantidadProd as cant, p.lote, pf.estante, 
-	pf.fila, pf.columna, tp.descripcion as tprod, m.nombreMarca as marca
-	from productos as p
-	JOIN puestofisico as pf on p.idPuestoFisico=pf.idPuestoFisico
-	JOIN productostpmarcas as pm on pm.idProducto=p.idProducto
-	JOIN tiposproductos_marcas as tpm on pm.idTpMarca=tpm.idTpMarca
-	JOIN tiposproductos as tp on tpm.idTipoProducto=tp.idTipoProducto
-	JOIN marcas as m on tpm.idMarca=m.idMarca
-	WHERE tpm.idTipoProducto=$tipo";
-	
-}
 
 $queryTp="SELECT tp.descripcion, tp.idTipoProducto from tiposproductos as tp";
+$queryTp2="SELECT tm.nombreMarca, tm.idMarca from marcas as tm";
 $rsTp=mysqli_query($conexion,$queryTp);
+$rsTp2=mysqli_query($conexion,$queryTp2);
 
 ?>
-<br>
+
+<script language="javascript">
+ 	$(document).ready(function(){
+ 		$("#tProducto").change(function () {	
+ 			$("#tProducto option:selected").each(function () {
+ 				id_estado = $(this).val();
+ 				$.post("includes/getTablaStock.php", { id_estado: id_estado }, function(data){
+ 					$("#datostabla").html(data);
+ 				});            
+ 			});
+ 		});
+		 $("#tProducto").change(function () {	
+ 			$("#tProducto option:selected").each(function () {
+ 				id_estado = $(this).val();
+ 				$.post("includes/getMarcar.php", { id_estado: id_estado }, function(data){
+ 					$("#tMarca").html(data);
+ 				});            
+ 			});
+ 		});
+
+		 $("#tMarca").change(function () {	
+ 			$("#tMarca option:selected").each(function () {
+ 				id_estado = $(this).val();
+ 				$.post("includes/getMarcasTabla.php", { id_estado: id_estado }, function(data){
+ 					$("#datostabla").html(data);
+ 				});            
+ 			});
+ 		});
+		
+ 	});
+ </script>
 <div class="row">
 		<div class="col-md-12">
 			<h2>Reporte de Stock</h2>
 		</div>
 	</div>
 <br>
-<form action="stockPDF.php" method="GET">
+<form action="stockPDF.php" method="POST">
 	<div class="row justify-content-center">
 		
 		<div class="col-md-3">
@@ -59,74 +63,27 @@ $rsTp=mysqli_query($conexion,$queryTp);
 				<?php }; ?>
 
 			</select>
-			<button name="buscar" value="0" style="border-color:#e0e0e0;background:white" class="btn btn-outline-warning" id="button-addon2"><i class="fas fa-search"></i></button>
+			<label for="tMarca">Marca</label>
+			<select name="tMarca" id="tMarca">
+			     <option>seleccione Marca</option>
+				 <?php while($rs=mysqli_fetch_array($rsTp2)){?>
+					<option value="<?php echo $rs['idMarca'] ?>" <?php if($tipo==$rs['idMarca']) echo 'Selected'?>><?php echo $rs['nombreMarca'];?></option>
+				 <?php }; ?>
+			</select>
+			
 			
 		</div>
 		<div class="col-md-6">
 		
 	</div>
-	
+	<div class="col-md-12" id="datostabla"></div>
 	</div>
-
-	
-
-<br>
-
-
-<div class="row justify-content-center">
-	<div class="col-md-12">
-		<div style="background: white">
-		<table class="table striped" style="background:#fafafa;">
-			<tr>
-				<th>Producto</th>		
-				<th>Tipo Producto</th>
-				<th>Marca</th>
-				<th>lote</th>
-				<th>Puesto</th>
-				<th>Cantidad</th>
-			</tr>
-			<?php 
-          			///////si se realizo algun filtro///////
-			//p.descripcion as prod, p.cantidadProd, p.lote, pf.estante, pf.fila, pf.columna, tp.descripcion as tprod
-			if(isset($_GET['tProducto'])):
-				$rsStockTp=mysqli_query($conexion,$queryStocktp);
-				while ($rs1=mysqli_fetch_array($rsStockTp)){?>
-					<tr>
-					<td><?php echo $rs1['prod']; ?></td>
-					<td><?php echo $rs1['tprod']; ?></td>
-					<td><?php echo $rs1['marca']; ?></td>
-					<td><?php echo $rs1['lote']; ?></td>
-					<td><?php echo $rs1['estante'].'-'.$rs1['fila'].'-'.$rs1['columna']; ?></td>
-					<td><?php echo $rs1['cant']; ?></td>
-					</tr>
-					
-				<?php };
-			endif ?>
-
-
-			<?php
-          			///////si no se utiliza algun filtro///////
-			if(!isset($_GET['tProducto'])|| $_GET['tProducto']==0):
-				$rsStockTp=mysqli_query($conexion,$queryStocktp);
-				while ($rs=mysqli_fetch_array($rsStockTp)):?>
-					<tr>
-					<td><?php echo $rs['prod']; ?></td>
-					<td><?php echo $rs['tprod']; ?></td>
-					<td><?php echo $rs['marca']; ?></td>
-					<td><?php echo $rs['lote']; ?></td>
-					<td><?php echo $rs['estante'].'-'.$rs['fila'].'-'.$rs['columna']; ?></td>
-					<td><?php echo $rs['cant']; ?></td>
-					</tr>
-				<?php endwhile;
-			endif ?>
-		</table>
-		</div>
-	</div>
-</div>
-
-<button name="exportPDF" value="export" style="border-color: #e0e0e0;background:white" class="btn btn-outline-warning" id="button-addon2">EXPORTAR PDF</button>
-
+	<button name="exportPDF" value="export" style="border-color: #e0e0e0;background:white" class="btn btn-outline-warning" id="button-addon2">EXPORTAR PDF</button>
 </form>
+
+	
+
+
 
 
 

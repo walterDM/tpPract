@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-11-2020 a las 04:45:50
--- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.4.9
+-- Tiempo de generación: 17-07-2021 a las 01:41:14
+-- Versión del servidor: 10.4.20-MariaDB
+-- Versión de PHP: 8.0.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -81,7 +81,13 @@ INSERT INTO `contactosproveedores` (`idContactoProveedor`, `idProveedor`, `idTip
 (18, 5, 1, 'consultaphpedi@gmail.com'),
 (19, 5, 2, '1123456579'),
 (40, 6, 1, 'empresa23@gmail.com'),
-(41, 6, 2, '43235466');
+(41, 6, 2, '43235466'),
+(46, 7, 1, 'consultaphpedi@gmail.com'),
+(47, 7, 2, '43869579'),
+(48, 8, 1, 'harry@gmail.com'),
+(49, 8, 2, '2'),
+(52, 9, 1, 'FFFA@GMAIL.COM'),
+(53, 9, 2, '123433632');
 
 -- --------------------------------------------------------
 
@@ -107,7 +113,11 @@ INSERT INTO `datosfacturas` (`idFactura`, `idTipoFactura`, `idTipoTransaccion`, 
 (11, 3, 1, 202),
 (12, 3, 1, 203),
 (13, 3, 1, 204),
-(14, 3, 1, 205);
+(14, 3, 1, 205),
+(15, 3, 1, 206),
+(16, 3, 1, 207),
+(17, 3, 1, 208),
+(18, 3, 1, 209);
 
 -- --------------------------------------------------------
 
@@ -127,7 +137,9 @@ CREATE TABLE `detallespedidos` (
 --
 
 INSERT INTO `detallespedidos` (`idPedidoProveedor`, `idProducto`, `cantidad`) VALUES
-(1, 36, 4);
+(1, 36, 4),
+(2, 19, 2),
+(2, 37, 3);
 
 -- --------------------------------------------------------
 
@@ -153,17 +165,20 @@ CREATE TABLE `direcciones` (
 
 INSERT INTO `direcciones` (`idDireccion`, `idCiudad`, `idPersona`, `idTipoDomicilio`, `calle`, `altura`, `dpto`, `piso`) VALUES
 (5, 9, 11, 2, 'gajdgaj', 34, 'e', '4'),
-(6, 9, 12, 1, 'sfsf', 242, 'h', '3'),
-(8, 9, 15, 2, 'belgrano', 1358, '', ''),
 (9, 9, 16, 1, 'belgrano', 1191, '', ''),
 (10, 9, 16, 1, 'asd', 124, '', ''),
 (11, 10, 17, 2, 'arai', 4321, '', ''),
 (12, 9, 18, 2, 'gorriti', 2365, '', ''),
-(14, 9, 19, 2, 'belgrano', 1154, '', ''),
 (16, 9, 10, 2, 'dgd', 343, 't', '3'),
 (17, 14, 14, 1, 'afaafa', 22, '2', '2'),
 (18, 9, 20, 1, 'belgrano', 1190, '', ''),
-(19, 9, 21, 2, 'belgrano', 1358, '', '');
+(19, 9, 21, 2, 'belgrano', 1358, '', ''),
+(23, 9, 12, 1, 'cazón', 242, 'h', '3'),
+(24, 9, 19, 2, 'belgrano', 1154, '', ''),
+(25, 9, 23, 2, 'estevez', 1000, '4', '2'),
+(27, 9, 24, 1, 'estevez', 1000, '2', '2'),
+(28, 15, 15, 2, 'belgrano', 1358, '', ''),
+(29, 9, 25, 2, 'estevez', 1000, '2', '2');
 
 -- --------------------------------------------------------
 
@@ -189,7 +204,9 @@ CREATE TABLE `direccionesprov` (
 
 INSERT INTO `direccionesprov` (`idDireccion`, `idCiudad`, `idProveedor`, `idTipoDomicilio`, `calle`, `altura`, `depto`, `piso`) VALUES
 (1, 9, 5, 2, 'alicia moreu de justo', 1860, '5', '2'),
-(12, 10, 6, 1, 'beron estrada', 324, '', '');
+(12, 10, 6, 1, 'beron estrada', 324, '', ''),
+(15, 9, 7, 1, 'la plata', 5964, '', ''),
+(17, 9, 9, 1, 'ESTEVEZ', 1000, '', '2');
 
 -- --------------------------------------------------------
 
@@ -210,11 +227,12 @@ CREATE TABLE `empleados` (
 INSERT INTO `empleados` (`LegajoEmpleado`, `idPersona`) VALUES
 ('252525', 10),
 ('242424', 11),
-('3476', 12),
+('34765', 12),
 ('2515165', 14),
 ('2342', 15),
-('423452', 19),
-('12384', 21);
+('423451', 19),
+('12384', 21),
+('42332', 24);
 
 -- --------------------------------------------------------
 
@@ -254,7 +272,8 @@ CREATE TABLE `estadospedidos` (
 --
 
 INSERT INTO `estadospedidos` (`idPedidoProveedor`, `idContactoProveedor`, `idEstado`) VALUES
-(1, 13, 2);
+(1, 13, 2),
+(2, 15, 2);
 
 -- --------------------------------------------------------
 
@@ -283,7 +302,12 @@ INSERT INTO `facturadetalles` (`idFactura`, `idProducto`, `cantidad`, `precioUni
 (12, 37, 2, 23),
 (13, 21, 2, 130),
 (14, 20, 3, 120),
-(14, 21, 2, 130);
+(14, 21, 2, 130),
+(15, 44, 2, 55),
+(16, 36, 2, 445),
+(17, 36, 1, 445),
+(18, 20, 3, 120),
+(18, 36, 25, 445);
 
 -- --------------------------------------------------------
 
@@ -310,7 +334,11 @@ INSERT INTO `facturas` (`idFacturaVenta`, `idPersona`, `totalApagar`, `fechaPedi
 (11, 11, 445, '2020-11-17'),
 (12, 11, 286, '2020-11-17'),
 (13, 20, 260, '2020-11-17'),
-(14, 20, 620, '2020-11-17');
+(14, 20, 620, '2020-11-17'),
+(15, 20, 110, '2020-11-18'),
+(16, 10, 11125, '2021-07-16'),
+(17, 23, 445, '2021-07-16'),
+(18, 25, 11485, '2021-07-16');
 
 -- --------------------------------------------------------
 
@@ -410,7 +438,11 @@ INSERT INTO `gruposusuarios` (`idPersona`, `idGrupo`) VALUES
 (18, 19),
 (19, 21),
 (20, 19),
-(21, 20);
+(21, 20),
+(22, 19),
+(23, 19),
+(24, 20),
+(25, 19);
 
 -- --------------------------------------------------------
 
@@ -432,7 +464,9 @@ INSERT INTO `marcas` (`idMarca`, `nombreMarca`) VALUES
 (3, 'ilolay'),
 (4, 'serenisima'),
 (5, 'cocacola'),
-(6, 'fanta');
+(6, 'fanta'),
+(7, 'Marolio'),
+(8, 'Favorita');
 
 -- --------------------------------------------------------
 
@@ -473,7 +507,8 @@ CREATE TABLE `pedidosproveedores` (
 --
 
 INSERT INTO `pedidosproveedores` (`idPedidoProveedor`, `idProveedor`, `LegajoEmpleado`, `FechaPedido`) VALUES
-(1, 1, '242424', '2020-11-17');
+(1, 1, '242424', '2020-11-17'),
+(2, 2, '242424', '2020-11-18');
 
 -- --------------------------------------------------------
 
@@ -540,17 +575,21 @@ CREATE TABLE `personas` (
 --
 
 INSERT INTO `personas` (`idPersona`, `numDocumento`, `idTipoDocumento`, `nombre`, `apellido`, `fechaNac`, `usuario`, `contrasenia`, `idEstado`) VALUES
-(10, 408474312, 1, 'Fabricio', 'Colavella', '1997-12-09', 'Fabricolavella', 'b279b7f4d0bc48a7660f007ae7983154b706ac57', 1),
-(11, 37200769, 1, 'walter', 'martinez', '1995-06-21', 'Waltermartinez', 'a213f9e4f1dbdba548d256335dc57bf65404210a', 1),
+(10, 408474312, 1, 'Fabricio', 'Colavella', '1997-12-09', 'Fabricolavella', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1),
+(11, 37200769, 1, 'walter', 'martinez', '1995-06-21', 'Waltermartinez', '6095f7790353eb1d6407d958bf97c18d6fd052d6', 1),
 (12, 95180213, 1, 'Esthefany', 'Graterox', '1997-08-20', 'Esthefanyg', '44f14b2ad2fa68bd07ccb6008d67ba4450b87ab3', 1),
 (14, 212621, 1, 'fabritzio', 'gaag', '2020-09-10', 'fabri3', 'b279b7f4d0bc48a7660f007ae7983154b706ac57', 1),
 (15, 23345443, 1, 'Oscar ', 'quintero', '2002-07-15', 'practica', '8cb2237d0679ca88db6464eac60da96345513964', 1),
-(16, 25669365, 1, 'pablo', 'Gonzalez', '1998-09-10', 'nombre', '7088f91898a8b3f32260d7c6ea3a04828bf53fb2', 1),
-(17, 23631935, 1, '', 'garcia', '2004-06-29', 'germang', 'e9a9eeb2e0e2d7a11629cbd38ebcb8db0ee52dec', 1),
+(16, 25669365, 1, 'pablo', 'Gonzalez', '1998-09-10', 'nombre', '7088f91898a8b3f32260d7c6ea3a04828bf53fb2', 2),
+(17, 23631935, 1, '', 'garcia', '2004-06-29', 'germang', 'e9a9eeb2e0e2d7a11629cbd38ebcb8db0ee52dec', 2),
 (18, 54321432, 1, 'gonzalo', 'Jara', '2002-11-05', 'jarag', 'c8a4c46985fc4832bce1d24a3f555ab6bd397323', 1),
 (19, 33800978, 1, 'carlos', 'Jara', '2001-11-08', 'cjara', 'c8a4c46985fc4832bce1d24a3f555ab6bd397323', 1),
 (20, 35966826, 1, 'juan', 'Perez', '2003-11-05', 'juanP', 'd96dbce9b3a3a2a2165a9bd59cdd59bc2078cf77', 1),
-(21, 23567899, 1, 'Miguel', 'Perez', '2003-02-11', 'miguelP', '1bc47f1f9397d59445930db7ac383b78ff70341d', 1);
+(21, 23567899, 1, 'Miguel', 'Perez', '2003-02-11', 'miguelP', '1bc47f1f9397d59445930db7ac383b78ff70341d', 1),
+(22, 12345679, 1, 'walter', 'martinez', '2021-06-28', 'wal23', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1),
+(23, 123456778, 1, 'chester', 'bennigton', '2021-06-29', 'chester24', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1),
+(24, 94282522, 1, 'fabrici', 'colavella', '2021-06-29', 'fabri25', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 2),
+(25, 1234604, 1, 'fabricio', 'colavella', '2021-07-14', 'fabri27', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1);
 
 -- --------------------------------------------------------
 
@@ -573,26 +612,34 @@ CREATE TABLE `personascontactos` (
 INSERT INTO `personascontactos` (`idPersonaContacto`, `idPersona`, `idTipoContacto`, `descripcion`) VALUES
 (7, 11, 1, 'consultaphpedi@gmail.com'),
 (8, 11, 2, '1145742345'),
-(35, 12, 1, 'consultaphpedi@gmail.com'),
-(36, 12, 2, '1146829453'),
-(37, 15, 1, 'consultaphpedi@gmail.com'),
-(38, 15, 2, '2223344'),
 (39, 16, 1, 'consultaphpedi@gmail.com'),
 (40, 16, 2, '47659585'),
 (41, 17, 1, 'consultaphpedi@gmail.com'),
 (42, 17, 2, '42366495'),
 (43, 18, 1, 'example@gmail.com'),
 (44, 18, 2, '1154769811'),
-(47, 19, 1, 'example1@gmail.com'),
-(48, 19, 2, '42369568'),
-(51, 10, 1, 'consultaphpedi@gmail.com'),
+(51, 10, 1, 'colavella22@gmail.com'),
 (52, 10, 2, '1140397424'),
 (53, 14, 1, 'consultaphpedi@gmail.com'),
 (54, 14, 2, '242155'),
 (55, 20, 1, 'unEjemplo@gmail.com'),
 (56, 20, 2, '1169256498'),
 (57, 21, 1, 'unEjemplo1@gmail.com'),
-(58, 21, 2, '1159987552');
+(58, 21, 2, '1159987552'),
+(65, 12, 1, 'consultaphpedi@gmail.com'),
+(66, 12, 2, '1146829453'),
+(67, 22, 1, 'wal23@gmail.com'),
+(68, 22, 2, '35353524'),
+(69, 19, 1, 'example1@gmail.com'),
+(70, 19, 2, '42369568'),
+(71, 23, 1, 'chester@gmail.com'),
+(72, 23, 2, '12345678'),
+(75, 24, 1, 'fabriskate@gmail.com'),
+(76, 24, 2, '463236362'),
+(77, 15, 1, 'consultaphpedi@gmail.com'),
+(78, 15, 2, '2223344'),
+(79, 25, 1, 'fabri27@gmail.com'),
+(80, 25, 2, '1234678');
 
 -- --------------------------------------------------------
 
@@ -618,16 +665,21 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`idProducto`, `descripcion`, `idPuestoFisico`, `imagen`, `Lote`, `fechaCaducidad`, `cantidadProd`, `precio`, `idEstado`) VALUES
-(19, 'leche entera', 21, 'leche1.jpg', 'l34526', '2020-08-30', 0, 78, 1),
+(19, 'leche enter', 21, 'leche1.jpg', 'l34526', '2020-08-30', 5, 78, 2),
 (20, 'coca 2 1/4', 6, 'coca 225.jpg', '5896352146', '2020-08-27', 3, 120, 1),
-(21, 'coca 3 litros', 13, 'coca 225.jpg', 'L95683252', '2020-08-27', 10, 130, 1),
-(34, 'fanta', 7, 'coca 225.jpg', 'wa221', '2020-08-21', 21, 22, 1),
-(35, 'leche Serenisima', 8, 'serenisima.jpg', 'asd', '2020-08-27', 0, 34, 1),
+(21, 'coca 3 litros', 13, 'coca3lts.jpg', 'L95683252', '2020-08-27', 10, 130, 1),
+(34, 'fanta', 7, 'fanta225.jpg', 'wa221', '2020-08-21', 21, 22, 1),
+(35, 'leche Serenisim', 8, 'serenisima.jpg', 'asd', '2020-08-27', 5, 34, 1),
 (36, 'chocolatada', 25, 'index.jpg', 'asd2134', '2020-08-27', 36, 445, 1),
 (37, 'asfpkn', 9, '', '1234', '2020-11-10', 31, 23, 2),
 (39, '34312', 11, 'fanta225.jpg', '123', '2020-11-12', 32, 43, 1),
 (42, 'afsdf', 15, '', '1234', '2020-11-13', 12, 32, 2),
-(43, 'produto 001', 16, 'coca 225.jpg', '2452', '2021-11-11', 23, 113, 1);
+(43, 'produto 001', 16, 'coca 225.jpg', '2452', '2021-11-11', 23, 113, 2),
+(44, 'Marolio spaghetti', 14, 'marolio1.jpg', '956321', '2022-01-18', 20, 55, 1),
+(45, 'Mostachol 500gr', 10, 'marolio2jpg.jpg', '526398', '2021-08-18', 32, 45, 1),
+(46, 'mostachol 500gr', 12, 'favorita1.jpg', '452169', '2021-09-18', 25, 65, 1),
+(47, 'srhshs', 22, 'fidio.jpg', 'dgsg', '2021-07-07', 2, 2, 2),
+(48, 'lech', 19, 'ilolayl.jpeg', 'a100', '2021-07-29', 2, 100, 2);
 
 -- --------------------------------------------------------
 
@@ -656,7 +708,12 @@ INSERT INTO `productostpmarcas` (`idProducto`, `idProveedor`, `idTpMarca`, `prec
 (36, 1, 1, 25),
 (37, 2, 3, 23),
 (42, 2, 3, 32),
-(43, 6, 3, 113);
+(43, 6, 3, 113),
+(44, 1, 5, 55),
+(45, 2, 5, 45),
+(46, 4, 6, 65),
+(47, 3, 3, 2),
+(48, 3, 1, 89);
 
 -- --------------------------------------------------------
 
@@ -704,7 +761,10 @@ INSERT INTO `proveedores` (`idProveedor`, `empresa`, `cuit`, `descripcion`, `idE
 (3, 'jink', '473214', 'wrwrwr', 1),
 (4, 'camp', '4141414', 'afafaf', 1),
 (5, 'prueba ', '30678657379', 'Golosinas', 1),
-(6, 'graxas', '38756899863', 'bebidas, lacteos, fideos,asd', 2);
+(6, 'graxas', '38756899863', 'bebidas, lacteos, fideos,asd', 2),
+(7, 'un ejemplo', '23355869577', 'fideos', 2),
+(8, 'harry', '2252525253', 'wgwgwgwg', 2),
+(9, 'FFFe', '123456789', 'HOLA', 2);
 
 -- --------------------------------------------------------
 
@@ -813,7 +873,10 @@ INSERT INTO `tarjetascliente` (`idTarjetaCliente`, `numTarjeta`, `idTipoTarjeta`
 (2, '2147483647', 1, '2020-10-29', 16, ''),
 (3, '2147483647', 1, '2022-10-18', 17, '259'),
 (4, '2147483647', 1, '2021-11-03', 18, '231'),
-(5, '2568956324127858', 1, '2021-01-16', 20, '263');
+(5, '2568956324127858', 1, '2021-01-16', 20, '263'),
+(6, '6433346', 0, '2021-07-16', 10, '123'),
+(7, '212334532', 0, '2021-07-09', 23, '1234'),
+(8, '12344534', 0, '2021-07-22', 25, '1871');
 
 -- --------------------------------------------------------
 
@@ -946,7 +1009,8 @@ CREATE TABLE `tiposproductos` (
 
 INSERT INTO `tiposproductos` (`idTipoProducto`, `descripcion`) VALUES
 (5, 'lacteos'),
-(6, 'bebidas');
+(6, 'bebidas'),
+(7, 'Fideos');
 
 -- --------------------------------------------------------
 
@@ -969,7 +1033,9 @@ INSERT INTO `tiposproductos_marcas` (`idTpMarca`, `idMarca`, `idTipoProducto`) V
 (1, 3, 5),
 (2, 4, 5),
 (3, 5, 6),
-(4, 6, 6);
+(4, 6, 6),
+(5, 7, 7),
+(6, 8, 7);
 
 -- --------------------------------------------------------
 
@@ -1025,6 +1091,21 @@ CREATE TABLE `tokens` (
   `fecha_finalizacion` datetime DEFAULT NULL,
   `idPersona` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tokens`
+--
+
+INSERT INTO `tokens` (`idToken`, `token`, `fecha_inicio`, `fecha_finalizacion`, `idPersona`) VALUES
+(2, '5fb572ac11735', '2020-11-18 16:14:52', '2020-11-18 16:16:52', 11),
+(3, '60f0c5f39bed7', '2021-07-15 20:34:11', '2021-07-15 20:36:11', 10),
+(4, '60f1dcedebf0b', '2021-07-16 16:24:29', '2021-07-16 16:26:29', 10),
+(5, '60f1dd6c3131a', '2021-07-16 16:26:36', '2021-07-16 16:28:36', 10),
+(6, '60f1dd9e049a6', '2021-07-16 16:27:26', '2021-07-16 16:29:26', 10),
+(7, '60f1ddcb6622c', '2021-07-16 16:28:11', '2021-07-16 16:30:11', 10),
+(9, '60f1ea7b34aea', '2021-07-16 17:22:19', '2021-07-16 17:24:19', 10),
+(10, '60f1eb0fda38a', '2021-07-16 17:24:47', '2021-07-16 17:26:47', 10),
+(11, '60f1ebb6e5c56', '2021-07-16 17:27:34', '2021-07-16 17:29:34', 10);
 
 --
 -- Índices para tablas volcadas
@@ -1324,19 +1405,19 @@ ALTER TABLE `ciudades`
 -- AUTO_INCREMENT de la tabla `contactosproveedores`
 --
 ALTER TABLE `contactosproveedores`
-  MODIFY `idContactoProveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `idContactoProveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT de la tabla `direcciones`
 --
 ALTER TABLE `direcciones`
-  MODIFY `idDireccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `idDireccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT de la tabla `direccionesprov`
 --
 ALTER TABLE `direccionesprov`
-  MODIFY `idDireccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `idDireccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `estados`
@@ -1348,7 +1429,7 @@ ALTER TABLE `estados`
 -- AUTO_INCREMENT de la tabla `facturas`
 --
 ALTER TABLE `facturas`
-  MODIFY `idFacturaVenta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `idFacturaVenta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `grupos`
@@ -1360,7 +1441,7 @@ ALTER TABLE `grupos`
 -- AUTO_INCREMENT de la tabla `marcas`
 --
 ALTER TABLE `marcas`
-  MODIFY `idMarca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idMarca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `paises`
@@ -1372,7 +1453,7 @@ ALTER TABLE `paises`
 -- AUTO_INCREMENT de la tabla `pedidosproveedores`
 --
 ALTER TABLE `pedidosproveedores`
-  MODIFY `idPedidoProveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idPedidoProveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `permisos`
@@ -1384,25 +1465,25 @@ ALTER TABLE `permisos`
 -- AUTO_INCREMENT de la tabla `personas`
 --
 ALTER TABLE `personas`
-  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `personascontactos`
 --
 ALTER TABLE `personascontactos`
-  MODIFY `idPersonaContacto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `idPersonaContacto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `idProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `idProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedores`
 --
 ALTER TABLE `proveedores`
-  MODIFY `idProveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idProveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `provincias`
@@ -1426,7 +1507,7 @@ ALTER TABLE `stock`
 -- AUTO_INCREMENT de la tabla `tarjetascliente`
 --
 ALTER TABLE `tarjetascliente`
-  MODIFY `idTarjetaCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idTarjetaCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `tipoestados`
@@ -1462,13 +1543,13 @@ ALTER TABLE `tiposmovientos`
 -- AUTO_INCREMENT de la tabla `tiposproductos`
 --
 ALTER TABLE `tiposproductos`
-  MODIFY `idTipoProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idTipoProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `tiposproductos_marcas`
 --
 ALTER TABLE `tiposproductos_marcas`
-  MODIFY `idTpMarca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idTpMarca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `tipostransacciones`
@@ -1480,7 +1561,7 @@ ALTER TABLE `tipostransacciones`
 -- AUTO_INCREMENT de la tabla `tokens`
 --
 ALTER TABLE `tokens`
-  MODIFY `idToken` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idToken` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Restricciones para tablas volcadas

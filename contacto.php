@@ -56,10 +56,10 @@ require("header.php");
  </div> 
  <?php 
  if (isset($_GET['enviar'])&& $_GET['enviar']==1) {
-  echo "<script type='text/javascript'>alert('fue enviado');</script>";
+  echo "<script type='text/javascript'>alert('el fue enviADO exitosamente');</script>";
 }
 if (isset($_GET['error'])&& $_GET['error']==1) {
-  echo "<script type='text/javascript'>alert('no enviado');</script>";
+  echo "<script type='text/javascript'>alert('hubo problemas con el envio');</script>";
 }
 
 

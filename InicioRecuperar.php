@@ -13,7 +13,7 @@ $user=$_POST['usuario'];
 $mensaje="recupere su clave";
 
 if (isset($_POST['send'])&& !empty($_POST['send'])) {
-	$consulta=mysqli_query($conexion,"SELECT idPersona FROM personascontactos WHERE descripcion='$user'");
+	$consulta=mysqli_query($conexion,"SELECT idPersona,descripcion FROM personascontactos WHERE descripcion='$user'");
 	if($r=mysqli_fetch_array($consulta)){
 		$idPersona=$r['idPersona'];
 		date_default_timezone_set('America/Argentina/Buenos_Aires');
@@ -30,8 +30,8 @@ if (isset($_POST['send'])&& !empty($_POST['send'])) {
 		    $mail->isSMTP();                                            // Send using SMTP
 		    $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
 		    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-		    $mail->Username   = 'tuspelisfc@gmail.com';                     // SMTP username
-			$mail->Password   = 'Pelisfc_1997';                             // SMTP password
+		    $mail->Username   = 'Gestistock21@gmail.com';                     // SMTP username
+			$mail->Password   = 'GestiStock_2021';                             // SMTP password
 			$mail->SMTPOptions = array(
 				'ssl' => array(
 					'verify_peer' => false,
@@ -43,7 +43,7 @@ if (isset($_POST['send'])&& !empty($_POST['send'])) {
 		    $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
 		    //Recipients
-		    $mail->setFrom('tuspelisfc@gmail.com', 'noReply');
+		    $mail->setFrom('Gestistock21@gmail.com', 'noReply');
 		    $mail->addAddress($user);     // Add a recipient
 		    //$mail->addAddress('ellen@example.com');               // Name is optional
 		    
@@ -61,8 +61,8 @@ if (isset($_POST['send'])&& !empty($_POST['send'])) {
 		    <meta charset='utf-8'>
 		    </head>
 		    <body> 
-		    <h1 align='center'>GestiStock</h1>
-		    <div style='background:black;color:white;padding:20px'><h2>Solicitud de restablecimiento de contraseña</h2></div>
+		    <h1 style='background:#ffe0b2;color:white;' align='center'>GestiStock</h1>
+		    <div style='padding:20px'><h2>Solicitud de restablecimiento de contraseña</h2></div>
 		    <p>Alguien ha solicitado una nueva contraseña para la siguiente cuenta en GestiStock</p>
 		    <p>usuario: {$r['descripcion']}</p>
 		    <p>tiempo limite de reestablecimiento hasta: {$tiempo_limite}</p>
