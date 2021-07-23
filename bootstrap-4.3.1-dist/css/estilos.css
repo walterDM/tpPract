@@ -80,6 +80,18 @@ body{
     background:#ff9100;
     color:white;
 }
+.pagination li a{
+  background:white;
+  color:#ff9100;
+}
+.pagination li a:hover{
+  background:#ffa726;
+  color:white;
+}
+.pagination .active a{
+  background:#ff9100;
+  color:white;
+}
 th{
   font-size:15px;
   background:#ffb74d;

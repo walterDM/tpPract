@@ -106,7 +106,7 @@ while ($r=mysqli_fetch_array($select)) {
                </li>
                <li class="nav-item">
                  <a class="btn btn-light user" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                   <i class="fas fa-user-alt"></i>
+                   <i class="fas fa-user-alt"></i><?php echo "           ".$nombre_usuario;?>
                  </a>
                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <!-- <form action="miperfil.php" method="POST">
