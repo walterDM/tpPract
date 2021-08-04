@@ -111,6 +111,7 @@ require 'phpExcel.php';
 			$alterEP="UPDATE `estadospedidos` SET `idEstado`=2 WHERE idPedidoProveedor=$idPedido";
 			$queryAEP=mysqli_query($conexion,$alterEP);
 			borrarArchivo($idPedido);
+			header("location:realizarPedido.php?pedido=1");
 			
 		}
 

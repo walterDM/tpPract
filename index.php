@@ -10,40 +10,58 @@ if (isset($_SESSION['login']) && !empty($_SESSION['login'])) {
   $idgrupo=$_SESSION['grupo'];
 }
 ?>
-<br>
-<div class="container carousel">
- 
-  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-    <ol class="carousel-indicators">
-      <?php for($i=0;$i<$total_productos;$i++){ $active="active";?>
-      <li data-target="#carouselExampleIndicators" data-slide-to="<?php echo $i;?>" class="<? echo $active;?>"></li>
-      <?php
-      $active="";
-    }
-    ?>
-  </ol>
-  <div class="carousel-inner">
-    <?php $active="active";
-    while ($r=mysqli_fetch_array($consulta)) {
-      ?>
-      <div align="center" class="carousel-item <?php echo $active;?>">
-        <img src="imagenes/<?php echo $r['imagen'];?>" style="width:50%;height:400px">
-      </div>
-      <?php 
-      $active="";
-    }
-    ?>
-    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-      <span style="color:black" class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
-</div>
-</div>
+<div class="container-fluid" style="padding-top:20px">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="imagenes/banner.jpg" class="d-block w-100" alt="bootstrap" 
+                                width="220px">
+                            </div>
+                            
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+
+           <div class="col-md-12" style="padding-top:20px">
+                <h2 align="center">Destacados del mes</h2>
+                <?php $consulta1=mysqli_query($conexion,"SELECT idTipoProducto FROM tiposproductos");
+    while($r=mysqli_fetch_array($consulta1)){$idTipoProducto=$r['idTipoProducto'];}
+    $mesActual = date('Y-m-d');
+    $mesAnterior=date('Y-m-d',strtotime('-1 month', strtotime($mesActual)));
+  
+    $consulta3 = mysqli_query($conexion, "SELECT DISTINCT p.idProducto,p.descripcion,p.imagen,p.precio,p.cantidadProd,p.Lote,p.fechaCaducidad FROM facturas AS f
+                                          JOIN facturadetalles AS fd ON fd.idFactura=f.idFacturaVenta
+                                          JOIN productos AS p ON p.idProducto=fd.idProducto WHERE f.fechaPedido BETWEEN '$mesAnterior' AND '$mesActual'");?>
+      <div class="row">
+       <?php while ($r = mysqli_fetch_array($consulta3)) { ?>
+        <div align="center" class="col-md-3" style="padding:1%;">
+          <div class="card" style="width: 12.5rem;background:#ffb74d;color:white">
+            <img src="imagenes/<?php echo $r['imagen']; ?>" class="card-img-top" width="620px" height="250px">
+            <div class="card-body" style="height:90px">
+              <p align="center" class="card-text"><?php echo $r['descripcion']."<br>$".$r['precio']; ?></p>
+            </div>
+           
+            </div>
+            </div>
+  <?php } 
+
+?>
+
+           </div>
+        </div>
 
 
 <?php

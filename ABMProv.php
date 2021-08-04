@@ -19,7 +19,7 @@ if (isset($_POST['guardarProveedor'] )&& !empty($_POST['guardarProveedor'])) {
     $idCiudad=$_POST['cbxciudad'];
     $calle=$_POST['calle'];
     $altura=$_POST['altura'];
-    $dpto=$_POST['dpto'];
+    $dpto=$_POST['depto'];
     $piso=$_POST['piso'];
     $idTipoDomicilio=$_POST['tipodomicilio'];
     $telefono=$_POST['telefono'];
@@ -69,7 +69,7 @@ if (isset($_POST['modificarProveedor'] )&& !empty($_POST['modificarProveedor']))
     $idCiudad=$_POST['cbxciudad'];
     $calle=$_POST['calle'];
     $altura=$_POST['altura'];
-    $dpto=$_POST['dpto'];
+    $dpto=$_POST['depto'];
     $piso=$_POST['piso'];
     $idTipoDomicilio=$_POST['tipodomicilio'];
     $telefono=$_POST['telefono'];

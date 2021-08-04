@@ -2,7 +2,7 @@
 require 'header.php';
 require 'conexion.php';
 $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso FROM permisos AS p, grupospermisos AS up WHERE (p.nombrePermiso='buscar proveedor' OR p.nombrePermiso='baja proveedor' OR p.nombrePermiso='modificar proveedor') AND p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'"); 
-$consultaProv="SELECT * from proveedores";
+$consultaProv="SELECT * from proveedores where idEstado=1 ORDER BY empresa ASC";
 $query=mysqli_query($conexion,$consultaProv);
 if (isset($_GET['cbxProv']) && !empty($_GET['cbxProv'])) {
 	$idProv=$_GET['cbxProv'];
@@ -13,7 +13,7 @@ if (isset($_GET['cbxProv']) && !empty($_GET['cbxProv'])) {
 	JOIN tiposproductos_marcas tpm on tpm.idTpMarca=tpp.idTpMarca
 	JOIN marcas m on m.idMarca= tpm.idMarca
 	JOIN tiposproductos tp on tp.idTipoProducto=tpm.idTipoProducto
-	WHERE pr.idProveedor=$idProv";
+	WHERE pr.idProveedor=$idProv ORDER BY p.descripcion ASC";
 	$resultBP=mysqli_query($conexion,$queryBP);
 	$totalProductos=mysqli_num_rows($resultBP);
 	$queryCT="SELECT idContactoProveedor, descripcion from contactosproveedores where idProveedor=$idProv and idTipoContacto=2";

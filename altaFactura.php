@@ -40,11 +40,11 @@ for ($i=0; $i<count($datos);$i++){
 	$rsProd= mysqli_query($conexion,$queryProd);
 	while ($rProd= mysqli_fetch_array($rsProd)) {
 		$cantN=$rProd['cant']-$cant;
-		$estado='Activo';
+		$estado=1;
 		if ($cantN==0) {
-			$estado='Agotado';	}
+			$estado=2;	}
 		}
-		$updateProd="UPDATE `productos` SET `cantidadProd`=$cantN,`estado`='$estado'
+		$updateProd="UPDATE `productos` SET `cantidadProd`=$cantN,`idEstado`=$estado
 		WHERE idProducto=$idProd";
 		$queryUpdate=mysqli_query($conexion, $updateProd);
 	}

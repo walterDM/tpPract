@@ -38,7 +38,7 @@ if(isset($_POST['buscar']) && !empty($_POST['buscar'])){
     $paginas = $total_usuarios / $usuarios_x_pag;
     $paginas = ceil($paginas);
     $iniciar = ($_GET['pagina'] - 1) * $usuarios_x_pag;
-    $select = mysqli_query($conexion, "SELECT p.nombre,p.apellido,p.fechaNac,p.usuario,p.contrasenia,p.numDocumento,p.idTipoDocumento,p.idPersona FROM personas AS p,gruposusuarios AS gp WHERE p.idPersona=gp.idPersona AND gp.idGrupo=$idGrupoCliente AND (p.usuario LIKE'$dato%') and p.idEstado=1 limit $iniciar,$usuarios_x_pag");
+    $select = mysqli_query($conexion, "SELECT p.nombre,p.apellido,p.fechaNac,p.usuario,p.contrasenia,p.numDocumento,p.idTipoDocumento,p.idPersona FROM personas AS p,gruposusuarios AS gp WHERE p.idPersona=gp.idPersona AND gp.idGrupo=$idGrupoCliente AND (p.usuario LIKE'$dato%') and p.idEstado=1 ORDER BY p.apellido ASC limit $iniciar,$usuarios_x_pag");
     ?>
     <div id="result" style="border: 1px solid white;overflow-y: scroll;background:#fafafa;padding-top:15px">
      <table class="table striped" style="background:#fafafa;height:300px">

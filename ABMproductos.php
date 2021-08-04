@@ -192,7 +192,7 @@ if(isset($_POST['Modificar']) && !empty($_POST['Modificar'])){
 if(isset($_POST['Altaestante']) && !empty($_POST['Altaestante'])){
     $conexion=conectar();
     $estante=$_POST['estante'];
-    $categoria=$_POST['categ'];
+    $categoria=$_POST['categoria'];
     $fila=$_POST['fila'];
     $columna=$_POST['columna'];
     for($i=1;$i<=$fila;$i++){

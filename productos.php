@@ -90,11 +90,13 @@ $paginas = ceil($paginas);
        <?php while ($r = mysqli_fetch_array($consulta3)) { ?>
         <div align="center" class="col-md-3" style="padding:1%;">
           <div class="card" style="width: 12.5rem;background:#ffb74d;color:white">
-            <img src="imagenes/<?php echo $r['imagen']; ?>" class="card-img-top">
+            <img src="imagenes/<?php echo $r['imagen']; ?>" class="card-img-top" width="620px">
             <div class="card-body" style="height:90px">
               <p align="center" class="card-text"><?php echo $r['descripcion']."<br>$".$r['precio']; ?></p>
             </div>
-             <a style="float: left;margin: 5px;border-radius:30px" class="btn btn-light" href="#" data-toggle="modal" data-target="#carrito<?php echo $r['idProducto']; ?>"><i class="fas fa-cart-plus"></i> Añadir a carrito</a>
+            <?php if (isset($_SESSION['login'])) {?>
+                    <a style="float: left;margin: 5px;border-radius:30px" class="btn btn-light" href="#" data-toggle="modal" data-target="#carrito<?php echo $r['idProducto']; ?>"><i class="fas fa-cart-plus"></i> Añadir a carrito</a>
+            <?php } ?>
              <div data-backdrop="static" class="modal" id="carrito<?php echo $r['idProducto']; ?>">
         <div class="modal-dialog">
           <div class="modal-content">

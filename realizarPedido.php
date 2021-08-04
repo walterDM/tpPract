@@ -2,7 +2,7 @@
 require 'header.php';
 require 'conexion.php';
 $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso FROM permisos AS p, grupospermisos AS up WHERE (p.nombrePermiso='buscar proveedor' OR p.nombrePermiso='baja proveedor' OR p.nombrePermiso='modificar proveedor') AND p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'"); 
-$consultaProv="SELECT * from proveedores";
+$consultaProv="SELECT * from proveedores where idEstado=1";
 $query=mysqli_query($conexion,$consultaProv);
 
 ?>

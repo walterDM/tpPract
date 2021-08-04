@@ -27,7 +27,7 @@ if (isset($_POST['seleccionado']) && !empty($_POST['seleccionado']) && isset($_P
     $insertEP="INSERT INTO `estadospedidos`(`idPedidoProveedor`, `idContactoProveedor`, `idEstado`) VALUES ($idPedido,$idContacto,1)";
     $queryEP=mysqli_query($conexion,$insertEP);
     if ($queryEP) {
-        header('location:http://localhost/tppract/realizarPedido.php?pedido=1');
+        header('location:http://localhost/tppract/envioAutomatico.php');
     }else{
         header('location:http://localhost/tppract/realizarPedido.php?pedido=0');
     }

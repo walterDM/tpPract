@@ -1,4 +1,8 @@
-   	<div class="row" align="center" style="padding-top:80px">
+   	   <?php 
+		  date_default_timezone_set('America/Argentina/Buenos_Aires');
+		  $fechaActual = date('Y');
+		?>
+	   <div class="row" align="center" style="padding-top:80px">
    		<div class="col-md-12">
    			<br>
    		</div>
@@ -22,7 +26,7 @@
    				<div class="col-md-4">
    					<footer>
    						<br>
-   						<p>2020 Práctica Profesional®</p>
+   						<p><?php echo $fechaActual." ";?>Práctica Profesional®</p>
    					</footer>
    				</div>
    			</div>

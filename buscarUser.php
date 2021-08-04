@@ -28,16 +28,18 @@ if(isset($_POST['buscar']) && !empty($_POST['buscar'])){
       }   
     $estado=mysqli_query($conexion,"SELECT idEstado FROM estados WHERE descripcion='Activo'");
     while($r=mysqli_fetch_array($estado)){$idEstado=$r['idEstado'];}
+    $cliente=mysqli_query($conexion,"SELECT idGrupo FROM grupos WHERE nombreGrupo='CLIENTE'");
+    while($r=mysqli_fetch_array($cliente)){$idGrupoCliente=$r['idGrupo'];}
     $dato=limpiarString($_POST['usuario']);
     $consulta=mysqli_query($conexion,"SELECT usuario FROM personas WHERE idPersona='$id_usuario'"); 
     while($r=mysqli_fetch_array($consulta)){$user=$r['usuario'];}
-    $sql =mysqli_query($conexion,"SELECT * FROM personas WHERE (usuario LIKE'$dato%') AND usuario!='$user' AND idEstado=$idEstado");
+    $sql=mysqli_query($conexion,"SELECT p.nombre,p.apellido,p.fechaNac,p.usuario,p.contrasenia,p.numDocumento,p.idTipoDocumento FROM personas AS p,gruposusuarios AS gp WHERE p.idPersona=gp.idPersona AND gp.idGrupo<>$idGrupoCliente AND (p.usuario LIKE'$dato%') and p.idEstado=1");
     $usuarios_x_pag = 2;
     $total_usuarios = mysqli_num_rows($sql);
     $paginas = $total_usuarios / $usuarios_x_pag;
     $paginas = ceil($paginas);
     $iniciar = ($_GET['pagina'] - 1) * $usuarios_x_pag;
-    $select = mysqli_query($conexion, "SELECT * FROM personas WHERE (usuario LIKE'$dato%') AND usuario!='$user' AND idEstado=$idEstado  limit $iniciar,$usuarios_x_pag");
+    $select = mysqli_query($conexion, "SELECT p.nombre,p.apellido,p.fechaNac,p.usuario,p.contrasenia,p.numDocumento,p.idTipoDocumento,p.idPersona FROM personas AS p,gruposusuarios AS gp WHERE p.idPersona=gp.idPersona AND gp.idGrupo<>$idGrupoCliente AND (p.usuario LIKE'$dato%') and p.idEstado=1 ORDER BY p.apellido ASC limit $iniciar,$usuarios_x_pag");
     ?>
     <div id="result" style="border: 1px solid white;overflow-y: scroll;background:#fafafa;padding-top:15px">
      <table class="table striped" style="background:#fafafa;height:300px">
