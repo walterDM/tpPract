@@ -94,9 +94,18 @@ $paginas = ceil($paginas);
             <div class="card-body" style="height:90px">
               <p align="center" class="card-text"><?php echo $r['descripcion']."<br>$".$r['precio']; ?></p>
             </div>
-            <?php if (isset($_SESSION['login'])) {?>
-                    <a style="float: left;margin: 5px;border-radius:30px" class="btn btn-light" href="#" data-toggle="modal" data-target="#carrito<?php echo $r['idProducto']; ?>"><i class="fas fa-cart-plus"></i> Añadir a carrito</a>
-            <?php } ?>
+            <?php if (isset($_SESSION['login'])) {
+                   $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
+                   while($rs=mysqli_fetch_array($grupo)){
+                      $nombrePermiso=$rs['nombrePermiso'];
+                      switch($nombrePermiso) {
+                         case "alta carrito":
+            ?>
+                              <a style="float: left;margin: 5px;border-radius:30px" class="btn btn-light" href="#" data-toggle="modal" data-target="#carrito<?php echo $r['idProducto']; ?>"><i class="fas fa-cart-plus"></i> Añadir a carrito</a>
+            <?php        break;
+                      }
+                    }
+                  } ?>
              <div data-backdrop="static" class="modal" id="carrito<?php echo $r['idProducto']; ?>">
         <div class="modal-dialog">
           <div class="modal-content">

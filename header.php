@@ -102,7 +102,19 @@ while ($r=mysqli_fetch_array($select)) {
              </li>
              <?php else: ?>
                <li class="nav-item active">
-                 <a class="btn btn-light cart" href="carrito.php"><i class="fas fa-cart-plus"></i></a>
+               <?php 
+            
+                    $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
+                     while($rs=mysqli_fetch_array($grupo)){
+                        $nombrePermiso=$rs['nombrePermiso'];
+                        switch($nombrePermiso) {
+                           case "alta carrito":
+               ?>
+                               <a class="btn btn-light cart" href="carrito.php"><i class="fas fa-cart-plus"></i></a>
+               <?php       break;
+                        }     
+                      }       
+                ?>
                </li>
                <li class="nav-item">
                  <a class="btn btn-light user" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -113,6 +125,9 @@ while ($r=mysqli_fetch_array($select)) {
                      <input text="text" name="nombre_usuario" id="nombre_usuario" value="<?php// echo $nombre_usuario;?>" hidden>
                      <button  type="submit" class="dropdown-item" name="perfil" value="perfil">Mi perfil</button>
                    </form>-->
+                   <form action="perfilClientes.php" method="POST">
+                     <button  type="submit" class="dropdown-item">Perfil</button>
+                   </form>
                    <form action="index.php" method="POST">
                      <button  type="submit" class="dropdown-item" name="borrarSesion" onclick="<?php killSession();?>">Cerrar Sesión</button>
                    </form>

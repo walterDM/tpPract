@@ -22,24 +22,14 @@ if (isset($_SESSION['factura']) && !empty($_SESSION['factura'])) {
 	SELECT MAX(idFactura) 
 	FROM `datosfacturas` )";
 	$rsnFact=mysqli_query($conexion,$querynFact);
+	
 	while ($rn=mysqli_fetch_array($rsnFact)) {
 		$nFact=$rn['n'];
 		$tFact=$rn['t'];
 		$numFactura= "001-".$nFact;
 		$filename='FacturaVenta_n°_'.$numFactura;
 	}
-	$pdf->SetFont('Arial','B',12);
-		$y=$pdf->GetY();
-		$pdf->SetXY(140,$y-4);
-	$pdf->Cell(73,6,utf8_decode('Factura N°: '.$numFactura),0,0,'C',0);
-$y= $pdf->GetY();
-$pdf->SetXY(140,$y+10);
-$pdf->Cell(70,6,utf8_decode('Fecha: '.$fechaP),0,0,'C',0);
-$pdf->setXY(10,35);
-$pdf->SetFillColor(232,232,232);
-$pdf->Cell(33,6,"Tipo Factura : ".$tFact,0,0,'C',0);
-//Datos Cliente
-$cliente=$_SESSION['login'];
+	$cliente=$_SESSION['login'];
 $nombreC=mysqli_query($conexion,"SELECT p.nombre, p.apellido,pc.descripcion from personas AS p
                                  JOIN personascontactos AS pc ON pc.idPersona = p.idPersona
                                  WHERE pc.idTipoContacto=1
@@ -48,7 +38,55 @@ while ($r=mysqli_fetch_array($nombreC)) {
 	$ncliente=$r['nombre']." ".$r['apellido'];
 	$email=$r['descripcion'];
 };
-$y= $pdf->GetY();
+$calle=$_SESSION['calle'];
+$altura=$_SESSION['altura'];
+	$pdf->SetFillColor(255,255,255);
+	
+
+	
+	
+
+	$pdf->SetFont('Arial','B',12);
+	$pdf->Cell(75,5,'Cliente: '.$ncliente,0,0,'i',1);
+	$pdf->Cell(20,5,'',0,0,'C',1);
+	$pdf->Cell(10,5,'',0,0,'C',1);
+	$pdf->Cell(70,5,'Nro Factura: '.$numFactura,0,1,'i',1);
+	$pdf->SetFont('Arial','B',12);
+	$pdf->Cell(75,5,'Domicilio: '.$calle." ".$altura,0,0,'i',1);
+	$pdf->Cell(20,5,'',0,0,'C',1);
+	$pdf->Cell(10,5,'',0,0,'C',1);
+	$pdf->Cell(70,5,"Tipo Factura : ".$tFact,0,1,'i',1);
+	
+
+	$pdf->SetFont('Arial','B',12);
+	$pdf->Cell(75,5,'',0,0,'C',1);
+	$pdf->Cell(20,5,'',0,0,'C',1);
+	$pdf->Cell(10,5,'',0,0,'C',1);
+	$pdf->Cell(70,5,'Fecha de emision: '.$fechaP,0,1,'i',0);
+	
+
+	$pdf->SetFont('Arial','B',12);
+	$pdf->Cell(75,5,'',0,0,'C',1);
+	$pdf->Cell(20,5,'',0,0,'C',1);
+	$pdf->Cell(10,5,'',0,0,'C',1);
+	$pdf->Cell(70,5,'C.U.I.T: 30688980478',0,1,'i',0);
+	
+
+	$pdf->SetFont('Arial','B',12);
+	$pdf->Cell(75,5,'',0,0,'C',1);
+	$pdf->Cell(20,5,'',0,0,'C',1);
+	$pdf->Cell(10,5,'',0,0,'C',1);
+	$pdf->Cell(70,5,'Inicio de actividades: 10/03/2020',0,1,'i',0);
+	$pdf->SetFillColor(0,0,0);
+  
+
+	
+
+
+//$pdf->Cell(33,6,"Tipo Factura : ".$tFact,0,0,'C',0);
+//Datos Cliente
+
+/*$y= $pdf->GetY();
 $pdf->setXY(15,50);
 $pdf->SetFillColor(232,232,232);
 $pdf->Cell(45,6,"Cliente : ".$ncliente,0,0,'C',0);
@@ -59,56 +97,57 @@ $altura=$_SESSION['altura'];
 $y=$pdf->GetY();
 $pdf->Ln(6);
 $pdf->SetFillColor(232,232,232);
-$pdf->Cell(78,6,"Domicilio de Entrega : ".$calle." ".$altura,0,0,'C',0);
-$pdf->Ln(8);
+$pdf->Cell(78,6,"Domicilio de Entrega : ".$calle." ".$altura,0,0,'C',0);*/
 
+$pdf->Ln(10);
 $pdf->SetFillColor(255, 175, 0);
 $pdf->SetFont('Arial','B',10);
-$pdf->Cell(75,10,'Producto',1,0,'C',1);
-$pdf->Cell(20,10,'Cant.',1,0,'C',1);
-$pdf->Cell(40,10,'Precio Unitario',1,0,'C',1);
-$pdf->Cell(40,10,'Importe',1,0,'C',1);
+$pdf->Cell(75,10,'Producto',0,0,'C',1);
+$pdf->Cell(20,10,'Cant.',0,0,'C',1);
+$pdf->Cell(40,10,'Precio Unitario',0,0,'C',1);
+$pdf->Cell(40,10,'Importe',0,0,'C',1);
 
 
 
-$pdf->Ln(8);
+$pdf->Ln(12);
 $totalC=0;
 $queryFD="SELECT p.descripcion d,fd.precioUnitario pu,fd.cantidad c from facturadetalles fd JOIN productos as p on p.idProducto=fd.idProducto where idFactura=$idFactura";
 $rsFD=mysqli_query($conexion,$queryFD);
 
 while($rf=mysqli_fetch_array($rsFD)){ 
-	$subTotal=$rf['c']*$rf['pu'];
+	$precio=number_format((float)$rf['pu'], 2, '.', '');
+	$subTotal=number_format((float)$rf['c']*$rf['pu'], 2, '.', '');
 	$pdf->Ln(4);
 	$pdf->SetFillColor(255,255,255);
 	$pdf->SetFont('Arial','B',8);
     $pdf->Cell(75,10,utf8_decode($rf['d']),0,0,'C',1);
 	$pdf->Cell(20,10,$rf['c'],0,0,'C',1);
-    $pdf->Cell(40,10,'$'.$rf['pu'],0,0,'C',1);
+    $pdf->Cell(40,10,'$'.$precio,0,0,'C',1);
 $pdf->Cell(40,10,'$'.$subTotal,0,0,'C',1);
 
 $totalC+=$subTotal;
 $pdf->Ln(4);
 }
-$pdf->Ln(8);
+$pdf->Ln(5);
 
 
 $pdf->Cell(75,10,'',0,0,'C',1);
 $pdf->Cell(20,10,'',0,0,'C',1);
 $pdf->Cell(40,10,"subtotal",0,0,'C',1);
-$pdf->Cell(40,10,'$'.$totalC,0,0,'C',1);
-$pdf->Ln(9);
-$IVA=($totalC*21)/100;
+$pdf->Cell(40,10,'$'.number_format((float)$totalC, 2, '.', ''),0,0,'C',1);
+$pdf->Ln(7);
+$IVA=number_format((float)($totalC*21)/100, 2, '.', '');
 $pdf->Cell(75,10,'',0,0,'C',1);
 $pdf->Cell(20,10,'',0,0,'C',1);
 $pdf->Cell(40,10,"IVA 21.0%",0,0,'C',1);
 $pdf->Cell(40,10,'$'.$IVA,0,0,'C',1);
-$pdf->Ln(10);
-$total=$totalC+$IVA;
+$pdf->Ln(9);
+$total=number_format((float)$totalC+$IVA, 2, '.', '');
 $pdf->Cell(75,10,'',0,0,'C',1);
 $pdf->Cell(20,10,'',0,0,'C',1);
 $pdf->Cell(40,10,"Total",0,0,'C',1);
 $pdf->Cell(40,10,'$'.$total,0,0,'C',1);
-$pdf->Ln(11);
+$pdf->Ln(16);
 $pdf->Cell(175,0,'',1,0,'C',1);
 
 

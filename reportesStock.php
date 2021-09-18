@@ -46,12 +46,14 @@ $rsTp2=mysqli_query($conexion,$queryTp2);
  				window.location.href="includes/getMarcasTabla.php?id=<?php echo $_GET['id'];?>&idMarca="+id_estado;           
  			});
  		});
-		 $("#tCantidad").change(function () {	
- 			$("#tCantidad option:selected").each(function () {
- 				id_estado = $(this).val();
- 				window.location.href="reportesStock.php?id=<?php echo $_GET['id'];?>&idMarca=<?php echo $_GET['idMarca'];?>&stock="+id_estado+"&pagina=1";           
- 			});
- 		});
+	
+		 $(document).on("keypress", ".cantidad", function(e) {
+             if (e.which == 13) {
+              var id_estado = $(this).val();
+              window.location.href="reportesStock.php?id=<?php echo $_GET['id'];?>&idMarca=<?php echo $_GET['idMarca'];?>&stock="+id_estado+"&pagina=1";
+              
+             }
+         });
 		
  	});
  </script>
@@ -103,12 +105,7 @@ $rsTp2=mysqli_query($conexion,$queryTp2);
 		<?php  } ?>
 		<label for="tCantidad">Cantidad Hasta</label>
 		
-					<select name="tCantidad" id="tCantidad">
-						<option>seleccione Cantidad</option>
-						<?php for($i=0;$i<=20;$i++){?>
-							<option value="<?php echo $i; ?>" <?php if(isset($_GET['stock'])){if($_GET['stock']==$i){ echo 'Selected';}}?>><?php echo $i; ?></option>
-						<?php }; ?>
-					</select>
+		<input id="cant" type="text" class="cantidad" <?php if(isset($_GET['stock'])){ echo "value='".$_GET['stock']."'";}?>>
 			
 			
 			

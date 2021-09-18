@@ -1,50 +1,48 @@
 
-<?php require("header.php");?>
-
-<div class="row">
-  <div class="col-md-12" style="padding-top:60px;">
-   <form action="permisos.php" method="post" class="permisos">
-     <div class="row">
-      <div class="col-md-12">
-        <label>Crear grupo</label>
-        <input type="text" name="nombreGrupo">
-      </div><br><br>
-      <div class="col-md-3" style="background:#fafafa;border: 1px solid #ffb74d;">
-        <p>Gestion productos</p>
-        <input type="checkbox" name="nombrePermiso[]" value="alta producto">Alta<br>
-        <input type="checkbox" name="nombrePermiso[]" value="baja producto">Baja<br>
-        <input type="checkbox" name="nombrePermiso[]" value="modificar producto">Modificar<br>
-        <input type="checkbox" name="nombrePermiso[]" value="buscar producto">Buscar producto<br>
-        <input type="checkbox" name="nombrePermiso[]" value="realizar envios">Realizar envíos
-      </div>
-      <div class="col-md-3" style="background:#fafafa;border: 1px solid #ffb74d;">
-        <p>Gestion proveedores</p>
-        <input type="checkbox" name="nombrePermiso[]" value="alta proveedor">Alta<br>
-        <input type="checkbox" name="nombrePermiso[]" value="baja proveedor">Baja<br>
-        <input type="checkbox" name="nombrePermiso[]" value="modificar proveedor">Modificar<br>
-        <input type="checkbox" name="nombrePermiso[]" value="buscar proveedores">Buscar proveedores<br>
-        <input type="checkbox" name="nombrePermiso[]" value="realizar pedidos">Realizar pedidos
-      </div>
-      <div class="col-md-3" style="background:#fafafa;border: 1px solid #ffb74d;">
-        <p>Gestion usuarios</p>
-        <input type="checkbox" name="nombrePermiso[]" value="alta usuario">Alta<br>
-        <input type="checkbox" name="nombrePermiso[]" value="baja usuario">Baja<br>
-        <input type="checkbox" name="nombrePermiso[]" value="modificar usuario">Modificar<br>
-        <input type="checkbox" name="nombrePermiso[]" value="buscar usuarios">Buscar usuarios<br>
-        <input type="checkbox" name="nombrePermiso[]" value="asignar permisos">Asignar permisos<br>
-        <input type="checkbox" name="nombrePermiso[]" value="listar cliente">Listar cliente
-      </div>
-      <div class="col-md-3" style="background:#fafafa;border: 1px solid #ffb74d;">
-        <p>Reportes</p>
-        <input type="checkbox" name="nombrePermiso[]" value="reportes de stock">Stock<br>
-        <input type="checkbox" name="nombrePermiso[]" value="reportes de ventas">Ventas<br>
-        <input type="checkbox" name="nombrePermiso[]" value="reportes de caducidad">Caducidad
-      </div>
-      <div class="col-md-12" align="center">
-        <button type="submit" class="btn btn-light"  name="acept" value="acept">Asignar</button>
-      </div>
-    </div>
-  </form>
-</div>
-</div>
-<?php require 'footer.php' ?>
+<?php 
+      require("header.php");
+      require("conexion.php");
+      
+?>
+<div class="container">
+        <div class="row">
+              <div class="col-md-12" style="padding-top:60px;">
+                   <form action="permisos.php" method="post" class="permisos">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Crear grupo</label>
+                                <input type="text" name="nombreGrupo">
+                                <a style="float:right;width:15%" href="listarPermisos.php" class="btn botonpermisos">Listar</a>
+                            </div>
+                            <div class="col-md-12" style="padding-top:30px;">
+                                <?php   
+                                    $agrupamiento=mysqli_query($conexion,"SELECT idGestiones, nombreGestion FROM gestiones ORDER BY idGestiones ASC");
+                                    while($PermisosGestiones=mysqli_fetch_array($agrupamiento)){
+                                ?>
+                            </div>
+                            <div class="col-md-6 gestiones">
+                                    <p><?php echo $PermisosGestiones['nombreGestion']?></p>
+                                    <?php   
+                                            $permisos=mysqli_query($conexion,"SELECT p.idpermiso, p.nombrePermiso FROM gestiones AS g, gestiones_permisos AS gp,permisos AS p
+                                                                            WHERE g.idGestiones = gp.idGestiones
+                                                                            AND gp.idpermiso=p.idpermiso
+                                                                            AND g.idGestiones=" . $PermisosGestiones['idGestiones']);
+                                                                            
+                                            while($r=mysqli_fetch_array($permisos)){?>
+                                                <input type="checkbox" name="nombrePermiso[]" value="<?php echo $r['nombrePermiso']?>"><?php echo $r['nombrePermiso']?><br>
+                                   <?php    }
+                                    }      
+                                   ?>
+                            </div>
+                            <div class="col-md-12" align="center" style="padding-top:30px">
+                                <button type="submit" class="btn botonpermisos"  name="alta" value="alta">Asignar</button>
+                            </div>
+                        </div>
+                   </form>
+             </div>
+        </div>
+ </div>
+ <?php if(isset($_GET['estado']) && $_GET['estado']==1){
+           echo "<script>alert('grupo creado con exito')</script>";
+       }
+ ?>
