@@ -19,14 +19,7 @@ if (isset($_SESSION['login']) && !empty($_SESSION['login'])) {
  
 }
 
-function killSession(){
-  if (isset($_POST['borrarSesion'])) {
-    session_destroy();
-    $id_usuario=0;
-    $nombre_usuario="";
-    header("location:index.php");
-  }
-}
+
 
   ?>
   <?php 
@@ -66,6 +59,7 @@ $grupo2=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permiso
 $grupo3=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
 $grupo4=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
 $grupo5=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
+$grupo6=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
 $select=mysqli_query($conexion,"SELECT * FROM tiposdocumentos");
 $select2=mysqli_query($conexion,"SELECT * FROM tiposproductos");
 while ($r=mysqli_fetch_array($select)) {
@@ -105,7 +99,7 @@ while ($r=mysqli_fetch_array($select)) {
                <?php 
             
                     $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
-                     while($rs=mysqli_fetch_array($grupo)){
+                     while($rs=mysqli_fetch_array($grupo6)){
                         $nombrePermiso=$rs['nombrePermiso'];
                         switch($nombrePermiso) {
                            case "alta carrito":
@@ -125,12 +119,12 @@ while ($r=mysqli_fetch_array($select)) {
                      <input text="text" name="nombre_usuario" id="nombre_usuario" value="<?php// echo $nombre_usuario;?>" hidden>
                      <button  type="submit" class="dropdown-item" name="perfil" value="perfil">Mi perfil</button>
                    </form>-->
-                   <form action="perfilClientes.php" method="POST">
+                   <form action="perfiles.php" method="POST">
                      <button  type="submit" class="dropdown-item">Perfil</button>
                    </form>
-                   <form action="index.php" method="POST">
-                     <button  type="submit" class="dropdown-item" name="borrarSesion" onclick="<?php killSession();?>">Cerrar Sesión</button>
-                   </form>
+                     <input type="text" name="CerrarSesion" id="CerrarSesion" value="CerrarSesion" hidden>
+                     <button  type="submit" class="dropdown-item" onclick="killSession()">Cerrar Sesión</button>
+                
                  </div>
                </li>
              <?php endif ?> 

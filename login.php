@@ -23,7 +23,8 @@ if($p=mysqli_fetch_assoc($consulta)){
 		$_SESSION['login']=$p['idPersona'];
 		$_SESSION['usuario']=$p['usuario'];
 		echo '<div class="msjB">Bienvenido</div>';
-		echo "<script>window.location.href='index.php'</script>";
+		//echo "<script>window.location.href='index.php'</script>";
+		echo "<script>window.location.reload();</script>";
 	}
 	
 }else{
