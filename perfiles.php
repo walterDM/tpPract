@@ -48,8 +48,8 @@
                             <div class="cont-menu">
                                 <nav>
                                     <a href="#/tarjetas">Tarjetas de crédito</a>
-                                    <a id="enlace2" href="perfilAjax.php?cod=2">Perfil</a>
-                                    <a id="enlace3" href="perfilAjax.php?cod=3">Direcciones</a>
+                                    <a href="#/perfil">Perfil</a>
+                                    <a href="#/direcciones">Direcciones</a>
                                     <a id="enlace4" href="perfilAjax.php?cod=4">Pedidos</a>
                                     <a href="#">Salir</a>
                                 
