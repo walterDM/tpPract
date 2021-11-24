@@ -18,11 +18,24 @@ if (isset($_POST['buscar']) && $_POST['buscar']==0 && isset($_POST['fDesde']) &&
 	
 	header("location:reportesVentas.php?fDesde=$fd&fHasta=$fh&pagina=1");
 }
-
+date_default_timezone_set('America/Argentina/Buenos_Aires');
+			$fechaBase=date('Y-m-d');
+			$fechaActual = date('d/m/Y');
+			$filename="reporteVenta__".$fechaActual;//id Factura
+			
+		
+			$pdf= new PDF();
+			$pdf->AddPage();
+			$pdf->AliasNbPages();
+		
+			$y= $pdf->GetY();
+			$pdf->SetXY(0,$y+5);
+			$pdf->Cell(100,0,utf8_decode('Fecha: '.$fechaActual),0,0,'C',0);
 
 	
     if(isset($_POST['exportPDF']) && !empty($_POST['exportPDF']) && $_POST['fDesde']=='0000-00-00' && $_POST['fHasta']=='0000-00-00'){	
-	    
+		    $hoy=date("d/m/Y");
+		    $pdf->Cell(70,6,utf8_decode('Ventas Hasta: '.$hoy),0,0,'C',0);
 		    $queryFechatp="SELECT p.idPersona, f.idFacturaVenta as nFact,df.numFactura,tf.descripcion, f.totalApagar as total, f.fechaPedido as fp, p.nombre,p.apellido 
 		    FROM facturas as f 
 			JOIN personas as p on p.idPersona = f.idPersona
@@ -52,7 +65,8 @@ if (isset($_POST['buscar']) && $_POST['buscar']==0 && isset($_POST['fDesde']) &&
 		$rsFechaTp=mysqli_query($conexion,$queryFechatp);
     }
 	if(isset($_POST['exportPDF']) && !empty($_POST['exportPDF']) && $_POST['fDesde']!='0000-00-00' && $_POST['fHasta']!='0000-00-00'){	
-	    
+	    $newfd=date("d/m/Y", strtotime($_POST['fDesde']));
+		$newfh=date("d/m/Y", strtotime($_POST['fHasta']));
 		$queryFechatp="SELECT p.idPersona, f.idFacturaVenta as nFact,df.numFactura,tf.descripcion, f.totalApagar as total, f.fechaPedido as fp, p.nombre,p.apellido 
 		    FROM facturas as f 
 			JOIN personas as p on p.idPersona = f.idPersona
@@ -68,21 +82,9 @@ if (isset($_POST['buscar']) && $_POST['buscar']==0 && isset($_POST['fDesde']) &&
 			while ($r=mysqli_fetch_array($resultEMP)) {
 				$legajoEmp=$r['legajo'];
 			}
-			date_default_timezone_set('America/Argentina/Buenos_Aires');
-			$fechaBase=date('Y-m-d');
-			$fechaActual = date('d/m/Y');
-			$filename="reporteVenta__".$fechaActual;//id Factura
 			
-		
-			$pdf= new PDF();
-			$pdf->AddPage();
-			$pdf->AliasNbPages();
-		
-			$y= $pdf->GetY();
-			$pdf->SetXY(0,$y+5);
-			$pdf->Cell(100,0,utf8_decode('Fecha: '.$fechaActual),0,0,'C',0);
 			
-			if (isset($_POST['fDesde']) && isset($_POST['fHasta']) && !empty($_POST['fDesde']) && !empty($_POST['fHasta']) ){
+			/*if (isset($_POST['fDesde']) && isset($_POST['fHasta']) && !empty($_POST['fDesde']) && !empty($_POST['fHasta']) ){
 				$newfd=date("d/m/Y", strtotime($_POST['fDesde']));
 				$newfh=date("d/m/Y", strtotime($_POST['fHasta']));
 				$y= $pdf->GetY();
@@ -97,7 +99,7 @@ if (isset($_POST['buscar']) && $_POST['buscar']==0 && isset($_POST['fDesde']) &&
 				$y= $pdf->GetY();
 				$pdf->SetXY(20,$y+15);
 				$pdf->Cell(70,6,utf8_decode('Ventas Hasta: '.$hoy),0,0,'C',0);
-			}
+			}*/
 		
 			
 		
@@ -144,18 +146,8 @@ if (isset($_POST['buscar']) && $_POST['buscar']==0 && isset($_POST['fDesde']) &&
 			while ($r=mysqli_fetch_array($detalle)) {
 				$totalV+=$r['cantidad']*$r['precioUnitario'];
 			    $pdf->Ln(2);
-			
-			
 				
 				if ($cont %2) {	
-					
-			
-		
-			
-		
-			
-			
-			
 					$pdf->Cell(45,7,utf8_decode($r['descripcion']),1,0,'C',1);
 					$pdf->Cell(45,7,$r['cantidad'],1,0,'C',1);
 					
