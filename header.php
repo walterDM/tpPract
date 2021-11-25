@@ -122,6 +122,9 @@ while ($r=mysqli_fetch_array($select)) {
                    <form action="perfiles.php" method="POST">
                      <button  type="submit" class="dropdown-item">Perfil</button>
                    </form>
+                   <form action="miscompras.php" method="POST">
+                     <button  type="submit" class="dropdown-item">Mis Compras</button>
+                   </form>
                      <input type="text" name="CerrarSesion" id="CerrarSesion" value="CerrarSesion" hidden>
                      <button  type="submit" class="dropdown-item" onclick="killSession()">Cerrar Sesión</button>
                 
