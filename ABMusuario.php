@@ -132,4 +132,22 @@ if(isset($_POST['eliminarUsuario']) && !empty($_POST['eliminarUsuario'])){
     $update=mysqli_query($db,"UPDATE personas SET idEstado=$idEstado WHERE idPersona=$id");
     header("location:buscarUsuarios.php?eliminado=1");
 }
+if(isset($_POST['modificarGrupo']) && !empty($_POST['modificarGrupo'])){
+    $db=conectar();
+	$nombreGrupo=$_POST['nombreGrupo'];
+	$idGrupo=$_POST['idGrupo'];
+	$update=mysqli_query($db,"UPDATE grupos SET nombreGrupo = '$nombreGrupo' WHERE idGrupo=$idGrupo");
+	$delete=mysqli_query($db,"DELETE FROM grupospermisos WHERE idGrupo=$idGrupo");    
+	foreach($_POST['idPermiso'] as $selected){
+		$insert=mysqli_query($db,"INSERT INTO grupospermisos VALUES($idGrupo,$selected)");
+	}
+	header("location:listarGrupos.php?estado=1");
+	
+}
+if(isset($_POST['eliminarGrupo']) && !empty($_POST['eliminarGrupo'])){
+    $db=conectar();
+    $id=$_POST['idGrupo'];
+    $delete=mysqli_query($db,"DELETE FROM grupos WHERE idGrupo=$id");
+    header("location:ListarGrupos.php?eliminado=1");
+}
 ?>

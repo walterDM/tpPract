@@ -28,7 +28,7 @@ if(isset($_POST['buscar']) && !empty($_POST['buscar'])){
       }   
     $estado=mysqli_query($conexion,"SELECT idEstado FROM estados WHERE descripcion='Activo'");
     while($r=mysqli_fetch_array($estado)){$idEstado=$r['idEstado'];}
-    $cliente=mysqli_query($conexion,"SELECT idGrupo FROM grupos WHERE nombreGrupo='CLIENTE'");
+    $cliente=mysqli_query($conexion,"SELECT idGrupo FROM grupos WHERE nombreGrupo='CLIENTES'");
     while($r=mysqli_fetch_array($cliente)){$idGrupoCliente=$r['idGrupo'];}
     $dato=limpiarString($_POST['usuario']);
     $consulta=mysqli_query($conexion,"SELECT usuario FROM personas WHERE idPersona='$id_usuario'"); 

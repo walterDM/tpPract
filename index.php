@@ -5,6 +5,7 @@ require("header.php");
 
 $db=conectar();
 $consulta=mysqli_query($db,"SELECT * FROM productos where idEstado=1 limit 0, 5");
+$grupo=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");
 $total_productos=mysqli_num_rows($consulta);
 if (isset($_SESSION['login']) && !empty($_SESSION['login'])) {
   $idgrupo=$_SESSION['grupo'];
@@ -33,7 +34,20 @@ if (isset($_SESSION['login']) && !empty($_SESSION['login'])) {
                 </div>
             </div>
         </div>
-      
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-light" >
+
+            <?php while($r=mysqli_fetch_array($grupo)){
+                      $nombrePermiso=$r['nombrePermiso'];?>
+            <?php     if($nombrePermiso=="alta oferta"){?>
+                        
+                            <a class="btn btn-warning" style="color:white" href="altaOferta.php"><i class="far fa-arrow-alt-circle-up"></i>Nueva Oferta</a>
+                       
+            <?php     }
+                  }
+            ?>
+         
+ </nav>
 
            <div class="col-md-12" style="padding-top:20px">
                 <h2 align="center">Destacados del mes</h2>
@@ -42,16 +56,30 @@ if (isset($_SESSION['login']) && !empty($_SESSION['login'])) {
     $mesActual = date('Y-m-d');
     $mesAnterior=date('Y-m-d',strtotime('-1 month', strtotime($mesActual)));
   
-    $consulta3 = mysqli_query($conexion, "SELECT DISTINCT p.idProducto,p.descripcion,p.imagen,p.precio,p.cantidadProd,p.Lote,p.fechaCaducidad FROM facturas AS f
-                                          JOIN facturadetalles AS fd ON fd.idFactura=f.idFacturaVenta
-                                          JOIN productos AS p ON p.idProducto=fd.idProducto WHERE f.fechaPedido BETWEEN '$mesAnterior' AND '$mesActual'");?>
+    $consulta = mysqli_query($conexion, "SELECT DISTINCT p.*,o.cantidad,o.descuento FROM productos AS p
+                                          JOIN ofertas AS o ON o.idProducto=p.idProducto");?>
       <div class="row">
-       <?php while ($r = mysqli_fetch_array($consulta3)) { ?>
+       <?php while ($r = mysqli_fetch_array($consulta)) { ?>
         <div align="center" class="col-md-3" style="padding:1%;">
           <div class="card" style="width: 12.5rem;background:#ffb74d;color:white">
             <img src="imagenes/<?php echo $r['imagen']; ?>" class="card-img-top" width="620px" height="250px">
-            <div class="card-body" style="height:90px">
-              <p align="center" class="card-text"><?php echo $r['descripcion']."<br>$".$r['precio']; ?></p>
+            <div class="card-body" style="height:150px">
+              <p align="center" class="card-text"><?php echo $r['descripcion']; ?></p>
+              <?php 
+                    $calculo=($r['precio']*$r['descuento'])/100;
+                    $restoTotal=$r['precio'] - $calculo;
+                    if($r['cantidad']>1){  
+                        $total=$r['precio'] + $restoTotal;
+              ?>
+                        <p align="center" class="card-text"><?php echo "$".$r['precio']; ?></p>
+                        <p align="center" class="card-text">LLeva <?php echo $r['cantidad'].", $".$total; ?></p>
+              <?php
+                    }else{
+                         ?>
+                        <del align="center" class="card-text"><?php echo "$".$r['precio']; ?></del>
+                        <p align="center" class="card-text"><?php echo "$".$restoTotal; ?></p>
+              <?php }
+              ?>
             </div>
            
             </div>

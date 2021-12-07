@@ -19,7 +19,8 @@ $consulta2 = mysqli_query($conexion, "SELECT p.* from productos as p
   join productostpmarcas as pp on pp.idProducto=p.idProducto
   join tiposproductos_marcas as tpm on tpm.idTpMarca = pp.idTpMarca
   where tpm.idTipoProducto=$idTipoProducto 
-  and p.idEstado=1 and cantidadProd >=1");
+  and p.idEstado=1 and cantidadProd >=1
+  and p.fechaCaducidad>='2021-12-02'");
 $productos_x_pag = 4;
 
 $total_productos = mysqli_num_rows($consulta2);
@@ -85,14 +86,40 @@ $paginas = ceil($paginas);
       join productostpmarcas as pp on pp.idProducto=p.idProducto
       join tiposproductos_marcas as tpm on tpm.idTpMarca = pp.idTpMarca
       where tpm.idTipoProducto=$idTipoProducto 
-      and p.idEstado=1 and cantidadProd>=1 limit $iniciar,$productos_x_pag");?>
+      and p.idEstado=1 and cantidadProd>=1 and p.fechaCaducidad>='2021-12-02' limit $iniciar,$productos_x_pag");
+      ?>
       <div class="row">
-       <?php while ($r = mysqli_fetch_array($consulta3)) { ?>
+       <?php while ($r = mysqli_fetch_array($consulta3)) { 
+              $consulta4=mysqli_query($conexion,"SELECT * FROM ofertas WHERE idProducto={$r['idProducto']}");
+        ?>
         <div align="center" class="col-md-3" style="padding:1%;">
           <div class="card" style="width: 12.5rem;background:#ffb74d;color:white">
             <img src="imagenes/<?php echo $r['imagen']; ?>" class="card-img-top" width="620px">
-            <div class="card-body" style="height:90px">
-              <p align="center" class="card-text"><?php echo $r['descripcion']."<br>$".$r['precio']; ?></p>
+            <div class="card-body" style="height:150px">
+             <p align="center" class="card-text"><?php echo $r['descripcion'];?></p>
+             <?php 
+               if(mysqli_num_rows($consulta4)>0){  
+                   while($rs = mysqli_fetch_array($consulta4)){
+                      $calculo=($r['precio']*$rs['descuento'])/100;
+                      $restoTotal=$r['precio'] - $calculo;
+                      if($rs['cantidad']>1){  
+                        $total=$restoTotal*$rs['cantidad'];
+              ?>
+                         <p align="center" class="card-text"><?php echo "$".$r['precio']; ?></p>
+                         <p align="center" class="card-text">LLeva <?php echo $rs['cantidad'].", $".$total; ?></p>
+              <?php
+                       }else{
+              ?>
+                          <del align="center" class="card-text"><?php echo "$".$r['precio']; ?></del>
+                          <p align="center" class="card-text"><?php echo "$".$restoTotal; ?></p>
+              <?php    }
+                    }
+                }else{
+              ?>
+                   <p align="center" class="card-text"><?php echo "$".$r['precio'];?></p>
+              <?php
+                }
+              ?>
             </div>
             <?php if (isset($_SESSION['login'])) {
                    $grupo=mysqli_query($conexion,"SELECT p.nombrePermiso,up.idPermiso FROM permisos AS p, grupospermisos AS up WHERE p.idPermiso=up.idPermiso AND up.idGrupo='$idGrupo'");

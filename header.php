@@ -189,6 +189,7 @@ while ($r=mysqli_fetch_array($select)) {
                       echo "<script>document.getElementById('gestiprod').hidden=false;</script>";?>
                       
                       <?php break;
+
                      /* case "realizar envios":
                       echo "<script>document.getElementById('gestiprod').hidden=false;</script>";*/?>
                      <!-- <form id="realizarEnvio" action="" method="POST">
@@ -252,8 +253,8 @@ while ($r=mysqli_fetch_array($select)) {
                       <?php break;
                       case "asignar permisos":
                       echo "<script>document.getElementById('gestiusuarios').hidden=false;</script>";?>
-                      <form id="asignarPermisos" action="asignarPermisos.php" method="POST">
-                        <button type="submit" class="dropdown-item submenu">Asignar permisos</button>
+                      <form id="grupos" action="listarGrupos.php" method="POST">
+                        <button type="submit" class="dropdown-item submenu">Grupos</button>
                       </form>
                       <?php break;
                       case "listar cliente":

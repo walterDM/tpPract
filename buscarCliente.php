@@ -26,7 +26,7 @@ if(isset($_POST['buscar']) && !empty($_POST['buscar'])){
  <br><br>
  <div class="col-md-12">
   <?php if (isset($_GET['pagina'])) {
-    $cliente=mysqli_query($conexion,"SELECT idGrupo FROM grupos WHERE nombreGrupo='CLIENTE'");
+    $cliente=mysqli_query($conexion,"SELECT idGrupo FROM grupos WHERE nombreGrupo='CLIENTES'");
     while($r=mysqli_fetch_array($cliente)){$idGrupoCliente=$r['idGrupo'];}
     $dato=limpiarString($_POST['usuario']);
     $consulta=mysqli_query($conexion,"SELECT usuario FROM personas WHERE idPersona='$id_usuario'"); 

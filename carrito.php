@@ -1,5 +1,6 @@
 <?php 
       require("header.php");
+      require("conexion.php");
 ?>
 <!DOCTYPE html>
 <html>
@@ -28,7 +29,8 @@
                             <th></th>
                        </thead>
                        <tbody class="carrito">
-                        <?php for ($i=0; $i<count($datos);$i++) {?>
+                        <?php for ($i=0; $i<count($datos);$i++) {
+                                 $consulta=mysqli_query($conexion,"SELECT * FROM ofertas WHERE idProducto={$datos[$i]['IdProducto']}");?>
                         <tr>
                  	    	<td style="padding-top:30px"><?php echo $datos[$i]['Descripcion'];?></span>
                  	    	<td style="padding-top:30px"><?php echo "$".$datos[$i]['Precio'];?></span>
@@ -39,7 +41,23 @@
                            class="cantidad">
                      
                         </td>
-                 	    	   <td style="padding-top:30px" class="subtotal"><?php echo "$".$datos[$i]['Precio']*$datos[$i]['Cantidad'];?></td>
+                 	    	   <td style="padding-top:30px" class="subtotal">
+                              <?php 
+                                $subtotal=0;
+                                if(mysqli_num_rows($consulta)>0){  
+                                 while($rs = mysqli_fetch_array($consulta)){
+                                    $calculo=($datos[$i]['Precio']*$rs['descuento'])/100;
+                                    $restoTotal=$datos[$i]['Precio'] - $calculo;
+                                    if($datos[$i]['Cantidad'] % $rs['cantidad']==0){  
+                                          $subtotal=$restoTotal*$datos[$i]['Cantidad'];
+                                    }else{
+                                          $subtotal=($datos[$i]['Precio']*$datos[$i]['Cantidad']) - ($restoTotal*$rs['cantidad']);
+                                    }
+                                    echo "$".$subtotal;
+                                 }
+                                }
+                              ?>
+                           </td>
                            <td><a href="#" style="border-radius:30px;font-size:20px" class="btn btn-light eliminar" data-id="<?php echo $datos[$i]['IdProducto'];?>"><i class="fas fa-trash-alt"></i></a></td>
                            <?php    	
                   $total=($datos[$i]['Cantidad']*$datos[$i]['Precio'])+$total;
