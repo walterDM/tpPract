@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-11-2021 a las 14:54:33
+-- Tiempo de generación: 10-01-2022 a las 23:38:18
 -- Versión del servidor: 10.4.20-MariaDB
 -- Versión de PHP: 8.0.8
 
@@ -344,8 +344,8 @@ INSERT INTO `direcciones` (`idDireccion`, `idCiudad`, `idPersona`, `idTipoDomici
 (33, 9, 14, 1, 'Florentino Ameghino', 22, '2', '2'),
 (34, 15, 15, 2, 'belgrano', 1358, '', ''),
 (35, 9, 21, 2, 'Diaz Velez ', 1358, '', ''),
-(36, 9, 11, 2, 'Av.Belgrano', 34, 'E', '4'),
-(37, 9, 10, 2, '25 de Mayo', 343, 'B', '3');
+(37, 9, 10, 2, '25 de Mayo', 343, 'B', '3'),
+(38, 9, 11, 2, 'Av.Belgrano', 34, 'E', '4');
 
 -- --------------------------------------------------------
 
@@ -645,7 +645,12 @@ INSERT INTO `gestiones_permisos` (`idPermiso`, `idGestiones`) VALUES
 (26, 5),
 (27, 5),
 (20, 5),
-(29, 5);
+(29, 5),
+(30, 1),
+(31, 1),
+(32, 1),
+(34, 3),
+(35, 3);
 
 -- --------------------------------------------------------
 
@@ -667,8 +672,7 @@ INSERT INTO `grupos` (`idGrupo`, `nombreGrupo`) VALUES
 (1, 'ADMINISTRADOR'),
 (2, 'CLIENTES'),
 (3, 'EMPLEADO DE DEPOSITO'),
-(4, 'ENCARGADO DE CLIENTES'),
-(5, 'VENDEDOR');
+(4, 'ENCARGADO DE CLIENTES');
 
 -- --------------------------------------------------------
 
@@ -687,38 +691,31 @@ CREATE TABLE `grupospermisos` (
 --
 
 INSERT INTO `grupospermisos` (`idGrupo`, `idPermiso`) VALUES
-(1, 18),
-(1, 26),
-(1, 1),
-(1, 7),
-(1, 15),
-(1, 25),
-(1, 27),
-(1, 2),
-(1, 8),
-(1, 16),
-(1, 4),
-(1, 6),
-(1, 14),
-(1, 14),
-(1, 23),
-(1, 19),
-(1, 21),
-(1, 20),
-(1, 3),
-(1, 9),
-(1, 17),
-(1, 22),
-(1, 5),
-(1, 10),
-(1, 12),
-(1, 11),
-(1, 13),
-(1, 29),
 (2, 24),
 (2, 29),
 (2, 25),
-(1, 24);
+(1, 24),
+(1, 25),
+(1, 26),
+(1, 27),
+(1, 20),
+(1, 29),
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(1, 30),
+(1, 31),
+(1, 32),
+(1, 7),
+(1, 8),
+(1, 9),
+(1, 6),
+(1, 10),
+(1, 12),
+(1, 11),
+(1, 13);
 
 -- --------------------------------------------------------
 
@@ -738,9 +735,9 @@ CREATE TABLE `gruposusuarios` (
 
 INSERT INTO `gruposusuarios` (`idPersona`, `idGrupo`) VALUES
 (10, 1),
-(11, 1),
 (12, 1),
-(23, 2);
+(23, 2),
+(11, 1);
 
 -- --------------------------------------------------------
 
@@ -782,6 +779,28 @@ INSERT INTO `marcas` (`idMarca`, `nombreMarca`) VALUES
 (22, 'Arcor'),
 (23, 'Milka'),
 (24, 'Oreo');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ofertas`
+--
+
+DROP TABLE IF EXISTS `ofertas`;
+CREATE TABLE `ofertas` (
+  `idOferta` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `descuento` int(11) NOT NULL,
+  `idProducto` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `ofertas`
+--
+
+INSERT INTO `ofertas` (`idOferta`, `cantidad`, `descuento`, `idProducto`) VALUES
+(1, 2, 35, 36),
+(2, 3, 25, 50);
 
 -- --------------------------------------------------------
 
@@ -891,7 +910,13 @@ INSERT INTO `permisos` (`idPermiso`, `nombrePermiso`) VALUES
 (26, 'alta cliente'),
 (27, 'baja cliente'),
 (28, 'modificar cliente'),
-(29, 'ver perfil');
+(29, 'ver perfil'),
+(30, 'alta oferta'),
+(31, 'baja oferta'),
+(32, 'modificar oferta'),
+(33, 'ofertas'),
+(34, 'baja grupo'),
+(35, 'modificar grupo');
 
 -- --------------------------------------------------------
 
@@ -918,7 +943,7 @@ CREATE TABLE `personas` (
 
 INSERT INTO `personas` (`idPersona`, `numDocumento`, `idTipoDocumento`, `nombre`, `apellido`, `fechaNac`, `usuario`, `contrasenia`, `idEstado`) VALUES
 (10, 40847431, 1, 'Fabricio', 'Colavella', '1997-12-09', 'Fabricolavella', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1),
-(11, 37200769, 1, 'walter', 'martinez', '1995-06-21', 'Waltermartinez', '6095f7790353eb1d6407d958bf97c18d6fd052d6', 1),
+(11, 37200769, 1, 'walter', 'martinez', '1995-06-21', 'Waltermartinez', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1),
 (12, 95180213, 1, 'Esthefany', 'Graterox', '1997-08-20', 'Esthefanyg', '8cb2237d0679ca88db6464eac60da96345513964', 1),
 (14, 21543256, 1, 'Lucas', 'Perez', '1998-01-10', 'Lucasp', 'b279b7f4d0bc48a7660f007ae7983154b706ac57', 1),
 (15, 23345443, 1, 'Oscar ', 'Quintero', '2002-07-15', 'Oscarq', '8cb2237d0679ca88db6464eac60da96345513964', 1),
@@ -978,10 +1003,10 @@ INSERT INTO `personascontactos` (`idPersonaContacto`, `idPersona`, `idTipoContac
 (90, 15, 2, '22233445'),
 (91, 21, 1, 'miguelperezem@gmail.com'),
 (92, 21, 2, '1159987552'),
-(93, 11, 1, 'consultaphpedi@gmail.com'),
-(94, 11, 2, '1145742345'),
 (95, 10, 1, 'colavella22@gmail.com'),
-(96, 10, 2, '1140397424');
+(96, 10, 2, '1140397424'),
+(97, 11, 1, 'consultaphpedi@gmail.com'),
+(98, 11, 2, '1145742345');
 
 -- --------------------------------------------------------
 
@@ -1012,7 +1037,7 @@ INSERT INTO `productos` (`idProducto`, `descripcion`, `idPuestoFisico`, `imagen`
 (21, 'Coca Cola 3 Litros', 13, 'coca3lts.jpg', 'L958776', '2020-08-27', 10, 130, 2),
 (34, 'Fanta', 7, 'fanta225.jpg', 'L278906', '2020-08-21', 21, 22, 2),
 (35, 'Leche clasica', 8, 'serenisima.jpg', 'L203465', '2020-08-27', 5, 34, 2),
-(36, 'Chocolatada', 25, 'index.jpg', 'L203458', '2020-08-27', 22, 445, 1),
+(36, 'Chocolatada', 25, 'index.jpg', 'L203458', '2022-01-27', 22, 445, 1),
 (37, 'Manteca 200gr', 9, '', 'L102345', '2020-11-10', 31, 54, 2),
 (39, 'Fanta', 11, 'fanta225.jpg', 'L098765', '2020-11-12', 32, 43, 2),
 (42, 'Capelettis', 15, '', 'L875645', '2020-11-13', 12, 32, 2),
@@ -2127,6 +2152,13 @@ ALTER TABLE `marcas`
   ADD PRIMARY KEY (`idMarca`);
 
 --
+-- Indices de la tabla `ofertas`
+--
+ALTER TABLE `ofertas`
+  ADD PRIMARY KEY (`idOferta`),
+  ADD KEY `idProducto` (`idProducto`);
+
+--
 -- Indices de la tabla `paises`
 --
 ALTER TABLE `paises`
@@ -2316,7 +2348,7 @@ ALTER TABLE `contactosproveedores`
 -- AUTO_INCREMENT de la tabla `direcciones`
 --
 ALTER TABLE `direcciones`
-  MODIFY `idDireccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `idDireccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT de la tabla `direccionesprov`
@@ -2355,6 +2387,12 @@ ALTER TABLE `marcas`
   MODIFY `idMarca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
+-- AUTO_INCREMENT de la tabla `ofertas`
+--
+ALTER TABLE `ofertas`
+  MODIFY `idOferta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `paises`
 --
 ALTER TABLE `paises`
@@ -2370,7 +2408,7 @@ ALTER TABLE `pedidosproveedores`
 -- AUTO_INCREMENT de la tabla `permisos`
 --
 ALTER TABLE `permisos`
-  MODIFY `idPermiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `idPermiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT de la tabla `personas`
@@ -2382,7 +2420,7 @@ ALTER TABLE `personas`
 -- AUTO_INCREMENT de la tabla `personascontactos`
 --
 ALTER TABLE `personascontactos`
-  MODIFY `idPersonaContacto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `idPersonaContacto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -2568,6 +2606,12 @@ ALTER TABLE `grupospermisos`
 ALTER TABLE `gruposusuarios`
   ADD CONSTRAINT `gruposusuarios_ibfk_1` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`),
   ADD CONSTRAINT `gruposusuarios_ibfk_2` FOREIGN KEY (`idGrupo`) REFERENCES `grupos` (`idGrupo`);
+
+--
+-- Filtros para la tabla `ofertas`
+--
+ALTER TABLE `ofertas`
+  ADD CONSTRAINT `ofertas_ibfk_1` FOREIGN KEY (`idProducto`) REFERENCES `productos` (`idProducto`);
 
 --
 -- Filtros para la tabla `pedidosproveedores`
