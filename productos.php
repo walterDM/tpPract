@@ -146,11 +146,14 @@ $paginas = ceil($paginas);
                   <img src="imagenes/<?php echo $r['imagen']; ?>" style="width:70%"><br>
                 </div>
                 <div class="col-md-6">
+                  <?php 
+                        $vencimiento = date("d-m-Y", strtotime($r['fechaCaducidad']));
+                  ?>
                   <h6><strong>producto: </strong><?php echo $r['descripcion']; ?></h6>
                   <h6><strong>precio: $</strong><?php echo $r['precio']; ?></h6>
                   <h6><strong>cantidad de stock: </strong><?php echo $r['cantidadProd']; ?></h6>
                   <h6><strong>lote: </strong><?php echo $r['Lote']; ?></h6>
-                  <h6><strong>vencimiento: </strong><?php echo $r['fechaCaducidad']; ?></h6>
+                  <h6><strong>vencimiento: </strong><?php echo $vencimiento; ?></h6>
                 </div>
             </div>
             <div class="row" style="padding-top:20px">

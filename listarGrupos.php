@@ -1,15 +1,29 @@
 <?php
 
-require("header.php");
+
 require("conexion.php");
-$grupos=mysqli_query($conexion,"SELECT * FROM grupos ORDER BY nombreGrupo ASC");
+if(!isset($_GET['pagina'])){
+    header("location:listarGrupos.php?pagina=1");
+    }
+$Selectgrupos=mysqli_query($conexion,"SELECT * FROM grupos ORDER BY nombreGrupo ASC");
+$grupos_x_pag = 2;
+
+$total_grupos = mysqli_num_rows($Selectgrupos);
+$paginas = $total_grupos / $grupos_x_pag;
+$paginas = ceil($paginas);
 if (isset($_GET['eliminado'])&& $_GET['eliminado']==1) {
     echo "<script type='text/javascript'>alert('fue eliminado con exito');</script>";
 }
-?>
+
+          if (isset($_GET['pagina'])) {
+            require("header.php");
+            $iniciar = ($_GET['pagina'] - 1) * $grupos_x_pag;
+            $grupos=mysqli_query($conexion,"SELECT * FROM grupos ORDER BY nombreGrupo ASC limit $iniciar,$grupos_x_pag");
+        ?>
 <div class="container">
     <div class="row">
         <div class="col-md-12">
+            <a href="asignarPermisos.php" style="border-radius:30px;font-size:20px;float:right" class="btn btn-light">Nuevo</a>
             <div id="result" style="border: 1px solid white;overflow-y: scroll;background:#fafafa;padding-top:15px">
                 <table class="table striped" style="background:#fafafa;height:300px">
                     <thead>
@@ -30,15 +44,20 @@ if (isset($_GET['eliminado'])&& $_GET['eliminado']==1) {
                                     $nombrePermiso=$rs['nombrePermiso'];
                                     if($nombrePermiso=="baja grupo"){
                         ?>
-                                    <td><a href="#" style="border-radius:30px;font-size:20px" class="btn btn-light" data-toggle="modal" data-target="#info<?php echo $r['idGrupo']; ?>"><i class="fas fa-trash-alt"></i></a></td>
+                                    <td>
+                                        <input type="text" name="pagina" id="pagina" value="<?php echo $_GET['pagina'];?>" hidden>
+                                        <input type="text" name="eliminarGrupo" id="eliminarGrupo" value="eliminarGrupo" hidden>
+                                        <a style="text-decoration:underline;cursor:pointer; float: left;margin-right:5px;border-radius:30px;margin-top: 2%" class="btn btn-light card-text" href="#" onclick="eliminarDato(<?php echo $r['idGrupo']?>,<?php echo $_GET['pagina'];?>)"><i class="fas fa-trash-alt"></i></a>
+                                    </td>
                         <?php       }
                                     if($nombrePermiso=="modificar grupo"){?>
         
                                     <td>
-                                        <form method="POST" action="modificarGrupo.php">
+                                        <form method="POST" action="Modgrupo.php">
                                             <input type="text" name="idGrupo" id="idGrupo" value="<?php echo $r['idGrupo'];?>" hidden>
-                                            <button style="border-radius:30px;font-size:20px" type="submit" name="Modificar" value="Modificar" class="btn btn-light"><i class="fas fa-pencil-alt"></i></button>
+                                            <button style="text-decoration:underline;cursor:pointer; float: left;margin-right:5px;border-radius:30px;margin-top: 2%" name="Modificar" value="Modificar" class="btn btn-light"><i class="fas fa-pencil-alt"></i></button>
                                         </form>
+                                       
                                     </td>
                         <?php       }
                                 }
@@ -74,3 +93,16 @@ if (isset($_GET['eliminado'])&& $_GET['eliminado']==1) {
         </div>
     </div>
 </div>
+<?php } ?>
+ <div class="container" style="padding-top:40px">
+  <nav arial-label="page navigation">
+    <ul class="pagination justify-content-center">
+      <li class="page-item <?php echo $_GET['pagina'] <= 1 ? 'disabled' : '' ?>"><a class="page-link" href="listarGrupos.php?pagina=<?php echo $_GET['pagina'] - 1 ?>">Anterior</a></li>
+      <?php for ($i = 1; $i <= $paginas; $i++) : ?>
+        <li class="<?php echo $_GET['pagina'] == $i ? 'active' : '' ?>"><a class="page-link" href="listarGrupos.php?pagina=<?php echo $i ?>"><?php echo $i ?></a></li>
+      <?php endfor ?>
+      <li class="page-item <?php echo $_GET['pagina'] >= $paginas ? 'disabled' : '' ?>"><a class="page-link" href="listarGrupos.php?pagina=<?php echo $_GET['pagina'] + 1 ?>">Siguiente</a></li>
+    </ul>
+  </nav>
+</div>
+<script type="text/javascript" src="js/ABMgrupos.js"></script>

@@ -201,7 +201,7 @@ while ($r=mysqli_fetch_array($select)) {
                   ?>
                 </div>
               </li>
-
+              <?php if(isset($_SESSION['login']) && $_SESSION['login'] > 0){?>
               <li class="nav-item dropdown">
                 <a id="gestiproveedores" href="#" style="color:white" class="btn  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" <?php echo "hidden";?>>Gestionar proveedores</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -296,6 +296,7 @@ while ($r=mysqli_fetch_array($select)) {
                   }?>
                 </div>
               </li>
+              <?php } ?>
             </ul>
           </div>
         </nav>
