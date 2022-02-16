@@ -37,12 +37,24 @@ if(isset($_POST['tarjetas'])){
                          $consulta2=mysqli_query($conexion,"SELECT  * FROM tarjetasCliente WHERE idTarjetaCliente='{$r['idTarjetaCliente']}'");
 
                           $consul=mysqli_query($conexion,"SELECT  descripcion FROM tipostarjetas WHERE idTipoTarjeta='{$r['idTipoTarjeta']}'");
+                          $fechaVenc= date("d-m-Y", strtotime($r['fechaVencimiento']));
+                          
                       ?>
                         <tr>
-                           <td><?php while($rs=mysqli_fetch_array($consulta2)){ echo $rs['numTarjeta']; } ?></td>
-                            <td><?php while($rs=mysqli_fetch_array($consul)){ echo $rs['descripcion']; } ?></td>
-                    
-                           <td><?php echo $r['fechaVencimiento'];?></td>
+                           <td><?php 
+                           $numTarjetaFin="************";
+                           while($rs=mysqli_fetch_array($consulta2)){ 
+                             $numTarjeta=$rs['numTarjeta'];
+                            }
+                            $numTarjeta= strval($numTarjeta);
+                            $numTarjetaFin= $numTarjetaFin . substr($numTarjeta, -4, 4);
+                   
+                             echo $numTarjetaFin;  ?></td>
+                            <td><?php while($rs=mysqli_fetch_array($consul)){
+                               echo $rs['descripcion']; 
+                               } ?></td>
+
+                           <td><?php echo $fechaVenc;?></td>
                            <td><?php echo $r['codBanco'];?></td>
                       
                            <td><a class="btn btn-light" href="#" data-toggle="modal" data-target="#seleccionar<?php echo $r['idTarjetaCliente'];?>">Seleccionar</a></td>
@@ -69,7 +81,7 @@ if(isset($_POST['tarjetas'])){
                             </div>
                         </div>
                       </div>
-                    </div>
+                     </div>
                       <?php }?>
                      </tbody>
                   </table>

@@ -2,7 +2,7 @@
    require("header.php");
    require("conexion.php");
    $idPersona=$_SESSION['login'];
-   $select=mysqli_query($conexion,"SELECT idTipoTarjeta,descripcion FROM tipostarjetas WHERE idPersona=$idPersona");
+   //$select=mysqli_query($conexion,"SELECT idTipoTarjeta,descripcion FROM tipostarjetas WHERE idPersona=$idPersona");
    $select5=mysqli_query($conexion,"SELECT idTipoTarjeta,descripcion FROM tipostarjetas ORDER BY descripcion ASC");
   
 
@@ -26,7 +26,7 @@
                               <div class="row">
                                 <div class="form-group col-md-12">
                                   <label>Numero Tarjeta</label>
-                                  <input type="text" class="form-control" name="numTarjeta" id="numTarjeta"  placeholder="ingrese el numero Tarjeta">
+                                  <input type="number" class="form-control" name="numTarjeta" id="numTarjeta"  placeholder="ingrese el numero Tarjeta" min=16>
                                 </div>
                                 <div class="form-group col-md-12">
                                   <label>Fecha vencimiento</label>
@@ -40,7 +40,7 @@
                                <div class="row">
                                   <div class="form-group col-md-12">
                                      <label>Codigo de seguridad</label>
-                                     <input type="text" class="form-control" name="codBanco" id="codBanco"  placeholder="ingrese el codigo">
+                                     <input type="number" class="form-control" name="codBanco" id="codBanco"  placeholder="ingrese el codigo" min=3 >
                                   </div>
                                 
                                </div>
