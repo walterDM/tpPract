@@ -119,7 +119,7 @@ while ($r=mysqli_fetch_array($select)) {
                      <input text="text" name="nombre_usuario" id="nombre_usuario" value="<?php// echo $nombre_usuario;?>" hidden>
                      <button  type="submit" class="dropdown-item" name="perfil" value="perfil">Mi perfil</button>
                    </form>-->
-                   <form action="perfiles.php" method="POST">
+                   <form action="perfilUsuario.php" method="POST">
                      <button  type="submit" class="dropdown-item">Perfil</button>
                    </form>
                    <form action="miscompras.php" method="POST">
