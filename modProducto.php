@@ -140,9 +140,9 @@ $select=mysqli_query($conexion,"SELECT * FROM tiposproductos");
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Estado</label>
-								<select class="form-control" id="idestado" name="idestado">
-								    <option <?php if($descripcion=='Activo') echo 'Selected'?> value="<?php echo $datos['idEstado']?>">Activo</option>
-								    <option <?php if($descripcion=='Inactivo') echo 'Selected'?> value="<?php echo $datos['idEstado']?>">Inactivo</option>
+								<select class="form-control" id="idEstado" name="idEstado">
+								    <option <?php if($descripcion=='Activo') echo 'Selected'?> value="<?php echo $datos['idEstado']?>"><?php echo $datos['idEstado']?></option>
+								    <option <?php if($descripcion=='Inactivo') echo 'Selected'?> value="<?php echo $datos['idEstado']?>"><?php echo $datos['idEstado']?></option>
 								</select>
 							</div>
 						</div>  

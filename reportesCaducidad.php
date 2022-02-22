@@ -54,7 +54,7 @@ if(isset($_GET['id']) && $_GET['id']>0){
  </script>
 <div class="row">
 		<div class="col-md-12">
-			<h2>Reporte de Stock</h2>
+			<h2>Reporte de Caducidad</h2>
 		</div>
 	</div>
 <br>

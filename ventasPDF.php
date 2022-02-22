@@ -113,7 +113,7 @@ date_default_timezone_set('America/Argentina/Buenos_Aires');
 				$fechaEntrega=date('d/m/Y',strtotime('+4 day', strtotime($rs['fp'])));
 				$totalV=0;
 				$pdf->Ln(15);
-				$select="SELECT pr.descripcion,fd.precioUnitario,fd.cantidad, f.idFacturaVenta as nFact, f.totalApagar as total, f.fechaPedido as fp, p.nombre,p.apellido 
+				$select="SELECT pr.descripcion,pr.idProducto,fd.precioUnitario,fd.cantidad, f.idFacturaVenta as nFact, f.totalApagar as total, f.fechaPedido as fp, p.nombre,p.apellido 
 				FROM facturas as f 
 				JOIN personas as p on p.idPersona = f.idPersona
 				JOIN facturadetalles as fd on fd.idFactura=f.idFacturaVenta
@@ -136,46 +136,124 @@ date_default_timezone_set('America/Argentina/Buenos_Aires');
 				
 				$pdf->SetFont('Arial','B',10);
 				$pdf->Ln(6);
-				$pdf->Cell(45,7,'Producto',1,0,'C',1);
-				$pdf->Cell(45,7,'Cantidad',1,0,'C',1);
-				$pdf->Cell(45,7,'Precio',1,0,'C',1);
-				$pdf->Cell(45,7,'Subtotal',1,0,'C',1);
+				$pdf->Cell(60,7,'Producto',1,0,'C',1);
+				$pdf->Cell(20,7,'Cant.',1,0,'C',1);
+				$pdf->Cell(20,7,'Precio',1,0,'C',1);
+				$pdf->Cell(40,7,'Descuento',1,0,'C',1);
+				$pdf->Cell(40,7,'Importe',1,0,'C',1);
 				$pdf->Ln(5);
 				$pdf->SetFillColor(232,232,232);
 				$pdf->SetFont('Arial','B',8);
 			while ($r=mysqli_fetch_array($detalle)) {
-				$totalV+=$r['cantidad']*$r['precioUnitario'];
-			    $pdf->Ln(2);
-				
-				if ($cont %2) {	
-					$pdf->Cell(45,7,utf8_decode($r['descripcion']),1,0,'C',1);
-					$pdf->Cell(45,7,$r['cantidad'],1,0,'C',1);
+				$consulta=mysqli_query($conexion,"SELECT * FROM ofertas WHERE idProducto={$r['idProducto']}");
+				$subtotal=0;
+				$subtotal2=0;
+				$subtotales=0;
+				$totalCant=0;
+				$cantRest=0;
+				$descuento=0;
+				$cantidad=0;
+				if(mysqli_num_rows($consulta)>0){  
+				while($rs = mysqli_fetch_array($consulta)){
 					
-					$pdf->Cell(45,7,"$".$r['precioUnitario'],1,0,'C',1);
-					$pdf->Cell(45,7,"$".$r['precioUnitario']*$r['cantidad'],1,0,'C',1);
+					$calculo=($r['precioUnitario']*$rs['descuento'])/100;
+					$restoTotal=$r['precioUnitario'] - $calculo;
+					
+					for ($j=1; $j<=$r['cantidad'];$j++) {
+						if ($j % $rs['cantidad']==0){ 
+							for($k=1;$k<=100;$k++){
+								if($rs['cantidad']*$k<=$r['cantidad']){
+								$cantRest=$rs['cantidad']*$k;
+								$subtotal=$restoTotal*$cantRest;
+								}
+						}  }
+					}
+					
+					if ($r['cantidad'] % $rs['cantidad']!=0){
+					$totalCant=$r['cantidad'] - $cantRest;
+
+
+						$subtotal2=($totalCant*$r['precioUnitario']);
+					
+					}
+					$subtotales = $subtotal+$subtotal2;
+					$subtotales=number_format((float)$subtotales, 2, '.', '');
+					$descuento=$rs['descuento'];
+					$cantidad=$rs['cantidad'];
+					$cantDescuento=$restoTotal*$cantidad;
+					$cantDescuento=number_format((float)$cantDescuento, 2, '.', '');
+					
+				}
+				}else{
+				$subtotales=$r['cantidad']*$r['precioUnitario'];
+				$subtotales=number_format((float)$subtotales, 2, '.', '');
+				
+				}
+				$totalV+=$subtotales;
+			    $pdf->Ln(2);
+				$select=mysqli_query($conexion,"SELECT * FROM ofertas WHERE idProducto={$r['idProducto']}");
+				if ($cont %2) {	
+					$pdf->Cell(60,7,utf8_decode($r['descripcion']),1,0,'C',1);
+					$pdf->Cell(20,7,$r['cantidad'],1,0,'C',1);
+					$pdf->Cell(20,7,"$".$r['precioUnitario'],1,0,'C',1);
+					if(mysqli_num_rows($select)>0){ 
+					    $pdf->Cell(40,7,$cantidad.' X $'.$cantDescuento,1,0,'C',1);
+					}else{
+						$pdf->Cell(40,7,'Sin descuento',1,0,'C',1);
+					}
+					$pdf->Cell(40,7,"$".$subtotales,1,0,'C',1);
 		
 					$pdf->Ln(4);
 					
-					$totalG+=$r['total'];
+					$totalG+=$subtotales;
 					$cont++;
 				}else{
-					
-					$pdf->Cell(45,6,utf8_decode($r['descripcion']),1,0,'C',1);
-					$pdf->Cell(45,6,$r['cantidad'],1,0,'C',1);
-					
-					$pdf->Cell(45,6,"$".$r['precioUnitario'],1,0,'C',1);
-					$pdf->Cell(45,6,"$".($r['precioUnitario']*$r['cantidad']),1,0,'C',1);
+					$pdf->Cell(60,7,utf8_decode($r['descripcion']),1,0,'C',1);
+					$pdf->Cell(20,7,$r['cantidad'],1,0,'C',1);
+					$pdf->Cell(20,7,"$".$r['precioUnitario'],1,0,'C',1);
+					if(mysqli_num_rows($select)>0){ 
+					    $pdf->Cell(40,7,$cantidad.' X $'.$cantDescuento,1,0,'C',1);
+					}else{
+						$pdf->Cell(40,7,'Sin descuento',1,0,'C',1);
+					}
+					$pdf->Cell(40,7,"$".$subtotales,1,0,'C',1);
+		
 					$pdf->Ln(4);
 					
-					$totalG+=$r['total'];
+					$totalG+=$subtotales;
 					$cont++;
 				}
 		
 			}
+			$IVA=$totalV*21/100;
+			$totalV=number_format((float)$totalV, 2, '.', '');
+			$IVA=number_format((float)$IVA, 2, '.', '');
 			$pdf->Ln(2);
 			$pdf->SetFillColor(255, 175, 0);
 			$pdf->SetFont('Arial','B',10);
-			$pdf->Cell(180,6,utf8_decode('TOTAL=$'.$totalV),1,0,'C',1);
+			$pdf->Cell(60,7,'',1,0,'C',1);
+			$pdf->Cell(20,7,'',1,0,'C',1);
+			$pdf->Cell(20,7,'',1,0,'C',1);
+			$pdf->Cell(40,7,'Subtotal',1,0,'C',1);
+			$pdf->Cell(40,7,utf8_decode('$'.$totalV),1,0,'C',1);
+		
+			$pdf->Ln(6);
+			$pdf->SetFillColor(255, 175, 0);
+			$pdf->SetFont('Arial','B',10);
+			$pdf->Cell(60,7,'',1,0,'C',1);
+			$pdf->Cell(20,7,'',1,0,'C',1);
+			$pdf->Cell(20,7,'',1,0,'C',1);
+			$pdf->Cell(40,7,'IVA 21%',1,0,'C',1);
+			$pdf->Cell(40,7,utf8_decode('$'.$IVA),1,0,'C',1);
+			$pdf->Ln(6);
+			$pdf->SetFillColor(255, 175, 0);
+			$pdf->SetFont('Arial','B',10);
+			$pdf->Cell(60,7,'',1,0,'C',1);
+			$pdf->Cell(20,7,'',1,0,'C',1);
+			$pdf->Cell(20,7,'',1,0,'C',1);
+			$pdf->Cell(40,7,'Total',1,0,'C',1);
+			$pdf->Cell(40,7,utf8_decode('$'.($totalV+$IVA)),1,0,'C',1);
+		
 		}
 			
 			

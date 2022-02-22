@@ -143,7 +143,7 @@ if(isset($_POST['Modificar']) && !empty($_POST['Modificar'])){
     $fechaCaducidad=$_POST['fechaCaducidad'];
     $cantidad=$_POST['cantidadProd'];
     $precio=$_POST['precio'];
-    $idEstado=$_POST['idestado'];
+    $idEstado=$_POST['idEstado'];
     $estante=$_POST['idPuestoFisico'];
     
     $idPuestoFisico=$_POST['idPuestoFisico'];

@@ -14,4 +14,5 @@ session_start();
         }
         $_SESSION['carrito']=$arreglo;
         echo $total;   
+        
 ?>
