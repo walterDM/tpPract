@@ -341,7 +341,7 @@ while ($r=mysqli_fetch_array($select)) {
               
                 <div class="form-group" id="user-group">
                   <label for="user">Usuario</label>
-                  <i class="fas fa-user"></i><input type="text" class="form-control" name="us" id="us"  placeholder="ingrese su e-mail">
+                  <i class="fas fa-user"></i><input type="text" class="form-control" name="us" id="us"  placeholder="ingrese su usuario">
                 </div>
                 <div class="form-group" id="password-group">
                   <label for="contra">Contraseña</label>

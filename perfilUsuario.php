@@ -1,7 +1,7 @@
 <?php require 'header.php';
 $id=$_SESSION['login'];
 
-$queryDP="SELECT p.numDocumento as dni, p.nombre, p.apellido, p.fechaNac as fn, p.usuario from personas as p where idPersona='$id'";
+$queryDP="SELECT p.numDocumento as dni, p.nombre, p.apellido, p.fechaNac as fn, p.usuario as user, p.contrasenia as pass from personas as p where idPersona='$id'";
 $consultaDP= mysqli_query($conexion,$queryDP);
 
 $consultaDir="SELECT d.idDireccion, d.calle, d.altura, d.piso, d.dpto, p.nombrePais pais, pr.nombreProvincia prov, c.nombreCiudad ciudad, td.descripcion tdd FROM direcciones d
@@ -28,37 +28,72 @@ $selectCt= mysqli_query($conexion,$consultaContacto);
     </div>
 </div>
 <br>
-<?php while ($rs=mysqli_fetch_array($consultaDP)) { 
-        $fecha=date('d/m/Y',strtotime($rs['fn']));?>
+<form method="POST" action="modUsuario.php"  onsubmit="return form(this)">
+    <?php while ($rs=mysqli_fetch_array($consultaDP)) { 
+            $fecha=date('d/m/Y',strtotime($rs['fn']));?>
+            
 
-<div class="row">
-    <div class="col-md-3">
-        <label>DNI</label>
-        <div>
-            <input type="text"  disabled value=<?php echo $rs['dni']; ?> >
+        <div class="row">
+            <div class="col-md-3">
+                <label>DNI</label>
+                <div>
+                    <input type="text"  disabled value=<?php echo $rs['dni']; ?> >
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label>Nombre</label>
+                <div>
+                    <input type="text" name="nombre" id="nombre" value=<?php echo $rs['nombre']; ?>>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label>apellido</label>
+                <div>
+                    <input type="text" name="apellido" id="apellido" value=<?php echo $rs['apellido']; ?>>
+                </div>
+            </div>       
+            <div class="col-md-3">
+                <label>fecha Nac.</label>
+                <div>
+                    <input type="text" disabled placeholder=<?php echo $fecha; ?>>
+                </div>
+            </div>
+        
         </div>
-    </div>
-    <div class="col-md-3">
-        <label>Nombre</label>
-        <div>
-            <input type="text" value=<?php echo $rs['nombre']; ?>>
+        <div class="row">
+            <div class="col-md-3">
+                <label>Usuario</label>
+                <div>
+                    <input type="text" name="usuario" id="usuario" value="<?php echo $rs['user'];?>">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label>contraseña anterior</label>
+                <div>
+                    <input type="text" name="passAnt" id="passAnt">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label>Contraseña Nueva</label>
+                <div>
+                    <input type="text"  name="passN" id="passN">
+                </div>
+            </div>
+            <div class="col-md-3">
+            <label>Re-Contraseña Nueva</label>
+                <div>
+                    <input type="text"  name="passNr" id="passNr">
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="col-md-3">
-        <label>apellido</label>
-        <div>
-            <input type="text" value=<?php echo $rs['apellido']; ?>>
+        <br>
+        <div class="row justify-content-center">
+            <div class="col-md-2">
+                <button type="button" type="submit" name="cambios" class="btn btn-primary" value=1> Guardar Cambios</button>
+            </div>
         </div>
-    </div>       
-    <div class="col-md-3">
-        <label>fecha Nac.</label>
-        <div>
-            <input type="text" disabled placeholder=<?php echo $fecha; ?>>
-        </div>
-    </div>
-   
-</div>
-<?php }?>
+    <?php }?>
+</form>
 <br>
 <div class="row">
     <div class="col-md-3">
