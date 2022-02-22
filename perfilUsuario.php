@@ -68,7 +68,7 @@ $selectCt= mysqli_query($conexion,$consultaContacto);
 
 <br>
     <div class="row justify-content-center">
-			<div class="col-md-12">
+			<div class="col-md-10">
 			   <div style="background: white">
 				  <table class="table striped" style="background:#fafafa;white:70%">
 					<tr>
