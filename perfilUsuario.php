@@ -28,72 +28,65 @@ $selectCt= mysqli_query($conexion,$consultaContacto);
     </div>
 </div>
 <br>
-<form method="POST" action="modUsuario.php"  onsubmit="return form(this)">
-    <?php while ($rs=mysqli_fetch_array($consultaDP)) { 
+<?php while ($rs=mysqli_fetch_array($consultaDP)) { 
             $fecha=date('d/m/Y',strtotime($rs['fn']));?>
-            
-
-        <div class="row">
-            <div class="col-md-3">
-                <label>DNI</label>
-                <div>
-                    <input type="text"  disabled value=<?php echo $rs['dni']; ?> >
-                </div>
-            </div>
-            <div class="col-md-3">
-                <label>Nombre</label>
-                <div>
-                    <input type="text" name="nombre" id="nombre" value=<?php echo $rs['nombre']; ?>>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <label>apellido</label>
-                <div>
-                    <input type="text" name="apellido" id="apellido" value=<?php echo $rs['apellido']; ?>>
-                </div>
-            </div>       
-            <div class="col-md-3">
-                <label>fecha Nac.</label>
-                <div>
-                    <input type="text" disabled placeholder=<?php echo $fecha; ?>>
-                </div>
-            </div>
-        
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <label>Usuario</label>
-                <div>
-                    <input type="text" name="usuario" id="usuario" value="<?php echo $rs['user'];?>">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <label>contraseña anterior</label>
-                <div>
-                    <input type="text" name="passAnt" id="passAnt">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <label>Contraseña Nueva</label>
-                <div>
-                    <input type="text"  name="passN" id="passN">
-                </div>
-            </div>
-            <div class="col-md-3">
-            <label>Re-Contraseña Nueva</label>
-                <div>
-                    <input type="text"  name="passNr" id="passNr">
-                </div>
+<form action="modUsuario.php" method="POST">
+   <div class="row">
+       <div class="col-md-3">
+            <div class="form-group">
+                <input type="text"  name="id" id="id" value=<?php echo $id?> hidden>
+                <label for="dni">DNI</label>
+                <input type="text" class="form-control" id="dni" name="dni" value="<?php echo $rs['dni']?>"disabled >
             </div>
         </div>
-        <br>
-        <div class="row justify-content-center">
-            <div class="col-md-2">
-                <button type="button" type="submit" name="cambios" class="btn btn-primary" value=1> Guardar Cambios</button>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="fn">Fecha de Nacimiento</label>
+                <input type="text" class="form-control" id="fn" name="fn" value="<?php echo $fecha?>"disabled>
             </div>
         </div>
-    <?php }?>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $rs['nombre']?>" require>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="apellido">Apellido</label>
+                <input type="text" class="form-control" id="apellido" name="apellido" value="<?php echo $rs['apellido']?>" require>
+            </div>
+        </div>
+    </div> 
+    <div class="row">
+       <div class="col-md-3">
+            <div class="form-group">
+                <label for="user">Usuario</label>
+                <input type="text" class="form-control" id="user" name="user" value="<?php echo $rs['user']?>"require>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="passAnt">Contraseña anterior</label>
+                <input type="password" class="form-control" id="passAnt" name="passAnt">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="newP">contraseña nueva</label>
+                <input type="password" class="form-control" id="newP" name="newP">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="newRP">Re-contraseña nueva</label>
+                <input type="password" class="form-control" id="newRP" name="newRP">
+            </div>
+        </div>
+    </div>
+  <button type="submit" class="btn btn-primary" name="btnMod" value=1 id="btn2">Submit</button>
 </form>
+<?php }?>
 <br>
 <div class="row">
     <div class="col-md-3">
@@ -177,4 +170,13 @@ $selectCt= mysqli_query($conexion,$consultaContacto);
 
 <?php
      require 'footer.php';
+     if (isset($_GET['passD'])&& $_GET['passD']==1) {
+        echo "<script type='text/javascript'>alert('la nueva contraseña no coincide');</script>";
+      }
+      if (isset($_GET['passD'])&& $_GET['passD']==2) {
+        echo "<script type='text/javascript'>alert('la nueva contraseña es igual a la antigua');</script>";
+      }
+      if (isset($_GET['mod'])&& ($_GET['mod']==1 || $_GET['mod']==2)) {
+        echo "<script type='text/javascript'>alert('Datos modificados correctamente');</script>";
+      }
 ?>
