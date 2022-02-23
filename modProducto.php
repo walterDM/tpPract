@@ -1,5 +1,6 @@
 
-<?php require("header.php");
+<?php 
+require("header.php");
 require("conexion.php");
 $select=mysqli_query($conexion,"SELECT * FROM tiposproductos");
 

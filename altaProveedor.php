@@ -61,7 +61,7 @@ $select5=mysqli_query($conexion,"SELECT idTipoDomicilio,descripcion FROM tiposdo
             <div class="col-md-6">
             <div class="form-group">
              <label>Cuit</label>
-             <input type="text" class="form-control" name="cuit" id="cuit" placeholder="Ingrese el cuit">
+             <input type="text" class="form-control" name="cuit" id="cuit" placeholder="Ingrese el cuit" required>
            </div>
          </div>
              <div class="col-md-6">
@@ -106,11 +106,11 @@ $select5=mysqli_query($conexion,"SELECT idTipoDomicilio,descripcion FROM tiposdo
           <!--   <div class="row"> -->
                 <div class="form-group col-md-6">
                    <label>Calle</label>
-                   <input type="text" class="form-control" name="calle" id="calle"  placeholder="ingrese calle">
+                   <input type="text" class="form-control" name="calle" id="calle"  placeholder="ingrese calle" required>
                 </div>
                 <div class="form-group col-md-6">
                    <label>Altura</label>
-                   <input type="text" class="form-control" name="altura" id="altura"  placeholder="ingrese altura">
+                   <input type="text" class="form-control" name="altura" id="altura"  placeholder="ingrese altura" required>
                 </div>
              <!-- </div> -->
           <!--   <div class="row"> -->

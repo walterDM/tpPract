@@ -84,5 +84,6 @@
    </form>
 </div>
 </div>
+</div>
 <?php require 'footer.php'; ?>
 <script type="text/javascript" src="js/ABMofertas.js"></script>

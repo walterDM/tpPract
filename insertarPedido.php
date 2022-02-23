@@ -28,8 +28,10 @@ if (isset($_POST['seleccionado']) && !empty($_POST['seleccionado']) && isset($_P
     $queryEP=mysqli_query($conexion,$insertEP);
     if ($queryEP) {
         header('location:http://localhost/tppract/envioAutomatico.php');
+
     }else{
-        header('location:http://localhost/tppract/realizarPedido.php?pedido=0');
+        //header('location:http://localhost/tppract/realizarPedido.php?pedido=0');
+        echo "holA2";
     }
     
 }

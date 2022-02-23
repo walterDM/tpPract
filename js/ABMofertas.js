@@ -42,20 +42,19 @@ $(document).ready(function(){
     });
   });
 });
-function eliminarDato(idProducto,pagina){
-    var eliminar = confirm('De verdad desea eliminar este dato?');
-    var categoria=document.getElementById('categ').value;
-    var eliminarProducto=document.getElementById('eliminarProducto').value;
+function eliminarDato(idOferta,pagina){
+    var eliminar = confirm('De verdad desea eliminar esta oferta?');
+    var eliminarOferta=document.getElementById('eliminarOferta').value;
+  
     if ( eliminar ) {
           
           $.ajax({
-            url: 'ABMProductos.php',
+            url: 'ABMOfertas.php',
             type: 'POST',
             data: { 
-                id: idProducto,
-                categ: categoria,
+                id: idOferta,
                 pag: pagina,
-                delete: eliminarProducto,
+                delete: eliminarOferta,
               
             },
          })
@@ -65,6 +64,6 @@ function eliminarDato(idProducto,pagina){
          .fail(function(jqXHR){
             console.log(jqXHR.statusText);
          });
-         alert('El producto ha sido eliminado');
+         alert('Oferta eliminada');
     }
 } 

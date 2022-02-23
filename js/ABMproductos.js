@@ -43,7 +43,7 @@ $(document).ready(function(){
   });
 });
 function eliminarDato(idProducto,pagina){
-    var eliminar = confirm('De verdad desea eliminar este dato?');
+    var eliminar = confirm('De verdad desea eliminar este dat?');
     var categoria=document.getElementById('categ').value;
     var eliminarProducto=document.getElementById('eliminarProducto').value;
     if ( eliminar ) {

@@ -60,8 +60,8 @@ require 'phpExcel.php';
 			$mail->isSMTP();                                            // Send using SMTP
 			$mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
 			$mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-			$mail->Username   = 'tuspelisfc@gmail.com';                     // SMTP username
-			$mail->Password   = 'Pelisfc_1997';                             // SMTP password
+			$mail->Username   = 'Gestistock21@gmail.com';                     // SMTP username
+			$mail->Password   = 'GestiStock_2021';                             // SMTP password
 			$mail->SMTPOptions = array(
 				'ssl' => array(
 					'verify_peer' => false,

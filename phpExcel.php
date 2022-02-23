@@ -110,6 +110,7 @@ function exportPedido($pedido){
 	$sheetContent->getStyle('D3')->applyFromArray($tableHead);
 	$resultDP=mysqli_query($conexion,$queryDP);
 	while($rs=mysqli_fetch_array($resultDP)){
+		$fila=$fila+1;
 		$sheetContent->setCellValue('A'.$fila,$rs['tp']);
 		$sheetContent->setCellValue('B'.$fila,$rs['marca']);
 		$sheetContent->setCellValue('C'.$fila,$rs['cant']);

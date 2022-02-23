@@ -28,16 +28,16 @@ if(isset($_POST['buscar']) && !empty($_POST['buscar'])){
     }   
     $estado=mysqli_query($conexion,"SELECT idEstado FROM estados WHERE descripcion='Activo'");
     while($r=mysqli_fetch_array($estado)){$idEstado=$r['idEstado'];}
-    $dato=limpiarString($_POST['empresa']);
+    $dato=$_POST['empresa'];
     $consulta=mysqli_query($conexion,"SELECT empresa FROM proveedores WHERE idProveedor='$dato'"); 
     while($r=mysqli_fetch_array($consulta)){$user=$r['empresa'];}
-    $sql =mysqli_query($conexion,"SELECT * FROM proveedores WHERE (empresa LIKE'$dato%') AND idEstado=$idEstado");
+    $sql =mysqli_query($conexion,"SELECT * FROM proveedores WHERE (empresa LIKE '%$dato%') AND idEstado=$idEstado");
     $usuarios_x_pag = 2;
     $total_usuarios = mysqli_num_rows($sql);
     $paginas = $total_usuarios / $usuarios_x_pag;
     $paginas = ceil($paginas);
     $iniciar = ($_GET['pagina'] - 1) * $usuarios_x_pag;
-    $select = mysqli_query($conexion, "SELECT * FROM proveedores WHERE (empresa LIKE'$dato%') AND idEstado=$idEstado limit $iniciar,$usuarios_x_pag");
+    $select = mysqli_query($conexion, "SELECT * FROM proveedores WHERE (empresa LIKE '%$dato%') AND idEstado=$idEstado limit $iniciar,$usuarios_x_pag");
 
     //$select2 = mysqli_query($conexion, "SELECT descripcion FROM contactosProveedores WHERE (empresa LIKE'$dato%') limit $iniciar,$usuarios_x_pag");
     ?>
